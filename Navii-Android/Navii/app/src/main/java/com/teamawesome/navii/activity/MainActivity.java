@@ -1,9 +1,11 @@
-package com.teamawesome.navii;
+package com.teamawesome.navii.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.teamawesome.navii.R;
 
 public class MainActivity extends AppCompatActivity {
 
