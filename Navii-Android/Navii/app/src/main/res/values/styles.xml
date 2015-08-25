@@ -1,8 +1,15 @@
 <resources>
+    <style name="NaviiTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primaryDark</item>
+        <item name="android:windowBackground">@color/whiteBackground</item>
+        <item name="android:colorBackground">@color/whiteBackground</item>
+        <item name="android:textColor">@color/black</item>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="toolbarStyle">@style/Widget.AppCompat.Toolbar</item>
+        <!--<item name="stickyListHeadersListViewStyle">@style/Widget.AppCompat.ListView</item>-->
     </style>
 
 </resources>

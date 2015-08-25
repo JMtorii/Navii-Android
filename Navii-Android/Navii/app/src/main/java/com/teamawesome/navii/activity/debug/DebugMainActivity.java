@@ -11,17 +11,21 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.teamawesome.navii.R;
+import com.teamawesome.navii.activity.IntroActivity;
 import com.teamawesome.navii.activity.MainActivity;
 
 public class DebugMainActivity extends ListActivity {
-
-    String[] titleValues = new String[] { "Main Application", "Server", "Login" };
+    String[] mTitles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, titleValues);
+        mTitles = getApplicationContext().getResources().getStringArray(R.array.debug_list);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_list_item_1,
+                mTitles
+        );
         setListAdapter(adapter);
         setTitle("Debug Main Activity");
     }
@@ -45,14 +49,9 @@ public class DebugMainActivity extends ListActivity {
         Toast.makeText(this, item + " selected", Toast.LENGTH_LONG).show();
 
         // TODO: make this an enum
-        if (id == 0) {
-            Intent homeIntent = new Intent(this, MainActivity.class);
+        if (id == 0) {      // Actual application
+            Intent homeIntent = new Intent(this, IntroActivity.class);
             startActivity(homeIntent);
-
-        } else if (id == 1) {
-//            new PostRequestTask(this).execute();
-
-        } else {
 
         }
     }

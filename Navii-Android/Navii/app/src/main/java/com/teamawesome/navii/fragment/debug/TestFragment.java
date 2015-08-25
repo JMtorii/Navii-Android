@@ -1,4 +1,4 @@
-package com.teamawesome.navii.fragment;
+package com.teamawesome.navii.fragment.debug;
 
 import android.app.Fragment;
 import android.os.Bundle;

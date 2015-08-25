@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 
 import com.teamawesome.navii.R;
-import com.teamawesome.navii.fragment.TestFragment;
+import com.teamawesome.navii.fragment.debug.TestFragment;
 
 public class MainActivity extends Activity {
 
