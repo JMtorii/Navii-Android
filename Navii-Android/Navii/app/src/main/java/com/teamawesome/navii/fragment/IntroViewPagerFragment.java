@@ -30,8 +30,8 @@ public class IntroViewPagerFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_intro_view_pager, container, false);
-        mTabs = (PagerSlidingTabStrip) v.findViewById(R.id.tabs);
-        mPager = (ViewPager) v.findViewById(R.id.pager);
+        mTabs = (PagerSlidingTabStrip) v.findViewById(R.id.intro_tabs);
+        mPager = (ViewPager) v.findViewById(R.id.intro_pager);
         mAdapter = new PagerAdapter(getFragmentManager());
         mPager.setAdapter(mAdapter);
         mTabs.setViewPager(mPager);

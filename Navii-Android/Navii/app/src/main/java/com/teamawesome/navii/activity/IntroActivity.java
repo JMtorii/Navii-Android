@@ -24,4 +24,17 @@ public class IntroActivity extends AppCompatActivity {
         trans.replace(R.id.intro_content_frame, fragment);
         trans.commit();
     }
+
+    public void loadFragment(Fragment newFragment, boolean isReplace) {
+        FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
+
+        // TODO: consider adding tags to fragments
+        if (isReplace) {
+            trans.replace(R.id.intro_content_frame, newFragment);
+        } else {
+            trans.add(R.id.intro_content_frame, newFragment);
+        }
+
+        trans.commit();
+    }
 }

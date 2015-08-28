@@ -21,13 +21,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sign Up"
-            android:id="@+id/sign_up_button"
+            android:id="@+id/intro_pager4_sign_up_button"
             android:layout_gravity="center_horizontal"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Login"
-            android:id="@+id/login_button" />
+            android:id="@+id/intro_pager4_login_button" />
     </LinearLayout>
 </LinearLayout>
