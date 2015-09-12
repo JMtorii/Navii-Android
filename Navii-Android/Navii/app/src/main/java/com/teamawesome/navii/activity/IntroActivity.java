@@ -16,6 +16,10 @@ public class IntroActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // If the user has already logged in, go straight to the main app
+
+
         setContentView(R.layout.activity_intro);
 
         Fragment fragment = new IntroViewPagerFragment();

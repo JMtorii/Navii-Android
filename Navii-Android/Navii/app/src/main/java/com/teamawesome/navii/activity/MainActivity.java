@@ -1,14 +1,14 @@
 package com.teamawesome.navii.activity;
 
-import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.fragment.debug.TestFragment;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
