@@ -16,7 +16,7 @@ public class NaviiPreferenceData {
 
     private static Context mContext;
 
-    public static void init(Context context) {
+    public static void init(final Context context) {
         if (context == null) {
             Log.e("PREFERENCE_NO_CONTEXT", "No context");
         }
@@ -29,7 +29,7 @@ public class NaviiPreferenceData {
         return PreferenceManager.getDefaultSharedPreferences(mContext);
     }
 
-    public static void setLoggedInUserEmail(String email) {
+    public static void setLoggedInUserEmail(final String email) {
         Editor editor = getSharedPreferences().edit();
         editor.putString(PREF_LOGGED_IN_USER_EMAIL, email);
         editor.apply();

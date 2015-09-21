@@ -1,7 +1,7 @@
 package com.teamawesome.navii.activity;
 
-import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 
@@ -35,6 +35,6 @@ public class MainActivity extends AppCompatActivity {
 
     // If you call this, you MUST commit afterwards. Not doing so will cause a stack error
     public FragmentTransaction getFragmentTransaction() {
-        return getFragmentManager().beginTransaction();
+        return getSupportFragmentManager().beginTransaction();
     }
 }
