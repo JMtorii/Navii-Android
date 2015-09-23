@@ -74,6 +74,9 @@ public class IntroViewPagerFragment extends Fragment {
                 case 3:     // Four
                     fragment = IntroPageFourFragment.newInstance(position);
                     break;
+                case 4:
+                    fragment = IntroPageFiveFragment.newInstance(position);
+                    break;
                 default:
                     return null;    // TODO: horrible. should do error checking instead
             }

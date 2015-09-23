@@ -17,8 +17,6 @@ public class IntroPageFourFragment extends Fragment {
     private static final String ARG_POSITION = "position";
 
     private int mPosition;
-    private Button mSignUpButton;
-    private Button mLoginButton;
 
     public static IntroPageFourFragment newInstance(int position) {
         IntroPageFourFragment f = new IntroPageFourFragment();
@@ -39,27 +37,6 @@ public class IntroPageFourFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_intro_page4, container, false);
-        mSignUpButton = (Button) v.findViewById(R.id.intro_pager4_sign_up_button);
-        mLoginButton = (Button) v.findViewById(R.id.intro_pager4_login_button);
-
-        mSignUpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                IntroActivity activity = (IntroActivity) getActivity();
-                Fragment fragment = new SignUpFragment();
-                activity.loadFragment(fragment, true);
-            }
-        });
-
-        mLoginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                IntroActivity activity = (IntroActivity) getActivity();
-                Fragment fragment = new LoginFragment();
-                activity.loadFragment(fragment, true);
-            }
-        });
-
         return v;
     }
 }
