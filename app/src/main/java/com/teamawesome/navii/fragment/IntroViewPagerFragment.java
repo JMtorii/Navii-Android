@@ -74,7 +74,7 @@ public class IntroViewPagerFragment extends Fragment {
                 case 3:     // Four
                     fragment = IntroPageFourFragment.newInstance(position);
                     break;
-                case 4:
+                case 4:     // Five
                     fragment = IntroPageFiveFragment.newInstance(position);
                     break;
                 default:

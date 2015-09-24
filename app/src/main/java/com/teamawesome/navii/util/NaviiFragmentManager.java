@@ -14,14 +14,14 @@ public class NaviiFragmentManager {
 
 //    private Fragment mCurrentFragment;
 
-    public NaviiFragmentManager(final FragmentManager fragmentManager, final int containerViewId) {
+    public NaviiFragmentManager(FragmentManager fragmentManager, int containerViewId) {
         mContainerViewId = containerViewId;
         mFragmentManager = fragmentManager;
     }
 
-    public void switchFragment(final Fragment fragment, final int enterAnim, final int exitAnim,
-                               final String tag, final boolean isReplace,
-                               final boolean clearBackStack, final boolean isAddedToBackStack) {
+    public void switchFragment(Fragment fragment, int enterAnim, int exitAnim, String tag,
+                               boolean isReplace, boolean clearBackStack,
+                               boolean isAddedToBackStack) {
         if (clearBackStack) {
             mFragmentManager.popBackStack();
         }
@@ -42,7 +42,6 @@ public class NaviiFragmentManager {
         }
 
         ft.commit();
-//        mCurrentFragment = fragment;
     }
 
 

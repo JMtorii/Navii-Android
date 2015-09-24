@@ -16,7 +16,7 @@ public class NaviiPreferenceData {
 
     private static Context mContext;
 
-    public static void init(final Context context) {
+    public static void init(Context context) {
         if (context == null) {
             Log.e("PREFERENCE_NO_CONTEXT", "No context");
         }
