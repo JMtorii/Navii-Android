@@ -52,7 +52,9 @@ public class DebugMainActivity extends ListActivity {
         if (id == 0) {      // Actual application
             Intent homeIntent = new Intent(this, IntroActivity.class);
             startActivity(homeIntent);
-
+        } else if (id == 1) {
+            Intent buzzFeedIntent = new Intent(this, IntroActivity.class);
+            startActivity(buzzFeedIntent);
         }
     }
 }
