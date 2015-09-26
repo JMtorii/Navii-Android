@@ -9,7 +9,6 @@ import android.widget.Button;
 
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.IntroActivity;
-import com.teamawesome.navii.activity.MainActivity;
 import com.teamawesome.navii.util.Constants;
 
 /**

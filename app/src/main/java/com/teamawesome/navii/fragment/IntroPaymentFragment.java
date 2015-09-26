@@ -1,5 +1,6 @@
 package com.teamawesome.navii.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.widget.Button;
 
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.IntroActivity;
+import com.teamawesome.navii.activity.MainActivity;
 import com.teamawesome.navii.util.Constants;
 
 /**
@@ -46,9 +48,8 @@ public class IntroPaymentFragment extends Fragment {
 //                        true,
 //                        true
 //                );
-                IntroActivity activity = (IntroActivity) getActivity();
-                Fragment fragment = new LoginFragment();
-                activity.loadFragment(fragment, true);
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
             }
         });
         return v;
