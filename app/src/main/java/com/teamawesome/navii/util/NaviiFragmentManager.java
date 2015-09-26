@@ -12,14 +12,12 @@ public class NaviiFragmentManager {
     private final FragmentManager mFragmentManager;
     private final int mContainerViewId;
 
-//    private Fragment mCurrentFragment;
-
     public NaviiFragmentManager(FragmentManager fragmentManager, int containerViewId) {
         mContainerViewId = containerViewId;
         mFragmentManager = fragmentManager;
     }
 
-    public void switchFragment(Fragment fragment, int enterAnim, int exitAnim, String tag,
+    public void switchFragment(Fragment newFragment, int enterAnim, int exitAnim, String tag,
                                boolean isReplace, boolean clearBackStack,
                                boolean isAddedToBackStack) {
         if (clearBackStack) {
@@ -27,14 +25,24 @@ public class NaviiFragmentManager {
         }
 
         FragmentTransaction ft = mFragmentManager.beginTransaction();
+
+        // check if animations are valid
+        if (enterAnim == 0 || enterAnim < -1 ) {
+            enterAnim = Constants.NO_ANIM;
+        }
+
+        if (exitAnim == 0 || exitAnim < -1) {
+            exitAnim = Constants.NO_ANIM;
+        }
+
         if (enterAnim != Constants.NO_ANIM && exitAnim != Constants.NO_ANIM) {
             ft.setCustomAnimations(enterAnim, exitAnim);
         }
 
         if (isReplace) {
-            ft.replace(mContainerViewId, fragment, tag);
+            ft.replace(mContainerViewId, newFragment, tag);
         } else {
-            ft.add(mContainerViewId, fragment, tag);
+            ft.add(mContainerViewId, newFragment, tag);
         }
 
         if (isAddedToBackStack) {
@@ -43,6 +51,4 @@ public class NaviiFragmentManager {
 
         ft.commit();
     }
-
-
 }

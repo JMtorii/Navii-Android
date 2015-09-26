@@ -45,10 +45,23 @@ public class IntroActivity extends AppCompatActivity {
                 false,
                 false
         );
-
     }
 
-    // TODO: delete this
+    public void switchFragment(Fragment newFragment, int enterAnim, int exitAnim, String tag,
+                               boolean isReplace, boolean clearBackStack,
+                               boolean isAddedToBackStack) {
+        fm.switchFragment(
+                newFragment,
+                enterAnim,
+                exitAnim,
+                tag,
+                isReplace,
+                clearBackStack,
+                isAddedToBackStack
+        );
+    }
+
+    // TODO: delete this piece of shit
     public void loadFragment(Fragment newFragment, boolean isReplace) {
         FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
 
