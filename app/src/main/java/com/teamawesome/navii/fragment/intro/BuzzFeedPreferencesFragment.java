@@ -1,4 +1,4 @@
-package com.teamawesome.navii.fragment;
+package com.teamawesome.navii.fragment.intro;
 
 import android.app.Activity;
 import android.net.Uri;
@@ -13,12 +13,12 @@ import com.teamawesome.navii.R;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link IntroBuzzFeedFragment.OnFragmentInteractionListener} interface
+ * {@link BuzzFeedPreferencesFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link IntroBuzzFeedFragment#newInstance} factory method to
+ * Use the {@link BuzzFeedPreferencesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class IntroBuzzFeedFragment extends Fragment {
+public class BuzzFeedPreferencesFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -36,11 +36,11 @@ public class IntroBuzzFeedFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment IntroBuzzFeedFragment.
+     * @return A new instance of fragment BuzzFeedPreferencesFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static IntroBuzzFeedFragment newInstance(String param1, String param2) {
-        IntroBuzzFeedFragment fragment = new IntroBuzzFeedFragment();
+    public static BuzzFeedPreferencesFragment newInstance(String param1, String param2) {
+        BuzzFeedPreferencesFragment fragment = new BuzzFeedPreferencesFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -48,7 +48,7 @@ public class IntroBuzzFeedFragment extends Fragment {
         return fragment;
     }
 
-    public IntroBuzzFeedFragment() {
+    public BuzzFeedPreferencesFragment() {
         // Required empty public constructor
     }
 
@@ -65,7 +65,7 @@ public class IntroBuzzFeedFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_intro_buzz_feed, container, false);
+        return inflater.inflate(R.layout.fragment_buzz_feed_preferences, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -1,4 +1,4 @@
-package com.teamawesome.navii.fragment;
+package com.teamawesome.navii.fragment.intro;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,13 +11,13 @@ import com.teamawesome.navii.R;
 /**
  * Created by JMtorii on 15-08-25.
  */
-public class IntroPageThreeFragment extends Fragment {
+public class IntroPageOneFragment extends Fragment {
     private static final String ARG_POSITION = "position";
 
     private int mPosition;
 
-    public static IntroPageThreeFragment newInstance(int position) {
-        IntroPageThreeFragment f = new IntroPageThreeFragment();
+    public static IntroPageOneFragment newInstance(int position) {
+        IntroPageOneFragment f = new IntroPageOneFragment();
         Bundle b = new Bundle();
         b.putInt(ARG_POSITION, position);
         f.setArguments(b);
@@ -34,7 +34,7 @@ public class IntroPageThreeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_intro_page3, container, false);
+        View v = inflater.inflate(R.layout.fragment_intro_page1, container, false);
         return v;
     }
 }

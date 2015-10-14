@@ -5,4 +5,5 @@ package com.teamawesome.navii.util;
  */
 public class Constants {
     public static final int NO_ANIM = -1;
+    public static final String CHOOSE_LOCATION_FRAGMENT = "CHOOSE_LOCATION_FRAGMENT";
 }

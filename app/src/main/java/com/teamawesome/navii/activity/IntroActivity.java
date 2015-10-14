@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.teamawesome.navii.R;
-import com.teamawesome.navii.fragment.IntroViewPagerFragment;
+import com.teamawesome.navii.fragment.intro.IntroViewPagerFragment;
 import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.NaviiFragmentManager;
 import com.teamawesome.navii.util.NaviiPreferenceData;
