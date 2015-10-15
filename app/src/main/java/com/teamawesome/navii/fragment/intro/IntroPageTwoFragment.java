@@ -1,7 +1,6 @@
 package com.teamawesome.navii.fragment.intro;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +10,7 @@ import com.teamawesome.navii.R;
 /**
  * Created by JMtorii on 15-08-25.
  */
-public class IntroPageTwoFragment extends Fragment {
-    private static final String ARG_POSITION = "position";
-
-    private int mPosition;
+public class IntroPageTwoFragment extends IntroAbstractPageFragment {
 
     public static IntroPageTwoFragment newInstance(int position) {
         IntroPageTwoFragment f = new IntroPageTwoFragment();
@@ -27,7 +23,6 @@ public class IntroPageTwoFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPosition = getArguments().getInt(ARG_POSITION);
     }
 
     @Override

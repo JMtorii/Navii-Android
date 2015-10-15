@@ -14,10 +14,8 @@ import com.teamawesome.navii.util.Constants;
 /**
  * Created by JMtorii on 15-09-22.
  */
-public class IntroPageFiveFragment extends Fragment {
-    private static final String ARG_POSITION = "position";
+public class IntroPageFiveFragment extends IntroAbstractPageFragment {
 
-    private int mPosition;
     private IntroActivity parentActivity;
     private Button mSignUpButton;
     private Button mSignInButton;
@@ -35,7 +33,6 @@ public class IntroPageFiveFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         parentActivity = (IntroActivity) getActivity();
-        mPosition = getArguments().getInt(ARG_POSITION);
     }
 
     @Override

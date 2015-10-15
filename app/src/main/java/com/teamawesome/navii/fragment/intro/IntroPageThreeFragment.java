@@ -11,10 +11,7 @@ import com.teamawesome.navii.R;
 /**
  * Created by JMtorii on 15-08-25.
  */
-public class IntroPageThreeFragment extends Fragment {
-    private static final String ARG_POSITION = "position";
-
-    private int mPosition;
+public class IntroPageThreeFragment extends IntroAbstractPageFragment {
 
     public static IntroPageThreeFragment newInstance(int position) {
         IntroPageThreeFragment f = new IntroPageThreeFragment();
@@ -27,7 +24,6 @@ public class IntroPageThreeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPosition = getArguments().getInt(ARG_POSITION);
     }
 
     @Override

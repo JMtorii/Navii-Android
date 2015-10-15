@@ -11,10 +11,7 @@ import com.teamawesome.navii.R;
 /**
  * Created by JMtorii on 15-08-25.
  */
-public class IntroPageOneFragment extends Fragment {
-    private static final String ARG_POSITION = "position";
-
-    private int mPosition;
+public class IntroPageOneFragment extends IntroAbstractPageFragment {
 
     public static IntroPageOneFragment newInstance(int position) {
         IntroPageOneFragment f = new IntroPageOneFragment();
