@@ -14,7 +14,7 @@ import com.teamawesome.navii.R;
 /**
  * Created by JMtorii on 15-08-25.
  */
-public class IntroViewPagerFragment extends Fragment {
+public class IntroViewPagerFragment extends IntroFragment {
     private ViewPager mPager;
     private PagerAdapter mAdapter;
 

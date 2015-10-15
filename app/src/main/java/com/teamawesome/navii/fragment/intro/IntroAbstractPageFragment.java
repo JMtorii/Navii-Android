@@ -1,12 +1,11 @@
 package com.teamawesome.navii.fragment.intro;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 
 /**
  * Created by JMtorii on 2015-10-14.
  */
-public abstract class IntroAbstractPageFragment extends Fragment {
+public abstract class IntroAbstractPageFragment extends IntroFragment {
     protected static final String ARG_POSITION = "position";
 
     protected int mPosition;

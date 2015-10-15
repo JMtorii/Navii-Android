@@ -17,15 +17,13 @@ import com.teamawesome.navii.util.Constants;
 /**
  * Created by JMtorii on 15-09-24.
  */
-public class IntroPaymentFragment extends Fragment {
-    private Button mNextButton;
-    private IntroActivity parentActivity;
+public class IntroPaymentFragment extends IntroFragment {
 
+    private Button mNextButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        parentActivity = (IntroActivity) getActivity();
     }
 
     @Override
