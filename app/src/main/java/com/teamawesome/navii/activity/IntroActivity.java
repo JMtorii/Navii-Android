@@ -16,15 +16,15 @@ import com.teamawesome.navii.util.NaviiPreferenceData;
  * Created by JMtorii on 15-08-24.
  */
 public class IntroActivity extends AppCompatActivity {
+
     private NaviiFragmentManager fm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // TODO: consider moving to another method, class
         NaviiPreferenceData.init(getApplicationContext());
-        Fragment fragment = new IntroViewPagerFragment();
+        IntroViewPagerFragment fragment = new IntroViewPagerFragment();
 
         // if the user has already logged in, go straight to the main app
         if (!NaviiPreferenceData.getLoggedInUserEmail().isEmpty()) {
@@ -35,7 +35,6 @@ public class IntroActivity extends AppCompatActivity {
 
         fm = new NaviiFragmentManager(getSupportFragmentManager(), R.id.intro_content_frame);
 
-        Log.i("test", "Fragment Manager");
         fm.switchFragment(
                 fragment,
                 Constants.NO_ANIM,
@@ -59,19 +58,5 @@ public class IntroActivity extends AppCompatActivity {
                 clearBackStack,
                 isAddedToBackStack
         );
-    }
-
-    // TODO: delete this piece of shit
-    public void loadFragment(Fragment newFragment, boolean isReplace) {
-        FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
-
-        // TODO: consider adding tags to fragments
-        if (isReplace) {
-            trans.replace(R.id.intro_content_frame, newFragment);
-        } else {
-            trans.add(R.id.intro_content_frame, newFragment);
-        }
-
-        trans.commit();
     }
 }

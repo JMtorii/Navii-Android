@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private String[] mNavDrawerTitles;
 
     // Fragment manager
-    private String curFragmentTag = Constants.CHOOSE_LOCATION_FRAGMENT;
+    private String curFragmentTag = Constants.CHOOSE_LOCATION_FRAGMENT_TAG;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
         switch (position) {
             case 0:         // Home
                 fragment = new ChooseLocationFragment();
-                tag = Constants.CHOOSE_LOCATION_FRAGMENT;
+                tag = Constants.CHOOSE_LOCATION_FRAGMENT_TAG;
                 break;
 //            case 1:         // Nearby but Home for now
 //                fragment = new HomeFragment();
@@ -173,14 +173,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Fragment f = getSupportFragmentManager().findFragmentByTag(curFragmentTag);
-        if (f != null && !f.getTag().equals(Constants.CHOOSE_LOCATION_FRAGMENT)) {
+        if (f != null && !f.getTag().equals(Constants.CHOOSE_LOCATION_FRAGMENT_TAG)) {
             Log.v("test", f.getTag());
             super.onBackPressed();
         }
-    }
-
-    // If you call this, you MUST commit afterwards. Not doing so will cause a stack error
-    public FragmentTransaction getFragmentTransaction() {
-        return getSupportFragmentManager().beginTransaction();
     }
 }

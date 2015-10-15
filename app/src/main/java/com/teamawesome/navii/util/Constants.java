@@ -5,5 +5,8 @@ package com.teamawesome.navii.util;
  */
 public class Constants {
     public static final int NO_ANIM = -1;
-    public static final String CHOOSE_LOCATION_FRAGMENT = "CHOOSE_LOCATION_FRAGMENT";
+
+    // Tags
+    public static final String INTRO_VIEW_PAGER_FRAGMENT_TAG = "INTRO_VIEW_PAGER_FRAGMENT_TAG";
+    public static final String CHOOSE_LOCATION_FRAGMENT_TAG = "CHOOSE_LOCATION_FRAGMENT_TAG";
 }

@@ -62,9 +62,7 @@ public class IntroPageFiveFragment extends IntroAbstractPageFragment {
         mSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                IntroActivity activity = (IntroActivity) getActivity();
-                Fragment fragment = new LoginFragment();
-                activity.loadFragment(fragment, true);
+
             }
         });
 
