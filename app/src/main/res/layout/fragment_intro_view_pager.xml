@@ -15,9 +15,10 @@
         android:layout_weight="1"
         tools:context=".FlockFragment"/>
 
-    <com.viewpagerindicator.TitlePageIndicator
-        android:id="@+id/titles_page_indicator"
+    <com.viewpagerindicator.CirclePageIndicator
+        android:id="@+id/intro_page_indicator"
         android:layout_height="wrap_content"
-        android:layout_width="fill_parent" />
+        android:layout_width="fill_parent"
+        android:layout_marginBottom="20dp"/>
 
 </LinearLayout>

@@ -1,5 +1,6 @@
 package com.teamawesome.navii.fragment.intro;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.teamawesome.navii.R;
+import com.viewpagerindicator.CirclePageIndicator;
 import com.viewpagerindicator.TitlePageIndicator;
 
 /**
@@ -34,8 +36,11 @@ public class IntroViewPagerFragment extends IntroFragment {
         mPager.setAdapter(mAdapter);
         mPager.setCurrentItem(0);
 
-        TitlePageIndicator titlePageIndicator = (TitlePageIndicator) v.findViewById(R.id.titles_page_indicator);
-        titlePageIndicator.setViewPager(mPager);
+        CirclePageIndicator pageIndicator = (CirclePageIndicator) v.findViewById(R.id.intro_page_indicator);
+        pageIndicator.setViewPager(mPager);
+        pageIndicator.setRadius(20);
+        pageIndicator.setFillColor(Color.BLUE);
+        pageIndicator.setPageColor(Color.GRAY);
         return v;
     }
 
