@@ -19,9 +19,12 @@
     </string-array>
 
     <string-array name="nav_drawer_array">
-        <item>Home</item>
-        <item>Nearby</item>
-        <item>Settings</item>
+        <item>My Account</item>
+        <item>Planned Trips </item>
+        <item>Saved Trips</item>
+        <item>Preferences</item>
+        <item>Notifications</item>
+        <item>Logout</item>
     </string-array>
 
     <string name="drawer_open">Open navigation drawer</string>

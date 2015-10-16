@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.teamawesome.navii.R;
+import com.viewpagerindicator.TitlePageIndicator;
 
 /**
  * Created by JMtorii on 15-08-25.
@@ -32,6 +33,9 @@ public class IntroViewPagerFragment extends IntroFragment {
         mAdapter = new PagerAdapter(getFragmentManager());
         mPager.setAdapter(mAdapter);
         mPager.setCurrentItem(0);
+
+        TitlePageIndicator titlePageIndicator = (TitlePageIndicator) v.findViewById(R.id.titles_page_indicator);
+        titlePageIndicator.setViewPager(mPager);
         return v;
     }
 
