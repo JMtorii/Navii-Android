@@ -36,18 +36,16 @@ public class IntroPaymentFragment extends IntroFragment {
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                IntroPaymentFragment fragment = new IntroPaymentFragment();
-//                parentActivity.switchFragment(
-//                        fragment,
-//                        Constants.NO_ANIM,
-//                        Constants.NO_ANIM,
-//                        "",
-//                        true,
-//                        true,
-//                        true
-//                );
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
+                IntroThanksFragment fragment = new IntroThanksFragment();
+                parentActivity.switchFragment(
+                        fragment,
+                        Constants.NO_ANIM,
+                        Constants.NO_ANIM,
+                        Constants.INTRO_THANKS_FRAGMENT_TAG,
+                        true,
+                        true,
+                        true
+                );
             }
         });
         return v;

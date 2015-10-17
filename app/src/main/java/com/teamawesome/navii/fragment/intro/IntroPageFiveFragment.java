@@ -56,7 +56,7 @@ public class IntroPageFiveFragment extends IntroAbstractPageFragment {
                         fragment,
                         Constants.NO_ANIM,
                         Constants.NO_ANIM,
-                        "",
+                        Constants.INTRO_PAYMENT_FRAGMENT_TAG,
                         true,
                         true,
                         true

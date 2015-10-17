@@ -9,4 +9,6 @@ public class Constants {
     // Tags
     public static final String INTRO_VIEW_PAGER_FRAGMENT_TAG = "INTRO_VIEW_PAGER_FRAGMENT_TAG";
     public static final String CHOOSE_LOCATION_FRAGMENT_TAG = "CHOOSE_LOCATION_FRAGMENT_TAG";
+    public static final String INTRO_PAYMENT_FRAGMENT_TAG = "INTRO_PAYMENT_FRAGMENT_TAG";
+    public static final String INTRO_THANKS_FRAGMENT_TAG = "INTRO_THANKS_FRAGMENT_TAG";
 }
