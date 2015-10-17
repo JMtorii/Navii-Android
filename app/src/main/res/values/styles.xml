@@ -9,6 +9,15 @@
         <item name="android:windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="toolbarStyle">@style/Widget.AppCompat.Toolbar</item>
+
+        <item name="vpiCirclePageIndicatorStyle">@style/CircleIndicatorStyle</item>
+    </style>
+
+    <style name="CircleIndicatorStyle" parent="Theme.PageIndicatorDefaults">
+        <!--<item name="android:paddingLeft">16dp</item>-->
+        <!--<item name="android:paddingRight">16dp</item>-->
+        <!--<item name="android:fadingEdge">horizontal</item>-->
+        <!--<item name="android:fadingEdgeLength">8dp</item>-->
     </style>
 
 </resources>
