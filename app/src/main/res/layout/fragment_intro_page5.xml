@@ -1,103 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@null">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/intro_page5_scrollview"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="LOGO"
-        android:id="@+id/textView2"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="80dp"
-        android:textSize="40dp" />
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@null">
 
-    <!--TODO: Move to colors-->
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sign Up"
-        android:id="@+id/intro_page5_sign_up_button"
-        android:layout_gravity="center_horizontal"
-        android:background="@null"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="40dp"
-        android:layout_marginTop="80dp" />
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="190dp"
+            android:layout_marginTop="30dp"
+            android:id="@+id/rough_logo"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/rough_logo" />
 
-    <EditText
-        android:layout_width="321dp"
-        android:layout_height="40dp"
-        android:inputType="textEmailAddress"
-        android:background="@drawable/edit_text_background"
-        android:ems="10"
-        android:id="@+id/intro_page5_email_edittext"
-        android:layout_gravity="center_horizontal"
-        android:textColor="@android:color/black"
-        android:textColorHint="#D3D3D3"
-        android:textCursorDrawable="@null"
-        android:hint="Email"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:layout_marginTop="30dp" />
+        <!--TODO: Move to colors-->
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sign Up"
+            android:id="@+id/intro_page5_sign_up_button"
+            android:layout_gravity="center_horizontal"
+            android:background="@null"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="40sp"
+            android:layout_marginTop="20dp" />
 
-    <EditText
-        android:layout_width="321dp"
-        android:layout_height="40dp"
-        android:inputType="textPassword"
-        android:background="@drawable/edit_text_background"
-        android:ems="10"
-        android:id="@+id/intro_page5_password_edittext"
-        android:layout_gravity="center_horizontal"
-        android:textColor="@android:color/black"
-        android:textColorHint="#D3D3D3"
-        android:textCursorDrawable="@null"
-        android:hint="Password"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:layout_marginTop="5dp" />
+        <EditText
+            android:layout_width="260dp"
+            android:layout_height="30dp"
+            android:inputType="textEmailAddress"
+            android:background="@drawable/edit_text_background"
+            android:ems="10"
+            android:id="@+id/intro_page5_email_edittext"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@android:color/black"
+            android:textColorHint="#D3D3D3"
+            android:textCursorDrawable="@null"
+            android:hint="Email"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_marginTop="30dp" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sign In"
-        android:id="@+id/intro_page5_sign_in_button"
-        android:layout_gravity="right"
-        android:layout_marginRight="30dp"
-        android:background="@null" />
+        <EditText
+            android:layout_width="260dp"
+            android:layout_height="30dp"
+            android:inputType="textPassword"
+            android:background="@drawable/edit_text_background"
+            android:ems="10"
+            android:id="@+id/intro_page5_password_edittext"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@android:color/black"
+            android:textColorHint="#D3D3D3"
+            android:textCursorDrawable="@null"
+            android:hint="Password"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_marginTop="5dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="or connect with"
-        android:id="@+id/textView6"
-        android:layout_gravity="center_horizontal" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sign In"
+            android:id="@+id/intro_page5_sign_in_button"
+            android:layout_gravity="right"
+            android:layout_marginRight="30dp"
+            android:background="@null" />
 
-    <ImageView
-        android:layout_width="200dp"
-        android:layout_height="55dp"
-        android:id="@+id/imageView"
-        android:background="@drawable/tmp_social_buttons"
-        android:layout_gravity="center_horizontal" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="or connect with"
+            android:id="@+id/textView6"
+            android:layout_gravity="center_horizontal" />
 
-    <!--<LinearLayout-->
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="55dp"
+            android:id="@+id/imageView"
+            android:background="@drawable/tmp_social_buttons"
+            android:layout_gravity="center_horizontal" />
+
+        <!--<LinearLayout-->
         <!--android:orientation="horizontal"-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="wrap_content">-->
 
         <!--<Button-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Sign Up"-->
-            <!--android:id="@+id/intro_pager5_sign_up_button"-->
-            <!--android:layout_gravity="center_horizontal"/>-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Sign Up"-->
+        <!--android:id="@+id/intro_pager5_sign_up_button"-->
+        <!--android:layout_gravity="center_horizontal"/>-->
 
         <!--<Button-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Login"-->
-            <!--android:id="@+id/intro_pager5_login_button" />-->
-    <!--</LinearLayout>-->
-</LinearLayout>
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Login"-->
+        <!--android:id="@+id/intro_pager5_login_button" />-->
+        <!--</LinearLayout>-->
+    </LinearLayout>
+
+
+</ScrollView>
+
+

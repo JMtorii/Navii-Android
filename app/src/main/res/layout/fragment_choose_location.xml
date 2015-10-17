@@ -21,7 +21,7 @@
             tools:context=".FlockFragment"/>
 
         <com.viewpagerindicator.CirclePageIndicator
-            android:id="@+id/intro_page_indicator"
+            android:id="@+id/planning_page_indicator"
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"
             android:layout_marginBottom="20dp"/>
@@ -84,9 +84,9 @@
     </LinearLayout>
 
     <ImageView
-        android:layout_width="274dp"
-        android:layout_height="223dp"
-        android:id="@+id/choose_location_"
+        android:layout_width="250dp"
+        android:layout_height="190dp"
+        android:id="@+id/choose_location"
         android:layout_gravity="center_horizontal"
         android:src="@drawable/rough_calendar" />
 

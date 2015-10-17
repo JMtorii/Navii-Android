@@ -3,15 +3,13 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="LOGO"
-        android:id="@+id/textView2"
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="190dp"
+        android:layout_marginTop="30dp"
+        android:id="@+id/rough_logo"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="80dp"
-        android:textSize="40dp" />
+        android:src="@drawable/rough_logo" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -20,8 +18,8 @@
         android:text="Go"
         android:id="@+id/textView3"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="80dp"
-        android:textSize="40dp" />
+        android:layout_marginTop="20dp"
+        android:textSize="40sp" />
 
     <TextView
         android:layout_width="265dp"
@@ -31,7 +29,7 @@
         android:id="@+id/textView5"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="40dp"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textAlignment="center"
         android:gravity="center" />
 </LinearLayout>

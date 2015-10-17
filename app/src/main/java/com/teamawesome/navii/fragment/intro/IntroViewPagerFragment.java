@@ -1,5 +1,6 @@
 package com.teamawesome.navii.fragment.intro;
 
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,10 +10,10 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.teamawesome.navii.R;
 import com.viewpagerindicator.CirclePageIndicator;
-import com.viewpagerindicator.TitlePageIndicator;
 
 /**
  * Created by JMtorii on 15-08-25.
@@ -20,6 +21,7 @@ import com.viewpagerindicator.TitlePageIndicator;
 public class IntroViewPagerFragment extends IntroFragment {
     private ViewPager mPager;
     private PagerAdapter mAdapter;
+    private CirclePageIndicator mPageIndicator;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,12 +38,16 @@ public class IntroViewPagerFragment extends IntroFragment {
         mPager.setAdapter(mAdapter);
         mPager.setCurrentItem(0);
 
-        CirclePageIndicator pageIndicator = (CirclePageIndicator) v.findViewById(R.id.intro_page_indicator);
-        pageIndicator.setViewPager(mPager);
-        pageIndicator.setRadius(20);
-        pageIndicator.setFillColor(Color.BLUE);
-        pageIndicator.setPageColor(Color.GRAY);
+        mPageIndicator = (CirclePageIndicator) v.findViewById(R.id.intro_page_indicator);
+        mPageIndicator.setViewPager(mPager);
+        mPageIndicator.setRadius(15);
+        mPageIndicator.setFillColor(Color.BLUE);
+        mPageIndicator.setPageColor(Color.GRAY);
         return v;
+    }
+
+    public void setPageIndicatorVisible(boolean isVisible) {
+        mPageIndicator.setVisibility(View.GONE);
     }
 
     public class PagerAdapter extends FragmentPagerAdapter {
