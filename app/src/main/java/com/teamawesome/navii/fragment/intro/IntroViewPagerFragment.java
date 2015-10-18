@@ -38,16 +38,13 @@ public class IntroViewPagerFragment extends IntroFragment {
         mPager.setAdapter(mAdapter);
         mPager.setCurrentItem(0);
 
+        // Page indicator settings
         mPageIndicator = (CirclePageIndicator) v.findViewById(R.id.intro_page_indicator);
         mPageIndicator.setViewPager(mPager);
         mPageIndicator.setRadius(15);
-        mPageIndicator.setFillColor(Color.BLUE);
+        mPageIndicator.setFillColor(R.color.lightGrey);
         mPageIndicator.setPageColor(Color.GRAY);
         return v;
-    }
-
-    public void setPageIndicatorVisible(boolean isVisible) {
-        mPageIndicator.setVisibility(View.GONE);
     }
 
     public class PagerAdapter extends FragmentPagerAdapter {
