@@ -9,6 +9,7 @@ import android.widget.Button;
 
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.MainActivity;
+import com.teamawesome.navii.util.Constants;
 
 /**
  * Created by JMtorii on 2015-10-17.
@@ -30,8 +31,19 @@ public class IntroThanksFragment extends IntroFragment {
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
+                BuzzFeedTagsFragment fragment = new BuzzFeedTagsFragment();
+                parentActivity.switchFragment(
+                        fragment,
+                        Constants.NO_ANIM,
+                        Constants.NO_ANIM,
+                        Constants.INTRO_THANKS_FRAGMENT_TAG,
+                        true,
+                        true,
+                        true
+                );
+
+//                Intent intent = new Intent(getActivity(), MainActivity.class);
+//                startActivity(intent);
             }
         });
         return v;

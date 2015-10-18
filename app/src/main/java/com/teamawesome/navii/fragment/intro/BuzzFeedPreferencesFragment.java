@@ -3,7 +3,7 @@ package com.teamawesome.navii.fragment.intro;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +18,7 @@ import com.teamawesome.navii.R;
  * Use the {@link BuzzFeedPreferencesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class BuzzFeedPreferencesFragment extends Fragment {
+public class BuzzFeedPreferencesFragment extends IntroFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
