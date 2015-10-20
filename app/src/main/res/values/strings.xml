@@ -6,8 +6,8 @@
 
     <string-array name="debug_list">
         <item>Main Application</item>
-        <item>BuzzFeedShit</item>
-        <item>Server</item>
+        <item>Skip to main activity</item>
+        <item>Test itinerary</item>
     </string-array>
 
     <string-array name="intro_pager_titles">
