@@ -7,7 +7,7 @@
     <string-array name="debug_list">
         <item>Main Application</item>
         <item>Skip to main activity</item>
-        <item>Test itinerary</item>
+        <item>Create user</item>
     </string-array>
 
     <string-array name="intro_pager_titles">
