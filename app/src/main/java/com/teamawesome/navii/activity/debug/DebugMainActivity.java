@@ -15,9 +15,8 @@ import com.teamawesome.navii.activity.IntroActivity;
 import com.teamawesome.navii.activity.MainActivity;
 import com.teamawesome.navii.server.api.UserAPI;
 import com.teamawesome.navii.server.model.User;
+import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.NaviiMath;
-
-import java.util.Random;
 
 import retrofit.Call;
 import retrofit.Callback;
@@ -68,7 +67,7 @@ public class DebugMainActivity extends ListActivity {
             startActivity(mainIntent);
         } else if (id == 2) {
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("http://192.168.57.1:8080")    // THIS ONLY WORKS ON JUN'S CASE
+                    .baseUrl(Constants.SERVER_URL)    // THIS ONLY WORKS ON JUN'S CASE
                     .addConverterFactory(JacksonConverterFactory.create())
                     .build();
 

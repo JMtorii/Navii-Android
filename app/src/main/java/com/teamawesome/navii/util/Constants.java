@@ -4,6 +4,10 @@ package com.teamawesome.navii.util;
  * Created by JMtorii on 15-09-19.
  */
 public class Constants {
+    // TODO: move to config file based on environment. Have Jenkins inject?
+    public static final String SERVER_URL = "http://192.168.57.1:8080";
+
+    // View
     public static final int NO_ANIM = -1;
 
     // Tags
