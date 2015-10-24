@@ -83,7 +83,7 @@ public class DebugMainActivity extends ListActivity {
             Call<User> call = userAPI.createUser(user);
 
             // This does an async call.
-            // Use "execute" instead of sync.
+            // Use "execute" instead for a sync call.
             // Call "call.cancel()" to cancel a running request.
             call.enqueue(new Callback<User>() {
                 @Override

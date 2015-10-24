@@ -12,6 +12,7 @@ import android.util.Log;
  * This class is used to simplify calls to SharedPreferences.
  */
 public class NaviiPreferenceData {
+
     private static final String PREF_LOGGED_IN_USER_EMAIL = "logged_in_email";
 
     private static Context mContext;
