@@ -3,7 +3,6 @@ package com.teamawesome.navii.activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -42,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        fm = new NaviiFragmentManager(getSupportFragmentManager(), R.id.main_content_frame);
+        fm = new NaviiFragmentManager(getSupportFragmentManager(), R.id.main_activity_content_frame);
 
         mToolbar = (Toolbar) findViewById(R.id.main_activity_toolbar);
         mToolbar.setTitle("Main Activity");
@@ -67,8 +66,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         mNavDrawerTitles = getResources().getStringArray(R.array.nav_drawer_array);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.main_activity_drawer_layout);
+        mDrawerList = (ListView) findViewById(R.id.main_activity_left_drawer);
 
         // set a custom shadow that overlays the main content when the drawer opens
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);

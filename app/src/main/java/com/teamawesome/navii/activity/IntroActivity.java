@@ -2,9 +2,7 @@ package com.teamawesome.navii.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.fragment.intro.IntroViewPagerFragment;
@@ -33,7 +31,7 @@ public class IntroActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_intro);
 
-        fm = new NaviiFragmentManager(getSupportFragmentManager(), R.id.intro_content_frame);
+        fm = new NaviiFragmentManager(getSupportFragmentManager(), R.id.intro_activity_content_frame);
 
         fm.switchFragment(
                 fragment,

@@ -31,7 +31,7 @@ public class IntroViewPagerFragment extends IntroFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_intro_view_pager, container, false);
-        mPager = (ViewPager) v.findViewById(R.id.intro_pager);
+        mPager = (ViewPager) v.findViewById(R.id.choose_location_pager);
         mAdapter = new PagerAdapter(getFragmentManager());
         mPager.setAdapter(mAdapter);
         mPager.setCurrentItem(0);

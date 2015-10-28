@@ -11,30 +11,28 @@
         android:layout_height="130dp"
         android:background="@color/whiteBackground"
         android:weightSum="1"
-        android:id="@+id/flock_linear_layout">
+        android:id="@+id/choose_location_linear_layout">
 
         <android.support.v4.view.ViewPager
-            android:id="@+id/intro_pager"
+            android:id="@+id/choose_location_pager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             tools:context=".FlockFragment"/>
 
         <com.viewpagerindicator.CirclePageIndicator
-            android:id="@+id/planning_page_indicator"
+            android:id="@+id/choose_location_indicator"
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"
             android:layout_marginBottom="20dp"/>
 
     </LinearLayout>
 
-
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Where are you headed?"
-        android:id="@+id/textView11"
+        android:id="@id/textView1"
         android:layout_gravity="center_horizontal"
         android:textSize="30sp"
         android:textColor="@color/black"
@@ -43,7 +41,7 @@
     <EditText
         android:layout_width="302dp"
         android:layout_height="40dp"
-        android:id="@+id/editText3"
+        android:id="@+id/choose_location_where_edittext"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/edit_text_background"
         android:ems="10"
@@ -58,7 +56,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Choose your destination"
-        android:id="@+id/textView4"
+        android:id="@id/textView2"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
         android:textSize="15sp" />
@@ -74,19 +72,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Select Dates"
-            android:id="@+id/button15" />
+            android:id="@+id/choose_location_select_dates_button" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Travellers"
-            android:id="@+id/button16" />
+            android:id="@+id/choose_location_travellers_button" />
     </LinearLayout>
 
     <ImageView
         android:layout_width="250dp"
         android:layout_height="190dp"
-        android:id="@+id/choose_location"
+        android:id="@+id/choose_location_tmp_image"
         android:layout_gravity="center_horizontal"
         android:src="@drawable/rough_calendar" />
 
