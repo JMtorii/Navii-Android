@@ -1,5 +1,6 @@
 package com.teamawesome.navii.activity;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.teamawesome.navii.R;
+import com.teamawesome.navii.fragment.intro.IntroFragment;
 import com.teamawesome.navii.fragment.planning.ChooseLocationFragment;
 import com.teamawesome.navii.fragment.planning.NotificationsFragment;
 import com.teamawesome.navii.fragment.planning.PlannedTripsFragment;
@@ -137,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void selectDrawerItem(int position) {
         // update the main content by replacing fragments
-        Fragment fragment;
+        Fragment fragment = null;
         String tag;
 
         switch (position) {
@@ -161,12 +163,12 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new NotificationsFragment();
                 tag = Constants.NOTIFICATIONS_FRAGMENT_TAG;
                 break;
-//            case 5:         // Logout
-//                fragment = new ();
-//                tag = "";
-//                break;
+            case 5:         // Logout
+                Intent intent = new Intent(this, IntroActivity.class);
+                startActivity(intent);
+                tag = "";
+                break;
             default:        // this should never happen
-                fragment = null;
                 tag = "";
                 break;
         }
