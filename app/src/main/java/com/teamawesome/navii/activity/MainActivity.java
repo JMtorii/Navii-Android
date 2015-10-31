@@ -17,6 +17,10 @@ import android.widget.ListView;
 
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.fragment.planning.ChooseLocationFragment;
+import com.teamawesome.navii.fragment.planning.NotificationsFragment;
+import com.teamawesome.navii.fragment.planning.PlannedTripsFragment;
+import com.teamawesome.navii.fragment.planning.PreferencesFragment;
+import com.teamawesome.navii.fragment.planning.SavedTripsFragment;
 import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.NaviiFragmentManager;
 
@@ -136,13 +140,25 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new ChooseLocationFragment();
                 tag = Constants.CHOOSE_LOCATION_FRAGMENT_TAG;
                 break;
-//            case 1:         // Nearby but Home for now
-//                fragment = new HomeFragment();
+            case 1:         // Planned Trips
+                fragment = new PlannedTripsFragment();
+                tag = Constants.PLANNING_PLANNED_TRIPS_FRAGMENT_TAG;
+                break;
+            case 2:         // Saved Trips
+                fragment = new SavedTripsFragment();
+                tag = Constants.PLANNING_SAVED_TRIPS_FRAGMENT_TAG;
+                break;
+            case 3:         // Preferences
+                fragment = new PreferencesFragment();
+                tag = Constants.PREFERENCES_FRAGMENT_TAG;
+                break;
+            case 4:         // Notifications
+                fragment = new NotificationsFragment();
+                tag = Constants.NOTIFICATIONS_FRAGMENT_TAG;
+                break;
+//            case 5:         // Logout
+//                fragment = new ();
 //                tag = "";
-//                break;
-//            case 2:         // Setting
-//                fragment = new SettingsMainFragment();
-//                tag = Constants.SETTINGS_MAIN_FRAGMENT_TAG;
 //                break;
             default:        // this should never happen
                 fragment = null;

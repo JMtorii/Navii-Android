@@ -17,7 +17,6 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Thanks!"
-        android:id="@id/textView1"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
         android:textSize="30sp" />
@@ -27,7 +26,6 @@
         android:layout_height="wrap_content"
         android:textSize="15sp"
         android:text="Help us plan your perfect getaway by completing your preference profile."
-        android:id="@id/textView2"
         android:layout_gravity="center_horizontal"
         android:gravity="center"
         android:layout_marginTop="20dp" />

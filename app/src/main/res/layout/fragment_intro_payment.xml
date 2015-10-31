@@ -18,7 +18,6 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="You're Almost Done!"
-        android:id="@id/textView1"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="50dp"
         android:textSize="30sp" />
@@ -28,7 +27,6 @@
         android:layout_height="wrap_content"
         android:textSize="15sp"
         android:text="Keep a payment method on file to make checking out a breeze!"
-        android:id="@id/textView2"
         android:layout_gravity="center_horizontal"
         android:gravity="center"
         android:layout_marginTop="20dp" />
@@ -62,7 +60,6 @@
             android:layout_height="wrap_content"
             android:textSize="15sp"
             android:text="Expiry"
-            android:id="@id/textView3"
             android:layout_marginLeft="30dp"
             android:gravity="center_vertical|center_horizontal" />
 
@@ -87,7 +84,6 @@
             android:layout_height="wrap_content"
             android:textSize="15sp"
             android:text="CSV"
-            android:id="@id/textView4"
             android:layout_marginLeft="20dp" />
 
         <EditText
