@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.teamawesome.navii.R;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Navigation drawer
     private DrawerLayout mDrawerLayout;
+    private LinearLayout mDrawerLinearLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
     private String[] mNavDrawerTitles;
@@ -71,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
         mNavDrawerTitles = getResources().getStringArray(R.array.nav_drawer_array);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.main_activity_drawer_layout);
+        mDrawerLinearLayout = (LinearLayout) findViewById(R.id.main_activity_drawer_linear_layout);
         mDrawerList = (ListView) findViewById(R.id.main_activity_left_drawer);
 
         // set a custom shadow that overlays the main content when the drawer opens
@@ -96,6 +99,8 @@ public class MainActivity extends AppCompatActivity {
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
+
+        mDrawerToggle.setDrawerIndicatorEnabled(true);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
         if (savedInstanceState == null) {
@@ -180,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
             // update selected item and title, then close the drawer
             mDrawerList.setItemChecked(position, true);
             mToolbar.setTitle(mNavDrawerTitles[position]);
-            mDrawerLayout.closeDrawer(mDrawerList);
+            mDrawerLayout.closeDrawer(mDrawerLinearLayout);
         }
 
     }
