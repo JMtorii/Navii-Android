@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -23,6 +24,7 @@ import com.teamawesome.navii.fragment.planning.ChooseLocationFragment;
 import com.teamawesome.navii.fragment.planning.NotificationsFragment;
 import com.teamawesome.navii.fragment.planning.PlannedTripsFragment;
 import com.teamawesome.navii.fragment.planning.PreferencesFragment;
+import com.teamawesome.navii.fragment.planning.ProfileFragment;
 import com.teamawesome.navii.fragment.planning.SavedTripsFragment;
 import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.NaviiFragmentManager;
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout mDrawerLinearLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
+    private LinearLayout mProfileButton;
     private String[] mNavDrawerTitles;
 
     // Fragment manager
@@ -73,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        mProfileButton = (LinearLayout) findViewById(R.id.main_activity_profile_button);
         mNavDrawerTitles = getResources().getStringArray(R.array.nav_drawer_array);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.main_activity_drawer_layout);
         mDrawerLinearLayout = (LinearLayout) findViewById(R.id.main_activity_drawer_linear_layout);
@@ -108,6 +112,24 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             selectDrawerItem(0);
         }
+
+        mProfileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new ProfileFragment();
+                String tag = Constants.PROFILE_FRAGMENT_TAG;
+
+                fm.switchFragment(
+                        fragment,
+                        Constants.NO_ANIM,
+                        Constants.NO_ANIM,
+                        tag,
+                        true,
+                        true,
+                        true
+                );
+            }
+        });
     }
 
     /**

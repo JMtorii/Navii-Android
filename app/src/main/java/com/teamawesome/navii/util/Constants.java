@@ -23,4 +23,5 @@ public class Constants {
 
     public static final String NOTIFICATIONS_FRAGMENT_TAG = "NOTIFICATIONS_FRAGMENT_TAG";
     public static final String PREFERENCES_FRAGMENT_TAG = "PREFERENCES_FRAGMENT_TAG";
+    public static final String PROFILE_FRAGMENT_TAG = "PROFILE_FRAGMENT_TAG";
 }
