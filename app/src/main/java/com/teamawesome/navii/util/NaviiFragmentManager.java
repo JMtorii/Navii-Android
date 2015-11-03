@@ -44,19 +44,11 @@ public class NaviiFragmentManager {
                                boolean isReplace, boolean clearBackStack,
                                boolean isAddedToBackStack) {
         if (clearBackStack) {
-            mFragmentManager.popBackStack();
+            mFragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
 
         FragmentTransaction ft = mFragmentManager.beginTransaction();
-
-        // check if animations are valid
-        if (enterAnim == 0 || enterAnim < -1 ) {
-            enterAnim = Constants.NO_ANIM;
-        }
-
-        if (exitAnim == 0 || exitAnim < -1) {
-            exitAnim = Constants.NO_ANIM;
-        }
+        ft.setCustomAnimations(enterAnim, exitAnim);
 
         if (enterAnim != Constants.NO_ANIM && exitAnim != Constants.NO_ANIM) {
             ft.setCustomAnimations(enterAnim, exitAnim);
