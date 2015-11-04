@@ -55,59 +55,14 @@ public class MainActivity extends AppCompatActivity {
         fm = new NaviiFragmentManager(getSupportFragmentManager(), R.id.main_activity_content_frame);
 
         mToolbar = (Toolbar) findViewById(R.id.main_activity_toolbar);
-        mToolbar.setTitle("Main Activity");
-
-        // TODO: add appropriate action items to menu
-        mToolbar.inflateMenu(R.menu.toolbar_main_activity_menu);
-        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                // TODO: add appropriate menu items
-//                switch (menuItem.getItemId()) {
-//                    case R.id.action_settings:
-//                        // TODO: add custom animation
-//                        Fragment fragment = new SettingsMainFragment();
-//                        FragmentManager fragmentManager = getSupportFragmentManager();
-//                        fragmentManager.beginTransaction().add(R.id.content_frame, fragment).commit();
-//                        return true;
-//                }
-
-                return false;
-            }
-        });
-
         mProfileButton = (LinearLayout) findViewById(R.id.main_activity_profile_button);
         mNavDrawerTitles = getResources().getStringArray(R.array.nav_drawer_array);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.main_activity_drawer_layout);
         mDrawerLinearLayout = (LinearLayout) findViewById(R.id.main_activity_drawer_linear_layout);
         mDrawerList = (ListView) findViewById(R.id.main_activity_left_drawer);
 
-        // set a custom shadow that overlays the main content when the drawer opens
-        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-        // set up the drawer's list view with items and click listener
-        mDrawerList.setAdapter(new ArrayAdapter<Object>(this, R.layout.drawer_main_list_item, mNavDrawerTitles));
-        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-
-        // ActionBarDrawerToggle ties together the the proper interactions
-        // between the sliding drawer and the action bar app icon
-        mDrawerToggle = new ActionBarDrawerToggle(
-                this,                  /* host Activity */
-                mDrawerLayout,         /* DrawerLayout object */
-                mToolbar,  /* nav drawer image to replace 'Up' caret */                  // THIS WAS MODIFIED
-                R.string.drawer_open,  /* "open drawer" description for accessibility */
-                R.string.drawer_close  /* "close drawer" description for accessibility */
-        ) {
-            public void onDrawerClosed(View view) {
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
-
-            public void onDrawerOpened(View drawerView) {
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
-        };
-
-        mDrawerToggle.setDrawerIndicatorEnabled(true);
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        setupToolbar();
+        setupDrawer();
 
         if (savedInstanceState == null) {
             selectDrawerItem(0);
@@ -148,6 +103,15 @@ public class MainActivity extends AppCompatActivity {
         super.onConfigurationChanged(newConfig);
         // Pass any configuration change to the drawer toggls
         mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Fragment f = getSupportFragmentManager().findFragmentByTag(curFragmentTag);
+        if (f != null && !f.getTag().equals(Constants.CHOOSE_LOCATION_FRAGMENT_TAG)) {
+            Log.v("test", f.getTag());
+            super.onBackPressed();
+        }
     }
 
     // TODO: possibly move listener and selectItem to a separate class
@@ -214,12 +178,55 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onBackPressed() {
-        Fragment f = getSupportFragmentManager().findFragmentByTag(curFragmentTag);
-        if (f != null && !f.getTag().equals(Constants.CHOOSE_LOCATION_FRAGMENT_TAG)) {
-            Log.v("test", f.getTag());
-            super.onBackPressed();
-        }
+    private void setupToolbar() {
+        mToolbar.setTitle("Main Activity");
+
+        // TODO: add appropriate action items to menu
+        mToolbar.inflateMenu(R.menu.toolbar_main_activity_menu);
+        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                // TODO: add appropriate menu items
+//                switch (menuItem.getItemId()) {
+//                    case R.id.action_settings:
+//                        // TODO: add custom animation
+//                        Fragment fragment = new SettingsMainFragment();
+//                        FragmentManager fragmentManager = getSupportFragmentManager();
+//                        fragmentManager.beginTransaction().add(R.id.content_frame, fragment).commit();
+//                        return true;
+//                }
+
+                return false;
+            }
+        });
+    }
+
+    private void setupDrawer() {
+        // set a custom shadow that overlays the main content when the drawer opens
+        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+        // set up the drawer's list view with items and click listener
+        mDrawerList.setAdapter(new ArrayAdapter<Object>(this, R.layout.drawer_main_list_item, mNavDrawerTitles));
+        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+
+        // ActionBarDrawerToggle ties together the the proper interactions
+        // between the sliding drawer and the action bar app icon
+        mDrawerToggle = new ActionBarDrawerToggle(
+                this,                  /* host Activity */
+                mDrawerLayout,         /* DrawerLayout object */
+                mToolbar,  /* nav drawer image to replace 'Up' caret */                  // THIS WAS MODIFIED
+                R.string.drawer_open,  /* "open drawer" description for accessibility */
+                R.string.drawer_close  /* "close drawer" description for accessibility */
+        ) {
+            public void onDrawerClosed(View view) {
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+            public void onDrawerOpened(View drawerView) {
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+        };
+
+        mDrawerToggle.setDrawerIndicatorEnabled(true);
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 }
