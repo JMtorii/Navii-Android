@@ -48,7 +48,6 @@ public class NaviiFragmentManager {
         }
 
         FragmentTransaction ft = mFragmentManager.beginTransaction();
-        ft.setCustomAnimations(enterAnim, exitAnim);
 
         if (enterAnim != Constants.NO_ANIM && exitAnim != Constants.NO_ANIM) {
             ft.setCustomAnimations(enterAnim, exitAnim);
