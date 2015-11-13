@@ -59,7 +59,9 @@ public class ChooseLocationFragment extends Fragment implements
     public void onResume() {
         super.onResume();
         DatePickerDialog datePickerDialog = (DatePickerDialog) getActivity().getFragmentManager().findFragmentByTag("Datepickerdialog");
-        if(datePickerDialog != null) datePickerDialog.setOnDateSetListener(this);
+        if (datePickerDialog != null) {
+            datePickerDialog.setOnDateSetListener(this);
+        }
     }
 
     @Override
@@ -70,6 +72,6 @@ public class ChooseLocationFragment extends Fragment implements
 
     @Override
     public void onTimeSet(RadialPickerLayout radialPickerLayout, int i, int i1, int i2, int i3) {
-
+        // nothing to do here
     }
 }
