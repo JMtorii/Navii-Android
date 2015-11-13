@@ -19,7 +19,7 @@ import java.util.Calendar;
  * Created by JMtorii on 2015-10-13.
  */
 public class ChooseLocationFragment extends Fragment implements
-        DatePickerDialog.OnDateSetListener,TimePickerDialog.OnTimeSetListener {
+        DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     private Button mDateButton;
     private TextView mDateTextView;
@@ -71,7 +71,7 @@ public class ChooseLocationFragment extends Fragment implements
     }
 
     @Override
-    public void onTimeSet(RadialPickerLayout radialPickerLayout, int i, int i1, int i2, int i3) {
-        // nothing to do here
+    public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute, int hourOfDayEnd, int minuteEnd) {
+
     }
 }
