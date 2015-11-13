@@ -79,11 +79,17 @@
             android:id="@+id/choose_location_travellers_button" />
     </LinearLayout>
 
-    <ImageView
-        android:layout_width="250dp"
-        android:layout_height="190dp"
-        android:id="@+id/choose_location_tmp_image"
-        android:layout_gravity="center_horizontal"
-        android:src="@drawable/rough_calendar" />
+    <Button
+        android:id="@+id/choose_location_date_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date mofo" />
+
+    <TextView
+        android:id="@+id/choose_location_date_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="i dunno"
+        android:layout_marginTop="10dp" />
 
 </LinearLayout>
