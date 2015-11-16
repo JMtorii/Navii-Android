@@ -2,24 +2,26 @@ package com.teamawesome.navii.fragment.planning;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.borax12.materialdaterangepicker.date.DatePickerDialog;
-import com.borax12.materialdaterangepicker.time.RadialPickerLayout;
-import com.borax12.materialdaterangepicker.time.TimePickerDialog;
+import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment;
 import com.teamawesome.navii.R;
 
-import java.util.Calendar;
+import org.joda.time.DateTime;
+
 
 /**
  * Created by JMtorii on 2015-10-13.
  */
-public class ChooseLocationFragment extends Fragment implements
-        DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+
+public class ChooseLocationFragment extends Fragment implements CalendarDatePickerDialogFragment.OnDateSetListener {
+
+    private static final String FRAG_TAG_DATE_PICKER = "fragment_date_picker_name";
 
     private Button mDateButton;
     private TextView mDateTextView;
@@ -37,41 +39,36 @@ public class ChooseLocationFragment extends Fragment implements
         mDateButton = (Button) v.findViewById(R.id.choose_location_date_button);
         mDateTextView = (TextView) v.findViewById(R.id.choose_location_date_textview);
 
-        // Show a datepicker when the dateButton is clicked
         mDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Calendar now = Calendar.getInstance();
-                DatePickerDialog dpd = com.borax12.materialdaterangepicker.date.DatePickerDialog.newInstance(
-                        ChooseLocationFragment.this,
-                        now.get(Calendar.YEAR),
-                        now.get(Calendar.MONTH),
-                        now.get(Calendar.DAY_OF_MONTH)
-                );
-                dpd.show(getActivity().getFragmentManager(), "Datepickerdialog");
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                DateTime now = DateTime.now();
+                CalendarDatePickerDialogFragment calendarDatePickerDialogFragment = CalendarDatePickerDialogFragment
+                        .newInstance(ChooseLocationFragment.this, now.getYear(), now.getMonthOfYear() - 1,
+                                now.getDayOfMonth());
+                calendarDatePickerDialogFragment.setThemeDark(true);
+                calendarDatePickerDialogFragment.show(fm, FRAG_TAG_DATE_PICKER);
             }
         });
+
 
         return v;
     }
 
     @Override
+    public void onDateSet(CalendarDatePickerDialogFragment dialog, int year, int monthOfYear, int dayOfMonth) {
+        mDateTextView.setText("Year: " + year + "\nMonth: " + monthOfYear + "\nDay: " + dayOfMonth);
+    }
+
+    @Override
     public void onResume() {
+        // Example of reattaching to the fragment
         super.onResume();
-        DatePickerDialog datePickerDialog = (DatePickerDialog) getActivity().getFragmentManager().findFragmentByTag("Datepickerdialog");
-        if (datePickerDialog != null) {
-            datePickerDialog.setOnDateSetListener(this);
+        CalendarDatePickerDialogFragment calendarDatePickerDialogFragment = (CalendarDatePickerDialogFragment) getActivity().getSupportFragmentManager()
+                .findFragmentByTag(FRAG_TAG_DATE_PICKER);
+        if (calendarDatePickerDialogFragment != null) {
+            calendarDatePickerDialogFragment.setOnDateSetListener(this);
         }
-    }
-
-    @Override
-    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth,int yearEnd, int monthOfYearEnd, int dayOfMonthEnd) {
-        String date = "You picked the following date: From- "+dayOfMonth+"/"+(++monthOfYear)+"/"+year+" To "+dayOfMonthEnd+"/"+(++monthOfYearEnd)+"/"+yearEnd;
-        mDateTextView.setText(date);
-    }
-
-    @Override
-    public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute, int hourOfDayEnd, int minuteEnd) {
-
     }
 }
