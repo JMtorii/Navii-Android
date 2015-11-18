@@ -1,4 +1,4 @@
-# Geese-Android		
+# Navii-Android		
 
 If we have other stuff to add, I'll move this to the Wiki section.
 
@@ -30,9 +30,11 @@ View pager indicators. This is a rather old library, so please be careful when u
 ### [Bearded-Hen/Android-Bootstrap](https://github.com/Bearded-Hen/Android-Bootstrap)
 A library with Bootstrap-style widgets with Glyph Icons. Very useful for better buttons, textboxes, and images.
 
+### [anton46/Foursquare-CollectionPicker](https://github.com/anton46/Foursquare-CollectionPicker)
+Tags-like picker similar to Foursquare.
+
 ### [borax12/MaterialDateRangePicker](https://github.com/borax12/MaterialDateRangePicker)
 A material dialog date range picker. TODO: remove this.
-
 
 Possible Libraries
 ---------------------------------
@@ -56,6 +58,3 @@ Common useful animations.
 
 ### [makovkaster/FloatingActionButton](https://github.com/makovkastar/FloatingActionButton)
 A cool Android floating action button.
-
-### [anton46/Foursquare-CollectionPicker](https://github.com/anton46/Foursquare-CollectionPicker)
-Tags-like picker similar to Foursquare.
