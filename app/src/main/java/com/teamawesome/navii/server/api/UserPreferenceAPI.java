@@ -28,7 +28,10 @@ public interface UserPreferenceAPI {
     Call<UserPreference> createUserPreference(@Body UserPreference user);
 
     @Headers({"Content-Type: application/json", "Cache-Control: no-cache"})
-    @GET("/userpreference/{username}")
+    @GET("/userpreference/{userId}")
     Call<ArrayList<Preferences>> getAllUserPreferences(@Path("userId") String userId);
 
+    @Headers({"Content-Type: application/json", "Cache-Control: no-cache"})
+    @DELETE("/userpreference/{userId}")
+    Call<UserPreference> deleteAllUserPreference(@Path("userId") String userId);
 }

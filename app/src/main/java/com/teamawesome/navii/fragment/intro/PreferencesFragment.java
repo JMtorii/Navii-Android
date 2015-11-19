@@ -1,5 +1,6 @@
 package com.teamawesome.navii.fragment.intro;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -11,6 +12,8 @@ import android.widget.Toast;
 
 import com.beardedhen.androidbootstrap.BootstrapCircleThumbnail;
 import com.teamawesome.navii.R;
+import com.teamawesome.navii.activity.IntroActivity;
+import com.teamawesome.navii.activity.MainActivity;
 import com.teamawesome.navii.server.api.UserPreferenceAPI;
 import com.teamawesome.navii.server.model.UserPreference;
 import com.teamawesome.navii.util.Constants;
@@ -49,31 +52,7 @@ public class PreferencesFragment extends Fragment {
 
         mNextButton = (Button) view.findViewById(R.id.preferences_next_button);
         mNextButton.setOnClickListener(mButtonOnClickListener);
-//        BootstrapCircleThumbnail mPreference1 = (BootstrapCircleThumbnail) view.findViewById(R.id.preferences_1);
-//        BootstrapCircleThumbnail mPreference2 = (BootstrapCircleThumbnail) view.findViewById(R.id.preferences_2);
-//        BootstrapCircleThumbnail mPreference3 = (BootstrapCircleThumbnail) view.findViewById(R.id.preferences_3);
-//        BootstrapCircleThumbnail mPreference4 = (BootstrapCircleThumbnail) view.findViewById(R.id.preferences_4);
-//        BootstrapCircleThumbnail mPreference5 = (BootstrapCircleThumbnail) view.findViewById(R.id.preferences_5);
-//        BootstrapCircleThumbnail mPreference6 = (BootstrapCircleThumbnail) view.findViewById(R.id.preferences_6);
-//        BootstrapCircleThumbnail mPreference7 = (BootstrapCircleThumbnail) view.findViewById(R.id.preferences_7);
-//        BootstrapCircleThumbnail mPreference8 = (BootstrapCircleThumbnail) view.findViewById(R.id.preferences_8);
-//        BootstrapCircleThumbnail mPreference9 = (BootstrapCircleThumbnail) view.findViewById(R.id.preferences_9);
-//        BootstrapCircleThumbnail mPreference10 = (BootstrapCircleThumbnail) view.findViewById(R.id.preferences_10);
-//        BootstrapCircleThumbnail mPreference11 = (BootstrapCircleThumbnail) view.findViewById(R.id.preferences_11);
-//        BootstrapCircleThumbnail mPreference12 = (BootstrapCircleThumbnail) view.findViewById(R.id.preferences_12);
 
-//        mPreference1.setOnClickListener(mOnClickListener);
-//        mPreference2.setOnClickListener(mOnClickListener);
-//        mPreference3.setOnClickListener(mOnClickListener);
-//        mPreference4.setOnClickListener(mOnClickListener);
-//        mPreference5.setOnClickListener(mOnClickListener);
-//        mPreference6.setOnClickListener(mOnClickListener);
-//        mPreference7.setOnClickListener(mOnClickListener);
-//        mPreference8.setOnClickListener(mOnClickListener);
-//        mPreference9.setOnClickListener(mOnClickListener);
-//        mPreference10.setOnClickListener(mOnClickListener);
-//        mPreference11.setOnClickListener(mOnClickListener);
-//        mPreference12.setOnClickListener(mOnClickListener);
         return view;
 
     }
@@ -81,8 +60,11 @@ public class PreferencesFragment extends Fragment {
     View.OnClickListener mButtonOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Log.d("PreferenceFragment", "mButtonOnClickListener()");
-            Log.d("PreferenceFragment", "List: " + mSelectedPrefereces.toString());
+
+            if (mPreferencesCount < 5) {
+                Toast.makeText(getContext(), "You have less than 5 selected preferences", Toast.LENGTH_LONG).show();
+                return;
+            }
 
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(Constants.SERVER_URL)    // THIS ONLY WORKS ON JUN'S CASE
@@ -95,23 +77,39 @@ public class PreferencesFragment extends Fragment {
                     .username("android-user")
                     .preferences((List<String>) mSelectedPrefereces)
                     .build();
+
             Call<UserPreference> call = userPreferenceAPI.createUserPreference(userPreference);
+
+            Call<UserPreference> deletecall = userPreferenceAPI.deleteAllUserPreference("android-user");
 
             // This does an async call.
             // Use "execute" instead for a sync call.
             // Call "call.cancel()" to cancel a running request.
-            call.enqueue(new Callback<UserPreference>() {
-                @Override
-                public void onResponse(Response<UserPreference> response, Retrofit retrofit) {
-                    Log.i("response: code", String.valueOf(response.code()));
-                }
 
-                @Override
-                public void onFailure(Throwable t) {
-                    Log.i("failed", t.getMessage());
-                }
-            });
+            call.enqueue(preferenceCallBack);
 
+            if (getActivity().getClass() == IntroActivity.class) {
+
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+
+                getContext().startActivity(intent);
+            }
+
+        }
+    };
+
+    Callback<UserPreference> preferenceCallBack = new Callback<UserPreference>() {
+        @Override
+        public void onResponse(Response<UserPreference> response, Retrofit retrofit) {
+            Log.i("response: code", String.valueOf(response.code()));
+
+
+        }
+
+        @Override
+        public void onFailure(Throwable t) {
+            Log.i("failed", t.getMessage());
+            Toast.makeText(getContext(), "Could not update",Toast.LENGTH_LONG).show();
         }
     };
 //    View.OnClickListener mOnClickListener = new View.OnClickListener() {
@@ -124,8 +122,6 @@ public class PreferencesFragment extends Fragment {
 //    };
 
     public void preferencesOnClick(View view) {
-        Log.d("PreferenceFragment", "onClick()" + view.getTag());
-
         BootstrapCircleThumbnail bootstrapCircleThumbnail = (BootstrapCircleThumbnail) view;
         boolean isSelected = !bootstrapCircleThumbnail.isSelected();
 
