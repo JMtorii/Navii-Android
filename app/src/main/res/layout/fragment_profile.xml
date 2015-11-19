@@ -53,7 +53,7 @@
         android:textSize="18sp"
         android:gravity="center_vertical"
         android:textAlignment="center"
-        android:text="f_is_friends_how_do_stuff_together"
+        android:text="f_is_friends_who_do_stuff_together"
         android:paddingLeft="20dp"
         />
 
