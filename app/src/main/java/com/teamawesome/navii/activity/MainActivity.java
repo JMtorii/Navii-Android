@@ -19,7 +19,9 @@ import android.widget.ListView;
 
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.fragment.main.ChooseLocationFragment;
+import com.teamawesome.navii.fragment.main.MainFragment;
 import com.teamawesome.navii.fragment.main.NotificationsFragment;
+import com.teamawesome.navii.fragment.main.OnFocusListenable;
 import com.teamawesome.navii.fragment.main.PlannedTripsFragment;
 import com.teamawesome.navii.fragment.main.PreferencesFragment;
 import com.teamawesome.navii.fragment.main.ProfileFragment;
@@ -91,6 +93,16 @@ public class MainActivity extends AppCompatActivity {
         if (f != null && !f.getTag().equals(Constants.CHOOSE_LOCATION_FRAGMENT_TAG)) {
             Log.v("test", f.getTag());
             super.onBackPressed();
+        }
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag(Constants.PROFILE_FRAGMENT_TAG);
+        if (fragment != null && fragment.isVisible() && fragment instanceof OnFocusListenable) {
+            ((OnFocusListenable) fragment).onWindowFocusChanged(hasFocus);
         }
     }
 
