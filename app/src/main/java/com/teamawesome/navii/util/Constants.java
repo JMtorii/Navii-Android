@@ -7,7 +7,7 @@ public class Constants {
     private Constants() {}
 
     // TODO: move to config file based on environment. Have Jenkins inject?
-    public static final String SERVER_URL = "http://192.168.57.1:8080";
+    public static final String SERVER_URL = "http://localhost:8080";
 
     // View
     public static final int NO_ANIM = -1;
@@ -20,6 +20,7 @@ public class Constants {
 
     public static final String PLANNING_SAVED_TRIPS_FRAGMENT_TAG = "PLANNING_SAVED_TRIPS_FRAGMENT_TAG";
     public static final String PLANNING_PLANNED_TRIPS_FRAGMENT_TAG = "PLANNING_PLANNED_TRIPS_FRAGMENT_TAG";
+    public static final String PLANNING_CHOOSE_TAGS_FRAGMENT_TAG = "PLANNING_CHOOSE_TAGS_FRAGMENT_TAG";
 
     public static final String NOTIFICATIONS_FRAGMENT_TAG = "NOTIFICATIONS_FRAGMENT_TAG";
     public static final String PREFERENCES_FRAGMENT_TAG = "PREFERENCES_FRAGMENT_TAG";

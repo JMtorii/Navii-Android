@@ -1,15 +1,21 @@
 package com.teamawesome.navii.fragment.intro;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.MainActivity;
 import com.teamawesome.navii.util.Constants;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by JMtorii on 2015-10-17.
@@ -28,15 +34,16 @@ public class IntroThanksFragment extends IntroFragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_intro_thanks, container, false);
         mNextButton = (Button) v.findViewById(R.id.intro_thanks_next_button);
+
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BuzzFeedTagsFragment fragment = new BuzzFeedTagsFragment();
+                PreferencesFragment fragment = new PreferencesFragment();
                 parentActivity.switchFragment(
                         fragment,
                         Constants.NO_ANIM,
                         Constants.NO_ANIM,
-                        Constants.INTRO_THANKS_FRAGMENT_TAG,
+                        Constants.PREFERENCES_FRAGMENT_TAG,
                         true,
                         true,
                         true
@@ -48,4 +55,5 @@ public class IntroThanksFragment extends IntroFragment {
         });
         return v;
     }
+
 }

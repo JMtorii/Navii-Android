@@ -19,13 +19,13 @@ import android.widget.ListView;
 
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.fragment.main.ChooseLocationFragment;
-import com.teamawesome.navii.fragment.main.MainFragment;
 import com.teamawesome.navii.fragment.main.NotificationsFragment;
 import com.teamawesome.navii.fragment.main.OnFocusListenable;
 import com.teamawesome.navii.fragment.main.PlannedTripsFragment;
-import com.teamawesome.navii.fragment.main.PreferencesFragment;
+import com.teamawesome.navii.fragment.intro.PreferencesFragment;
 import com.teamawesome.navii.fragment.main.ProfileFragment;
 import com.teamawesome.navii.fragment.main.SavedTripsFragment;
+import com.teamawesome.navii.fragment.main.ChooseTagsFragment;
 import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.NaviiFragmentManager;
 
@@ -46,6 +46,9 @@ public class MainActivity extends AppCompatActivity {
 
     // Fragment manager
     private String curFragmentTag = Constants.CHOOSE_LOCATION_FRAGMENT_TAG;
+
+    //For preferenceFragment onClick function
+    private PreferencesFragment mPreferencesFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -209,12 +212,16 @@ public class MainActivity extends AppCompatActivity {
             case 3:         // Preferences
                 fragment = new PreferencesFragment();
                 tag = Constants.PREFERENCES_FRAGMENT_TAG;
+                mPreferencesFragment = (PreferencesFragment)fragment;
                 break;
             case 4:         // Notifications
                 fragment = new NotificationsFragment();
                 tag = Constants.NOTIFICATIONS_FRAGMENT_TAG;
                 break;
-            case 5:         // Logout
+            case 5:          // Tags
+                fragment = new ChooseTagsFragment();
+                tag = Constants.PLANNING_CHOOSE_TAGS_FRAGMENT_TAG;
+            case 6:         // Logout
                 Intent intent = new Intent(this, IntroActivity.class);
                 startActivity(intent);
                 tag = "";
@@ -242,4 +249,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+    public void preferenceOnClick(View view) {
+        mPreferencesFragment.preferencesOnClick(view);
+    }
+
 }

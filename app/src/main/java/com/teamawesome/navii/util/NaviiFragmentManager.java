@@ -4,6 +4,7 @@ package com.teamawesome.navii.util;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 
 /**
  * Created by JMtorii on 15-09-20.
@@ -43,9 +44,9 @@ public class NaviiFragmentManager {
     public void switchFragment(Fragment newFragment, int enterAnim, int exitAnim, String tag,
                                boolean isReplace, boolean clearBackStack,
                                boolean isAddedToBackStack) {
-        if (clearBackStack) {
-            mFragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        }
+//        if (clearBackStack) {
+//            mFragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+//        }
 
         FragmentTransaction ft = mFragmentManager.beginTransaction();
 
