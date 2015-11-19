@@ -5,8 +5,8 @@ If we have other stuff to add, I'll move this to the Wiki section.
 Useful Libraries		
 ------------------		
 Before implementing a new custom view or special features, please check out https://github.com/codepath/android_guides/wiki/Must-Have-Libraries.
-This link has a lot of useful components, views, animations, and helper classes. Be careful of the libraries that haven't been updated in the
-past few months though. Check the module settings to see what libraries are currently being implemented.
+This link has a lot of useful components, views, animations, and helper classes. Be careful of libraries that haven't been updated recently or
+does not have myn commits. Check the module settings to see what libraries we are currently implementing.
 
 
 Currently Implemented Libraries
@@ -14,6 +14,9 @@ Currently Implemented Libraries
 ### [appcompat-v7](http://developer.android.com/tools/support-library/features.html)
 A support library to be used with Android 2.1 and higher. These are basically feature sets and can be included in the application independently
 from each other.
+
+### [square/picasso](https://github.com/square/picasso)
+An image downloading and caching library.
 
 ### [orhanobut/logger](https://github.com/orhanobut/logger)
 A powerful logger for Android.
@@ -33,17 +36,15 @@ A library with Bootstrap-style widgets with Glyph Icons. Very useful for better 
 ### [anton46/Foursquare-CollectionPicker](https://github.com/anton46/Foursquare-CollectionPicker)
 Tags-like picker similar to Foursquare.
 
-### [borax12/MaterialDateRangePicker](https://github.com/borax12/MaterialDateRangePicker)
-A material dialog date range picker. TODO: remove this.
-
-Possible Libraries
----------------------------------
-### [square/picasso](https://github.com/square/picasso)
-An image downloading and caching library.
-
 ### [daimajia/AndroidImageSlider](https://github.com/daimajia/AndroidImageSlider)
 A view pager specifically for images with nice animations and indicator.
 
+### [code-troopers/android-betterpickers](https://github.com/code-troopers/android-betterpickers)
+A better picker DialogFragments
+
+
+Possible Libraries
+---------------------------------
 ### [cymcsg/UltimateRecyclerView](https://github.com/cymcsg/UltimateRecyclerView)
 A list view with more features like loading, animations, and refreshing. Basically, a list view on steroids.
 

@@ -1,21 +1,13 @@
 package com.teamawesome.navii.fragment.intro;
 
-import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 
 import com.teamawesome.navii.R;
-import com.teamawesome.navii.activity.MainActivity;
 import com.teamawesome.navii.util.Constants;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by JMtorii on 2015-10-17.

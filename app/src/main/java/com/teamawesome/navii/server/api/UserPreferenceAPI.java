@@ -1,6 +1,5 @@
 package com.teamawesome.navii.server.api;
 
-import com.teamawesome.navii.server.model.User;
 import com.teamawesome.navii.server.model.UserPreference;
 
 import java.util.ArrayList;
@@ -8,11 +7,9 @@ import java.util.prefs.Preferences;
 
 import retrofit.Call;
 import retrofit.http.Body;
-import retrofit.http.DELETE;
 import retrofit.http.GET;
 import retrofit.http.Headers;
 import retrofit.http.POST;
-import retrofit.http.PUT;
 import retrofit.http.Path;
 
 /**
