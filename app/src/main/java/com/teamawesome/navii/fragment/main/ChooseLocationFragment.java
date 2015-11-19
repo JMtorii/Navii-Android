@@ -1,7 +1,6 @@
 package com.teamawesome.navii.fragment.main;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +26,7 @@ import java.util.Map;
  * Created by JMtorii on 2015-10-13.
  */
 
-public class ChooseLocationFragment extends Fragment implements CalendarDatePickerDialogFragment.OnDateSetListener, BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
+public class ChooseLocationFragment extends MainFragment implements CalendarDatePickerDialogFragment.OnDateSetListener, BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
 
     private static final String FRAG_TAG_DATE_PICKER = "fragment_date_picker_name";
 
@@ -52,7 +51,7 @@ public class ChooseLocationFragment extends Fragment implements CalendarDatePick
         mDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fm = getActivity().getSupportFragmentManager();
+                FragmentManager fm = parentActivity.getSupportFragmentManager();
                 DateTime now = DateTime.now();
                 CalendarDatePickerDialogFragment calendarDatePickerDialogFragment = CalendarDatePickerDialogFragment
                         .newInstance(ChooseLocationFragment.this, now.getYear(), now.getMonthOfYear() - 1,
@@ -71,7 +70,7 @@ public class ChooseLocationFragment extends Fragment implements CalendarDatePick
     public void onResume() {
         // Example of reattaching to the fragment
         super.onResume();
-        CalendarDatePickerDialogFragment calendarDatePickerDialogFragment = (CalendarDatePickerDialogFragment) getActivity().getSupportFragmentManager()
+        CalendarDatePickerDialogFragment calendarDatePickerDialogFragment = (CalendarDatePickerDialogFragment) parentActivity.getSupportFragmentManager()
                 .findFragmentByTag(FRAG_TAG_DATE_PICKER);
         if (calendarDatePickerDialogFragment != null) {
             calendarDatePickerDialogFragment.setOnDateSetListener(this);
@@ -118,7 +117,7 @@ public class ChooseLocationFragment extends Fragment implements CalendarDatePick
         file_maps.put("Air Canada Centre", R.drawable.toronto4);
 
         for (String name : file_maps.keySet()) {
-            TextSliderView textSliderView = new TextSliderView(getActivity());
+            TextSliderView textSliderView = new TextSliderView(parentActivity);
             // initialize a SliderLayout
             textSliderView
                     .description(name)
