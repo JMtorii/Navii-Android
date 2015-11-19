@@ -221,6 +221,7 @@ public class MainActivity extends AppCompatActivity {
             case 5:          // Tags
                 fragment = new ChooseTagsFragment();
                 tag = Constants.PLANNING_CHOOSE_TAGS_FRAGMENT_TAG;
+                break;
             case 6:         // Logout
                 Intent intent = new Intent(this, IntroActivity.class);
                 startActivity(intent);
