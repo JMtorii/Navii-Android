@@ -47,7 +47,7 @@
                     android:layout_height="70dp"
                     android:background="#111"
                     android:text="This is a test."
-                    android:textColor="@color/whiteBackground"
+                    android:textColor="@color/chalkWhite"
                     android:duplicateParentState="true"/>
 
             </LinearLayout>

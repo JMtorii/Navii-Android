@@ -14,18 +14,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.teamawesome.navii.R;
-import com.teamawesome.navii.fragment.intro.IntroFragment;
-import com.teamawesome.navii.fragment.planning.ChooseLocationFragment;
-import com.teamawesome.navii.fragment.planning.NotificationsFragment;
-import com.teamawesome.navii.fragment.planning.PlannedTripsFragment;
-import com.teamawesome.navii.fragment.planning.PreferencesFragment;
-import com.teamawesome.navii.fragment.planning.ProfileFragment;
-import com.teamawesome.navii.fragment.planning.SavedTripsFragment;
+import com.teamawesome.navii.fragment.main.ChooseLocationFragment;
+import com.teamawesome.navii.fragment.main.NotificationsFragment;
+import com.teamawesome.navii.fragment.main.PlannedTripsFragment;
+import com.teamawesome.navii.fragment.main.PreferencesFragment;
+import com.teamawesome.navii.fragment.main.ProfileFragment;
+import com.teamawesome.navii.fragment.main.SavedTripsFragment;
 import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.NaviiFragmentManager;
 

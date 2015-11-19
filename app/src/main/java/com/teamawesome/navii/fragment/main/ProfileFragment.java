@@ -1,7 +1,6 @@
-package com.teamawesome.navii.fragment.planning;
+package com.teamawesome.navii.fragment.main;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +10,11 @@ import com.teamawesome.navii.R;
 /**
  * Created by JMtorii on 2015-11-01.
  */
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends MainFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        parentActivity.setTitle("Spongebob Squarepants");
     }
 
     @Override

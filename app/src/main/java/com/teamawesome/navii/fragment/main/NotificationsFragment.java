@@ -1,4 +1,4 @@
-package com.teamawesome.navii.fragment.planning;
+package com.teamawesome.navii.fragment.main;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

@@ -1,4 +1,4 @@
-package com.teamawesome.navii.fragment.planning;
+package com.teamawesome.navii.fragment.main;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,7 +11,7 @@ import com.teamawesome.navii.R;
 /**
  * Created by JMtorii on 2015-10-30.
  */
-public class PlannedTripsFragment extends Fragment {
+public class PreferencesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,7 +21,7 @@ public class PlannedTripsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_planned_trips, container, false);
+        View v = inflater.inflate(R.layout.fragment_preferences, container, false);
 
         return v;
     }

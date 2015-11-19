@@ -7,8 +7,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="1"
-    android:background="@color/whiteBackground"
-    tools:context="com.teamawesome.navii.fragment.planning.ChooseLocationFragment">
+    android:background="@color/chalkWhite"
+    tools:context="com.teamawesome.navii.fragment.main.ChooseLocationFragment">
 
     <com.daimajia.slider.library.SliderLayout
         android:id="@+id/choose_location_slider_layout"
