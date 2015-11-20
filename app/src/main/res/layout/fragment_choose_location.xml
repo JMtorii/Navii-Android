@@ -2,6 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -70,33 +71,19 @@
         android:paddingRight="20dp"
         android:layout_marginTop="20dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Choose your destination"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:textSize="15sp" />
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_vertical|center_horizontal">
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Select Dates"
-            android:id="@+id/choose_location_select_dates_button" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Travellers"
-            android:id="@+id/choose_location_travellers_button" />
-    </LinearLayout>
+    <com.beardedhen.androidbootstrap.BootstrapButton
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:text="Go to awesomeness"
+        android:layout_weight="1"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:id="@+id/choose_location_next_button"
+        app:roundedCorners="true"
+        app:bootstrapBrand="info"
+        app:bootstrapSize="md"
+        app:buttonMode="regular"
+        app:showOutline="false" />
 
     <Button
         android:id="@+id/choose_location_date_button"

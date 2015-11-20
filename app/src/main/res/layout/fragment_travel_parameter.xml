@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+        android:id="@+id/travel_paramenter_child_up_button"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:src="@drawable/imagination"
+        android:background="#111"
+        android:layout_marginTop="30dp"
+        app:bootstrapBrand="info"
+        app:showOutline="false"/>
+
+    <com.beardedhen.androidbootstrap.AwesomeTextView
+        android:id="@+id/travel_paramenter_child_text"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:text="0 Children"
+        android:textColor="@android:color/black"/>
+
+    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+        android:id="@+id/travel_parameter_child_down_button"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:src="@drawable/imagination"
+        android:background="#111"
+        app:bootstrapBrand="info"
+        app:showOutline="false"/>
+
+
+
+</LinearLayout>

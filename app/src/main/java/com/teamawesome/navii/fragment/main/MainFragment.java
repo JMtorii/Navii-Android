@@ -8,7 +8,7 @@ import com.teamawesome.navii.activity.MainActivity;
 /**
  * Created by JMtorii on 2015-11-18.
  */
-public class MainFragment extends Fragment {
+public abstract class MainFragment extends Fragment {
     protected MainActivity parentActivity;
 
     @Override

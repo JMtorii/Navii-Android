@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment;
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
@@ -15,6 +16,7 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.teamawesome.navii.R;
+import com.teamawesome.navii.util.Constants;
 
 import org.joda.time.DateTime;
 
@@ -33,6 +35,7 @@ public class ChooseLocationFragment extends MainFragment implements CalendarDate
     private Button mDateButton;
     private TextView mDateTextView;
     private SliderLayout mSliderLayout;
+    private BootstrapButton mNextButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,7 @@ public class ChooseLocationFragment extends MainFragment implements CalendarDate
         mDateButton = (Button) v.findViewById(R.id.choose_location_date_button);
         mDateTextView = (TextView) v.findViewById(R.id.choose_location_date_textview);
         mSliderLayout = (SliderLayout) v.findViewById(R.id.choose_location_slider_layout);
+        mNextButton = (BootstrapButton) v.findViewById(R.id.choose_location_next_button);
 
         mDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +62,24 @@ public class ChooseLocationFragment extends MainFragment implements CalendarDate
                                 now.getDayOfMonth());
                 calendarDatePickerDialogFragment.setThemeDark(true);
                 calendarDatePickerDialogFragment.show(fm, FRAG_TAG_DATE_PICKER);
+            }
+        });
+
+        mNextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TravelParameterFragment fragment = new TravelParameterFragment();
+
+                // TODO: still need to hook up the button to the TravelParameterFragment.
+//                parentActivity.switchFragment(
+//                        fragment,
+//                        Constants.NO_ANIM,
+//                        Constants.NO_ANIM,
+//                        Constants.INTRO_PAYMENT_FRAGMENT_TAG,
+//                        true,
+//                        true,
+//                        true
+//                );
             }
         });
 
