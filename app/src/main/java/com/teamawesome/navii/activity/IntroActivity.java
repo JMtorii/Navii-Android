@@ -21,8 +21,6 @@ public class IntroActivity extends AppCompatActivity {
 
     private NaviiFragmentManager fm;
 
-    private PreferencesFragment mPreferencesFragment;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,15 +60,5 @@ public class IntroActivity extends AppCompatActivity {
                 clearBackStack,
                 isAddedToBackStack
         );
-
-        // TODO: Remove this. WTF. We shouldn't need to make an exception for just one fragment.
-        // TODO: == instead of equals() is unacceptable. == checks references; not contents
-        if (tag == Constants.PREFERENCES_FRAGMENT_TAG) {
-            mPreferencesFragment = (PreferencesFragment) newFragment;
-        }
-    }
-
-    public void preferenceOnClick(View view) {
-        mPreferencesFragment.preferencesOnClick(view);
     }
 }

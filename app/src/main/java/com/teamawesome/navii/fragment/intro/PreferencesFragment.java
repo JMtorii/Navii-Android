@@ -47,14 +47,41 @@ public class PreferencesFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_intro_preferences, container, false);
+
         mSelectedPrefereces = new ArrayList<>();
         mPreferencesCount = 0;
 
         mNextButton = (Button) view.findViewById(R.id.preferences_next_button);
         mNextButton.setOnClickListener(mButtonOnClickListener);
 
-        return view;
+        // Circle Thumbnail setup
+        BootstrapCircleThumbnail preferences1 = (BootstrapCircleThumbnail) view.findViewById(R.id.preferences_1);
+        BootstrapCircleThumbnail preferences2 = (BootstrapCircleThumbnail) view.findViewById(R.id.preferences_2);
+        BootstrapCircleThumbnail preferences3 = (BootstrapCircleThumbnail) view.findViewById(R.id.preferences_3);
+        BootstrapCircleThumbnail preferences4 = (BootstrapCircleThumbnail) view.findViewById(R.id.preferences_4);
+        BootstrapCircleThumbnail preferences5 = (BootstrapCircleThumbnail) view.findViewById(R.id.preferences_5);
+        BootstrapCircleThumbnail preferences6 = (BootstrapCircleThumbnail) view.findViewById(R.id.preferences_6);
+        BootstrapCircleThumbnail preferences7 = (BootstrapCircleThumbnail) view.findViewById(R.id.preferences_7);
+        BootstrapCircleThumbnail preferences8 = (BootstrapCircleThumbnail) view.findViewById(R.id.preferences_8);
+        BootstrapCircleThumbnail preferences9 = (BootstrapCircleThumbnail) view.findViewById(R.id.preferences_9);
+        BootstrapCircleThumbnail preferences10 = (BootstrapCircleThumbnail) view.findViewById(R.id.preferences_10);
+        BootstrapCircleThumbnail preferences11 = (BootstrapCircleThumbnail) view.findViewById(R.id.preferences_11);
+        BootstrapCircleThumbnail preferences12 = (BootstrapCircleThumbnail) view.findViewById(R.id.preferences_12);
 
+        preferences1.setOnClickListener(mPreferencesOnClickListener);
+        preferences2.setOnClickListener(mPreferencesOnClickListener);
+        preferences3.setOnClickListener(mPreferencesOnClickListener);
+        preferences4.setOnClickListener(mPreferencesOnClickListener);
+        preferences5.setOnClickListener(mPreferencesOnClickListener);
+        preferences6.setOnClickListener(mPreferencesOnClickListener);
+        preferences7.setOnClickListener(mPreferencesOnClickListener);
+        preferences8.setOnClickListener(mPreferencesOnClickListener);
+        preferences9.setOnClickListener(mPreferencesOnClickListener);
+        preferences10.setOnClickListener(mPreferencesOnClickListener);
+        preferences11.setOnClickListener(mPreferencesOnClickListener);
+        preferences12.setOnClickListener(mPreferencesOnClickListener);
+
+        return view;
     }
 
     View.OnClickListener mButtonOnClickListener = new View.OnClickListener() {
@@ -75,26 +102,48 @@ public class PreferencesFragment extends Fragment {
 
             UserPreference userPreference = new UserPreference.Builder()
                     .username("android-user")
-                    .preferences((List<String>) mSelectedPrefereces)
+                    .preferences(mSelectedPrefereces)
                     .build();
 
-            Call<UserPreference> call = userPreferenceAPI.createUserPreference(userPreference);
-
             Call<UserPreference> deletecall = userPreferenceAPI.deleteAllUserPreference("android-user");
+            Call<UserPreference> call = userPreferenceAPI.createUserPreference(userPreference);
 
             // This does an async call.
             // Use "execute" instead for a sync call.
             // Call "call.cancel()" to cancel a running request.
 
+            deletecall.enqueue(preferenceCallBack);
             call.enqueue(preferenceCallBack);
 
             if (getActivity().getClass() == IntroActivity.class) {
-
                 Intent intent = new Intent(getActivity(), MainActivity.class);
-
                 getContext().startActivity(intent);
             }
+        }
+    };
 
+    View.OnClickListener mPreferencesOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            BootstrapCircleThumbnail bootstrapCircleThumbnail = (BootstrapCircleThumbnail) v;
+            boolean isSelected = !bootstrapCircleThumbnail.isSelected();
+
+            if (isSelected) {
+                if (mPreferencesCount == 5) {
+                    Toast.makeText(getContext(), "Cannot add another preference", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                mSelectedPrefereces.add((String) bootstrapCircleThumbnail.getTag());
+                mPreferencesCount++;
+            } else {
+
+                mSelectedPrefereces.remove(bootstrapCircleThumbnail.getTag());
+                mPreferencesCount--;
+            }
+
+            bootstrapCircleThumbnail.setSelected(isSelected);
+            bootstrapCircleThumbnail.setBorderDisplayed(isSelected);
         }
     };
 
@@ -102,8 +151,6 @@ public class PreferencesFragment extends Fragment {
         @Override
         public void onResponse(Response<UserPreference> response, Retrofit retrofit) {
             Log.i("response: code", String.valueOf(response.code()));
-
-
         }
 
         @Override
@@ -112,35 +159,5 @@ public class PreferencesFragment extends Fragment {
             Toast.makeText(getContext(), "Could not update",Toast.LENGTH_LONG).show();
         }
     };
-//    View.OnClickListener mOnClickListener = new View.OnClickListener() {
-//        @Override
-//        public void onClick(View v) {
-//            Log.d("PreferenceFragment", "onClick()");
-//
-//
-//        }
-//    };
 
-    public void preferencesOnClick(View view) {
-        BootstrapCircleThumbnail bootstrapCircleThumbnail = (BootstrapCircleThumbnail) view;
-        boolean isSelected = !bootstrapCircleThumbnail.isSelected();
-
-        if (isSelected) {
-            if (mPreferencesCount == 5) {
-                Toast.makeText(getContext(), "Cannot add another preference", Toast.LENGTH_LONG).show();
-                return;
-            }
-            mSelectedPrefereces.add((String) bootstrapCircleThumbnail.getTag());
-            mPreferencesCount++;
-        }
-        else {
-
-            mSelectedPrefereces.remove(bootstrapCircleThumbnail.getTag());
-            mPreferencesCount--;
-        }
-
-        bootstrapCircleThumbnail.setSelected(isSelected);
-        bootstrapCircleThumbnail.setBorderDisplayed(isSelected);
-
-    }
 }
