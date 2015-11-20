@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.anton46.collectionitempicker.CollectionPicker;
 import com.anton46.collectionitempicker.Item;
@@ -32,6 +33,9 @@ public class ChooseTagsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_planning_tags, container, false);
+
+        Button button = (Button) view.findViewById(R.id.tags_next_button);
+
         Item[] items = new Item[]{
                 new Item("able", "able"),
                 new Item("abnormal", "abnormal"),
@@ -67,6 +71,13 @@ public class ChooseTagsFragment extends Fragment {
             @Override
             public void onClick(Item item, int position) {
                 Log.d("OnClick", item.text);
+            }
+        });
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
         return view;

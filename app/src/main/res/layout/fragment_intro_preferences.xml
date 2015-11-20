@@ -61,7 +61,7 @@
             app:hasBorder="false"
             app:paddingStart="0dp"
             app:paddingEnd="0dp"
-            android:background="@drawable/preferences_background"
+            android:background="@drawable/button_background"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"/>
         <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
@@ -73,7 +73,7 @@
             app:hasBorder="false"
             app:paddingStart="0dp"
             app:paddingEnd="0dp"
-            android:background="@drawable/preferences_background"
+            android:background="@drawable/button_background"
             android:src="@drawable/imagination"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true" />
