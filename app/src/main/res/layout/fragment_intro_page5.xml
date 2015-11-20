@@ -18,69 +18,78 @@
             android:layout_gravity="center_horizontal"
             android:src="@drawable/rough_logo" />
 
-        <!--TODO: Move to colors-->
-        <Button
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sign Up"
-            android:id="@+id/intro_page5_sign_up_button"
-            android:layout_gravity="center_horizontal"
-            android:background="@null"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="30sp"
-            android:layout_marginTop="20dp" />
-
-        <EditText
-            android:layout_width="260dp"
-            android:layout_height="30dp"
-            android:inputType="textEmailAddress"
-            android:background="@drawable/edit_text_background"
-            android:ems="10"
-            android:id="@+id/intro_page5_email_edittext"
+            android:text="Enter the App"
             android:layout_gravity="center_horizontal"
-            android:textColor="@android:color/black"
-            android:textColorHint="#D3D3D3"
-            android:textCursorDrawable="@null"
-            android:hint="Email"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:layout_marginTop="30dp" />
-
-        <EditText
-            android:layout_width="260dp"
-            android:layout_height="30dp"
-            android:inputType="textPassword"
-            android:background="@drawable/edit_text_background"
-            android:ems="10"
-            android:id="@+id/intro_page5_password_edittext"
-            android:layout_gravity="center_horizontal"
-            android:textColor="@android:color/black"
-            android:textColorHint="#D3D3D3"
-            android:textCursorDrawable="@null"
-            android:hint="Password"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:layout_marginTop="5dp" />
+            android:layout_marginTop="20dp"
+            android:textSize="30sp" />
 
         <com.beardedhen.androidbootstrap.BootstrapEditText
             android:layout_width="260dp"
             android:layout_height="30dp"
+            android:layout_marginTop="20dp"
             android:layout_gravity="center_horizontal"
             android:textColor="@android:color/black"
             android:textColorHint="#D3D3D3"
+            android:hint="Email"
+            android:id="@+id/intro_page5_email_edittext"
             app:bootstrapSize="md"
             app:bootstrapBrand="info"
-            app:roundedCorners="true"
-            />
+            app:roundedCorners="true" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sign In"
-            android:id="@+id/intro_page5_sign_in_button"
-            android:layout_gravity="right"
-            android:layout_marginRight="30dp"
-            android:background="@null" />
+        <com.beardedhen.androidbootstrap.BootstrapEditText
+            android:layout_width="260dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@android:color/black"
+            android:textColorHint="#D3D3D3"
+            android:hint="Password"
+            android:id="@+id/intro_page5_password_edittext"
+            app:bootstrapSize="md"
+            app:bootstrapBrand="info"
+            app:roundedCorners="true" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal"
+            android:gravity="bottom">
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:text="Sign Up"
+                android:layout_weight="1"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="5dp"
+                android:id="@+id/intro_page5_sign_up_button"
+                app:roundedCorners="true"
+                app:bootstrapBrand="info"
+                app:bootstrapSize="lg"
+                app:buttonMode="regular"
+                app:showOutline="false" />
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:text="Log In"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="15dp"
+                android:id="@+id/intro_page5_login_button"
+                app:roundedCorners="true"
+                app:bootstrapBrand="info"
+                app:bootstrapSize="lg"
+                app:buttonMode="regular"
+                app:showOutline="false" />
+
+        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"

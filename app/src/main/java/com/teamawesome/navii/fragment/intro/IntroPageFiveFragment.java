@@ -1,15 +1,12 @@
 package com.teamawesome.navii.fragment.intro;
 
-import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.IntroActivity;
 import com.teamawesome.navii.util.Constants;
@@ -20,9 +17,9 @@ import com.teamawesome.navii.util.Constants;
 public class IntroPageFiveFragment extends IntroAbstractPageFragment {
 
     private IntroActivity parentActivity;
-    private Button mSignUpButton;
-    private Button mSignInButton;
-    private EditText mEmailEditText;
+    private BootstrapButton mSignUpButton;
+    private BootstrapButton mLoginButton;
+    private BootstrapEditText mEmailEditText;
 
 
     public static IntroPageFiveFragment newInstance(int position) {
@@ -44,9 +41,9 @@ public class IntroPageFiveFragment extends IntroAbstractPageFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_intro_page5, container, false);
-        mSignUpButton = (Button) v.findViewById(R.id.intro_page5_sign_up_button);
-        mSignInButton = (Button) v.findViewById(R.id.intro_page5_sign_in_button);
-        mEmailEditText = (EditText) v.findViewById(R.id.intro_page5_email_edittext);
+        mSignUpButton = (BootstrapButton) v.findViewById(R.id.intro_page5_sign_up_button);
+        mLoginButton = (BootstrapButton) v.findViewById(R.id.intro_page5_login_button);
+        mEmailEditText = (BootstrapEditText) v.findViewById(R.id.intro_page5_email_edittext);
 
         mSignUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,7 +74,7 @@ public class IntroPageFiveFragment extends IntroAbstractPageFragment {
             }
         });
 
-        mSignInButton.setOnClickListener(new View.OnClickListener() {
+        mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
