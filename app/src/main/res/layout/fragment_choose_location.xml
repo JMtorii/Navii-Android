@@ -46,7 +46,9 @@
         style="@style/AndroidImageSlider_Corner_Oval_Orange"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp" />
+        android:layout_marginBottom="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -57,19 +59,17 @@
         android:textColor="@color/black"
         android:layout_marginTop="0dp" />
 
-    <EditText
+    <com.beardedhen.androidbootstrap.BootstrapEditText
         android:layout_width="302dp"
         android:layout_height="40dp"
         android:id="@+id/choose_location_where_edittext"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/edit_text_background"
-        android:ems="10"
         android:textColor="@android:color/black"
         android:textColorHint="#D3D3D3"
-        android:textCursorDrawable="@null"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="20dp"
+        app:bootstrapSize="md"
+        app:roundedCorners="true"
+        />
 
     <com.beardedhen.androidbootstrap.BootstrapButton
         android:layout_width="0dp"

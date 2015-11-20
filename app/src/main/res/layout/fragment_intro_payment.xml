@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/chalkWhite">
@@ -31,21 +32,18 @@
         android:gravity="center"
         android:layout_marginTop="20dp" />
 
-    <EditText
+    <com.beardedhen.androidbootstrap.BootstrapEditText
         android:layout_width="300dp"
         android:layout_height="30dp"
-        android:inputType="numberDecimal"
-        android:background="@drawable/edit_text_background"
-        android:ems="10"
         android:id="@+id/intro_payment_card_edittext"
+        android:inputType="numberDecimal"
         android:layout_gravity="center_horizontal"
         android:textColor="@android:color/black"
         android:textColorHint="#D3D3D3"
-        android:textCursorDrawable="@null"
         android:hint="Card number"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:layout_marginTop="30dp" />
+        android:layout_marginTop="30dp"
+        app:bootstrapSize="md"
+        />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -63,21 +61,18 @@
             android:layout_marginLeft="30dp"
             android:gravity="center_vertical|center_horizontal" />
 
-        <EditText
+        <com.beardedhen.androidbootstrap.BootstrapEditText
             android:layout_width="70dp"
             android:layout_height="30dp"
-            android:inputType="numberDecimal"
-            android:background="@drawable/edit_text_background"
-            android:ems="10"
             android:id="@+id/intro_payment_expiry_editText"
+            android:inputType="numberDecimal"
             android:textColor="@android:color/black"
             android:textColorHint="#D3D3D3"
-            android:textCursorDrawable="@null"
             android:hint="00/00"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
             android:layout_marginLeft="10dp"
-            android:gravity="center_vertical|center_horizontal" />
+            android:gravity="center_vertical|center_horizontal"
+            app:bootstrapSize="md"
+            />
 
         <TextView
             android:layout_width="wrap_content"
@@ -86,22 +81,18 @@
             android:text="CSV"
             android:layout_marginLeft="20dp" />
 
-        <EditText
+        <com.beardedhen.androidbootstrap.BootstrapEditText
             android:layout_width="61dp"
             android:layout_height="30dp"
-            android:inputType="numberDecimal"
-            android:background="@drawable/edit_text_background"
-            android:ems="10"
             android:id="@+id/intro_payment_csv_editText"
+            android:inputType="numberDecimal"
             android:textColor="@android:color/black"
             android:textColorHint="#D3D3D3"
-            android:textCursorDrawable="@null"
             android:hint="000"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
             android:layout_marginLeft="10dp"
-            android:layout_weight="0.07"
-            android:gravity="center_vertical|center_horizontal" />
+            android:gravity="center_vertical|center_horizontal"
+            app:bootstrapSize="md"
+            />
 
         <Button
             style="?android:attr/buttonStyleSmall"

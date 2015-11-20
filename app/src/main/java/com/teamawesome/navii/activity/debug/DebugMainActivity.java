@@ -78,7 +78,6 @@ public class DebugMainActivity extends ListActivity {
                     .username("android-user" + String.valueOf(randomUniformInt))
                     .password("android-password" + String.valueOf(randomUniformInt))
                     .salt("android-salt")
-//                    .isFacebook(false)
                     .build();
             Call<User> call = userAPI.createUser(user);
 

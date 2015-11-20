@@ -6,7 +6,6 @@ package com.teamawesome.navii.util;
 public class Constants {
     private Constants() {}
 
-    // TODO: move to config file based on environment. Have Jenkins inject?
     public static final String SERVER_URL = "http://localhost:8080";
 
     // View
