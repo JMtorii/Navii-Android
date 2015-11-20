@@ -15,6 +15,8 @@ import com.teamawesome.navii.util.NaviiPreferenceData;
 /**
  * Created by JMtorii on 15-08-24.
  */
+
+// TODO: remove PreferencesFragment reference in this class
 public class IntroActivity extends AppCompatActivity {
 
     private NaviiFragmentManager fm;
@@ -36,6 +38,7 @@ public class IntroActivity extends AppCompatActivity {
 
         fm = new NaviiFragmentManager(getSupportFragmentManager(), R.id.intro_activity_content_frame);
 
+        // TODO: move INTRO_FRAGMENT to constants
         fm.switchFragment(
                 fragment,
                 Constants.NO_ANIM,
@@ -59,6 +62,9 @@ public class IntroActivity extends AppCompatActivity {
                 clearBackStack,
                 isAddedToBackStack
         );
+
+        // TODO: Remove this. WTF. We shouldn't need to make an exception for just one fragment.
+        // TODO: == instead of equals() is unacceptable. == checks references; not contents
         if (tag == Constants.PREFERENCES_FRAGMENT_TAG) {
             mPreferencesFragment = (PreferencesFragment) newFragment;
         }
