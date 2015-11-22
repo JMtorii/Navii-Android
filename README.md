@@ -59,3 +59,9 @@ Common useful animations.
 
 ### [makovkaster/FloatingActionButton](https://github.com/makovkastar/FloatingActionButton)
 A cool Android floating action button.
+
+### [robolectric/robolectric](https://github.com/robolectric/robolectric)
+Android unit testing framework that's supposedly better than JUnit 4.
+
+### [square/leakcanary](https://github.com/square/leakcanary)
+A memory leak detection library.

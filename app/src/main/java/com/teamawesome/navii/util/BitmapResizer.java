@@ -5,6 +5,9 @@ import android.graphics.BitmapFactory;
 
 /**
  * Created by darrylbayliss on 28/02/15.
+ *
+ * This class shrinks an image to the desired height and width.
+ * We may not need this.
  */
 public class BitmapResizer {
 
