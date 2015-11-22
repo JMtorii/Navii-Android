@@ -1,5 +1,6 @@
 package com.teamawesome.navii.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -22,16 +23,17 @@ public class IntroActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        NaviiPreferenceData.init(getApplicationContext());
-        IntroViewPagerFragment fragment = new IntroViewPagerFragment();
         // if the user has already logged in, go straight to the main app
         if (!NaviiPreferenceData.getLoggedInUserEmail().isEmpty()) {
             // Go to main app
+            Intent homeIntent = new Intent(this, MainActivity.class);
+            startActivity(homeIntent);
         }
 
-        setContentView(R.layout.activity_intro);
-
+        IntroViewPagerFragment fragment = new IntroViewPagerFragment();
         fm = new NaviiFragmentManager(getSupportFragmentManager(), R.id.intro_activity_content_frame);
+
+        setContentView(R.layout.activity_intro);
 
         // TODO: move INTRO_FRAGMENT to constants
         fm.switchFragment(

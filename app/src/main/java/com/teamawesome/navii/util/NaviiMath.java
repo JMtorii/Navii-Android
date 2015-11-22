@@ -7,6 +7,8 @@ import java.util.Random;
  */
 public class NaviiMath {
 
+    private NaviiMath() {}
+
     /**
      * Produces a pseudo-random uniformly distributed integer given a range
      * @param min   Minimum number
