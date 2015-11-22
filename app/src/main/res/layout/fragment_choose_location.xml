@@ -25,7 +25,7 @@
         android:layout_gravity="center_horizontal"
         android:textSize="30sp"
         android:textColor="@color/black"
-        android:layout_marginTop="0dp" />
+        android:layout_marginTop="10dp" />
 
     <com.beardedhen.androidbootstrap.BootstrapEditText
         android:layout_width="302dp"
