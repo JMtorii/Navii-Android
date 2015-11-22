@@ -16,7 +16,7 @@ public class NaviiPreferenceData {
     // TODO: move to Constants?
     private static final String PREF_LOGGED_IN_USER_EMAIL = "logged_in_email";
 
-    public static void setLoggedInUserEmail(final String email) {
+    public static void setLoggedInUsername(String email) {
         Editor editor = getSharedPreferences().edit();
         editor.putString(PREF_LOGGED_IN_USER_EMAIL, email);
         editor.apply();

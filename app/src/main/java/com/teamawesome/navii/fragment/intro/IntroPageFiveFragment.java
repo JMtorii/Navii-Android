@@ -10,6 +10,7 @@ import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.IntroActivity;
 import com.teamawesome.navii.util.Constants;
+import com.teamawesome.navii.util.NaviiPreferenceData;
 
 /**
  * Created by JMtorii on 15-09-22.
@@ -45,22 +46,6 @@ public class IntroPageFiveFragment extends IntroAbstractPageFragment {
         mLoginButton = (BootstrapButton) v.findViewById(R.id.intro_page5_login_button);
         mEmailEditText = (BootstrapEditText) v.findViewById(R.id.intro_page5_email_edittext);
 
-        mSignUpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                IntroPaymentFragment fragment = new IntroPaymentFragment();
-                parentActivity.switchFragment(
-                        fragment,
-                        Constants.NO_ANIM,
-                        Constants.NO_ANIM,
-                        Constants.INTRO_PAYMENT_FRAGMENT_TAG,
-                        true,
-                        true,
-                        true
-                );
-            }
-        });
-
         // TODO: this ain't working completely yet.
         mEmailEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -74,10 +59,29 @@ public class IntroPageFiveFragment extends IntroAbstractPageFragment {
             }
         });
 
+        mSignUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NaviiPreferenceData.setLoggedInUsername(mEmailEditText.getText().toString());
+
+                IntroThanksFragment fragment = new IntroThanksFragment();
+                parentActivity.switchFragment(
+                        fragment,
+                        Constants.NO_ANIM,
+                        Constants.NO_ANIM,
+                        Constants.INTRO_THANKS_FRAGMENT_TAG,
+                        true,
+                        true,
+                        true
+                );
+            }
+        });
+
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                // TODO: check if user exists in the server and username still exists
+                NaviiPreferenceData.setLoggedInUsername(mEmailEditText.getText().toString());
             }
         });
 

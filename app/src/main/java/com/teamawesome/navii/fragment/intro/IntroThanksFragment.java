@@ -4,8 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
+import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.util.Constants;
 
@@ -13,7 +13,7 @@ import com.teamawesome.navii.util.Constants;
  * Created by JMtorii on 2015-10-17.
  */
 public class IntroThanksFragment extends IntroFragment {
-    private Button mNextButton;
+    private BootstrapButton mNextButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -25,7 +25,7 @@ public class IntroThanksFragment extends IntroFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_intro_thanks, container, false);
-        mNextButton = (Button) v.findViewById(R.id.intro_thanks_next_button);
+        mNextButton = (BootstrapButton) v.findViewById(R.id.intro_thanks_next_button);
 
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,8 +41,6 @@ public class IntroThanksFragment extends IntroFragment {
                         true
                 );
 
-//                Intent intent = new Intent(getActivity(), MainActivity.class);
-//                startActivity(intent);
             }
         });
         return v;
