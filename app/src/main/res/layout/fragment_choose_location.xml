@@ -40,16 +40,15 @@
         />
 
     <com.beardedhen.androidbootstrap.BootstrapButton
-        android:layout_width="0dp"
+        android:layout_width="300dp"
         android:layout_height="40dp"
         android:text="Go to awesomeness"
-        android:layout_weight="1"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
         android:id="@+id/choose_location_next_button"
         app:roundedCorners="true"
         app:bootstrapBrand="info"
-        app:bootstrapSize="md"
+        app:bootstrapSize="lg"
         app:buttonMode="regular"
         app:showOutline="false" />
 
@@ -57,12 +56,15 @@
         android:id="@+id/choose_location_date_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
         android:text="Date mofo" />
 
     <TextView
         android:id="@+id/choose_location_date_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:text="i dunno"
         android:layout_marginTop="10dp" />
 
