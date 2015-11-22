@@ -57,9 +57,13 @@ public class ChooseLocationFragment extends MainFragment implements CalendarDate
             public void onClick(View v) {
                 FragmentManager fm = parentActivity.getSupportFragmentManager();
                 DateTime now = DateTime.now();
-                CalendarDatePickerDialogFragment calendarDatePickerDialogFragment = CalendarDatePickerDialogFragment
-                        .newInstance(ChooseLocationFragment.this, now.getYear(), now.getMonthOfYear() - 1,
-                                now.getDayOfMonth());
+                CalendarDatePickerDialogFragment calendarDatePickerDialogFragment =
+                        CalendarDatePickerDialogFragment.newInstance(
+                                ChooseLocationFragment.this, now.getYear(),
+                                now.getMonthOfYear() - 1,
+                                now.getDayOfMonth()
+                        );
+
                 calendarDatePickerDialogFragment.setThemeDark(true);
                 calendarDatePickerDialogFragment.show(fm, FRAG_TAG_DATE_PICKER);
             }
@@ -101,13 +105,14 @@ public class ChooseLocationFragment extends MainFragment implements CalendarDate
 
     @Override
     public void onStop() {
-        mSliderLayout.removeAllSliders();
+        // To prevent a memory leak on rotation, make sure to call stopAutoCycle() on the slider before activity or fragment is destroyed
         mSliderLayout.stopAutoCycle();
         super.onStop();
     }
 
     @Override
     public void onDateSet(CalendarDatePickerDialogFragment dialog, int year, int monthOfYear, int dayOfMonth) {
+        // TODO: Use String.format() and be careful of \n usage for different screen sizes.
         mDateTextView.setText("Year: " + year + "\nMonth: " + monthOfYear + "\nDay: " + dayOfMonth);
     }
 
@@ -143,22 +148,21 @@ public class ChooseLocationFragment extends MainFragment implements CalendarDate
             // initialize a SliderLayout
             textSliderView
                     .description(name)
-                    .image(file_maps.get(name))
-                    .setScaleType(BaseSliderView.ScaleType.Fit)
-                    .setOnSliderClickListener(this);
+                    .image(file_maps.get(name));
+//                    .setScaleType(BaseSliderView.ScaleType.Fit)
+//                    .setOnSliderClickListener(this);
 
             //add your extra information
-            textSliderView.bundle(new Bundle());
-            textSliderView.getBundle()
-                    .putString("extra",name);
+//            textSliderView.bundle(new Bundle());
+//            textSliderView.getBundle().putString("extra", name);
 
             mSliderLayout.addSlider(textSliderView);
         }
 
-        mSliderLayout.setPresetTransformer(SliderLayout.Transformer.Fade);
+        mSliderLayout.setPresetTransformer(SliderLayout.Transformer.Default);
         mSliderLayout.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
         mSliderLayout.setCustomAnimation(new DescriptionAnimation());
-        mSliderLayout.setDuration(10000);
+        mSliderLayout.setDuration(Constants.TRENDING_DESTINATION_DURATION_MS);
         mSliderLayout.addOnPageChangeListener(this);
     }
 }

@@ -3,11 +3,9 @@ package com.teamawesome.navii.activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.fragment.intro.IntroViewPagerFragment;
-import com.teamawesome.navii.fragment.intro.PreferencesFragment;
 import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.NaviiFragmentManager;
 import com.teamawesome.navii.util.NaviiPreferenceData;
@@ -16,7 +14,6 @@ import com.teamawesome.navii.util.NaviiPreferenceData;
  * Created by JMtorii on 15-08-24.
  */
 
-// TODO: remove PreferencesFragment reference in this class
 public class IntroActivity extends AppCompatActivity {
 
     private NaviiFragmentManager fm;

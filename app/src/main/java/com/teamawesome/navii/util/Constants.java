@@ -7,7 +7,7 @@ public class Constants {
     private Constants() {}
 
     public static final String SERVER_URL = "http://localhost:8080";
-
+    public static final int TRENDING_DESTINATION_DURATION_MS = 5000;
     // View
     public static final int NO_ANIM = -1;
 
