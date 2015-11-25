@@ -246,4 +246,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void switchFragment(Fragment newFragment, int enterAnim, int exitAnim, String tag,
+                               boolean isReplace, boolean clearBackStack,
+                               boolean isAddedToBackStack) {
+        fm.switchFragment(
+                newFragment,
+                enterAnim,
+                exitAnim,
+                tag,
+                isReplace,
+                clearBackStack,
+                isAddedToBackStack
+        );
+    }
+
 }

@@ -74,16 +74,15 @@ public class ChooseLocationFragment extends MainFragment implements CalendarDate
             public void onClick(View view) {
                 TravelParameterFragment fragment = new TravelParameterFragment();
 
-                // TODO: still need to hook up the button to the TravelParameterFragment.
-//                parentActivity.switchFragment(
-//                        fragment,
-//                        Constants.NO_ANIM,
-//                        Constants.NO_ANIM,
-//                        Constants.INTRO_PAYMENT_FRAGMENT_TAG,
-//                        true,
-//                        true,
-//                        true
-//                );
+                parentActivity.switchFragment(
+                        fragment,
+                        Constants.NO_ANIM,
+                        Constants.NO_ANIM,
+                        Constants.INTRO_PAYMENT_FRAGMENT_TAG,
+                        true,
+                        true,
+                        true
+                );
             }
         });
 
