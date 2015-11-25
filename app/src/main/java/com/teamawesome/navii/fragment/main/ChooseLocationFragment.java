@@ -148,12 +148,6 @@ public class ChooseLocationFragment extends MainFragment implements CalendarDate
             textSliderView
                     .description(name)
                     .image(file_maps.get(name));
-//                    .setScaleType(BaseSliderView.ScaleType.Fit)
-//                    .setOnSliderClickListener(this);
-
-            //add your extra information
-//            textSliderView.bundle(new Bundle());
-//            textSliderView.getBundle().putString("extra", name);
 
             mSliderLayout.addSlider(textSliderView);
         }
