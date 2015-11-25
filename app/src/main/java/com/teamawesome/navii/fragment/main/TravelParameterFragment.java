@@ -24,8 +24,12 @@ public class TravelParameterFragment extends MainFragment {
     private BootstrapCircleThumbnail mChildUpButton;
     private BootstrapCircleThumbnail mChildDownButton;
     private AwesomeTextView mChildTextView;
+    private BootstrapCircleThumbnail mAdultUpButton;
+    private BootstrapCircleThumbnail mAdultDownButton;
+    private AwesomeTextView mAdultTextView;
 
     private int childCounter = 0;
+    private int adultCounter = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,10 @@ public class TravelParameterFragment extends MainFragment {
         mChildUpButton = (BootstrapCircleThumbnail) v.findViewById(R.id.travel_paramenter_child_up_button);
         mChildDownButton = (BootstrapCircleThumbnail) v.findViewById(R.id.travel_parameter_child_down_button);
         mChildTextView = (AwesomeTextView) v.findViewById(R.id.travel_paramenter_child_text);
+
+        mAdultUpButton = (BootstrapCircleThumbnail) v.findViewById(R.id.travel_paramenter_adult_up_button);
+        mAdultDownButton = (BootstrapCircleThumbnail) v.findViewById(R.id.travel_parameter_adult_down_button);
+        mAdultTextView = (AwesomeTextView) v.findViewById(R.id.travel_paramenter_adult_text);
 
         mChildUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,10 +67,32 @@ public class TravelParameterFragment extends MainFragment {
             }
         });
 
+        mAdultUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ++adultCounter;
+                setAdultTextViewText();
+            }
+        });
+
+        mAdultDownButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (adultCounter > 0) {
+                    --adultCounter;
+                    setAdultTextViewText();
+                }
+            }
+        });
+
         return v;
     }
 
     private void setChildTextViewText() {
         mChildTextView.setText(Integer.toString(childCounter) + " children");
+    }
+
+    private void setAdultTextViewText() {
+        mAdultTextView.setText(Integer.toString(adultCounter) + " adults");
     }
 }
