@@ -21,6 +21,7 @@ public class IntroPageFiveFragment extends IntroAbstractPageFragment {
     private BootstrapButton mSignUpButton;
     private BootstrapButton mLoginButton;
     private BootstrapEditText mEmailEditText;
+    private BootstrapEditText mpassWordEditText;
 
 
     public static IntroPageFiveFragment newInstance(int position) {
@@ -45,19 +46,8 @@ public class IntroPageFiveFragment extends IntroAbstractPageFragment {
         mSignUpButton = (BootstrapButton) v.findViewById(R.id.intro_page5_sign_up_button);
         mLoginButton = (BootstrapButton) v.findViewById(R.id.intro_page5_login_button);
         mEmailEditText = (BootstrapEditText) v.findViewById(R.id.intro_page5_email_edittext);
+        mpassWordEditText = (BootstrapEditText) v.findViewById(R.id.intro_page5_password_edittext);
 
-        // TODO: this ain't working completely yet.
-        mEmailEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                // I'm so sorry for this Gods. I'll see Satan for this.
-                if (hasFocus) {
-                    getActivity().findViewById(R.id.intro_page_indicator).setVisibility(View.INVISIBLE);
-                } else {
-                    getActivity().findViewById(R.id.intro_page_indicator).setVisibility(View.VISIBLE);
-                }
-            }
-        });
 
         mSignUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
