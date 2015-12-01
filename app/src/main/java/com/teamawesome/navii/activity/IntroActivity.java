@@ -2,8 +2,6 @@ package com.teamawesome.navii.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.fragment.intro.IntroViewPagerFragment;
@@ -15,10 +13,7 @@ import com.teamawesome.navii.util.NaviiPreferenceData;
  * Created by JMtorii on 15-08-24.
  */
 
-public class IntroActivity extends AppCompatActivity {
-
-    private NaviiFragmentManager fm;
-
+public class IntroActivity extends NaviiActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +31,7 @@ public class IntroActivity extends AppCompatActivity {
         setContentView(R.layout.activity_intro);
 
         // TODO: move INTRO_FRAGMENT to constants
-        fm.switchFragment(
+        switchFragment(
                 fragment,
                 Constants.NO_ANIM,
                 Constants.NO_ANIM,
@@ -44,20 +39,6 @@ public class IntroActivity extends AppCompatActivity {
                 true,
                 false,
                 false
-        );
-    }
-
-    public void switchFragment(Fragment newFragment, int enterAnim, int exitAnim, String tag,
-                               boolean isReplace, boolean clearBackStack,
-                               boolean isAddedToBackStack) {
-        fm.switchFragment(
-                newFragment,
-                enterAnim,
-                exitAnim,
-                tag,
-                isReplace,
-                clearBackStack,
-                isAddedToBackStack
         );
     }
 }

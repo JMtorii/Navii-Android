@@ -52,6 +52,8 @@ public class IntroPageFiveFragment extends IntroAbstractPageFragment {
         mSignUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 NaviiPreferenceData.setLoggedInUsername(mEmailEditText.getText().toString());
 
                 IntroThanksFragment fragment = new IntroThanksFragment();

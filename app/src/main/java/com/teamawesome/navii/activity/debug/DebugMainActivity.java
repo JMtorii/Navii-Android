@@ -14,7 +14,6 @@ import com.teamawesome.navii.activity.IntroActivity;
 import com.teamawesome.navii.activity.MainActivity;
 import com.teamawesome.navii.server.api.UserAPI;
 import com.teamawesome.navii.server.model.User;
-import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.NaviiMath;
 
 import retrofit.Call;
@@ -65,7 +64,7 @@ public class DebugMainActivity extends ListActivity {
             startActivity(mainIntent);
         } else if (id == 2) {
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(Constants.SERVER_URL)    // THIS ONLY WORKS ON JUN'S CASE
+                    .baseUrl("http://192.168.57.1:8080")    // THIS ONLY WORKS ON JUN'S CASE
                     .addConverterFactory(JacksonConverterFactory.create())
                     .build();
 
@@ -77,15 +76,16 @@ public class DebugMainActivity extends ListActivity {
                     .password("android-password" + String.valueOf(randomUniformInt))
                     .salt("android-salt")
                     .build();
-            Call<User> call = userAPI.createUser(user);
+            Call<String> call = userAPI.createUser(user);
 
             // This does an async call.
             // Use "execute" instead for a sync call.
             // Call "call.cancel()" to cancel a running request.
-            call.enqueue(new Callback<User>() {
+            call.enqueue(new Callback<String>() {
                 @Override
-                public void onResponse(Response<User> response, Retrofit retrofit) {
+                public void onResponse(Response<String> response, Retrofit retrofit) {
                     Log.i("response: code", String.valueOf(response.code()));
+                    Log.i("response: value", String.valueOf(response.body()));
                 }
 
                 @Override

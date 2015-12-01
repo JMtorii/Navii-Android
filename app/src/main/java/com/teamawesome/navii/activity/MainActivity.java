@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -29,10 +28,7 @@ import com.teamawesome.navii.fragment.main.SavedTripsFragment;
 import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.NaviiFragmentManager;
 
-public class MainActivity extends AppCompatActivity {
-
-    private NaviiFragmentManager fm;
-
+public class MainActivity extends NaviiActivity {
     // Toolbar
     private Toolbar mToolbar;
 
@@ -45,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private String[] mNavDrawerTitles;
 
     // Fragment manager
+    // TODO: do we need this?
     private String curFragmentTag = Constants.CHOOSE_LOCATION_FRAGMENT_TAG;
 
     @Override
@@ -245,19 +242,4 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-
-    public void switchFragment(Fragment newFragment, int enterAnim, int exitAnim, String tag,
-                               boolean isReplace, boolean clearBackStack,
-                               boolean isAddedToBackStack) {
-        fm.switchFragment(
-                newFragment,
-                enterAnim,
-                exitAnim,
-                tag,
-                isReplace,
-                clearBackStack,
-                isAddedToBackStack
-        );
-    }
-
 }
