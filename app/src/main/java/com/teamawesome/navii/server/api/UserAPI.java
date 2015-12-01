@@ -2,7 +2,7 @@ package com.teamawesome.navii.server.api;
 
 import com.teamawesome.navii.server.model.User;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import retrofit.Call;
 import retrofit.http.Body;
@@ -12,6 +12,7 @@ import retrofit.http.Headers;
 import retrofit.http.POST;
 import retrofit.http.PUT;
 import retrofit.http.Path;
+import retrofit.http.Query;
 
 /**
  * Created by JMtorii on 2015-10-21.
@@ -23,7 +24,6 @@ public interface UserAPI {
      * @param userId  Identifier for user
      * @return        User fetched.
      */
-    @Headers({"Content-Type: application/json", "Cache-Control: no-cache"})
     @GET("/user/{userId}")
     Call<User> getUser(@Path("userId") String userId);
 
@@ -31,33 +31,56 @@ public interface UserAPI {
      * Gets all existing users
      * @return      A list of users
      */
-    @Headers({"Content-Type: application/json", "Cache-Control: no-cache"})
     @GET("/user")
-    Call<ArrayList<User>> getAllUsers();
+    Call<List<User>> getAllUsers();
 
     /**
      * Creates a new user
      * @param user  User model
      * @return      Created user
      */
-    @Headers({"Content-Type: application/json", "Cache-Control: no-cache"})
+    @Headers({"Content-Type: application/json"})
     @POST("/user")
-    Call<User> createUser(@Body User user);
+    Call<String> createUser(@Body User user);
 
     /**
      * Updates an existing user
      * @return  Updated user
+     *
+     * TODO: Fix this in the server and update here. This does not work yet.
      */
-    @Headers({"Content-Type: application/json", "Cache-Control: no-cache"})
+    @Headers({"Content-Type: application/json"})
     @PUT("/user/{userId}")
-    Call<User> updateUser(@Path("userId") String userId, @Body User user);
+    Call<?> updateUser(@Path("userId") String userId, @Body User user);
 
     /**
      * Deletes an existing user
      * @param userId    The identifier of the user to delete
      * @return          The deleted user
      */
-    @Headers({"Content-Type: application/json", "Cache-Control: no-cache"})
     @DELETE("/user/{userId}")
-    Call<User> deleteUser(@Path("userId") String userId);
+    Call<?> deleteUser(@Path("userId") String userId);
+
+    /**
+     * Deletes all users
+     * @return          The number of deleted users
+     */
+    @DELETE("/user")
+    Call<Integer> deleteAll();
+
+    /**
+     * Signs ups the user into the database
+     * @param username    The username of the user
+     * @param password    The password of the user
+     */
+    @POST("/user/signUp")
+    Call<?> signUp(@Query("username") String username, @Query("password") String password);
+
+    /**
+     * Login the user
+     * @param username    The username of the user
+     * @param password    The password of the user
+     */
+    @GET("/user/login")
+    Call<?> login(@Query("username") String username, @Query("password") String password);
 }

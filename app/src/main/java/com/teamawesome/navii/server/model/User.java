@@ -1,28 +1,39 @@
 package com.teamawesome.navii.server.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Created by JMtorii on 2015-10-21.
  */
 public class User {
 
-    private int id;
+    @JsonProperty(value = "user_id")
+    private int userId;
+
+    @JsonProperty(value = "username")
     private String username;
+
+    @JsonProperty(value = "password")
     private String password;
+
+    @JsonProperty(value = "salt")
     private String salt;
+
+    @JsonProperty(value = "is_facebook")
     private Boolean isFacebook;
 
     public User() {}
 
     private User(Builder builder) {
-        this.id = builder.id;
+        this.userId = builder.userId;
         this.username = builder.username;
         this.password = builder.password;
         this.salt = builder.salt;
         this.isFacebook = builder.isFacebook;
     }
 
-    public int getId() {
-        return id;
+    public int getUserId() {
+        return userId;
     }
 
     public String getUsername() {
@@ -42,7 +53,7 @@ public class User {
     }
 
     public static class Builder {
-        private int id;
+        private int userId;
         private String username;
         private String password;
         private String salt;
@@ -50,8 +61,8 @@ public class User {
 
         public Builder() {}
 
-        public Builder id(int id) {
-            this.id = id;
+        public Builder userId(int userId) {
+            this.userId = userId;
             return this;
         }
 
@@ -70,7 +81,7 @@ public class User {
             return this;
         }
 
-        public Builder isFacebook(Boolean isFacebook) {
+        public Builder isFacebook(boolean isFacebook) {
             this.isFacebook = isFacebook;
             return this;
         }
