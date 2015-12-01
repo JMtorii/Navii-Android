@@ -1,5 +1,6 @@
 package com.teamawesome.navii.fragment.intro;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.squareup.okhttp.ResponseBody;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.IntroActivity;
+import com.teamawesome.navii.activity.MainActivity;
 import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.NaviiPreferenceData;
 
@@ -67,7 +69,7 @@ public class IntroPageFiveFragment extends IntroAbstractPageFragment {
                             Log.w("Sign Up", "Failed: Username or password is blank");
                         } else if (response.code() == 409) {
                             Log.w("Sign Up", "Failed: User already exists");
-                        } else {
+                        } else if (response.code() == 200) {
                             NaviiPreferenceData.setLoggedInUsername(mEmailEditText.getText().toString());
 
                             IntroThanksFragment fragment = new IntroThanksFragment();
@@ -80,6 +82,8 @@ public class IntroPageFiveFragment extends IntroAbstractPageFragment {
                                     true,
                                     true
                             );
+                        } else {
+                            Log.w("Sign Up", "Failed: WTF did we get. Response code: " + String.valueOf(response.code()));
                         }
                     }
 
@@ -94,8 +98,29 @@ public class IntroPageFiveFragment extends IntroAbstractPageFragment {
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: check if user exists in the server and username still exists
-                NaviiPreferenceData.setLoggedInUsername(mEmailEditText.getText().toString());
+                Call<ResponseBody> call = parentActivity.userAPI.login(mEmailEditText.getText().toString(), mpassWordEditText.getText().toString());
+                call.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Response response, Retrofit retrofit) {
+                        if (response.code() == 400) {
+                            Log.w("Login", "Failed: Username or password is blank");
+                        } else if (response.code() == 401) {
+                            Log.w("Login", "Failed: Wrong credentials");
+                        } else if (response.code() == 200) {
+                            NaviiPreferenceData.setLoggedInUsername(mEmailEditText.getText().toString());
+
+                            Intent mainIntent = new Intent(parentActivity, MainActivity.class);
+                            startActivity(mainIntent);
+                        } else {
+                            Log.w("Login", "Failed: WTF did we get. Response code: " + String.valueOf(response.code()));
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t) {
+                        Log.w("Login", "Failed: " + t.getMessage());
+                    }
+                });
             }
         });
 

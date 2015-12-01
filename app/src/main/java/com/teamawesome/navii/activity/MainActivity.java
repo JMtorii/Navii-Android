@@ -27,6 +27,7 @@ import com.teamawesome.navii.fragment.main.ProfileFragment;
 import com.teamawesome.navii.fragment.main.SavedTripsFragment;
 import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.NaviiFragmentManager;
+import com.teamawesome.navii.util.NaviiPreferenceData;
 
 public class MainActivity extends NaviiActivity {
     // Toolbar
@@ -218,6 +219,7 @@ public class MainActivity extends NaviiActivity {
                 Intent intent = new Intent(this, IntroActivity.class);
                 startActivity(intent);
                 tag = "";
+                NaviiPreferenceData.clearLoggedInEmailAddress();
                 break;
             default:        // this should never happen
                 tag = "";

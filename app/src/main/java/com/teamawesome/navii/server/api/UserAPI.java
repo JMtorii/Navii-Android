@@ -52,7 +52,7 @@ public interface UserAPI {
      */
     @Headers({"Content-Type: application/json"})
     @PUT("/user/{userId}")
-    Call<?> updateUser(@Path("userId") String userId, @Body User user);
+    Call<ResponseBody> updateUser(@Path("userId") String userId, @Body User user);
 
     /**
      * Deletes an existing user
@@ -60,7 +60,7 @@ public interface UserAPI {
      * @return          The deleted user
      */
     @DELETE("/user/{userId}")
-    Call<?> deleteUser(@Path("userId") String userId);
+    Call<ResponseBody> deleteUser(@Path("userId") String userId);
 
     /**
      * Deletes all users
@@ -83,5 +83,5 @@ public interface UserAPI {
      * @param password    The password of the user
      */
     @GET("/user/login")
-    Call<?> login(@Query("username") String username, @Query("password") String password);
+    Call<ResponseBody> login(@Query("username") String username, @Query("password") String password);
 }
