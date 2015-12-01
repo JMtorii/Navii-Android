@@ -1,16 +1,23 @@
 package com.teamawesome.navii.fragment.intro;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
+import com.squareup.okhttp.ResponseBody;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.IntroActivity;
 import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.NaviiPreferenceData;
+
+import retrofit.Call;
+import retrofit.Callback;
+import retrofit.Response;
+import retrofit.Retrofit;
 
 /**
  * Created by JMtorii on 15-09-22.
@@ -52,20 +59,35 @@ public class IntroPageFiveFragment extends IntroAbstractPageFragment {
         mSignUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Call<ResponseBody> call = parentActivity.userAPI.signUp(mEmailEditText.getText().toString(), mpassWordEditText.getText().toString());
+                call.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Response response, Retrofit retrofit) {
+                        if (response.code() == 400) {
+                            Log.w("Sign Up", "Failed: Username or password is blank");
+                        } else if (response.code() == 409) {
+                            Log.w("Sign Up", "Failed: User already exists");
+                        } else {
+                            NaviiPreferenceData.setLoggedInUsername(mEmailEditText.getText().toString());
 
+                            IntroThanksFragment fragment = new IntroThanksFragment();
+                            parentActivity.switchFragment(
+                                    fragment,
+                                    Constants.NO_ANIM,
+                                    Constants.NO_ANIM,
+                                    Constants.INTRO_THANKS_FRAGMENT_TAG,
+                                    true,
+                                    true,
+                                    true
+                            );
+                        }
+                    }
 
-                NaviiPreferenceData.setLoggedInUsername(mEmailEditText.getText().toString());
-
-                IntroThanksFragment fragment = new IntroThanksFragment();
-                parentActivity.switchFragment(
-                        fragment,
-                        Constants.NO_ANIM,
-                        Constants.NO_ANIM,
-                        Constants.INTRO_THANKS_FRAGMENT_TAG,
-                        true,
-                        true,
-                        true
-                );
+                    @Override
+                    public void onFailure(Throwable t) {
+                        Log.w("Sign Up", "Failed: " + t.getMessage());
+                    }
+                });
             }
         });
 

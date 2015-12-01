@@ -64,7 +64,7 @@ public class DebugMainActivity extends ListActivity {
             startActivity(mainIntent);
         } else if (id == 2) {
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("http://192.168.57.1:8080")    // THIS ONLY WORKS ON JUN'S CASE
+                    .baseUrl("http://192.168.57.1:8080")    // THIS ONLY WORKS IN JUN'S CASE
                     .addConverterFactory(JacksonConverterFactory.create())
                     .build();
 

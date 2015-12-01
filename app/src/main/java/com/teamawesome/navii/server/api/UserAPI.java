@@ -1,5 +1,6 @@
 package com.teamawesome.navii.server.api;
 
+import com.squareup.okhttp.ResponseBody;
 import com.teamawesome.navii.server.model.User;
 
 import java.util.List;
@@ -74,7 +75,7 @@ public interface UserAPI {
      * @param password    The password of the user
      */
     @POST("/user/signUp")
-    Call<?> signUp(@Query("username") String username, @Query("password") String password);
+    Call<ResponseBody> signUp(@Query("username") String username, @Query("password") String password);
 
     /**
      * Login the user
