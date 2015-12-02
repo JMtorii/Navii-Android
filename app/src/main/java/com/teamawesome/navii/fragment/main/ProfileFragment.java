@@ -3,6 +3,8 @@ package com.teamawesome.navii.fragment.main;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -85,9 +87,48 @@ public class ProfileFragment extends MainFragment implements OnFocusListenable {
     }
 
     private void setImageViewWithImage() {
+        Uri imageUri = selectedPhotoPath;
+        String[] orientationColumn = {MediaStore.Images.Media.ORIENTATION};
+        Cursor cur = parentActivity.getContentResolver().query(imageUri, orientationColumn, null, null, null);
+        int orientation = -1;
+
+        if (cur != null && cur.moveToFirst()) {
+            orientation = cur.getInt(cur.getColumnIndex(orientationColumn[0]));
+        }
+
+        Matrix matrix = new Matrix();
+        matrix.postRotate(orientation);
+
         Bitmap pictureBitmap = BitmapResizer.shrinkBitmap(selectedPhotoPath.toString(), mPictureThumbnail.getWidth(), mPictureThumbnail.getHeight());
-        mPictureThumbnail.setImageBitmap(pictureBitmap);
-//        pictureTaken = true;
+        Bitmap rotatedBitmap = Bitmap.createBitmap(pictureBitmap, 0, 0, pictureBitmap.getWidth(), pictureBitmap.getHeight(), matrix, true);
+        mPictureThumbnail.setImageBitmap(rotatedBitmap);
+    }
+
+    private int getImageOrientation(String imagePath) {
+        int rotate = 0;
+
+        try {
+            File imageFile = new File(imagePath);
+            ExifInterface exif = new ExifInterface(imagePath);
+            int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+
+            switch (orientation) {
+                case ExifInterface.ORIENTATION_ROTATE_270:
+                    rotate = 270;
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_180:
+                    rotate = 180;
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_90:
+                    rotate = 90;
+                    break;
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return rotate;
     }
 
     private File createImageFile() {
@@ -130,18 +171,16 @@ public class ProfileFragment extends MainFragment implements OnFocusListenable {
     }
 
     private void checkReceivedIntent() {
-        Intent imageRecievedIntent = parentActivity.getIntent();
-        String intentAction = imageRecievedIntent.getAction();
-        String intentType = imageRecievedIntent.getType();
+        Intent imageReceivedIntent = parentActivity.getIntent();
+        String intentAction = imageReceivedIntent.getAction();
+        String intentType = imageReceivedIntent.getType();
 
         if (Intent.ACTION_SEND.equals(intentAction) && intentType != null) {
             if (intentType.startsWith(MIME_TYPE_IMAGE)) {
-                Uri contentUri = imageRecievedIntent.getParcelableExtra(Intent.EXTRA_STREAM);
+                Uri contentUri = imageReceivedIntent.getParcelableExtra(Intent.EXTRA_STREAM);
                 selectedPhotoPath = getRealPathFromURI(contentUri);
                 setImageViewWithImage();
             }
         }
     }
-
-
 }

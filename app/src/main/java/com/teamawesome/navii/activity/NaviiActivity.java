@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.teamawesome.navii.server.api.UserAPI;
 import com.teamawesome.navii.util.NaviiFragmentManager;
+import com.teamawesome.navii.util.NaviiPreferenceData;
 
 import retrofit.JacksonConverterFactory;
 import retrofit.Retrofit;
@@ -21,7 +22,7 @@ public abstract class NaviiActivity extends AppCompatActivity {
 
     public NaviiActivity() {
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.57.1:8080")    // THIS ONLY WORKS IN JUN'S CASE
+                .baseUrl(NaviiPreferenceData.getIPAddress())
                 .addConverterFactory(JacksonConverterFactory.create())
                 .build();
 

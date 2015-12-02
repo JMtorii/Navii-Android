@@ -15,6 +15,17 @@ public class NaviiPreferenceData {
 
     // TODO: move to Constants?
     private static final String PREF_LOGGED_IN_USER_EMAIL = "logged_in_email";
+    private static final String PREF_IP_ADDRESS = "ip_address";
+
+    public static void setIPAddress(String address) {
+        Editor editor = getSharedPreferences().edit();
+        editor.putString(PREF_IP_ADDRESS, address);
+        editor.apply();
+    }
+
+    public static String getIPAddress() {
+        return getSharedPreferences().getString(PREF_IP_ADDRESS, "");
+    }
 
     public static void setLoggedInUsername(String email) {
         Editor editor = getSharedPreferences().edit();

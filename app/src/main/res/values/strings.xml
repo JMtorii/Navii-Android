@@ -3,6 +3,7 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="debug_ip_address_jun">http://192.168.57.1:8080</string>
 
     <string-array name="debug_list">
         <item>Main Application</item>

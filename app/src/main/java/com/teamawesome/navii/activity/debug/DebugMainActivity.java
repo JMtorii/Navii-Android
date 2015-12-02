@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -15,6 +16,7 @@ import com.teamawesome.navii.activity.MainActivity;
 import com.teamawesome.navii.server.api.UserAPI;
 import com.teamawesome.navii.server.model.User;
 import com.teamawesome.navii.util.NaviiMath;
+import com.teamawesome.navii.util.NaviiPreferenceData;
 
 import retrofit.Call;
 import retrofit.Callback;
@@ -22,12 +24,14 @@ import retrofit.JacksonConverterFactory;
 import retrofit.Response;
 import retrofit.Retrofit;
 
+// TODO: change this to AppCompatActivity for more flexibility
 public class DebugMainActivity extends ListActivity {
     String[] mTitles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        NaviiPreferenceData.setIPAddress(getResources().getString(R.string.debug_ip_address_jun));
         mTitles = getApplicationContext().getResources().getStringArray(R.array.debug_list);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this,
@@ -43,6 +47,22 @@ public class DebugMainActivity extends ListActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    // TODO: add toolbar
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.debug_menu_real:
+                // TODO: change to actual IP address
+                NaviiPreferenceData.setIPAddress(getResources().getString(R.string.debug_ip_address_jun));
+                return true;
+            case R.id.debug_menu_jun:
+                NaviiPreferenceData.setIPAddress(getResources().getString(R.string.debug_ip_address_jun));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
