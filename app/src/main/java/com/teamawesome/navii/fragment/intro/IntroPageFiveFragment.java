@@ -7,8 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.beardedhen.androidbootstrap.AwesomeTextView;
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.squareup.okhttp.ResponseBody;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.IntroActivity;
@@ -30,8 +33,8 @@ public class IntroPageFiveFragment extends IntroAbstractPageFragment {
     private BootstrapButton mSignUpButton;
     private BootstrapButton mLoginButton;
     private BootstrapEditText mEmailEditText;
-    private BootstrapEditText mpassWordEditText;
-
+    private BootstrapEditText mPassWordEditText;
+    private AwesomeTextView mErrorText;
 
     public static IntroPageFiveFragment newInstance(int position) {
         IntroPageFiveFragment f = new IntroPageFiveFragment();
@@ -55,20 +58,24 @@ public class IntroPageFiveFragment extends IntroAbstractPageFragment {
         mSignUpButton = (BootstrapButton) v.findViewById(R.id.intro_page5_sign_up_button);
         mLoginButton = (BootstrapButton) v.findViewById(R.id.intro_page5_login_button);
         mEmailEditText = (BootstrapEditText) v.findViewById(R.id.intro_page5_email_edittext);
-        mpassWordEditText = (BootstrapEditText) v.findViewById(R.id.intro_page5_password_edittext);
-
+        mPassWordEditText = (BootstrapEditText) v.findViewById(R.id.intro_page5_password_edittext);
+        mErrorText = (AwesomeTextView) v.findViewById(R.id.intro_page5_error);
 
         mSignUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Call<ResponseBody> call = parentActivity.userAPI.signUp(mEmailEditText.getText().toString(), mpassWordEditText.getText().toString());
+                Call<ResponseBody> call = parentActivity.userAPI.signUp(mEmailEditText.getText().toString(), mPassWordEditText.getText().toString());
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Response response, Retrofit retrofit) {
                         if (response.code() == 400) {
                             Log.w("Sign Up", "Failed: Username or password is blank");
+                            mErrorText.setText("Username and/or password is blank.");
+                            animateWrongCredentials();
                         } else if (response.code() == 409) {
                             Log.w("Sign Up", "Failed: User already exists");
+                            mErrorText.setText("Username already exists.");
+                            animateWrongCredentials();
                         } else if (response.code() == 200) {
                             NaviiPreferenceData.setLoggedInUsername(mEmailEditText.getText().toString());
 
@@ -90,6 +97,7 @@ public class IntroPageFiveFragment extends IntroAbstractPageFragment {
                     @Override
                     public void onFailure(Throwable t) {
                         Log.w("Sign Up", "Failed: " + t.getMessage());
+                        mErrorText.setText("Internal server error.");
                     }
                 });
             }
@@ -98,14 +106,18 @@ public class IntroPageFiveFragment extends IntroAbstractPageFragment {
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Call<ResponseBody> call = parentActivity.userAPI.login(mEmailEditText.getText().toString(), mpassWordEditText.getText().toString());
+                Call<ResponseBody> call = parentActivity.userAPI.login(mEmailEditText.getText().toString(), mPassWordEditText.getText().toString());
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Response response, Retrofit retrofit) {
                         if (response.code() == 400) {
                             Log.w("Login", "Failed: Username or password is blank");
+                            mErrorText.setText("Username and/or password is blank.");
+                            animateWrongCredentials();
                         } else if (response.code() == 401) {
+                            mErrorText.setText("Wrong credentials.");
                             Log.w("Login", "Failed: Wrong credentials");
+                            animateWrongCredentials();
                         } else if (response.code() == 200) {
                             NaviiPreferenceData.setLoggedInUsername(mEmailEditText.getText().toString());
 
@@ -113,6 +125,7 @@ public class IntroPageFiveFragment extends IntroAbstractPageFragment {
                             startActivity(mainIntent);
                         } else {
                             Log.w("Login", "Failed: WTF did we get. Response code: " + String.valueOf(response.code()));
+                            mErrorText.setText("Internal server error.");
                         }
                     }
 
@@ -125,5 +138,11 @@ public class IntroPageFiveFragment extends IntroAbstractPageFragment {
         });
 
         return v;
+    }
+
+    private void animateWrongCredentials() {
+        YoYo.with(Techniques.Shake)
+                .duration(700)
+                .playOn(parentActivity.findViewById(R.id.intro_page5_edit_text_linear_layout));
     }
 }

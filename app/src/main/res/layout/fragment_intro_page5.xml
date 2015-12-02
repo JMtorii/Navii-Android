@@ -21,42 +21,58 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Enter the App"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:textSize="30sp" />
-
-            <com.beardedhen.androidbootstrap.BootstrapEditText
-                android:layout_width="260dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="20dp"
-                android:layout_gravity="center_horizontal"
-                android:textColor="@android:color/black"
-                android:textColorHint="#D3D3D3"
-                android:hint="Email"
-                android:inputType="textEmailAddress"
-                android:nextFocusDown="@+id/intro_page5_password_edittext"
-                android:id="@+id/intro_page5_email_edittext"
-                app:bootstrapSize="md"
-                app:bootstrapBrand="info"
-                app:roundedCorners="true" />
-
-            <com.beardedhen.androidbootstrap.BootstrapEditText
-                android:layout_width="260dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="5dp"
-                android:layout_gravity="center_horizontal"
-                android:textColor="@android:color/black"
-                android:textColorHint="#D3D3D3"
-                android:hint="Password"
-                android:inputType="textPassword"
-                android:id="@+id/intro_page5_password_edittext"
-                app:bootstrapSize="md"
-                app:bootstrapBrand="info"
-                app:roundedCorners="true" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:id="@+id/intro_page5_edit_text_linear_layout"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp">
+
+                <com.beardedhen.androidbootstrap.BootstrapEditText
+                    android:layout_width="260dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="#D3D3D3"
+                    android:hint="Email"
+                    android:inputType="textEmailAddress"
+                    android:nextFocusDown="@+id/intro_page5_password_edittext"
+                    android:id="@+id/intro_page5_email_edittext"
+                    app:bootstrapSize="md"
+                    app:bootstrapBrand="info"
+                    app:roundedCorners="true" />
+
+                <com.beardedhen.androidbootstrap.BootstrapEditText
+                    android:layout_width="260dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="#D3D3D3"
+                    android:hint="Password"
+                    android:inputType="textPassword"
+                    android:id="@+id/intro_page5_password_edittext"
+                    app:bootstrapSize="md"
+                    app:bootstrapBrand="info"
+                    app:roundedCorners="true" />
+            </LinearLayout>
+
+            <com.beardedhen.androidbootstrap.AwesomeTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/intro_page5_error"
+                android:layout_marginTop="10dp"
+                android:text=""
+                android:textSize="14sp"
+                app:bootstrapBrand="danger"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="20dp"
                 android:orientation="horizontal"
                 android:gravity="bottom">
