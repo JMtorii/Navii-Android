@@ -14,8 +14,11 @@ import com.teamawesome.navii.NaviiApplication;
 public class NaviiPreferenceData {
 
     // TODO: move to Constants?
-    private static final String PREF_LOGGED_IN_USER_EMAIL = "logged_in_email";
     private static final String PREF_IP_ADDRESS = "ip_address";
+    private static final String PREF_LOGGED_IN_USER_ID = "logged_in_id";
+    private static final String PREF_LOGGED_IN_USER_EMAIL = "logged_in_email";
+    private static final String PREF_IS_FACEBOOK = "is_facebook";
+
 
     public static void setIPAddress(String address) {
         Editor editor = getSharedPreferences().edit();
@@ -27,7 +30,17 @@ public class NaviiPreferenceData {
         return getSharedPreferences().getString(PREF_IP_ADDRESS, "");
     }
 
-    public static void setLoggedInUsername(String email) {
+    public static void setUserId(int userId) {
+        Editor editor = getSharedPreferences().edit();
+        editor.putInt(PREF_LOGGED_IN_USER_ID, userId);
+        editor.apply();
+    }
+
+    public static int getUserId() {
+        return getSharedPreferences().getInt(PREF_LOGGED_IN_USER_ID, 0);
+    }
+
+    public static void setLoggedInUserEmail(String email) {
         Editor editor = getSharedPreferences().edit();
         editor.putString(PREF_LOGGED_IN_USER_EMAIL, email);
         editor.apply();
@@ -41,6 +54,16 @@ public class NaviiPreferenceData {
         Editor editor = getSharedPreferences().edit();
         editor.remove(PREF_LOGGED_IN_USER_EMAIL);
         editor.apply();
+    }
+
+    public static void setIsFacebook(boolean isFacebook) {
+        Editor editor = getSharedPreferences().edit();
+        editor.putBoolean(PREF_IS_FACEBOOK, isFacebook);
+        editor.apply();
+    }
+
+    public static boolean isFacebook() {
+        return getSharedPreferences().getBoolean(PREF_IS_FACEBOOK, false);
     }
 
     private static SharedPreferences getSharedPreferences() {

@@ -12,7 +12,6 @@ import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-import com.squareup.okhttp.ResponseBody;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.IntroActivity;
 import com.teamawesome.navii.activity.MainActivity;
@@ -64,10 +63,10 @@ public class IntroPageFiveFragment extends IntroAbstractPageFragment {
         mSignUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Call<ResponseBody> call = parentActivity.userAPI.signUp(mEmailEditText.getText().toString(), mPassWordEditText.getText().toString());
-                call.enqueue(new Callback<ResponseBody>() {
+                Call<Integer> call = parentActivity.userAPI.signUp(mEmailEditText.getText().toString(), mPassWordEditText.getText().toString());
+                call.enqueue(new Callback<Integer>() {
                     @Override
-                    public void onResponse(Response response, Retrofit retrofit) {
+                    public void onResponse(Response<Integer> response, Retrofit retrofit) {
                         if (response.code() == 400) {
                             Log.w("Sign Up", "Failed: Username or password is blank");
                             mErrorText.setText("Username and/or password is blank.");
@@ -77,7 +76,8 @@ public class IntroPageFiveFragment extends IntroAbstractPageFragment {
                             mErrorText.setText("Username already exists.");
                             animateWrongCredentials();
                         } else if (response.code() == 200) {
-                            NaviiPreferenceData.setLoggedInUsername(mEmailEditText.getText().toString());
+                            NaviiPreferenceData.setLoggedInUserEmail(mEmailEditText.getText().toString());
+                            NaviiPreferenceData.setUserId(response.body());
 
                             IntroThanksFragment fragment = new IntroThanksFragment();
                             parentActivity.switchFragment(
@@ -106,10 +106,10 @@ public class IntroPageFiveFragment extends IntroAbstractPageFragment {
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Call<ResponseBody> call = parentActivity.userAPI.login(mEmailEditText.getText().toString(), mPassWordEditText.getText().toString());
-                call.enqueue(new Callback<ResponseBody>() {
+                Call<Integer> call = parentActivity.userAPI.login(mEmailEditText.getText().toString(), mPassWordEditText.getText().toString());
+                call.enqueue(new Callback<Integer>() {
                     @Override
-                    public void onResponse(Response response, Retrofit retrofit) {
+                    public void onResponse(Response<Integer> response, Retrofit retrofit) {
                         if (response.code() == 400) {
                             Log.w("Login", "Failed: Username or password is blank");
                             mErrorText.setText("Username and/or password is blank.");
@@ -119,7 +119,9 @@ public class IntroPageFiveFragment extends IntroAbstractPageFragment {
                             Log.w("Login", "Failed: Wrong credentials");
                             animateWrongCredentials();
                         } else if (response.code() == 200) {
-                            NaviiPreferenceData.setLoggedInUsername(mEmailEditText.getText().toString());
+                            Log.i("Login", "Success: " + response.body());
+                            NaviiPreferenceData.setLoggedInUserEmail(mEmailEditText.getText().toString());
+                            NaviiPreferenceData.setUserId(response.body());
 
                             Intent mainIntent = new Intent(parentActivity, MainActivity.class);
                             startActivity(mainIntent);

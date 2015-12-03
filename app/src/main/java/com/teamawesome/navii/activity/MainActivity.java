@@ -61,6 +61,7 @@ public class MainActivity extends NaviiActivity {
 
         setupToolbar();
         setupDrawer();
+        setupUserInformation();
 
         if (savedInstanceState == null) {
             selectDrawerItem(0);
@@ -242,6 +243,10 @@ public class MainActivity extends NaviiActivity {
             mToolbar.setTitle(mNavDrawerTitles[position]);
             mDrawerLayout.closeDrawer(mDrawerLinearLayout);
         }
+
+    }
+
+    private void setupUserInformation() {
 
     }
 }

@@ -75,7 +75,7 @@ public interface UserAPI {
      * @param password    The password of the user
      */
     @POST("/user/signUp")
-    Call<ResponseBody> signUp(@Query("username") String username, @Query("password") String password);
+    Call<Integer> signUp(@Query("username") String username, @Query("password") String password);
 
     /**
      * Login the user
@@ -83,5 +83,5 @@ public interface UserAPI {
      * @param password    The password of the user
      */
     @GET("/user/login")
-    Call<ResponseBody> login(@Query("username") String username, @Query("password") String password);
+    Call<Integer> login(@Query("username") String username, @Query("password") String password);
 }
