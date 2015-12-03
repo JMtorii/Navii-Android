@@ -12,10 +12,12 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.beardedhen.androidbootstrap.BootstrapCircleThumbnail;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.util.BitmapResizer;
+import com.teamawesome.navii.util.NaviiPreferenceData;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,11 +34,10 @@ public class ProfileFragment extends MainFragment implements OnFocusListenable {
     private static final String MIME_TYPE_IMAGE = "image/";
     private static final String FILE_SUFFIX_JPG = ".jpg";
     private static final int TAKE_PHOTO_REQUEST_CODE = 1;
-    private static final String IMAGE_URI_KEY = "IMAGE_URI";
-    private static final String BITMAP_WIDTH = "BITMAP_WIDTH";
-    private static final String BITMAP_HEIGHT = "BITMAP_HEIGHT";
 
     private BootstrapCircleThumbnail mPictureThumbnail;
+    private TextView mUsernameTextView;
+    private TextView mFacebookTextView;
     private Uri selectedPhotoPath;
 
     @Override
@@ -51,6 +52,14 @@ public class ProfileFragment extends MainFragment implements OnFocusListenable {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
         mPictureThumbnail = (BootstrapCircleThumbnail) v.findViewById(R.id.profile_thumbnail);
+        mUsernameTextView = (TextView) v.findViewById(R.id.profile_username_textview);
+        mFacebookTextView = (TextView) v.findViewById(R.id.profile_facebook_textview);
+
+        mUsernameTextView.setText(NaviiPreferenceData.getLoggedInUserEmail());
+
+        String facebookText = NaviiPreferenceData.isFacebook() ? "Hell yes" : "Naw";
+        mFacebookTextView.setText(facebookText);
+
         mPictureThumbnail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

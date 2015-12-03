@@ -1,10 +1,12 @@
 package com.teamawesome.navii.server.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Created by JMtorii on 2015-10-21.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
 
     @JsonProperty(value = "user_id")
@@ -20,7 +22,7 @@ public class User {
     private String salt;
 
     @JsonProperty(value = "is_facebook")
-    private Boolean isFacebook;
+    private boolean isFacebook;
 
     public User() {}
 
@@ -48,7 +50,7 @@ public class User {
         return salt;
     }
 
-    public Boolean isFacebook() {
+    public boolean isFacebook() {
         return isFacebook;
     }
 
@@ -57,7 +59,7 @@ public class User {
         private String username;
         private String password;
         private String salt;
-        private Boolean isFacebook;
+        private boolean isFacebook;
 
         public Builder() {}
 

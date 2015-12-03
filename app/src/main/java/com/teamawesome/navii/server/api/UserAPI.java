@@ -26,7 +26,7 @@ public interface UserAPI {
      * @return        User fetched.
      */
     @GET("/user/{userId}")
-    Call<User> getUser(@Path("userId") String userId);
+    Call<User> getUser(@Path("userId") int userId);
 
     /**
      * Gets all existing users

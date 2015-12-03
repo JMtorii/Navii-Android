@@ -50,9 +50,11 @@ public class NaviiPreferenceData {
         return getSharedPreferences().getString(PREF_LOGGED_IN_USER_EMAIL, "");
     }
 
-    public static void clearLoggedInEmailAddress() {
+    public static void clearAllUserData() {
         Editor editor = getSharedPreferences().edit();
+        editor.remove(PREF_LOGGED_IN_USER_ID);
         editor.remove(PREF_LOGGED_IN_USER_EMAIL);
+        editor.remove(PREF_IS_FACEBOOK);
         editor.apply();
     }
 

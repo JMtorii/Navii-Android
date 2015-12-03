@@ -25,9 +25,15 @@ import com.teamawesome.navii.fragment.main.OnFocusListenable;
 import com.teamawesome.navii.fragment.main.PlannedTripsFragment;
 import com.teamawesome.navii.fragment.main.ProfileFragment;
 import com.teamawesome.navii.fragment.main.SavedTripsFragment;
+import com.teamawesome.navii.server.model.User;
 import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.NaviiFragmentManager;
 import com.teamawesome.navii.util.NaviiPreferenceData;
+
+import retrofit.Call;
+import retrofit.Callback;
+import retrofit.Response;
+import retrofit.Retrofit;
 
 public class MainActivity extends NaviiActivity {
     // Toolbar
@@ -220,7 +226,7 @@ public class MainActivity extends NaviiActivity {
                 Intent intent = new Intent(this, IntroActivity.class);
                 startActivity(intent);
                 tag = "";
-                NaviiPreferenceData.clearLoggedInEmailAddress();
+                NaviiPreferenceData.clearAllUserData();
                 break;
             default:        // this should never happen
                 tag = "";
@@ -243,10 +249,31 @@ public class MainActivity extends NaviiActivity {
             mToolbar.setTitle(mNavDrawerTitles[position]);
             mDrawerLayout.closeDrawer(mDrawerLinearLayout);
         }
-
     }
 
     private void setupUserInformation() {
+        Call<User> call = userAPI.getUser(NaviiPreferenceData.getUserId());
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Response<User> response, Retrofit retrofit) {
+                if (response.code() == 400) {
+                    Log.w("MainActivity", "Something messed up.");
+                    // TODO: possibly log the user out
 
+                } else if (response.code() == 200) {
+                    Log.w("MainActivity", "Success.");
+                    User user = response.body();
+                    NaviiPreferenceData.setLoggedInUserEmail(user.getUsername());
+                    NaviiPreferenceData.setIsFacebook(user.isFacebook());
+                } else {
+                    Log.w("MainActivity", "What the fuck happened. Response code: " + String.valueOf(response.code()));
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Log.w("Sign Up", "Failed: " + t.getMessage());
+            }
+        });
     }
 }
