@@ -43,21 +43,27 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textSize="20sp" />
 
-    <com.anton46.collectionitempicker.CollectionPicker
-        android:id="@+id/tags_picker"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="5dp"
-        app:cp_addIcon="@android:drawable/ic_menu_add"
-        app:cp_cancelIcon="@android:drawable/ic_menu_close_clear_cancel"
-        app:cp_itemBackgroundNormal="@color/blue"
-        app:cp_itemBackgroundPressed="@color/red"
-        app:cp_itemMargin="5dp"
-        app:cp_simplified="false"
-        app:cp_textPaddingBottom="5dp"
-        app:cp_textPaddingLeft="10dp"
-        app:cp_textPaddingRight="10dp"
-        app:cp_textPaddingTop="5dp"
+        android:layout_height="match_parent"
         android:layout_below="@+id/tags_text"
-        android:layout_above="@+id/tags_next_button" />
+        android:layout_above="@+id/tags_next_button">
+        <com.anton46.collectionitempicker.CollectionPicker
+            android:id="@+id/tags_picker"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            app:cp_addIcon="@android:drawable/ic_menu_add"
+            app:cp_cancelIcon="@android:drawable/ic_menu_close_clear_cancel"
+            app:cp_itemBackgroundNormal="@color/blue"
+            app:cp_itemBackgroundPressed="@color/red"
+            app:cp_itemMargin="5dp"
+            app:cp_simplified="false"
+            app:cp_textPaddingBottom="5dp"
+            app:cp_textPaddingLeft="10dp"
+            app:cp_textPaddingRight="10dp"
+            app:cp_textPaddingTop="5dp"
+            android:layout_below="@+id/tags_text"
+            android:layout_above="@+id/tags_next_button" />
+    </ScrollView>
 
 </RelativeLayout>
