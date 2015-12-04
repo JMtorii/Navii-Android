@@ -96,17 +96,8 @@ public class ProfileFragment extends MainFragment implements OnFocusListenable {
     }
 
     private void setImageViewWithImage() {
-        Uri imageUri = selectedPhotoPath;
-        String[] orientationColumn = {MediaStore.Images.Media.ORIENTATION};
-        Cursor cur = parentActivity.getContentResolver().query(imageUri, orientationColumn, null, null, null);
-        int orientation = -1;
-
-        if (cur != null && cur.moveToFirst()) {
-            orientation = cur.getInt(cur.getColumnIndex(orientationColumn[0]));
-        }
-
         Matrix matrix = new Matrix();
-        matrix.postRotate(orientation);
+        matrix.postRotate(getImageOrientation(selectedPhotoPath.getPath()));
 
         Bitmap pictureBitmap = BitmapResizer.shrinkBitmap(selectedPhotoPath.toString(), mPictureThumbnail.getWidth(), mPictureThumbnail.getHeight());
         Bitmap rotatedBitmap = Bitmap.createBitmap(pictureBitmap, 0, 0, pictureBitmap.getWidth(), pictureBitmap.getHeight(), matrix, true);
@@ -117,7 +108,6 @@ public class ProfileFragment extends MainFragment implements OnFocusListenable {
         int rotate = 0;
 
         try {
-            File imageFile = new File(imagePath);
             ExifInterface exif = new ExifInterface(imagePath);
             int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
 
