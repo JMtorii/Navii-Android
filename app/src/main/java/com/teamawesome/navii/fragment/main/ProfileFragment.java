@@ -47,8 +47,7 @@ public class ProfileFragment extends MainFragment implements OnFocusListenable {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
         mPictureThumbnail = (BootstrapCircleThumbnail) v.findViewById(R.id.profile_thumbnail);
