@@ -2,6 +2,7 @@ package com.teamawesome.navii.fragment.intro;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,29 +14,33 @@ import com.beardedhen.androidbootstrap.BootstrapCircleThumbnail;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.IntroActivity;
 import com.teamawesome.navii.activity.MainActivity;
-import com.teamawesome.navii.fragment.main.MainFragment;
+import com.teamawesome.navii.server.api.UserPreferenceAPI;
 import com.teamawesome.navii.server.model.UserPreference;
+import com.teamawesome.navii.util.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import retrofit.Call;
 import retrofit.Callback;
+import retrofit.JacksonConverterFactory;
 import retrofit.Response;
 import retrofit.Retrofit;
 
 /**
  * Created by JMtorii on 2015-10-30.
  */
-public class PreferencesFragment extends MainFragment {
-    private Button mNextButton;
-    private List<String> mSelectedPreferences;
-    private int mPreferencesCount;
-
+public class PreferencesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
+    private Button mNextButton;
+    private List<String> mSelectedPrefereces;
+    private int mPreferencesCount;
+
+    public PreferencesFragment(){}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,7 +48,7 @@ public class PreferencesFragment extends MainFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_intro_preferences, container, false);
 
-        mSelectedPreferences = new ArrayList<>();
+        mSelectedPrefereces = new ArrayList<>();
         mPreferencesCount = 0;
 
         mNextButton = (Button) view.findViewById(R.id.preferences_next_button);
@@ -79,7 +84,7 @@ public class PreferencesFragment extends MainFragment {
         return view;
     }
 
-    private View.OnClickListener mButtonOnClickListener = new View.OnClickListener() {
+    View.OnClickListener mButtonOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
 
@@ -88,25 +93,36 @@ public class PreferencesFragment extends MainFragment {
                 return;
             }
 
-            UserPreference userPreference = new UserPreference.Builder()
-                    .username("android-user")
-                    .preferences(mSelectedPreferences)
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(Constants.SERVER_URL)    // THIS ONLY WORKS ON JUN'S CASE
+                    .addConverterFactory(JacksonConverterFactory.create())
                     .build();
 
-            Call<UserPreference> deleteCall = parentActivity.userPreferenceAPI.deleteAllUserPreference("android-user");
-            Call<UserPreference> call = parentActivity.userPreferenceAPI.createUserPreference(userPreference);
+            UserPreferenceAPI userPreferenceAPI = retrofit.create(UserPreferenceAPI.class);
 
-            deleteCall.enqueue(preferenceCallBack);
+            UserPreference userPreference = new UserPreference.Builder()
+                    .username("android-user")
+                    .preferences(mSelectedPrefereces)
+                    .build();
+
+            Call<UserPreference> deletecall = userPreferenceAPI.deleteAllUserPreference("android-user");
+            Call<UserPreference> call = userPreferenceAPI.createUserPreference(userPreference);
+
+            // This does an async call.
+            // Use "execute" instead for a sync call.
+            // Call "call.cancel()" to cancel a running request.
+
+            deletecall.enqueue(preferenceCallBack);
             call.enqueue(preferenceCallBack);
 
-            if (getActivity().getClass().equals(IntroActivity.class)) {
-                Intent intent = new Intent(parentActivity, MainActivity.class);
-                parentActivity.startActivity(intent);
+            if (getActivity().getClass() == IntroActivity.class) {
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                getContext().startActivity(intent);
             }
         }
     };
 
-    private View.OnClickListener mPreferencesOnClickListener = new View.OnClickListener() {
+    View.OnClickListener mPreferencesOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
 
@@ -118,11 +134,11 @@ public class PreferencesFragment extends MainFragment {
                     Toast.makeText(getContext(), "Cannot add another preference", Toast.LENGTH_LONG).show();
                     return;
                 }
-                mSelectedPreferences.add((String) bootstrapCircleThumbnail.getTag());
+                mSelectedPrefereces.add((String) bootstrapCircleThumbnail.getTag());
                 mPreferencesCount++;
             } else {
 
-                mSelectedPreferences.remove(bootstrapCircleThumbnail.getTag());
+                mSelectedPrefereces.remove(bootstrapCircleThumbnail.getTag());
                 mPreferencesCount--;
             }
 
@@ -131,7 +147,7 @@ public class PreferencesFragment extends MainFragment {
         }
     };
 
-    private Callback<UserPreference> preferenceCallBack = new Callback<UserPreference>() {
+    Callback<UserPreference> preferenceCallBack = new Callback<UserPreference>() {
         @Override
         public void onResponse(Response<UserPreference> response, Retrofit retrofit) {
             Log.i("response: code", String.valueOf(response.code()));
