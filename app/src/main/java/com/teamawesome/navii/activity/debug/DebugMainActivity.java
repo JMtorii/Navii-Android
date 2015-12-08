@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -31,6 +30,8 @@ public class DebugMainActivity extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // change this to the real server address
         NaviiPreferenceData.setIPAddress(getResources().getString(R.string.debug_ip_address_jun));
         mTitles = getApplicationContext().getResources().getStringArray(R.array.debug_list);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
@@ -47,22 +48,6 @@ public class DebugMainActivity extends ListActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
-    }
-
-    // TODO: add toolbar
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.debug_menu_real:
-                // TODO: change to actual IP address
-                NaviiPreferenceData.setIPAddress(getResources().getString(R.string.debug_ip_address_jun));
-                return true;
-            case R.id.debug_menu_jun:
-                NaviiPreferenceData.setIPAddress(getResources().getString(R.string.debug_ip_address_jun));
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
     @Override
@@ -84,7 +69,7 @@ public class DebugMainActivity extends ListActivity {
             startActivity(mainIntent);
         } else if (id == 2) {
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("http://192.168.57.1:8080")    // THIS ONLY WORKS IN JUN'S CASE
+                    .baseUrl(getResources().getString(R.string.debug_ip_address_jun))    // THIS ONLY WORKS IN JUN'S CASE
                     .addConverterFactory(JacksonConverterFactory.create())
                     .build();
 
@@ -113,6 +98,8 @@ public class DebugMainActivity extends ListActivity {
                     Log.i("failed", t.getMessage());
                 }
             });
+        } else if (id == 3) {
+            NaviiPreferenceData.setIPAddress(getResources().getString(R.string.debug_ip_address_jun));
         }
     }
 }
