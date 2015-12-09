@@ -66,7 +66,7 @@ public class PreferencesFragment extends MainFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_intro_preferences, container, false);
+        final View view = inflater.inflate(R.layout.fragment_intro_preferences, container, false);
 
         mSelectedPreferences = new ArrayList<>();
         mPreferencesCount = 0;
@@ -92,36 +92,41 @@ public class PreferencesFragment extends MainFragment {
                 .subscribe(new Subscriber<List<Preference>>() {
                     @Override
                     public void onCompleted() {
-                        Log.d("onCompleted", "preferences");
+
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e("onError", "preferences", e);
+                        Log.e("PreferencesFragment", "onError", e);
                     }
 
                     @Override
                     public void onNext(List<Preference> preferences) {
-                        Log.d("onNext", "preferences");
-                        preferencesList.addAll(preferences);
+                        GridView gridView = (GridView) view.findViewById(R.id.preferences_layout);
+
+                        gridView.setAdapter(new PreferencesGridAdapter(getContext(), R.layout
+                                .prefrences_view, preferences));
+
+                        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                CheckBox checkBox = (CheckBox) view.findViewById(R.id.preferenceCheckBox);
+                                if (checkBox.isSelected()) {
+                                    if (mPreferencesCount == Constants.PREFERENCE_MAX_LIMIT) {
+                                        return;
+                                    }
+                                    mSelectedPreferences.add((String) checkBox.getTag());
+                                    mPreferencesCount++;
+                                } else {
+
+                                    mSelectedPreferences.remove(checkBox.getTag());
+                                    mPreferencesCount--;
+                                }
+                            }
+                        });
+
                     }
                 });
-
-        for (Preference preference : preferencesList) {
-            Log.d("PreferencesFragment", preference.getPreference());
-        }
-
-        GridView gridView = (GridView) view.findViewById(R.id.preferences_layout);
-
-        gridView.setAdapter(new PreferencesGridAdapter(inflater.getContext(), R.layout
-                .prefrences_view, preferencesList));
-
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-        });
 
         return view;
     }
@@ -154,6 +159,13 @@ public class PreferencesFragment extends MainFragment {
         }
     };
 
+    private View.OnClickListener mPreferencesOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+
+        }
+    };
     private Callback<UserPreference> preferenceCallBack = new Callback<UserPreference>() {
         @Override
         public void onResponse(Response<UserPreference> response, Retrofit retrofit) {
@@ -168,7 +180,7 @@ public class PreferencesFragment extends MainFragment {
     };
 
     private class PreferencesGridAdapter extends ArrayAdapter<Preference> {
-        //TODO: replace object with preference object
+
         List<Preference> mPreferences;
 
         public PreferencesGridAdapter(Context context, int resource, List<Preference> preferences) {
@@ -192,29 +204,9 @@ public class PreferencesFragment extends MainFragment {
             CheckBox checkBox = (CheckBox) view.findViewById(R.id.preferenceCheckBox);
             checkBox.setText(mPreferences.get(position).getPreference());
 
-            view.setOnClickListener(mPreferencesOnClickListener);
-
             return view;
         }
 
-        private View.OnClickListener mPreferencesOnClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                CheckBox checkBox = (CheckBox) view.findViewById(R.id.preferenceCheckBox);
-                if (checkBox.isSelected()) {
-                    if (mPreferencesCount == Constants.PREFERENCE_MAX_LIMIT) {
-                        return;
-                    }
-                    mSelectedPreferences.add((String) checkBox.getTag());
-                    mPreferencesCount++;
-                } else {
-
-                    mSelectedPreferences.remove(checkBox.getTag());
-                    mPreferencesCount--;
-                }
-            }
-        };
     }
 
 }

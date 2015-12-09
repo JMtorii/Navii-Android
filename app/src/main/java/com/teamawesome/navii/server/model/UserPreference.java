@@ -6,7 +6,7 @@ import java.util.List;
  * Created by sjung on 10/11/15.
  */
 public class UserPreference {
-    private List<String> preferences;
+    private List<Preference> preferences;
     private String username;
 
     public List<String> getPreferences() {
@@ -43,7 +43,7 @@ public class UserPreference {
 
         public Builder() {}
 
-        public Builder preferences(List<String> preferences) {
+        public Builder preferences(List<Preference> preferences) {
             this.preferences = preferences;
             return this;
         }

@@ -37,6 +37,8 @@ public class Preference {
         return photoUrl;
     }
 
+    public Preference() {}
+
     private Preference(Builder builder) {
         this.preference = builder.preference;
         this.counter = builder.counter;
