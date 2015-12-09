@@ -38,15 +38,11 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_buzz_feed">BuzzFeedActivity</string>
 
-    <!--Preference Fragment Strings    -->
+<!--Preference Fragment Strings    -->
     <string name="preferences_title">Preferences</string>
     <string name="preferences_message">Choose 5 or more that apply! You can change these later
             in your settings</string>
-    <!--Choose Tags Fragment Strings    -->
+    <!--Preference Fragment Strings    -->
     <string name="tags_title">Tags</string>
     <string name="tags_message">Choose your Experience!</string>
-
-    <!-- Itinerary Recommend Fragment Strings-->
-    <string name="itinerary_recommend_title">We Recommend</string>
-
 </resources>
