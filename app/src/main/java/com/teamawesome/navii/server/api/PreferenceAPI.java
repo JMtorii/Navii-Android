@@ -4,10 +4,10 @@ import com.teamawesome.navii.server.model.Preference;
 
 import java.util.List;
 
-import retrofit.Call;
 import retrofit.http.GET;
 import retrofit.http.Headers;
 import retrofit.http.Path;
+import rx.Observable;
 
 /**
  * Created by sjung on 08/12/15.
@@ -20,5 +20,5 @@ public interface PreferenceAPI {
      */
     @Headers({"Content-Type: application/json"})
     @GET("/preference/{preferenceType}")
-    Call<List<Preference>> getPreferences(@Path("preferenceType") int preferenceType);
+    Observable<List<Preference>> getPreferences(@Path("preferenceType") int preferenceType);
 }

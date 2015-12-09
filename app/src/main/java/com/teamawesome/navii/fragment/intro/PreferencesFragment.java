@@ -33,6 +33,10 @@ import retrofit.JacksonConverterFactory;
 import retrofit.Response;
 import retrofit.Retrofit;
 import retrofit.RxJavaCallAdapterFactory;
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by JMtorii on 2015-10-30.
@@ -80,51 +84,28 @@ public class PreferencesFragment extends MainFragment {
         int preferenceType = getArguments().getInt(PREFERENCE_TYPE);
         final List<Preference> preferencesList = new ArrayList<>();
 
-        Call<List<Preference>> observable = retrofit.create(PreferenceAPI.class)
+        Observable<List<Preference>> observable = retrofit.create(PreferenceAPI.class)
                 .getPreferences(preferenceType);
 
-        observable.enqueue(new Callback<List<Preference>>() {
-            @Override
-            public void onResponse(Response<List<Preference>> response, Retrofit retrofit) {
-                if (response.code() == 400) {
-                    Log.w("MainActivity", "Something messed up.");
-                    // TODO: possibly log the user out
-
-                } else if (response.code() == 200) {
-                    Log.w("MainActivity", "Success.");
-                    preferencesList.addAll(response.body());
-                    for (Preference pref : preferencesList) {
-                        Log.d("PreferenceFragment", pref.getPreference());
+        observable.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<List<Preference>>() {
+                    @Override
+                    public void onCompleted() {
+                        Log.d("onCompleted", "preferences");
                     }
-                } else {
-                    Log.w("MainActivity", "What the fuck happened. Response code: " + String.valueOf(response.code()));
-                }
-            }
 
-            @Override
-            public void onFailure(Throwable t) {
-                Log.w("Sign Up", "Failed: " + t.getMessage());
-            }
-        });
-//        observable.subscribeOn(Schedulers.newThread())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Subscriber<List<Preference>>() {
-//                    @Override
-//                    public void onCompleted() {
-//                        Log.d("onCompleted", "preferences");
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//                        Log.e("onError", "preferences", e);
-//                    }
-//
-//                    @Override
-//                    public void onNext(List<Preference> preferences) {
-//                        Log.d("onNext", "preferences");
-//                        preferencesList.addAll(preferences);
-//                    }
-//                });
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e("onError", "preferences", e);
+                    }
+
+                    @Override
+                    public void onNext(List<Preference> preferences) {
+                        Log.d("onNext", "preferences");
+                        preferencesList.addAll(preferences);
+                    }
+                });
 
         for (Preference preference : preferencesList) {
             Log.d("PreferencesFragment", preference.getPreference());
