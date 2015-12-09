@@ -1,5 +1,6 @@
 package com.teamawesome.navii.fragment.intro;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 
 import com.teamawesome.navii.R;
 import com.viewpagerindicator.CirclePageIndicator;
@@ -27,7 +29,7 @@ public class IntroViewPagerFragment extends IntroFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_intro_view_pager, container, false);
@@ -35,6 +37,14 @@ public class IntroViewPagerFragment extends IntroFragment {
         mAdapter = new PagerAdapter(getFragmentManager());
         mPager.setAdapter(mAdapter);
         mPager.setCurrentItem(0);
+        //Close the keyboard if someone decides to swipe left mid-login
+        mPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
+            @Override
+            public void onPageSelected (int state){
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(container.getWindowToken(), 0);
+            }
+        });
 
         // Page indicator settings
         mPageIndicator = (CirclePageIndicator) v.findViewById(R.id.intro_page_indicator);
