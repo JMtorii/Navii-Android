@@ -29,7 +29,7 @@ public class IntroViewPagerFragment extends IntroFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_intro_view_pager, container, false);
@@ -42,7 +42,7 @@ public class IntroViewPagerFragment extends IntroFragment {
             @Override
             public void onPageSelected (int state){
                 InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(container.getWindowToken(), 0);
+                imm.hideSoftInputFromWindow(mPager.getRootView().getWindowToken(), 0);
             }
         });
 
