@@ -11,6 +11,10 @@ import rx.Observable;
  */
 public interface TagsAPI {
 
+    /**
+     * Returns a list of 20 random tags from the server
+     * @return list of random tags from the server
+     */
     @Headers({"Content-Type: application/json", "Cache-Control: no-cache"})
     @GET("/tags")
     Observable<List<String>> getTags();
