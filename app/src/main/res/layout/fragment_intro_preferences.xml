@@ -1,13 +1,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity">
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                tools:context=".MainActivity">
 
     <Button
         android:id="@+id/preferences_next_button"
@@ -16,9 +15,9 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:clickable="false"
         android:background="@android:color/transparent"
-        android:text="Next" />
+        android:clickable="false"
+        android:text="Next"/>
 
     <TextView
         android:id="@+id/preferences_title"
@@ -28,7 +27,7 @@
         android:layout_centerHorizontal="true"
         android:text="@string/preferences_title"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="40sp" />
+        android:textSize="40sp"/>
 
     <TextView
         android:id="@+id/preferences_text"
@@ -40,158 +39,29 @@
         android:gravity="center"
         android:text="@string/preferences_message"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="20sp" />
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_below="@+id/preferences_text">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:id="@+id/preferences_layout"
-        android:layout_below="@+id/preferences_text"
-        android:layout_height="match_parent">
+        android:textSize="20sp"/>
 
-        <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/imagination"
-            android:id="@+id/preferences_1"
-            android:tag="Fun"
-            app:hasBorder="false"
-            app:paddingStart="0dp"
-            app:paddingEnd="0dp"
-            android:background="@drawable/button_background"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"/>
-        <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/preferences_2"
-            android:tag="Boring"
-            app:hasBorder="false"
-            app:paddingStart="0dp"
-            app:paddingEnd="0dp"
-            android:background="@drawable/button_background"
-            android:src="@drawable/imagination"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
-        <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/imagination"
-            android:id="@+id/preferences_3"
-            android:tag="Adult"
-            app:hasBorder="false"
-            app:paddingStart="0dp"
-            app:paddingEnd="0dp"
-            android:layout_alignParentTop="true"
+    <!--<ScrollView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_alignLeft="@+id/preferences_text"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_alignStart="@+id/preferences_text"-->
+        <!--android:layout_below="@+id/preferences_text">-->
+
+        <GridView
+            android:id="@+id/preferences_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
-        <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/preferences_4"
-            android:tag="Kids"
-            app:hasBorder="false"
-            app:paddingStart="0dp"
-            app:paddingEnd="0dp"
-            android:src="@drawable/imagination"
-            android:layout_below="@+id/preferences_1"
-            android:layout_alignParentLeft="true"/>
-        <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/imagination"
-            android:id="@+id/preferences_5"
-            android:tag="Pious"
-            app:hasBorder="false"
-            app:paddingStart="0dp"
-            app:paddingEnd="0dp"
-            android:layout_below="@+id/preferences_2"
-            android:layout_alignLeft="@+id/preferences_2"
-            android:layout_alignStart="@+id/preferences_2" />
-        <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/imagination"
-            android:id="@+id/preferences_6"
-            android:tag="Clean"
-            app:hasBorder="false"
-            app:paddingStart="0dp"
-            app:paddingEnd="0dp"
-            android:layout_below="@+id/preferences_3"
-            android:layout_alignLeft="@+id/preferences_3"
-            android:layout_alignStart="@+id/preferences_3" />
-        <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/preferences_7"
-            android:src="@drawable/imagination"
-            android:tag="Dirty"
-            app:hasBorder="false"
-            app:paddingStart="0dp"
-            app:paddingEnd="0dp"
-            android:layout_below="@+id/preferences_4"
-            android:layout_alignParentLeft="true"/>
-        <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/imagination"
-            android:id="@+id/preferences_8"
-            android:tag="Hardcore"
-            app:hasBorder="false"
-            app:paddingStart="0dp"
-            app:paddingEnd="0dp"
-            android:layout_below="@+id/preferences_5"
-            android:layout_alignLeft="@+id/preferences_5"
-            android:layout_alignStart="@+id/preferences_5" />
-        <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/imagination"
-            android:id="@+id/preferences_9"
-            android:tag="Chinese"
-            app:hasBorder="false"
-            app:paddingStart="0dp"
-            app:paddingEnd="0dp"
-            android:layout_below="@+id/preferences_6"
-            android:layout_alignLeft="@+id/preferences_6"
-            android:layout_alignStart="@+id/preferences_6" />
-        <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/preferences_10"
-            android:src="@drawable/imagination"
-            android:tag="French"
-            app:hasBorder="false"
-            app:paddingStart="0dp"
-            app:paddingEnd="0dp"
-            android:layout_below="@+id/preferences_7"
-            android:layout_alignParentLeft="true"/>
-        <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/imagination"
-            android:id="@+id/preferences_11"
-            android:tag="Black"
-            app:hasBorder="false"
-            app:paddingStart="0dp"
-            app:paddingEnd="0dp"
-            android:layout_below="@+id/preferences_8"
-            android:layout_alignLeft="@+id/preferences_8"
-            android:layout_alignStart="@+id/preferences_8" />
-        <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/imagination"
-            android:id="@+id/preferences_12"
-            android:tag="White"
-            app:hasBorder="false"
-            app:paddingEnd="0dp"
-            android:layout_below="@+id/preferences_9"
-            android:layout_alignLeft="@+id/preferences_9"
-            android:layout_alignStart="@+id/preferences_9" />
-    </RelativeLayout>
-</ScrollView>
+            android:layout_below="@+id/preferences_text"
+            android:numColumns="auto_fit"
+            android:gravity="center"
+            android:columnWidth="100dp"
+            android:stretchMode="columnWidth">
+
+        </GridView>
+
 
 </RelativeLayout>

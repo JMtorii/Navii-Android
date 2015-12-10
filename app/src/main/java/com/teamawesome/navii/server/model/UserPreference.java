@@ -5,16 +5,20 @@ import java.util.List;
 /**
  * Created by sjung on 10/11/15.
  */
+@SuppressWarnings("unused")
 public class UserPreference {
-    private List<String> preferences;
+    private List<Preference> preferences;
     private String username;
 
-    public List<String> getPreferences() {
-        return preferences;
+    public UserPreference() {}
+
+    private UserPreference(Builder builder) {
+        this.username = builder.username;
+        this.preferences = builder.preferences;
     }
 
-    public void setPreferences(List<String> preferences) {
-        this.preferences = preferences;
+    public List<Preference> getPreferences() {
+        return preferences;
     }
 
     public String getUsername() {
@@ -25,25 +29,18 @@ public class UserPreference {
         this.username = username;
     }
 
-    public UserPreference() {}
-
-    public UserPreference(Builder builder) {
-
-    }
-
     public static Builder getBuilder() {
         return new Builder();
     }
 
     public static class Builder {
 
-        private List<String> preferences;
+        private List<Preference> preferences;
         private String username;
-
 
         public Builder() {}
 
-        public Builder preferences(List<String> preferences) {
+        public Builder preferences(List<Preference> preferences) {
             this.preferences = preferences;
             return this;
         }
@@ -53,11 +50,8 @@ public class UserPreference {
             return this;
         }
 
-
-        // TODO: potentially check for non-null values
         public UserPreference build() {
             return new UserPreference(this);
         }
     }
 }
-
