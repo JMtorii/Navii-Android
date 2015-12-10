@@ -1,6 +1,5 @@
 package com.teamawesome.navii.fragment.intro;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,9 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -18,8 +15,8 @@ import android.widget.Toast;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.IntroActivity;
 import com.teamawesome.navii.activity.MainActivity;
+import com.teamawesome.navii.adapter.PreferencesGridAdapter;
 import com.teamawesome.navii.fragment.main.MainFragment;
-import com.teamawesome.navii.server.api.PreferenceAPI;
 import com.teamawesome.navii.server.model.Preference;
 import com.teamawesome.navii.server.model.UserPreference;
 import com.teamawesome.navii.util.Constants;
@@ -29,10 +26,8 @@ import java.util.List;
 
 import retrofit.Call;
 import retrofit.Callback;
-import retrofit.JacksonConverterFactory;
 import retrofit.Response;
 import retrofit.Retrofit;
-import retrofit.RxJavaCallAdapterFactory;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -43,6 +38,9 @@ import rx.schedulers.Schedulers;
  */
 public class PreferencesFragment extends MainFragment {
     private Button mNextButton;
+    private GridView gridView;
+    private ImageView imageView;
+
     private List<Preference> mSelectedPreferences;
     private int mPreferencesCount;
 
@@ -72,17 +70,10 @@ public class PreferencesFragment extends MainFragment {
         mPreferencesCount = 0;
 
         mNextButton = (Button) view.findViewById(R.id.preferences_next_button);
-        mNextButton.setOnClickListener(mButtonOnClickListener);
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Constants.SERVER_URL)
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .addConverterFactory(JacksonConverterFactory.create())
-                .build();
+        gridView = (GridView) view.findViewById(R.id.preferences_layout);
 
         int preferenceType = getArguments().getInt(PREFERENCE_TYPE);
-
-        Observable<List<Preference>> observable = retrofit.create(PreferenceAPI.class)
+        Observable<List<Preference>> observable = parentActivity.preferenceAPI
                 .getPreferences(preferenceType);
 
         observable.subscribeOn(Schedulers.newThread())
@@ -90,7 +81,7 @@ public class PreferencesFragment extends MainFragment {
                 .subscribe(new Subscriber<List<Preference>>() {
                     @Override
                     public void onCompleted() {
-
+                        //nothing to do here
                     }
 
                     @Override
@@ -100,7 +91,6 @@ public class PreferencesFragment extends MainFragment {
 
                     @Override
                     public void onNext(List<Preference> preferences) {
-                        GridView gridView = (GridView) view.findViewById(R.id.preferences_layout);
 
                         gridView.setAdapter(new PreferencesGridAdapter(getContext(), R.layout
                                 .prefrences_view, preferences));
@@ -108,100 +98,78 @@ public class PreferencesFragment extends MainFragment {
                         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                CheckBox checkBox = (CheckBox) view.findViewById(R.id.preferenceCheckBox);
-                                if (checkBox.isSelected()) {
+                                imageView = (ImageView) view.findViewById(R.id.preferenceCheckImageView);
+
+                                boolean selected = imageView.isSelected();
+                                if (selected) {
                                     if (mPreferencesCount == Constants.PREFERENCE_MAX_LIMIT) {
                                         return;
                                     }
-                                    mSelectedPreferences.add((Preference) checkBox.getTag());
+                                    mSelectedPreferences.add((Preference) imageView.getTag());
                                     mPreferencesCount++;
+                                    imageView.setVisibility(View.VISIBLE);
                                 } else {
-                                    mSelectedPreferences.remove(checkBox.getTag());
+                                    mSelectedPreferences.remove((Preference) imageView.getTag());
                                     mPreferencesCount--;
+                                    imageView.setVisibility(View.GONE);
                                 }
+                                imageView.setSelected(!selected);
                             }
                         });
-
                     }
                 });
 
+        mNextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (mPreferencesCount < Constants.PREFERENCE_MIN_LIMIT) {
+                    //TODO: Replace with toast replacement
+                    Toast.makeText(getContext(), "Less than minimum requirements", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                UserPreference userPreference = new UserPreference.Builder()
+                        .username("android-user")
+                        .preferences(mSelectedPreferences)
+                        .build();
+
+                Call<UserPreference> deleteCall = parentActivity.userPreferenceAPI.deleteAllUserPreference("android-user");
+                Call<UserPreference> call = parentActivity.userPreferenceAPI.createUserPreference(userPreference);
+
+                deleteCall.enqueue(new Callback<UserPreference>() {
+                    @Override
+                    public void onResponse(Response<UserPreference> response, Retrofit retrofit) {
+                        Log.i("response: code", String.valueOf(response.code()));
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t) {
+                        Log.i("failed", t.getMessage());
+                        Toast.makeText(getContext(), "Could not update", Toast.LENGTH_LONG).show();
+                    }
+                });
+
+                call.enqueue(new Callback<UserPreference>() {
+                    @Override
+                    public void onResponse(Response<UserPreference> response, Retrofit retrofit) {
+                        Log.i("response: code", String.valueOf(response.code()));
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t) {
+                        Log.i("failed", t.getMessage());
+                        Toast.makeText(getContext(), "Could not update", Toast.LENGTH_LONG).show();
+                    }
+                });
+
+                if (getActivity().getClass().equals(IntroActivity.class)) {
+                    Intent intent = new Intent(parentActivity, MainActivity.class);
+                    parentActivity.startActivity(intent);
+                }
+            }
+        });
+
         return view;
-    }
-
-    private View.OnClickListener mButtonOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-
-            if (mPreferencesCount < Constants.PREFERENCE_MIN_LIMIT) {
-                //TODO: Replace with toast replacement
-                Toast.makeText(getContext(), "Less than minimum requirements", Toast.LENGTH_LONG).show();
-                return;
-            }
-
-            UserPreference userPreference = new UserPreference.Builder()
-                    .username("android-user")
-                    .preferences(mSelectedPreferences)
-                    .build();
-
-            Call<UserPreference> deleteCall = parentActivity.userPreferenceAPI.deleteAllUserPreference("android-user");
-            Call<UserPreference> call = parentActivity.userPreferenceAPI.createUserPreference(userPreference);
-
-            deleteCall.enqueue(preferenceCallBack);
-            call.enqueue(preferenceCallBack);
-
-            if (getActivity().getClass().equals(IntroActivity.class)) {
-                Intent intent = new Intent(parentActivity, MainActivity.class);
-                parentActivity.startActivity(intent);
-            }
-        }
-    };
-
-    private View.OnClickListener mPreferencesOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-
-
-        }
-    };
-    private Callback<UserPreference> preferenceCallBack = new Callback<UserPreference>() {
-        @Override
-        public void onResponse(Response<UserPreference> response, Retrofit retrofit) {
-            Log.i("response: code", String.valueOf(response.code()));
-        }
-
-        @Override
-        public void onFailure(Throwable t) {
-            Log.i("failed", t.getMessage());
-            Toast.makeText(getContext(), "Could not update", Toast.LENGTH_LONG).show();
-        }
-    };
-
-    private class PreferencesGridAdapter extends ArrayAdapter<Preference> {
-
-        List<Preference> mPreferences;
-
-        public PreferencesGridAdapter(Context context, int resource, List<Preference> preferences) {
-            super(context, resource, preferences);
-            this.mPreferences = preferences;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            View view = convertView;
-
-            if (view == null) {
-                LayoutInflater inflater = (LayoutInflater) getContext()
-                        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                view = inflater.inflate(R.layout.prefrences_view, null);
-            }
-
-            ImageView imageView = (ImageView) view.findViewById(R.id.preferenceImageView);
-            imageView.setImageResource(R.drawable.imagination);
-
-            CheckBox checkBox = (CheckBox) view.findViewById(R.id.preferenceCheckBox);
-            checkBox.setText(mPreferences.get(position).getPreference());
-
-            return view;
-        }
     }
 }

@@ -29,7 +29,6 @@ import rx.schedulers.Schedulers;
  */
 public class ChooseTagsFragment extends MainFragment {
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
