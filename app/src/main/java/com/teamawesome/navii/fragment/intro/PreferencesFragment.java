@@ -93,7 +93,7 @@ public class PreferencesFragment extends MainFragment {
                     public void onNext(List<Preference> preferences) {
 
                         gridView.setAdapter(new PreferencesGridAdapter(getContext(), R.layout
-                                .prefrences_view, preferences));
+                                .preferences_view, preferences));
 
                         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
@@ -135,7 +135,7 @@ public class PreferencesFragment extends MainFragment {
                         .build();
 
                 Call<UserPreference> deleteCall = parentActivity.userPreferenceAPI.deleteAllUserPreference("android-user");
-                Call<UserPreference> call = parentActivity.userPreferenceAPI.createUserPreference(userPreference);
+                Call<UserPreference> createCall = parentActivity.userPreferenceAPI.createUserPreference(userPreference);
 
                 deleteCall.enqueue(new Callback<UserPreference>() {
                     @Override
@@ -150,7 +150,7 @@ public class PreferencesFragment extends MainFragment {
                     }
                 });
 
-                call.enqueue(new Callback<UserPreference>() {
+                createCall.enqueue(new Callback<UserPreference>() {
                     @Override
                     public void onResponse(Response<UserPreference> response, Retrofit retrofit) {
                         Log.i("response: code", String.valueOf(response.code()));
