@@ -43,7 +43,7 @@ import rx.schedulers.Schedulers;
  */
 public class PreferencesFragment extends MainFragment {
     private Button mNextButton;
-    private List<String> mSelectedPreferences;
+    private List<Preference> mSelectedPreferences;
     private int mPreferencesCount;
 
     private static final String PREFERENCE_TYPE = "preference_type";
@@ -80,9 +80,7 @@ public class PreferencesFragment extends MainFragment {
                 .addConverterFactory(JacksonConverterFactory.create())
                 .build();
 
-
         int preferenceType = getArguments().getInt(PREFERENCE_TYPE);
-        final List<Preference> preferencesList = new ArrayList<>();
 
         Observable<List<Preference>> observable = retrofit.create(PreferenceAPI.class)
                 .getPreferences(preferenceType);
@@ -115,10 +113,9 @@ public class PreferencesFragment extends MainFragment {
                                     if (mPreferencesCount == Constants.PREFERENCE_MAX_LIMIT) {
                                         return;
                                     }
-                                    mSelectedPreferences.add((String) checkBox.getTag());
+                                    mSelectedPreferences.add((Preference) checkBox.getTag());
                                     mPreferencesCount++;
                                 } else {
-
                                     mSelectedPreferences.remove(checkBox.getTag());
                                     mPreferencesCount--;
                                 }
@@ -206,7 +203,5 @@ public class PreferencesFragment extends MainFragment {
 
             return view;
         }
-
     }
-
 }

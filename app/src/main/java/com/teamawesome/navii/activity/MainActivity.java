@@ -211,7 +211,7 @@ public class MainActivity extends NaviiActivity {
                 tag = Constants.PLANNING_SAVED_TRIPS_FRAGMENT_TAG;
                 break;
             case 3:         // Preferences
-                fragment = new PreferencesFragment().newInstance(Constants.PREFERENCE_TYPE_1);
+                fragment = PreferencesFragment.newInstance(Constants.PREFERENCE_TYPE_1);
                 tag = Constants.PREFERENCES_FRAGMENT_TAG;
                 break;
             case 4:         // Notifications
