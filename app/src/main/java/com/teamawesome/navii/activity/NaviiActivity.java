@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 
 import com.teamawesome.navii.server.api.PreferenceAPI;
+import com.teamawesome.navii.server.api.TagsAPI;
 import com.teamawesome.navii.server.api.UserAPI;
 import com.teamawesome.navii.server.api.UserPreferenceAPI;
 import com.teamawesome.navii.util.Constants;
@@ -26,8 +27,10 @@ public abstract class NaviiActivity extends AppCompatActivity {
     public final UserAPI userAPI;
     public final UserPreferenceAPI userPreferenceAPI;
     public final PreferenceAPI preferenceAPI;
+    public final TagsAPI tagsAPI;
 
     public NaviiActivity() {
+        // TODO: do we need both?
         retrofit = new Retrofit.Builder()
                 .baseUrl(NaviiPreferenceData.getIPAddress())
                 .addConverterFactory(JacksonConverterFactory.create())
@@ -42,6 +45,7 @@ public abstract class NaviiActivity extends AppCompatActivity {
         userAPI = retrofit.create(UserAPI.class);
         userPreferenceAPI = retrofit.create(UserPreferenceAPI.class);
         preferenceAPI = retrofitObservable.create(PreferenceAPI.class);
+        tagsAPI = retrofitObservable.create(TagsAPI.class);
     }
 
     public void switchFragment(Fragment newFragment, int enterAnim, int exitAnim, String tag,

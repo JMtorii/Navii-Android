@@ -16,7 +16,6 @@ import java.util.List;
  * Created by sjung on 10/12/15.
  */
 public class ItineraryListViewAdapter extends ArrayAdapter<String> {
-
     private List<String> itineraries;
 
     public ItineraryListViewAdapter(Context context, int resource, List<String> itineraries) {
@@ -29,8 +28,7 @@ public class ItineraryListViewAdapter extends ArrayAdapter<String> {
         View view = convertView;
 
         if (view == null) {
-            LayoutInflater inflater = (LayoutInflater) getContext()
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.itinerary_listitem_layout, null);
         }
 

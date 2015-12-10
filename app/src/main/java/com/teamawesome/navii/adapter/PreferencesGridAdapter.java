@@ -28,13 +28,11 @@ public class PreferencesGridAdapter extends ArrayAdapter<Preference>{
         View view = convertView;
 
         if (view == null) {
-            LayoutInflater inflater = (LayoutInflater) getContext()
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.preferences_view, null);
         }
 
         TextView textView = (TextView) view.findViewById(R.id.preferenceTextView);
-
         textView.setText(mPreferences.get(position).getPreference());
 
         return view;

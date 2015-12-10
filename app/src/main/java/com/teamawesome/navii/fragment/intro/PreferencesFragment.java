@@ -37,14 +37,14 @@ import rx.schedulers.Schedulers;
  * Created by JMtorii on 2015-10-30.
  */
 public class PreferencesFragment extends MainFragment {
+    private static final String PREFERENCE_TYPE = "preference_type";
+
     private Button mNextButton;
     private GridView gridView;
     private ImageView imageView;
 
     private List<Preference> mSelectedPreferences;
     private int mPreferencesCount;
-
-    private static final String PREFERENCE_TYPE = "preference_type";
 
     public static PreferencesFragment newInstance(int preferenceType) {
         PreferencesFragment fragment = new PreferencesFragment();
@@ -63,7 +63,6 @@ public class PreferencesFragment extends MainFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_intro_preferences, container, false);
 
         mSelectedPreferences = new ArrayList<>();
@@ -91,7 +90,6 @@ public class PreferencesFragment extends MainFragment {
 
                     @Override
                     public void onNext(List<Preference> preferences) {
-
                         gridView.setAdapter(new PreferencesGridAdapter(getContext(), R.layout
                                 .preferences_view, preferences));
 
