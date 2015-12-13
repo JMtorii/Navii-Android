@@ -58,22 +58,20 @@ public class PreferencesFragment extends MainFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mSelectedPreferences = new ArrayList<>();
+        mPreferencesCount = 0;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_intro_preferences, container, false);
-
-        mSelectedPreferences = new ArrayList<>();
-        mPreferencesCount = 0;
+        View view = inflater.inflate(R.layout.fragment_intro_preferences, container, false);
 
         mNextButton = (Button) view.findViewById(R.id.preferences_next_button);
         gridView = (GridView) view.findViewById(R.id.preferences_layout);
 
         int preferenceType = getArguments().getInt(PREFERENCE_TYPE);
-        Observable<List<Preference>> observable = parentActivity.preferenceAPI
-                .getPreferences(preferenceType);
+        Observable<List<Preference>> observable = parentActivity.preferenceAPI.getPreferences(preferenceType);
 
         observable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -90,8 +88,7 @@ public class PreferencesFragment extends MainFragment {
 
                     @Override
                     public void onNext(List<Preference> preferences) {
-                        gridView.setAdapter(new PreferencesGridAdapter(getContext(), R.layout
-                                .preferences_view, preferences));
+                        gridView.setAdapter(new PreferencesGridAdapter(getContext(), R.layout.preferences_view, preferences));
 
                         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
@@ -104,11 +101,11 @@ public class PreferencesFragment extends MainFragment {
                                         return;
                                     }
                                     mSelectedPreferences.add((Preference) imageView.getTag());
-                                    mPreferencesCount++;
+                                    ++mPreferencesCount;
                                     imageView.setVisibility(View.VISIBLE);
                                 } else {
                                     mSelectedPreferences.remove((Preference) imageView.getTag());
-                                    mPreferencesCount--;
+                                    --mPreferencesCount;
                                     imageView.setVisibility(View.GONE);
                                 }
                                 imageView.setSelected(!selected);
@@ -121,6 +118,7 @@ public class PreferencesFragment extends MainFragment {
             @Override
             public void onClick(View v) {
 
+                // TODO: don't return early.
                 if (mPreferencesCount < Constants.PREFERENCE_MIN_LIMIT) {
                     //TODO: Replace with toast replacement
                     Toast.makeText(getContext(), "Less than minimum requirements", Toast.LENGTH_LONG).show();
@@ -135,6 +133,7 @@ public class PreferencesFragment extends MainFragment {
                 Call<UserPreference> deleteCall = parentActivity.userPreferenceAPI.deleteAllUserPreference("android-user");
                 Call<UserPreference> createCall = parentActivity.userPreferenceAPI.createUserPreference(userPreference);
 
+                // TODO: wtf does this do? Add comments.
                 deleteCall.enqueue(new Callback<UserPreference>() {
                     @Override
                     public void onResponse(Response<UserPreference> response, Retrofit retrofit) {
@@ -161,6 +160,7 @@ public class PreferencesFragment extends MainFragment {
                     }
                 });
 
+                // If we're a part of the INTRO stage
                 if (getActivity().getClass().equals(IntroActivity.class)) {
                     Intent intent = new Intent(parentActivity, MainActivity.class);
                     parentActivity.startActivity(intent);

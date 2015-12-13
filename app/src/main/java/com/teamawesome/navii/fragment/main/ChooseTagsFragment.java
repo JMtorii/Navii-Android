@@ -25,17 +25,14 @@ import rx.schedulers.Schedulers;
  */
 public class ChooseTagsFragment extends MainFragment {
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+    private Button mNextButton;
+    private CollectionPicker mTagsPicker;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_planning_tags, container, false);
-        Button button = (Button) view.findViewById(R.id.tags_next_button);
-        final CollectionPicker tagsPicker = (CollectionPicker) view.findViewById(R.id.tags_picker);
+        mNextButton = (Button) view.findViewById(R.id.tags_next_button);
+        mTagsPicker = (CollectionPicker) view.findViewById(R.id.tags_picker);
 
         Observable<List<String>> observable = parentActivity.tagsAPI.getTags();
         observable.subscribeOn(Schedulers.newThread())
@@ -53,18 +50,17 @@ public class ChooseTagsFragment extends MainFragment {
 
                     @Override
                     public void onNext(List<String> tags) {
-                        tagsPicker.clearItems();
+                        mTagsPicker.clearItems();
                         List<Item> tagsList = new ArrayList<>();
                         for (String tag : tags) {
                             tagsList.add(new Item(tag, tag));
                         }
-                        tagsPicker.setItems(tagsList);
-                        tagsPicker.drawItemView();
-
+                        mTagsPicker.setItems(tagsList);
+                        mTagsPicker.drawItemView();
                     }
                 });
 
-        button.setOnClickListener(new View.OnClickListener() {
+        mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.v("ChooseTagsFragment", "onClick()");
