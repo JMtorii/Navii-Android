@@ -252,7 +252,7 @@ public class MainActivity extends NaviiActivity {
     }
 
     private void setupUserInformation() {
-        Call<User> call = userAPI.getUser(NaviiPreferenceData.getUserId());
+        Call<User> call = userAPI.getUser(NaviiPreferenceData.getLoggedInUserEmail());
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Response<User> response, Retrofit retrofit) {

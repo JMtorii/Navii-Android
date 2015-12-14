@@ -63,10 +63,10 @@ public class IntroPageFiveFragment extends IntroAbstractPageFragment {
         mSignUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Call<Integer> call = parentActivity.userAPI.signUp(mEmailEditText.getText().toString(), mPassWordEditText.getText().toString());
-                call.enqueue(new Callback<Integer>() {
+                Call<Void> call = parentActivity.userAPI.signUp(mEmailEditText.getText().toString(), mPassWordEditText.getText().toString());
+                call.enqueue(new Callback<Void>() {
                     @Override
-                    public void onResponse(Response<Integer> response, Retrofit retrofit) {
+                    public void onResponse(Response<Void> response, Retrofit retrofit) {
                         if (response.code() == 400) {
                             Log.w("Sign Up", "Failed: Username or password is blank");
                             mErrorText.setText("Username and/or password is blank.");
@@ -77,7 +77,6 @@ public class IntroPageFiveFragment extends IntroAbstractPageFragment {
                             animateWrongCredentials();
                         } else if (response.code() == 200) {
                             NaviiPreferenceData.setLoggedInUserEmail(mEmailEditText.getText().toString());
-                            NaviiPreferenceData.setUserId(response.body());
 
                             IntroThanksFragment fragment = new IntroThanksFragment();
                             parentActivity.switchFragment(
@@ -106,10 +105,10 @@ public class IntroPageFiveFragment extends IntroAbstractPageFragment {
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Call<Integer> call = parentActivity.userAPI.login(mEmailEditText.getText().toString(), mPassWordEditText.getText().toString());
-                call.enqueue(new Callback<Integer>() {
+                Call<Void> call = parentActivity.userAPI.login(mEmailEditText.getText().toString(), mPassWordEditText.getText().toString());
+                call.enqueue(new Callback<Void>() {
                     @Override
-                    public void onResponse(Response<Integer> response, Retrofit retrofit) {
+                    public void onResponse(Response<Void> response, Retrofit retrofit) {
                         if (response.code() == 400) {
                             Log.w("Login", "Failed: Username or password is blank");
                             mErrorText.setText("Username and/or password is blank.");
@@ -121,7 +120,6 @@ public class IntroPageFiveFragment extends IntroAbstractPageFragment {
                         } else if (response.code() == 200) {
                             Log.i("Login", "Success: " + response.body());
                             NaviiPreferenceData.setLoggedInUserEmail(mEmailEditText.getText().toString());
-                            NaviiPreferenceData.setUserId(response.body());
 
                             Intent mainIntent = new Intent(parentActivity, MainActivity.class);
                             startActivity(mainIntent);

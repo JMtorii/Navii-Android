@@ -30,16 +30,6 @@ public class NaviiPreferenceData {
         return getSharedPreferences().getString(PREF_IP_ADDRESS, "");
     }
 
-    public static void setUserId(int userId) {
-        Editor editor = getSharedPreferences().edit();
-        editor.putInt(PREF_LOGGED_IN_USER_ID, userId);
-        editor.apply();
-    }
-
-    public static int getUserId() {
-        return getSharedPreferences().getInt(PREF_LOGGED_IN_USER_ID, 0);
-    }
-
     public static void setLoggedInUserEmail(String email) {
         Editor editor = getSharedPreferences().edit();
         editor.putString(PREF_LOGGED_IN_USER_EMAIL, email);

@@ -14,6 +14,7 @@ import com.teamawesome.navii.activity.IntroActivity;
 import com.teamawesome.navii.activity.MainActivity;
 import com.teamawesome.navii.server.api.UserAPI;
 import com.teamawesome.navii.server.model.User;
+import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.NaviiMath;
 import com.teamawesome.navii.util.NaviiPreferenceData;
 
@@ -32,7 +33,7 @@ public class DebugMainActivity extends ListActivity {
         super.onCreate(savedInstanceState);
 
         // change this to the real server address
-        NaviiPreferenceData.setIPAddress(getResources().getString(R.string.debug_ip_address_jun));
+        NaviiPreferenceData.setIPAddress(Constants.SERVER_URL);
         mTitles = getApplicationContext().getResources().getStringArray(R.array.debug_list);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this,
@@ -69,7 +70,7 @@ public class DebugMainActivity extends ListActivity {
             startActivity(mainIntent);
         } else if (id == 2) {
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(getResources().getString(R.string.debug_ip_address_jun))    // THIS ONLY WORKS IN JUN'S CASE
+                    .baseUrl(Constants.SERVER_URL)    // THIS ONLY WORKS IN JUN'S CASE
                     .addConverterFactory(JacksonConverterFactory.create())
                     .build();
 
@@ -81,14 +82,14 @@ public class DebugMainActivity extends ListActivity {
                     .password("android-password" + String.valueOf(randomUniformInt))
                     .salt("android-salt")
                     .build();
-            Call<String> call = userAPI.createUser(user);
+            Call<Void> call = userAPI.createUser(user);
 
             // This does an async call.
             // Use "execute" instead for a sync call.
             // Call "call.cancel()" to cancel a running request.
-            call.enqueue(new Callback<String>() {
+            call.enqueue(new Callback<Void>() {
                 @Override
-                public void onResponse(Response<String> response, Retrofit retrofit) {
+                public void onResponse(Response<Void> response, Retrofit retrofit) {
                     Log.i("response: code", String.valueOf(response.code()));
                     Log.i("response: value", String.valueOf(response.body()));
                 }
@@ -99,7 +100,7 @@ public class DebugMainActivity extends ListActivity {
                 }
             });
         } else if (id == 3) {
-            NaviiPreferenceData.setIPAddress(getResources().getString(R.string.debug_ip_address_jun));
+            NaviiPreferenceData.setIPAddress(Constants.SERVER_URL_JUN);
         }
     }
 }

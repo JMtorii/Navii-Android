@@ -3,8 +3,6 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="server_ip_address">http://localhost:8080</string>
-    <string name="debug_ip_address_jun">http://192.168.57.1:8080</string>
 
     <string-array name="debug_list">
         <item>Main Application</item>
@@ -34,14 +32,14 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
 
-<!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_buzz_feed">BuzzFeedActivity</string>
 
     <!--Preference Fragment Strings    -->
     <string name="preferences_title">Preferences</string>
-    <string name="preferences_message">Choose 5 or more that apply! You can change these later
-            in your settings</string>
+    <string name="preferences_message">Choose 5 or more that apply! You can change these later in your settings</string>
+
     <!--Choose Tags Fragment Strings    -->
     <string name="tags_title">Tags</string>
     <string name="tags_message">Choose your Experience!</string>

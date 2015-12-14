@@ -3,11 +3,8 @@ package com.teamawesome.navii.server.api;
 import com.squareup.okhttp.ResponseBody;
 import com.teamawesome.navii.server.model.User;
 
-import java.util.List;
-
 import retrofit.Call;
 import retrofit.http.Body;
-import retrofit.http.DELETE;
 import retrofit.http.GET;
 import retrofit.http.Headers;
 import retrofit.http.POST;
@@ -22,27 +19,20 @@ import retrofit.http.Query;
 public interface UserAPI {
     /**
      * Gets an existing user
-     * @param userId  Identifier for user
-     * @return        User fetched.
+     * @param username  Username of the user
+     * @return          User fetched.
      */
-    @GET("/user/{userId}")
-    Call<User> getUser(@Path("userId") int userId);
-
-    /**
-     * Gets all existing users
-     * @return      A list of users
-     */
-    @GET("/user")
-    Call<List<User>> getAllUsers();
+    @GET("/user/{username}")
+    Call<User> getUser(@Path("username") String username);
 
     /**
      * Creates a new user
      * @param user  User model
-     * @return      Created user
+     * @return      Number of created users
      */
     @Headers({"Content-Type: application/json"})
     @POST("/user")
-    Call<String> createUser(@Body User user);
+    Call<Void> createUser(@Body User user);
 
     /**
      * Updates an existing user
@@ -55,27 +45,12 @@ public interface UserAPI {
     Call<ResponseBody> updateUser(@Path("userId") String userId, @Body User user);
 
     /**
-     * Deletes an existing user
-     * @param userId    The identifier of the user to delete
-     * @return          The deleted user
-     */
-    @DELETE("/user/{userId}")
-    Call<ResponseBody> deleteUser(@Path("userId") String userId);
-
-    /**
-     * Deletes all users
-     * @return          The number of deleted users
-     */
-    @DELETE("/user")
-    Call<Integer> deleteAll();
-
-    /**
      * Signs ups the user into the database
      * @param username    The username of the user
      * @param password    The password of the user
      */
     @POST("/user/signUp")
-    Call<Integer> signUp(@Query("username") String username, @Query("password") String password);
+    Call<Void> signUp(@Query("username") String username, @Query("password") String password);
 
     /**
      * Login the user
@@ -83,5 +58,5 @@ public interface UserAPI {
      * @param password    The password of the user
      */
     @GET("/user/login")
-    Call<Integer> login(@Query("username") String username, @Query("password") String password);
+    Call<Void> login(@Query("username") String username, @Query("password") String password);
 }

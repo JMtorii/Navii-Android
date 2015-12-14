@@ -4,13 +4,13 @@ package com.teamawesome.navii.util;
  * Created by JMtorii on 15-09-19.
  */
 public class Constants {
-    public static final int PREFERENCE_MAX_LIMIT = 3 ;
-    public static final int PREFERENCE_MIN_LIMIT = 1 ;
 
     private Constants() {}
 
-    public static final String SERVER_URL = "http://192.168.56.1:8080";
+    public static final String SERVER_URL = "http://54.86.255.224:8080";
+    public static final String SERVER_URL_JUN = "http://192.168.57.1:8080";
     public static final int TRENDING_DESTINATION_DURATION_MS = 5000;
+
     // View
     public static final int NO_ANIM = -1;
 
@@ -29,11 +29,11 @@ public class Constants {
 
     public static final String ITINERARY_RECOMMEND_FRAGMENT = "ITINERARY_RECOMMEND_FRAGMENT";
 
-    //preference types
+    // Preference Types
     public static final int PREFERENCE_TYPE_1 = 1;
     public static final int PREFERENCE_TYPE_2 = 2;
     public static final int PREFERENCE_TYPE_3 = 3;
 
-
-
+    public static final int PREFERENCE_MIN_LIMIT = 1 ;
+    public static final int PREFERENCE_MAX_LIMIT = 3 ;
 }
