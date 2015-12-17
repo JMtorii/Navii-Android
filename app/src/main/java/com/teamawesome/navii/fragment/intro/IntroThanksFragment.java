@@ -30,7 +30,8 @@ public class IntroThanksFragment extends IntroFragment {
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PreferencesFragment fragment = new PreferencesFragment();
+                PreferencesFragment fragment = PreferencesFragment
+                        .newInstance(Constants.PREFERENCE_TYPE_1);
                 parentActivity.switchFragment(
                         fragment,
                         Constants.NO_ANIM,

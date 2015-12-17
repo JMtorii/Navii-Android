@@ -8,7 +8,6 @@ import com.teamawesome.navii.server.api.TagsAPI;
 import com.teamawesome.navii.server.api.UserAPI;
 import com.teamawesome.navii.server.api.UserPreferenceAPI;
 import com.teamawesome.navii.util.NaviiFragmentManager;
-import com.teamawesome.navii.util.NaviiPreferenceData;
 
 import retrofit.JacksonConverterFactory;
 import retrofit.Retrofit;
@@ -31,7 +30,7 @@ public abstract class NaviiActivity extends AppCompatActivity {
     public NaviiActivity() {
         // TODO: do we need both?
         retrofit = new Retrofit.Builder()
-                .baseUrl(NaviiPreferenceData.getIPAddress())
+                .baseUrl(Constants.SERVER_URL)
                 .addConverterFactory(JacksonConverterFactory.create())
                 .build();
 

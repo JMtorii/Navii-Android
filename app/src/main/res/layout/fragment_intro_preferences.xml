@@ -37,17 +37,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="19dp"
         android:gravity="center"
-        android:text="@string/preferences_message"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textSize="20sp"/>
-
-    <!--<ScrollView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_alignLeft="@+id/preferences_text"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_alignStart="@+id/preferences_text"-->
-        <!--android:layout_below="@+id/preferences_text">-->
 
         <GridView
             android:id="@+id/preferences_layout"
@@ -56,12 +47,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/preferences_text"
-            android:numColumns="auto_fit"
-            android:gravity="center"
-            android:columnWidth="100dp"
-            android:stretchMode="columnWidth">
-
-        </GridView>
-
+            android:numColumns="3"
+            android:gravity="center"/>
 
 </RelativeLayout>

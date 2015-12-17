@@ -9,6 +9,8 @@ public class Constants {
 
     public static final String SERVER_URL = "http://54.86.255.224:8080";
     public static final String SERVER_URL_JUN = "http://192.168.57.1:8080";
+    public static final String SERVER_URL_STEVE = "http://192.168.56.1:8080";
+
     public static final int TRENDING_DESTINATION_DURATION_MS = 5000;
 
     // View
