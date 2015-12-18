@@ -74,8 +74,7 @@ public class PreferencesFragment extends MainFragment {
         //TODO: change to server implementation
         numberOfPreferences = 3;
 
-        Observable<PreferencesQuestion> observable = parentActivity.preferenceAPI
-                .getPreferences(preferenceType);
+        Observable<PreferencesQuestion> observable = parentActivity.preferenceAPI.getPreferences(preferenceType);
 
         observable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -93,8 +92,11 @@ public class PreferencesFragment extends MainFragment {
                     @Override
                     public void onNext(PreferencesQuestion preferenceQuestion) {
                         textView.setText(preferenceQuestion.getQuestion());
-                        gridView.setAdapter(new PreferencesGridAdapter(getContext(), R.layout
-                                .preferences_view, preferenceQuestion.getPreferences()));
+                        gridView.setAdapter(
+                                new PreferencesGridAdapter(getContext(),
+                                R.layout.preferences_view,
+                                preferenceQuestion.getPreferences())
+                        );
                     }
                 });
 
@@ -140,10 +142,8 @@ public class PreferencesFragment extends MainFragment {
                         .build();
 
                 // TODO : Change id to the one in shared preferences
-                Call<Void> deleteCall = parentActivity.userPreferenceAPI.deleteAllUserPreference
-                        ("android-user", preferenceType);
-                Call<Void> createCall = parentActivity.userPreferenceAPI.createUserPreference
-                        (userPreference);
+                Call<Void> deleteCall = parentActivity.userPreferenceAPI.deleteAllUserPreference("android-user", preferenceType);
+                Call<Void> createCall = parentActivity.userPreferenceAPI.createUserPreference(userPreference);
 
                 // enqueues the delete call to delete the existing preferences for the user to
                 // replace with new ones
@@ -190,7 +190,6 @@ public class PreferencesFragment extends MainFragment {
                     @Override
                     public void onFailure(Throwable t) {
                         Log.i("failed", t.getMessage());
-                        Toast.makeText(getContext(), "Could not update", Toast.LENGTH_LONG).show();
                     }
                 });
             }

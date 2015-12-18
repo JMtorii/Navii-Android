@@ -37,8 +37,13 @@ public interface UserPreferenceAPI {
     @GET("/userpreference/{userId}")
     Call<List<Preferences>> getAllUserPreferences(@Path("userId") String username);
 
+    /**
+     *
+     * @param username
+     * @param preferenceType
+     * @return
+     */
     @Headers({"Content-Type: application/json", "Cache-Control: no-cache"})
     @DELETE("/userpreference/{username}/{preferenceType}")
-    Call<Void> deleteAllUserPreference(@Path("username") String username,
-                                       @Path("preferenceType") int preferenceType);
+    Call<Void> deleteAllUserPreference(@Path("username") String username, @Path("preferenceType") int preferenceType);
 }

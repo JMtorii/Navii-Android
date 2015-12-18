@@ -17,10 +17,11 @@ import java.util.List;
 /**
  * Created by sjung on 10/12/15.
  */
-public class PreferencesGridAdapter extends ArrayAdapter<Preference>{
-    List<Preference> mPreferences;
+public class PreferencesGridAdapter extends ArrayAdapter<Preference> {
+    private List<Preference> mPreferences;
     private static final int CHECKMARK_WIDTH = 50;
     private static final int CHECKMARK_HEIGHT = 50;
+
     public PreferencesGridAdapter(Context context, int resource, List<Preference> preferences) {
         super(context, resource, preferences);
         this.mPreferences = preferences;
@@ -30,7 +31,7 @@ public class PreferencesGridAdapter extends ArrayAdapter<Preference>{
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
 
-        if (view == null) {
+        if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.preferences_view, null);
         }

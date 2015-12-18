@@ -33,14 +33,12 @@ public class PreferencesQuestion {
         private String question;
         private List<Preference> preferences;
 
-        public Builder() {
-        }
+        public Builder() {}
 
         public Builder question(String question) {
             this.question = question;
             return this;
         }
-
 
         public Builder preferences(List<Preference> preferences) {
             this.preferences = preferences;

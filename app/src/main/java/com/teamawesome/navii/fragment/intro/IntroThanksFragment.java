@@ -21,17 +21,14 @@ public class IntroThanksFragment extends IntroFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_intro_thanks, container, false);
         mNextButton = (BootstrapButton) v.findViewById(R.id.intro_thanks_next_button);
 
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PreferencesFragment fragment = PreferencesFragment
-                        .newInstance(Constants.PREFERENCE_TYPE_1);
+                PreferencesFragment fragment = PreferencesFragment.newInstance(Constants.PREFERENCE_TYPE_1);
                 parentActivity.switchFragment(
                         fragment,
                         Constants.NO_ANIM,
