@@ -1,8 +1,6 @@
 package com.teamawesome.navii.server.api;
 
-import com.teamawesome.navii.server.model.Preference;
-
-import java.util.List;
+import com.teamawesome.navii.server.model.PreferencesQuestion;
 
 import retrofit.http.GET;
 import retrofit.http.Headers;
@@ -14,11 +12,12 @@ import rx.Observable;
  */
 public interface PreferenceAPI {
     /**
-     * Returns a list of preferences from the server based on type specified
+     * Returns a list of preferences and the question from the server based on type specified
+     *
      * @param preferenceType type of preference based on question
      * @return list of preferences from the server
      */
     @Headers({"Content-Type: application/json"})
     @GET("/preference/{preferenceType}")
-    Observable<List<Preference>> getPreferences(@Path("preferenceType") int preferenceType);
+    Observable<PreferencesQuestion> getPreferences(@Path("preferenceType") int preferenceType);
 }

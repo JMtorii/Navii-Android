@@ -2,7 +2,7 @@ package com.teamawesome.navii.server.api;
 
 import com.teamawesome.navii.server.model.UserPreference;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.prefs.Preferences;
 
 import retrofit.Call;
@@ -18,21 +18,32 @@ import retrofit.http.Path;
  */
 public interface UserPreferenceAPI {
 
-
     /**
      * Creates a new userpreference
-     * @param userPreference  User model
-     * @return      Created user
+     *
+     * @param userPreference UserPreference model
+     * @return Created UserPreference
      */
     @Headers({"Content-Type: application/json", "Cache-Control: no-cache"})
     @POST("/userpreference")
-    Call<UserPreference> createUserPreference(@Body UserPreference userPreference);
+    Call<Void> createUserPreference(@Body UserPreference userPreference);
 
+    /**
+     * Gets
+     * @param username UserId
+     * @return
+     */
     @Headers({"Content-Type: application/json", "Cache-Control: no-cache"})
     @GET("/userpreference/{userId}")
-    Call<ArrayList<Preferences>> getAllUserPreferences(@Path("userId") String userId);
+    Call<List<Preferences>> getAllUserPreferences(@Path("userId") String username);
 
+    /**
+     *
+     * @param username
+     * @param preferenceType
+     * @return
+     */
     @Headers({"Content-Type: application/json", "Cache-Control: no-cache"})
-    @DELETE("/userpreference/{userId}")
-    Call<UserPreference> deleteAllUserPreference(@Path("userId") String userId);
+    @DELETE("/userpreference/{username}/{preferenceType}")
+    Call<Void> deleteAllUserPreference(@Path("username") String username, @Path("preferenceType") int preferenceType);
 }
