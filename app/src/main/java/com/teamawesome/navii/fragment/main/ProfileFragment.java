@@ -9,14 +9,18 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapCircleThumbnail;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.util.BitmapResizer;
+import com.teamawesome.navii.util.Constants;
+import com.teamawesome.navii.util.NaviiFragmentManager;
 import com.teamawesome.navii.util.NaviiPreferenceData;
 
 import java.io.File;
@@ -30,6 +34,8 @@ import java.util.Locale;
  */
 public class ProfileFragment extends MainFragment implements OnFocusListenable {
 
+    protected NaviiFragmentManager fm;
+
     private static final String APP_PICTURE_DIRECTORY = "/Navi";
     private static final String MIME_TYPE_IMAGE = "image/";
     private static final String FILE_SUFFIX_JPG = ".jpg";
@@ -38,6 +44,8 @@ public class ProfileFragment extends MainFragment implements OnFocusListenable {
     private BootstrapCircleThumbnail mPictureThumbnail;
     private TextView mUsernameTextView;
     private TextView mFacebookTextView;
+    private BootstrapButton mEditProfileButton;
+    private BootstrapButton mChangePasswordButton;
     private Uri selectedPhotoPath;
 
     @Override
@@ -53,6 +61,8 @@ public class ProfileFragment extends MainFragment implements OnFocusListenable {
         mPictureThumbnail = (BootstrapCircleThumbnail) v.findViewById(R.id.profile_thumbnail);
         mUsernameTextView = (TextView) v.findViewById(R.id.profile_username_textview);
         mFacebookTextView = (TextView) v.findViewById(R.id.profile_facebook_textview);
+        mEditProfileButton = (BootstrapButton) v.findViewById(R.id.profile_edit_button);
+        mChangePasswordButton = (BootstrapButton) v.findViewById(R.id.profile_change_password_button);
 
         mUsernameTextView.setText(NaviiPreferenceData.getLoggedInUserEmail());
 
@@ -63,6 +73,13 @@ public class ProfileFragment extends MainFragment implements OnFocusListenable {
             @Override
             public void onClick(View v) {
                 takePictureWithCamera();
+            }
+        });
+
+        mChangePasswordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changePasswordFragment();
             }
         });
 
@@ -179,6 +196,22 @@ public class ProfileFragment extends MainFragment implements OnFocusListenable {
                 selectedPhotoPath = getRealPathFromURI(contentUri);
                 setImageViewWithImage();
             }
+        }
+    }
+
+    private void changePasswordFragment() {
+        Fragment fragment = new ChangePasswordFragment();
+        String tag = Constants.PLANNING_CHOOSE_TAGS_FRAGMENT_TAG;
+        if (fragment != null) {
+            fm.switchFragment(
+                    fragment,
+                    Constants.NO_ANIM,
+                    Constants.NO_ANIM,
+                    tag,
+                    true,
+                    true,
+                    true
+            );
         }
     }
 }
