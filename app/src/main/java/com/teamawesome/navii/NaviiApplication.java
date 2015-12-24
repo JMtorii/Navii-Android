@@ -9,6 +9,7 @@ import android.content.Context;
 public class NaviiApplication extends Application {
     private static Context context;
 
+    @Override
     public void onCreate() {
         super.onCreate();
         NaviiApplication.context = getApplicationContext();
