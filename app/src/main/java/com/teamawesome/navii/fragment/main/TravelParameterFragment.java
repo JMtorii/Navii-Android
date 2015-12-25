@@ -1,28 +1,18 @@
 package com.teamawesome.navii.fragment.main;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.beardedhen.androidbootstrap.AwesomeTextView;
-import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapCircleThumbnail;
-import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment;
-import com.daimajia.slider.library.SliderLayout;
 import com.teamawesome.navii.R;
-
-import org.joda.time.DateTime;
-
-import java.util.List;
 
 /**
  * Created by williamkim on 15-11-19.
  */
-public class TravelParameterFragment extends MainFragment {
+public class TravelParameterFragment extends NaviiFragment {
     private BootstrapCircleThumbnail mChildUpButton;
     private BootstrapCircleThumbnail mChildDownButton;
     private AwesomeTextView mChildTextView;

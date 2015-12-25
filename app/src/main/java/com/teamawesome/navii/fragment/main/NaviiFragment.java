@@ -8,19 +8,17 @@ import com.teamawesome.navii.activity.MainActivity;
 import com.teamawesome.navii.activity.NaviiActivity;
 
 /**
- * Created by JMtorii on 2015-11-18.
+ * Created by JMtorii on 15-12-25.
  */
-public abstract class MainFragment extends Fragment {
+public class NaviiFragment extends Fragment {
     protected NaviiActivity parentActivity;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //TODO: Get rid of once flow is defined for preferences
-        if (getActivity().getClass().equals(MainActivity.class)) {
-            parentActivity = (MainActivity) getActivity();
-        } else {
-            parentActivity = (IntroActivity) getActivity();
-        }
+
+        parentActivity = getActivity().getClass().equals(MainActivity.class) ?
+                (MainActivity) getActivity() :
+                (IntroActivity) getActivity();
     }
 }

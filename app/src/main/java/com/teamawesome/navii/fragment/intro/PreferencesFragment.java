@@ -17,7 +17,7 @@ import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.IntroActivity;
 import com.teamawesome.navii.activity.MainActivity;
 import com.teamawesome.navii.adapter.PreferencesGridAdapter;
-import com.teamawesome.navii.fragment.main.MainFragment;
+import com.teamawesome.navii.fragment.main.NaviiFragment;
 import com.teamawesome.navii.server.model.Preference;
 import com.teamawesome.navii.server.model.PreferencesQuestion;
 import com.teamawesome.navii.server.model.UserPreference;
@@ -39,7 +39,7 @@ import rx.schedulers.Schedulers;
 /**
  * Created by JMtorii on 2015-10-30.
  */
-public class PreferencesFragment extends MainFragment {
+public class PreferencesFragment extends NaviiFragment {
     private static final String PREFERENCE_TYPE = "preference_type";
 
     private Button mNextButton;

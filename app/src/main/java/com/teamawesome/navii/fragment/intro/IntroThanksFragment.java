@@ -7,12 +7,13 @@ import android.view.ViewGroup;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.teamawesome.navii.R;
+import com.teamawesome.navii.fragment.main.NaviiFragment;
 import com.teamawesome.navii.util.Constants;
 
 /**
  * Created by JMtorii on 2015-10-17.
  */
-public class IntroThanksFragment extends IntroFragment {
+public class IntroThanksFragment extends NaviiFragment {
     private BootstrapButton mNextButton;
 
     @Override

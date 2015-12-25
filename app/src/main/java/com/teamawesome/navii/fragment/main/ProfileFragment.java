@@ -30,7 +30,7 @@ import java.util.Locale;
 /**
  * Created by JMtorii on 2015-11-01.
  */
-public class ProfileFragment extends MainFragment implements OnFocusListenable {
+public class ProfileFragment extends NaviiFragment implements OnFocusListenable {
     private static final String APP_PICTURE_DIRECTORY = "/Navi";
     private static final String MIME_TYPE_IMAGE = "image/";
     private static final String FILE_SUFFIX_JPG = ".jpg";

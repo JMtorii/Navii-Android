@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Created by sjung on 01/12/15.
  */
-public class ItineraryRecommendFragment extends MainFragment {
+public class ItineraryRecommendFragment extends NaviiFragment {
 
     public ItineraryRecommendFragment() {}
 

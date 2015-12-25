@@ -12,12 +12,13 @@ import android.widget.Button;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.IntroActivity;
 import com.teamawesome.navii.activity.MainActivity;
+import com.teamawesome.navii.fragment.main.NaviiFragment;
 import com.teamawesome.navii.util.Constants;
 
 /**
  * Created by JMtorii on 15-09-24.
  */
-public class IntroPaymentFragment extends IntroFragment {
+public class IntroPaymentFragment extends NaviiFragment {
 
     private Button mNextButton;
 

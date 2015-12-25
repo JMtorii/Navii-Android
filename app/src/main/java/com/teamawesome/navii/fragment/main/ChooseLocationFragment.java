@@ -28,7 +28,7 @@ import java.util.Map;
  * Created by JMtorii on 2015-10-13.
  */
 
-public class ChooseLocationFragment extends MainFragment implements CalendarDatePickerDialogFragment.OnDateSetListener, BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
+public class ChooseLocationFragment extends NaviiFragment implements CalendarDatePickerDialogFragment.OnDateSetListener, BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
 
     private static final String FRAG_TAG_DATE_PICKER = "fragment_date_picker_name";
 

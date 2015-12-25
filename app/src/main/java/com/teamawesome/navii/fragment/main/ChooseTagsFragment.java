@@ -23,7 +23,7 @@ import rx.schedulers.Schedulers;
 /**
  * Created by sjung on 18/11/15.
  */
-public class ChooseTagsFragment extends MainFragment {
+public class ChooseTagsFragment extends NaviiFragment {
 
     private Button mNextButton;
     private CollectionPicker mTagsPicker;

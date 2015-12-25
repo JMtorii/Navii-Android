@@ -13,12 +13,13 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 
 import com.teamawesome.navii.R;
+import com.teamawesome.navii.fragment.main.NaviiFragment;
 import com.viewpagerindicator.CirclePageIndicator;
 
 /**
  * Created by JMtorii on 15-08-25.
  */
-public class IntroViewPagerFragment extends IntroFragment {
+public class IntroViewPagerFragment extends NaviiFragment {
     private ViewPager mPager;
     private PagerAdapter mAdapter;
     private CirclePageIndicator mPageIndicator;
