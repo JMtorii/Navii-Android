@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,6 @@ import com.beardedhen.androidbootstrap.BootstrapCircleThumbnail;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.util.BitmapResizer;
 import com.teamawesome.navii.util.Constants;
-import com.teamawesome.navii.util.NaviiFragmentManager;
 import com.teamawesome.navii.util.NaviiPreferenceData;
 
 import java.io.File;
@@ -33,9 +31,6 @@ import java.util.Locale;
  * Created by JMtorii on 2015-11-01.
  */
 public class ProfileFragment extends MainFragment implements OnFocusListenable {
-
-    protected NaviiFragmentManager fm;
-
     private static final String APP_PICTURE_DIRECTORY = "/Navi";
     private static final String MIME_TYPE_IMAGE = "image/";
     private static final String FILE_SUFFIX_JPG = ".jpg";
@@ -200,18 +195,16 @@ public class ProfileFragment extends MainFragment implements OnFocusListenable {
     }
 
     private void changePasswordFragment() {
-        Fragment fragment = new ChangePasswordFragment();
+        ChangePasswordFragment fragment = new ChangePasswordFragment();
         String tag = Constants.PLANNING_CHOOSE_TAGS_FRAGMENT_TAG;
-        if (fragment != null) {
-            fm.switchFragment(
-                    fragment,
-                    Constants.NO_ANIM,
-                    Constants.NO_ANIM,
-                    tag,
-                    true,
-                    true,
-                    true
-            );
-        }
+        parentActivity.switchFragment(
+                fragment,
+                Constants.NO_ANIM,
+                Constants.NO_ANIM,
+                tag,
+                true,
+                true,
+                true
+        );
     }
 }
