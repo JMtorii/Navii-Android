@@ -1,176 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.beardedhen.androidbootstrap.AwesomeTextView
-        android:id="@+id/travel_paramenter_people_text"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="20dp"
-        android:text="Select the number of travellers"
-        android:textSize="20sp"
-        android:textColor="@android:color/black"/>
-
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="205dp"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp">
+        android:layout_height="match_parent">
+
+        <com.beardedhen.androidbootstrap.AwesomeTextView
+            android:id="@+id/travel_paramenter_people_text"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:text="Select the number of travellers"
+            android:textSize="20sp"
+            android:textColor="@android:color/black"/>
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="205dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
 
-            android:paddingLeft="70dp">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
 
-            <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-                android:id="@+id/travel_paramenter_child_up_button"
-                android:layout_width="100dp"
-                android:layout_height="80dp"
-                android:src="@drawable/imagination"
-                android:background="#111"
-                app:bootstrapBrand="info"
-                app:showOutline="false"/>
+                android:paddingLeft="70dp">
 
-            <com.beardedhen.androidbootstrap.AwesomeTextView
-                android:id="@+id/travel_paramenter_child_text"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:text="0 children"
-                android:textColor="@android:color/black"/>
+                <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                    android:id="@+id/travel_paramenter_child_up_button"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/imagination"
+                    android:background="#111"
+                    app:bootstrapBrand="info"
+                    app:showOutline="false"/>
 
-            <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-                android:id="@+id/travel_parameter_child_down_button"
-                android:layout_width="100dp"
-                android:layout_height="80dp"
-                android:src="@drawable/imagination"
-                android:background="#111"
-                app:bootstrapBrand="info"
-                app:showOutline="false"/>
+                <com.beardedhen.androidbootstrap.AwesomeTextView
+                    android:id="@+id/travel_paramenter_child_text"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:text="0 children"
+                    android:textColor="@android:color/black"/>
+
+                <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                    android:id="@+id/travel_parameter_child_down_button"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/imagination"
+                    android:background="#111"
+                    app:bootstrapBrand="info"
+                    app:showOutline="false"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:paddingRight="70dp">
+
+                <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                    android:id="@+id/travel_paramenter_adult_up_button"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/imagination"
+                    android:background="#111"
+                    app:bootstrapBrand="info"
+                    app:showOutline="false"/>
+
+                <com.beardedhen.androidbootstrap.AwesomeTextView
+                    android:id="@+id/travel_paramenter_adult_text"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:text="0 adults"
+                    android:textColor="@android:color/black"/>
+
+                <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                    android:id="@+id/travel_parameter_adult_down_button"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/imagination"
+                    android:background="#111"
+                    app:bootstrapBrand="info"
+                    app:showOutline="false"/>
+            </LinearLayout>
         </LinearLayout>
 
+        <com.beardedhen.androidbootstrap.AwesomeTextView
+            android:id="@+id/travel_paramenter_budget_text"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:text="Budget your trip"
+            android:textSize="20sp"
+            android:textColor="@android:color/black"/>
+
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:paddingRight="70dp">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
 
-            <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-                android:id="@+id/travel_paramenter_adult_up_button"
-                android:layout_width="100dp"
-                android:layout_height="80dp"
-                android:src="@drawable/imagination"
-                android:background="#111"
-                app:bootstrapBrand="info"
-                app:showOutline="false"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
 
-            <com.beardedhen.androidbootstrap.AwesomeTextView
-                android:id="@+id/travel_paramenter_adult_text"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:text="0 adults"
-                android:textColor="@android:color/black"/>
+                android:paddingLeft="70dp">
 
-            <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-                android:id="@+id/travel_parameter_adult_down_button"
-                android:layout_width="100dp"
-                android:layout_height="80dp"
-                android:src="@drawable/imagination"
-                android:background="#111"
-                app:bootstrapBrand="info"
-                app:showOutline="false"/>
+                <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                    android:id="@+id/travel_paramenter_currency_up_button"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/imagination"
+                    android:background="#111"
+                    app:bootstrapBrand="info"
+                    app:showOutline="false"/>
+
+                <com.beardedhen.androidbootstrap.AwesomeTextView
+                    android:id="@+id/travel_paramenter_currency_text"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:text="CAD"
+                    android:textColor="@android:color/black"/>
+
+                <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                    android:id="@+id/travel_parameter_currency_down_button"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/imagination"
+                    android:background="#111"
+                    app:bootstrapBrand="info"
+                    app:showOutline="false"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:paddingRight="70dp">
+
+                <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                    android:id="@+id/travel_paramenter_amount_up_button"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/imagination"
+                    android:background="#111"
+                    app:bootstrapBrand="info"
+                    app:showOutline="false"/>
+
+                <com.beardedhen.androidbootstrap.AwesomeTextView
+                    android:id="@+id/travel_paramenter_amount_text"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:text="0"
+                    android:textColor="@android:color/black"/>
+
+                <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                    android:id="@+id/travel_parameter_amount_down_button"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/imagination"
+                    android:background="#111"
+                    app:bootstrapBrand="info"
+                    app:showOutline="false"/>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
-    <com.beardedhen.androidbootstrap.AwesomeTextView
-        android:id="@+id/travel_paramenter_budget_text"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="20dp"
-        android:text="Budget your trip"
-        android:textSize="20sp"
-        android:textColor="@android:color/black"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-
-            android:paddingLeft="70dp">
-
-            <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-                android:id="@+id/travel_paramenter_currency_up_button"
-                android:layout_width="100dp"
-                android:layout_height="80dp"
-                android:src="@drawable/imagination"
-                android:background="#111"
-                app:bootstrapBrand="info"
-                app:showOutline="false"/>
-
-            <com.beardedhen.androidbootstrap.AwesomeTextView
-                android:id="@+id/travel_paramenter_currency_text"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:text="CAD"
-                android:textColor="@android:color/black"/>
-
-            <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-                android:id="@+id/travel_parameter_currency_down_button"
-                android:layout_width="100dp"
-                android:layout_height="80dp"
-                android:src="@drawable/imagination"
-                android:background="#111"
-                app:bootstrapBrand="info"
-                app:showOutline="false"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:paddingRight="70dp">
-
-            <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-                android:id="@+id/travel_paramenter_amount_up_button"
-                android:layout_width="100dp"
-                android:layout_height="80dp"
-                android:src="@drawable/imagination"
-                android:background="#111"
-                app:bootstrapBrand="info"
-                app:showOutline="false"/>
-
-            <com.beardedhen.androidbootstrap.AwesomeTextView
-                android:id="@+id/travel_paramenter_amount_text"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:text="0"
-                android:textColor="@android:color/black"/>
-
-            <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-                android:id="@+id/travel_parameter_amount_down_button"
-                android:layout_width="100dp"
-                android:layout_height="80dp"
-                android:src="@drawable/imagination"
-                android:background="#111"
-                app:bootstrapBrand="info"
-                app:showOutline="false"/>
-        </LinearLayout>
-    </LinearLayout>
-</LinearLayout>
+</ScrollView>
