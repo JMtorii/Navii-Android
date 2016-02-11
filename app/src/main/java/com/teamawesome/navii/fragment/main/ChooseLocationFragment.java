@@ -1,6 +1,7 @@
 package com.teamawesome.navii.fragment.main;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -151,7 +152,14 @@ public class ChooseLocationFragment extends NaviiFragment implements CalendarDat
 
             mSliderLayout.addSlider(textSliderView);
         }
-
+        //delays the first slide
+        mSliderLayout.stopAutoCycle();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mSliderLayout.startAutoCycle();
+            }
+        }, 5000);
         mSliderLayout.setPresetTransformer(SliderLayout.Transformer.Default);
         mSliderLayout.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
         mSliderLayout.setCustomAnimation(new DescriptionAnimation());
