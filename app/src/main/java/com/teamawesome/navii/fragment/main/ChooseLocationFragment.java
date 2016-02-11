@@ -159,7 +159,7 @@ public class ChooseLocationFragment extends NaviiFragment implements CalendarDat
             public void run() {
                 mSliderLayout.startAutoCycle();
             }
-        }, 4500);
+        }, 5000);
         mSliderLayout.setPresetTransformer(SliderLayout.Transformer.Default);
         mSliderLayout.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
         mSliderLayout.setCustomAnimation(new DescriptionAnimation());
