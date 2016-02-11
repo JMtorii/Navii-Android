@@ -177,7 +177,6 @@ public class MainActivity extends NaviiActivity {
                         true,
                         true
                 );
-
                 mDrawerLayout.closeDrawers();
             }
         });
@@ -245,7 +244,7 @@ public class MainActivity extends NaviiActivity {
             );
 
             // update selected item and title, then close the drawer
-            mDrawerList.setItemChecked(position, true);
+            mDrawerList.setItemChecked(position, false);
             mToolbar.setTitle(mNavDrawerTitles[position]);
             mDrawerLayout.closeDrawer(mDrawerLinearLayout);
         }
