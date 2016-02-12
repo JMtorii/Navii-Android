@@ -14,14 +14,14 @@
             android:id="@+id/travel_paramenter_people_text"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="40dp"
             android:text="Select the number of travellers"
             android:textSize="20sp"
             android:textColor="@android:color/black"/>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="205dp"
+            android:layout_height="180dp"
             android:orientation="horizontal"
             android:layout_marginTop="20dp">
 
@@ -31,17 +31,24 @@
                 android:orientation="vertical"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
-
                 android:paddingLeft="70dp">
 
-                <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-                    android:id="@+id/travel_paramenter_child_up_button"
-                    android:layout_width="100dp"
-                    android:layout_height="80dp"
-                    android:src="@drawable/imagination"
-                    android:background="#111"
-                    app:bootstrapBrand="info"
-                    app:showOutline="false"/>
+                <!--<com.beardedhen.androidbootstrap.BootstrapCircleThumbnail-->
+                    <!--android:id="@+id/travel_paramenter_child_up_button"-->
+                    <!--android:layout_width="100dp"-->
+                    <!--android:layout_height="80dp"-->
+                    <!--android:src="@drawable/circle_plus_button"-->
+                    <!--android:background="#111"-->
+                    <!--app:bootstrapBrand="info"-->
+                    <!--app:showOutline="false"/>-->
+
+                <View
+                    android:id="@+id/travel_parameter_child_up_button"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/circle_plus_button"/>
 
                 <com.beardedhen.androidbootstrap.AwesomeTextView
                     android:id="@+id/travel_paramenter_child_text"
@@ -50,14 +57,22 @@
                     android:text="0 children"
                     android:textColor="@android:color/black"/>
 
-                <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                <!--<com.beardedhen.androidbootstrap.BootstrapCircleThumbnail-->
+                    <!--android:id="@+id/travel_parameter_child_down_button"-->
+                    <!--android:layout_width="100dp"-->
+                    <!--android:layout_height="80dp"-->
+                    <!--android:src="@drawable/imagination"-->
+                    <!--android:background="#111"-->
+                    <!--app:bootstrapBrand="info"-->
+                    <!--app:showOutline="false"/>-->
+
+                <View
                     android:id="@+id/travel_parameter_child_down_button"
-                    android:layout_width="100dp"
-                    android:layout_height="80dp"
-                    android:src="@drawable/imagination"
-                    android:background="#111"
-                    app:bootstrapBrand="info"
-                    app:showOutline="false"/>
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/circle_minus_button"/>
             </LinearLayout>
 
             <LinearLayout
@@ -68,14 +83,22 @@
                 android:gravity="center_horizontal"
                 android:paddingRight="70dp">
 
-                <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-                    android:id="@+id/travel_paramenter_adult_up_button"
-                    android:layout_width="100dp"
-                    android:layout_height="80dp"
-                    android:src="@drawable/imagination"
-                    android:background="#111"
-                    app:bootstrapBrand="info"
-                    app:showOutline="false"/>
+                <!--<com.beardedhen.androidbootstrap.BootstrapCircleThumbnail-->
+                    <!--android:id="@+id/travel_paramenter_adult_up_button"-->
+                    <!--android:layout_width="100dp"-->
+                    <!--android:layout_height="80dp"-->
+                    <!--android:src="@drawable/imagination"-->
+                    <!--android:background="#111"-->
+                    <!--app:bootstrapBrand="info"-->
+                    <!--app:showOutline="false"/>-->
+
+                <View
+                    android:id="@+id/travel_parameter_adult_up_button"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/circle_plus_button"/>
 
                 <com.beardedhen.androidbootstrap.AwesomeTextView
                     android:id="@+id/travel_paramenter_adult_text"
@@ -84,14 +107,22 @@
                     android:text="0 adults"
                     android:textColor="@android:color/black"/>
 
-                <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                <!--<com.beardedhen.androidbootstrap.BootstrapCircleThumbnail-->
+                    <!--android:id="@+id/travel_parameter_adult_down_button"-->
+                    <!--android:layout_width="100dp"-->
+                    <!--android:layout_height="80dp"-->
+                    <!--android:src="@drawable/imagination"-->
+                    <!--android:background="#111"-->
+                    <!--app:bootstrapBrand="info"-->
+                    <!--app:showOutline="false"/>-->
+
+                <View
                     android:id="@+id/travel_parameter_adult_down_button"
-                    android:layout_width="100dp"
-                    android:layout_height="80dp"
-                    android:src="@drawable/imagination"
-                    android:background="#111"
-                    app:bootstrapBrand="info"
-                    app:showOutline="false"/>
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/circle_minus_button"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -119,14 +150,22 @@
 
                 android:paddingLeft="70dp">
 
-                <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-                    android:id="@+id/travel_paramenter_currency_up_button"
-                    android:layout_width="100dp"
-                    android:layout_height="80dp"
-                    android:src="@drawable/imagination"
-                    android:background="#111"
-                    app:bootstrapBrand="info"
-                    app:showOutline="false"/>
+                <!--<com.beardedhen.androidbootstrap.BootstrapCircleThumbnail-->
+                    <!--android:id="@+id/travel_paramenter_currency_up_button"-->
+                    <!--android:layout_width="100dp"-->
+                    <!--android:layout_height="80dp"-->
+                    <!--android:src="@drawable/imagination"-->
+                    <!--android:background="#111"-->
+                    <!--app:bootstrapBrand="info"-->
+                    <!--app:showOutline="false"/>-->
+
+                <View
+                    android:id="@+id/travel_parameter_currency_up_button"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/circle_plus_button"/>
 
                 <com.beardedhen.androidbootstrap.AwesomeTextView
                     android:id="@+id/travel_paramenter_currency_text"
@@ -135,14 +174,22 @@
                     android:text="CAD"
                     android:textColor="@android:color/black"/>
 
-                <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                <!--<com.beardedhen.androidbootstrap.BootstrapCircleThumbnail-->
+                    <!--android:id="@+id/travel_parameter_currency_down_button"-->
+                    <!--android:layout_width="100dp"-->
+                    <!--android:layout_height="80dp"-->
+                    <!--android:src="@drawable/imagination"-->
+                    <!--android:background="#111"-->
+                    <!--app:bootstrapBrand="info"-->
+                    <!--app:showOutline="false"/>-->
+
+                <View
                     android:id="@+id/travel_parameter_currency_down_button"
-                    android:layout_width="100dp"
-                    android:layout_height="80dp"
-                    android:src="@drawable/imagination"
-                    android:background="#111"
-                    app:bootstrapBrand="info"
-                    app:showOutline="false"/>
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/circle_minus_button"/>
             </LinearLayout>
 
             <LinearLayout
@@ -153,14 +200,22 @@
                 android:gravity="center_horizontal"
                 android:paddingRight="70dp">
 
-                <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-                    android:id="@+id/travel_paramenter_amount_up_button"
-                    android:layout_width="100dp"
-                    android:layout_height="80dp"
-                    android:src="@drawable/imagination"
-                    android:background="#111"
-                    app:bootstrapBrand="info"
-                    app:showOutline="false"/>
+                <!--<com.beardedhen.androidbootstrap.BootstrapCircleThumbnail-->
+                    <!--android:id="@+id/travel_paramenter_amount_up_button"-->
+                    <!--android:layout_width="100dp"-->
+                    <!--android:layout_height="80dp"-->
+                    <!--android:src="@drawable/imagination"-->
+                    <!--android:background="#111"-->
+                    <!--app:bootstrapBrand="info"-->
+                    <!--app:showOutline="false"/>-->
+
+                <View
+                    android:id="@+id/travel_parameter_amount_up_button"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/circle_plus_button"/>
 
                 <com.beardedhen.androidbootstrap.AwesomeTextView
                     android:id="@+id/travel_paramenter_amount_text"
@@ -169,14 +224,23 @@
                     android:text="0"
                     android:textColor="@android:color/black"/>
 
-                <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+
+                <!--<com.beardedhen.androidbootstrap.BootstrapCircleThumbnail-->
+                    <!--android:id="@+id/travel_parameter_amount_down_button"-->
+                    <!--android:layout_width="100dp"-->
+                    <!--android:layout_height="80dp"-->
+                    <!--android:src="@drawable/imagination"-->
+                    <!--android:background="#111"-->
+                    <!--app:bootstrapBrand="info"-->
+                    <!--app:showOutline="false"/>-->
+
+                <View
                     android:id="@+id/travel_parameter_amount_down_button"
-                    android:layout_width="100dp"
-                    android:layout_height="80dp"
-                    android:src="@drawable/imagination"
-                    android:background="#111"
-                    app:bootstrapBrand="info"
-                    app:showOutline="false"/>
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/circle_minus_button"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
