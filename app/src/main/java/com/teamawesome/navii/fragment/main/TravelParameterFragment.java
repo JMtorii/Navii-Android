@@ -13,20 +13,20 @@ import com.teamawesome.navii.R;
  * Created by williamkim on 15-11-19.
  */
 public class TravelParameterFragment extends NaviiFragment {
-    private BootstrapCircleThumbnail mChildUpButton;
-    private BootstrapCircleThumbnail mChildDownButton;
+    private View mChildUpButton;
+    private View mChildDownButton;
     private AwesomeTextView mChildTextView;
 
-    private BootstrapCircleThumbnail mAdultUpButton;
-    private BootstrapCircleThumbnail mAdultDownButton;
+    private View mAdultUpButton;
+    private View mAdultDownButton;
     private AwesomeTextView mAdultTextView;
 
-    private BootstrapCircleThumbnail mCurrencyUpButton;
-    private BootstrapCircleThumbnail mCurrencyDownButton;
+    private View mCurrencyUpButton;
+    private View mCurrencyDownButton;
     private AwesomeTextView mCurrencyTextView;
 
-    private BootstrapCircleThumbnail mAmountUpButton;
-    private BootstrapCircleThumbnail mAmountDownButton;
+    private View mAmountUpButton;
+    private View mAmountDownButton;
     private AwesomeTextView mAmountTextView;
 
     private int childCounter = 0;
@@ -47,20 +47,20 @@ public class TravelParameterFragment extends NaviiFragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_travel_parameter, container, false);
 
-        mChildUpButton = (BootstrapCircleThumbnail) v.findViewById(R.id.travel_paramenter_child_up_button);
-        mChildDownButton = (BootstrapCircleThumbnail) v.findViewById(R.id.travel_parameter_child_down_button);
+        mChildUpButton = (View) v.findViewById(R.id.travel_parameter_child_up_button);
+        mChildDownButton = (View) v.findViewById(R.id.travel_parameter_child_down_button);
         mChildTextView = (AwesomeTextView) v.findViewById(R.id.travel_paramenter_child_text);
 
-        mAdultUpButton = (BootstrapCircleThumbnail) v.findViewById(R.id.travel_paramenter_adult_up_button);
-        mAdultDownButton = (BootstrapCircleThumbnail) v.findViewById(R.id.travel_parameter_adult_down_button);
+        mAdultUpButton = (View) v.findViewById(R.id.travel_parameter_adult_up_button);
+        mAdultDownButton = (View) v.findViewById(R.id.travel_parameter_adult_down_button);
         mAdultTextView = (AwesomeTextView) v.findViewById(R.id.travel_paramenter_adult_text);
 
-        mCurrencyUpButton = (BootstrapCircleThumbnail) v.findViewById(R.id.travel_paramenter_currency_up_button);
-        mCurrencyDownButton = (BootstrapCircleThumbnail) v.findViewById(R.id.travel_parameter_currency_down_button);
+        mCurrencyUpButton = (View) v.findViewById(R.id.travel_parameter_currency_up_button);
+        mCurrencyDownButton = (View) v.findViewById(R.id.travel_parameter_currency_down_button);
         mCurrencyTextView = (AwesomeTextView) v.findViewById(R.id.travel_paramenter_currency_text);
 
-        mAmountUpButton = (BootstrapCircleThumbnail) v.findViewById(R.id.travel_paramenter_amount_up_button);
-        mAmountDownButton = (BootstrapCircleThumbnail) v.findViewById(R.id.travel_parameter_amount_down_button);
+        mAmountUpButton = (View) v.findViewById(R.id.travel_parameter_amount_up_button);
+        mAmountDownButton = (View) v.findViewById(R.id.travel_parameter_amount_down_button);
         mAmountTextView = (AwesomeTextView) v.findViewById(R.id.travel_paramenter_amount_text);
 
         mChildUpButton.setOnClickListener(new View.OnClickListener() {
@@ -101,19 +101,17 @@ public class TravelParameterFragment extends NaviiFragment {
 
         mCurrencyUpButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                if (currenciesIndex < 5) {
-                    ++currenciesIndex;
-                    setCurrencyTextViewText();
-                }
+                ++currenciesIndex;
+                if (currenciesIndex > 5) currenciesIndex = 0;
+                setCurrencyTextViewText();
             }
         });
 
         mCurrencyDownButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                if (currenciesIndex > 0) {
-                    --currenciesIndex;
-                    setCurrencyTextViewText();
-                }
+                --currenciesIndex;
+                if (currenciesIndex < 0) currenciesIndex = currencies.length - 1;
+                setCurrencyTextViewText();
             }
         });
 
