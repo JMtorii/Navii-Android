@@ -1,22 +1,24 @@
 package com.teamawesome.navii.server.model;
 
-import java.util.Date;
-
 /**
  * Created by JMtorii on 2015-10-21.
  */
 public class Itinerary {
     private int itineraryId;
     private String description;
-    private String tags;
-    private Date startDate;
-    private Date endDate;
+    private int duration;
     private int price;
-    private int authorId;
+    private String authorId;
 
     public Itinerary() {}
 
-    private Itinerary(Builder builder) {}
+    private Itinerary(Builder builder) {
+        this.itineraryId = builder.itineraryId;
+        this.price = builder.price;
+        this.duration = builder.duration;
+        this.description = builder.description;
+        this.authorId = builder.authorId;
+    }
 
     public int getItineraryId() {
         return itineraryId;
@@ -26,19 +28,11 @@ public class Itinerary {
         return price;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public int getDuration() {
+        return duration;
     }
 
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public String getTags() {
-        return tags;
-    }
-
-    public int getAuthorId() {
+    public String getAuthorId() {
         return authorId;
     }
 
@@ -46,58 +40,43 @@ public class Itinerary {
         return description;
     }
 
-    static Builder getBuilder() {
-        return new Builder();
-    }
-
-    static class Builder {
+    public static class Builder {
         private int itineraryId;
         private String description;
-        private String tags;
-        private Date startDate;
-        private Date endDate;
+        private int duration;
         private int price;
-        private int authorId;
+        private String authorId;
 
-        private Builder() {}
+        public Builder() {}
 
-        Builder itineraryId(int itineraryId) {
+        public Builder itineraryId(int itineraryId) {
             this.itineraryId = itineraryId;
             return this;
         }
 
-        Builder startDate(Date startDate) {
-            this.startDate = startDate;
+        public Builder duration(int duration) {
+            this.duration = duration;
             return this;
         }
 
-        Builder endDate(Date endDate) {
-            this.endDate = endDate;
-            return this;
-        }
-
-        Builder description(String description) {
+        public Builder description(String description) {
             this.description = description;
             return this;
         }
 
-        Builder authorId(int authorId) {
+        public Builder authorId(String authorId) {
             this.authorId = authorId;
             return this;
         }
 
-        Builder tags(String tags) {
-            this.tags = tags;
-            return this;
-        }
-
-        Builder price(int price) {
+        public Builder price(int price) {
             this.price = price;
             return this;
         }
 
-        Itinerary build() {
+        public Itinerary build() {
             return new Itinerary(this);
         }
     }
 }
+

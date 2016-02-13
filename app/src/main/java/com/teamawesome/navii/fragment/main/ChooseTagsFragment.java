@@ -10,11 +10,17 @@ import android.widget.Button;
 import com.anton46.collectionitempicker.CollectionPicker;
 import com.anton46.collectionitempicker.Item;
 import com.teamawesome.navii.R;
+import com.teamawesome.navii.server.model.Itinerary;
 import com.teamawesome.navii.util.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
+import retrofit.Call;
+import retrofit.Callback;
+import retrofit.Response;
+import retrofit.Retrofit;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -63,17 +69,35 @@ public class ChooseTagsFragment extends NaviiFragment {
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.v("ChooseTagsFragment", "onClick()");
+                Set<String> checkedSet = mTagsPicker.getCheckedItems().keySet();
+                List<String> checkedList = new ArrayList<>(checkedSet);
+                Call<List<Itinerary>> itineraryListCall =
+                        parentActivity.itineraryAPI.getItineraries(checkedList);
+                itineraryListCall.enqueue(new Callback<List<Itinerary>>() {
+                    @Override
+                    public void onResponse(Response<List<Itinerary>> response, Retrofit retrofit) {
+                        if (response.code() == 200) {
+                            List<Itinerary> itineraryList = response.body();
+                            ItineraryRecommendFragment itineraryRecommendFragment =
+                                    ItineraryRecommendFragment.newInstance(itineraryList);
+                            parentActivity.switchFragment(
+                                    itineraryRecommendFragment,
+                                    Constants.NO_ANIM,
+                                    Constants.NO_ANIM,
+                                    Constants.ITINERARY_RECOMMEND_FRAGMENT,
+                                    true,
+                                    true,
+                                    true
+                            );
+                        }
+                    }
 
-                parentActivity.switchFragment(
-                        new ItineraryRecommendFragment(),
-                        Constants.NO_ANIM,
-                        Constants.NO_ANIM,
-                        Constants.ITINERARY_RECOMMEND_FRAGMENT,
-                        true,
-                        true,
-                        true
-                );
+                    @Override
+                    public void onFailure(Throwable t) {
+                        Log.e("failed", t.getMessage());
+                    }
+                });
+
             }
         });
         return view;

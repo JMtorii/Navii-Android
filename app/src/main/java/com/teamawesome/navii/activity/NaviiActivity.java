@@ -3,6 +3,7 @@ package com.teamawesome.navii.activity;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 
+import com.teamawesome.navii.server.api.ItineraryAPI;
 import com.teamawesome.navii.server.api.PreferenceAPI;
 import com.teamawesome.navii.server.api.TagsAPI;
 import com.teamawesome.navii.server.api.UserAPI;
@@ -27,6 +28,7 @@ public abstract class NaviiActivity extends AppCompatActivity {
     public final UserPreferenceAPI userPreferenceAPI;
     public final PreferenceAPI preferenceAPI;
     public final TagsAPI tagsAPI;
+    public final ItineraryAPI itineraryAPI;
 
     public NaviiActivity() {
         // TODO: do we need both?
@@ -45,6 +47,7 @@ public abstract class NaviiActivity extends AppCompatActivity {
         userPreferenceAPI = retrofit.create(UserPreferenceAPI.class);
         preferenceAPI = retrofitObservable.create(PreferenceAPI.class);
         tagsAPI = retrofitObservable.create(TagsAPI.class);
+        itineraryAPI = retrofitObservable.create(ItineraryAPI.class);
     }
 
     public void switchFragment(Fragment newFragment, int enterAnim, int exitAnim, String tag,

@@ -4,13 +4,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.teamawesome.navii.R;
-import com.teamawesome.navii.adapter.ItineraryListViewAdapter;
+import com.teamawesome.navii.activity.MainActivity;
+import com.teamawesome.navii.adapter.PackageListViewAdapter;
+import com.teamawesome.navii.server.model.Itinerary;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,27 +18,37 @@ import java.util.List;
  */
 public class ItineraryRecommendFragment extends NaviiFragment {
 
-    public ItineraryRecommendFragment() {}
+    private List<Itinerary> itineraryList;
+    private ListView listView;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public static ItineraryRecommendFragment newInstance(List<Itinerary> itineraryList) {
+        ItineraryRecommendFragment itineraryRecommendFragment = new ItineraryRecommendFragment();
+        itineraryRecommendFragment.setItineraries(itineraryList);
+
+        return itineraryRecommendFragment;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
+        ((MainActivity)parentActivity).setActionBarTitle(getString(R.string.we_recommend_title));
 
         View view = inflater.inflate(R.layout.fragment_itinerary_recommend, container, false);
-        List<String> values = new ArrayList<>();
-        values.add("Package A");
-        values.add("Package B");
-        ListView listView = (ListView) view.findViewById(R.id.itineraryList);
-        ArrayAdapter<String> adapter = new ItineraryListViewAdapter(inflater.getContext(),
-                R.layout.itinerary_listitem_layout, values);
+
+        listView = (ListView) view.findViewById(R.id.itineraryList);
+
+        PackageListViewAdapter adapter = new PackageListViewAdapter(
+                getContext(),
+                R.layout.itinerary_listitem_layout,
+                itineraryList,
+                parentActivity
+        );
 
         listView.setAdapter(adapter);
+
         return view;
     }
 
+    private void setItineraries(List<Itinerary> itineraryList) {
+        this.itineraryList = itineraryList;
+    }
 }

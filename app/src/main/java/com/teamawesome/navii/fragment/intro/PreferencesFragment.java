@@ -17,6 +17,7 @@ import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.IntroActivity;
 import com.teamawesome.navii.activity.MainActivity;
 import com.teamawesome.navii.adapter.PreferencesGridAdapter;
+import com.teamawesome.navii.fragment.main.ChooseTagsFragment;
 import com.teamawesome.navii.fragment.main.NaviiFragment;
 import com.teamawesome.navii.server.model.Preference;
 import com.teamawesome.navii.server.model.PreferencesQuestion;
@@ -134,15 +135,17 @@ public class PreferencesFragment extends NaviiFragment {
                 for (Preference preference : mSelectedPreferences) {
                     Log.d("onClick", preference.getPreference());
                 }
-
+                String username = NaviiPreferenceData.getLoggedInUserEmail();
                 // TODO : Change id to the one in shared preferences
                 UserPreference userPreference = new UserPreference.Builder()
-                        .username(NaviiPreferenceData.getLoggedInUserEmail())
+                        .username(username)
                         .preferences(mSelectedPreferences)
                         .build();
 
                 // TODO : Change id to the one in shared preferences
-                Call<Void> deleteCall = parentActivity.userPreferenceAPI.deleteAllUserPreference("android-user", preferenceType);
+                Log.d("PreferenceFragment: ", username);
+                Call<Void> deleteCall = parentActivity.userPreferenceAPI.deleteAllUserPreference
+                        (username, preferenceType);
                 Call<Void> createCall = parentActivity.userPreferenceAPI.createUserPreference(userPreference);
 
                 // enqueues the delete call to delete the existing preferences for the user to
@@ -167,7 +170,7 @@ public class PreferencesFragment extends NaviiFragment {
 
                         if (response.code() == 201) {
                             int nextPreference = preferenceType + 1;
-                            if (nextPreference < numberOfPreferences) {
+                            if (nextPreference <= numberOfPreferences) {
                                 parentActivity.switchFragment(
                                         PreferencesFragment.newInstance(nextPreference),
                                         Constants.NO_ANIM,
@@ -182,6 +185,15 @@ public class PreferencesFragment extends NaviiFragment {
                                 if (getActivity().getClass().equals(IntroActivity.class)) {
                                     Intent intent = new Intent(parentActivity, MainActivity.class);
                                     parentActivity.startActivity(intent);
+                                } else if (getActivity().getClass().equals(MainActivity.class)){
+                                    parentActivity.switchFragment(
+                                            new ChooseTagsFragment(),
+                                            Constants.NO_ANIM,
+                                            Constants.NO_ANIM,
+                                            Constants.PLANNING_CHOOSE_TAGS_FRAGMENT_TAG,
+                                            true,
+                                            true,
+                                            true);
                                 }
                             }
                         }

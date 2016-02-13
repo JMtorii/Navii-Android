@@ -101,6 +101,8 @@ public class DebugMainActivity extends ListActivity {
             });
         } else if (id == 3) {
             NaviiPreferenceData.setIPAddress(Constants.SERVER_URL_JUN);
+        } else if (id == 4) {
+            NaviiPreferenceData.setIPAddress(Constants.SERVER_URL_STEVE);
         }
     }
 }

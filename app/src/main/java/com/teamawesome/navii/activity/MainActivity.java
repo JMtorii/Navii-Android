@@ -275,4 +275,8 @@ public class MainActivity extends NaviiActivity {
             }
         });
     }
+
+    public void setActionBarTitle(String text) {
+        mToolbar.setTitle(text);
+    }
 }

@@ -46,7 +46,8 @@
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/preferences_text"
+            android:verticalSpacing="15dp"
+            android:layout_below="@id/preferences_text"
             android:numColumns="3"
             android:gravity="center"/>
 
