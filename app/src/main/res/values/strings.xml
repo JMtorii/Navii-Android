@@ -54,4 +54,8 @@
     <string name="package_description_title">Overview</string>
     <string name="author_title">Created By</string>
 
+    <!-- Travel Parameter Fragment Strings -->
+    <string name="select_traveler_number">Select the number of travellers</string>
+    <string name="select_travel_budget">Budget your trip</string>
+
 </resources>

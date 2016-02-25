@@ -13,6 +13,7 @@ import com.teamawesome.navii.R;
  * Created by williamkim on 15-11-19.
  */
 public class TravelParameterFragment extends NaviiFragment {
+
     private View mChildUpButton;
     private View mChildDownButton;
     private AwesomeTextView mChildTextView;
@@ -44,25 +45,9 @@ public class TravelParameterFragment extends NaviiFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_travel_parameter, container, false);
 
         mChildUpButton = (View) v.findViewById(R.id.travel_parameter_child_up_button);
-        mChildDownButton = (View) v.findViewById(R.id.travel_parameter_child_down_button);
-        mChildTextView = (AwesomeTextView) v.findViewById(R.id.travel_paramenter_child_text);
-
-        mAdultUpButton = (View) v.findViewById(R.id.travel_parameter_adult_up_button);
-        mAdultDownButton = (View) v.findViewById(R.id.travel_parameter_adult_down_button);
-        mAdultTextView = (AwesomeTextView) v.findViewById(R.id.travel_paramenter_adult_text);
-
-        mCurrencyUpButton = (View) v.findViewById(R.id.travel_parameter_currency_up_button);
-        mCurrencyDownButton = (View) v.findViewById(R.id.travel_parameter_currency_down_button);
-        mCurrencyTextView = (AwesomeTextView) v.findViewById(R.id.travel_paramenter_currency_text);
-
-        mAmountUpButton = (View) v.findViewById(R.id.travel_parameter_amount_up_button);
-        mAmountDownButton = (View) v.findViewById(R.id.travel_parameter_amount_down_button);
-        mAmountTextView = (AwesomeTextView) v.findViewById(R.id.travel_paramenter_amount_text);
-
         mChildUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,6 +56,7 @@ public class TravelParameterFragment extends NaviiFragment {
             }
         });
 
+        mChildDownButton = (View) v.findViewById(R.id.travel_parameter_child_down_button);
         mChildDownButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,6 +67,10 @@ public class TravelParameterFragment extends NaviiFragment {
             }
         });
 
+        mChildTextView = (AwesomeTextView) v.findViewById(R.id.travel_paramenter_child_text);
+        setChildTextViewText();
+
+        mAdultUpButton = (View) v.findViewById(R.id.travel_parameter_adult_up_button);
         mAdultUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,6 +79,7 @@ public class TravelParameterFragment extends NaviiFragment {
             }
         });
 
+        mAdultDownButton = (View) v.findViewById(R.id.travel_parameter_adult_down_button);
         mAdultDownButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,14 +90,18 @@ public class TravelParameterFragment extends NaviiFragment {
             }
         });
 
+        mAdultTextView = (AwesomeTextView) v.findViewById(R.id.travel_paramenter_adult_text);
+        setAdultTextViewText();
+
+        mCurrencyUpButton = (View) v.findViewById(R.id.travel_parameter_currency_up_button);
         mCurrencyUpButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                ++currenciesIndex;
-                if (currenciesIndex > 5) currenciesIndex = 0;
+                currenciesIndex = (currenciesIndex + 1)% 6;
                 setCurrencyTextViewText();
             }
         });
 
+        mCurrencyDownButton = (View) v.findViewById(R.id.travel_parameter_currency_down_button);
         mCurrencyDownButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 --currenciesIndex;
@@ -115,6 +110,10 @@ public class TravelParameterFragment extends NaviiFragment {
             }
         });
 
+        mCurrencyTextView = (AwesomeTextView) v.findViewById(R.id.travel_paramenter_currency_text);
+        setCurrencyTextViewText();
+
+        mAmountUpButton = (View) v.findViewById(R.id.travel_parameter_amount_up_button);
         mAmountUpButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 ++amountCounter;
@@ -122,6 +121,7 @@ public class TravelParameterFragment extends NaviiFragment {
             }
         });
 
+        mAmountDownButton = (View) v.findViewById(R.id.travel_parameter_amount_down_button);
         mAmountDownButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 if (amountCounter > 0) {
@@ -131,15 +131,24 @@ public class TravelParameterFragment extends NaviiFragment {
             }
         });
 
+        mAmountTextView = (AwesomeTextView) v.findViewById(R.id.travel_paramenter_amount_text);
+        setAmountTextViewText();
+
         return v;
     }
 
     private void setChildTextViewText() {
-        mChildTextView.setText(Integer.toString(childCounter) + " children");
+        if (childCounter > 1)
+            mChildTextView.setText(Integer.toString(childCounter) + " children");
+        else
+            mChildTextView.setText(Integer.toString(childCounter) + " child");
     }
 
     private void setAdultTextViewText() {
-        mAdultTextView.setText(Integer.toString(adultCounter) + " adults");
+        if (adultCounter > 1)
+            mAdultTextView.setText(Integer.toString(adultCounter) + " adults");
+        else
+            mAdultTextView.setText(Integer.toString(adultCounter) + " adult");
     }
 
     private void setCurrencyTextViewText() {
