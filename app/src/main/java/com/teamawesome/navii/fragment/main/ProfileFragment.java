@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,13 +46,16 @@ public class ProfileFragment extends NaviiFragment implements OnFocusListenable 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        Log.d("ProfileFragment", "onCreate");
         super.onCreate(savedInstanceState);
-        parentActivity.setTitle("Spongebob Squarepants");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        Log.d("ProfileFragment", "onCreateView");
+        parentActivity.setTitle("Spongebob Squarepants");
+
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
         mPictureThumbnail = (BootstrapCircleThumbnail) v.findViewById(R.id.profile_thumbnail);
         mUsernameTextView = (TextView) v.findViewById(R.id.profile_username_textview);
@@ -71,9 +75,9 @@ public class ProfileFragment extends NaviiFragment implements OnFocusListenable 
             }
         });
 
-        mEditProfileButton.setOnClickListener(new View.OnClickListener(){
+        mEditProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 changeEditProfileFragment();
             }
         });
@@ -90,6 +94,8 @@ public class ProfileFragment extends NaviiFragment implements OnFocusListenable 
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
+
+        Log.d("ProfileFragment", "onWindowFocusedChanged");
         checkReceivedIntent();
     }
 
@@ -201,7 +207,7 @@ public class ProfileFragment extends NaviiFragment implements OnFocusListenable 
         }
     }
 
-    private void changeEditProfileFragment(){
+    private void changeEditProfileFragment() {
         EditProfileFragment fragment = EditProfileFragment.newInstance();
         String tag = Constants.EDIT_PROFILE_FRAGMENT_TAG;
         parentActivity.switchFragment(
@@ -216,14 +222,14 @@ public class ProfileFragment extends NaviiFragment implements OnFocusListenable 
 
     private void changePasswordFragment() {
         ChangePasswordFragment fragment = new ChangePasswordFragment();
-        String tag = Constants.PLANNING_CHOOSE_TAGS_FRAGMENT_TAG;
+        String tag = Constants.CHANGE_PASSWORD_FRAGMENT;
         parentActivity.switchFragment(
                 fragment,
                 Constants.NO_ANIM,
                 Constants.NO_ANIM,
                 tag,
-                true,
-                true,
+                false,
+                false,
                 true
         );
     }

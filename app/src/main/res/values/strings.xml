@@ -61,4 +61,9 @@
     <string name="select_traveler_number">Select the number of travellers</string>
     <string name="select_travel_budget">Budget your trip</string>
 
+    <!-- ChangePasswordFragment Strings -->
+    <string name="current_password_text">Current Password</string>
+    <string name="new_password_text">New Password</string>
+    <string name="repeat_new_password_text">Repeat New Password</string>
+    <string name="change_password_button">Change Password</string>
 </resources>

@@ -25,13 +25,14 @@ public abstract class NaviiActivity extends AppCompatActivity {
     protected Retrofit retrofitObservable;
 
     public final UserAPI userAPI;
+    public final UserAPI userAPIObservable;
     public final UserPreferenceAPI userPreferenceAPI;
     public final PreferenceAPI preferenceAPI;
     public final TagsAPI tagsAPI;
     public final ItineraryAPI itineraryAPI;
 
     public NaviiActivity() {
-        // TODO: do we need both?
+        // TODO: remove this bs
         retrofit = new Retrofit.Builder()
                 .baseUrl(NaviiPreferenceData.getIPAddress())
                 .addConverterFactory(JacksonConverterFactory.create())
@@ -44,6 +45,7 @@ public abstract class NaviiActivity extends AppCompatActivity {
                 .build();
 
         userAPI = retrofit.create(UserAPI.class);
+        userAPIObservable = retrofitObservable.create(UserAPI.class);
         userPreferenceAPI = retrofit.create(UserPreferenceAPI.class);
         preferenceAPI = retrofitObservable.create(PreferenceAPI.class);
         tagsAPI = retrofitObservable.create(TagsAPI.class);
@@ -63,4 +65,5 @@ public abstract class NaviiActivity extends AppCompatActivity {
                 isAddedToBackStack
         );
     }
+
 }
