@@ -50,13 +50,15 @@ public interface UserAPI {
     /**
      * Updates an existing user
      *
+     * @param user        The current user
+     * @param newUsername The new username
      * @return Updated user
      * <p/>
      * TODO: Fix this in the server and update here. This does not work yet.
      */
     @Headers({"Content-Type: application/json"})
-    @PUT("/user/{username}")
-    Call<ResponseBody> updateUser(@Path("username") String userId, @Body User user);
+    @PUT("/user/update")
+    Call<ResponseBody> updateUser(@Body User user, @Query("newUsername") String newUsername);
 
     /**
      * Signs ups the user into the database

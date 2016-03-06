@@ -5,13 +5,12 @@ package com.teamawesome.navii.util;
  */
 public class Constants {
 
-
     private Constants() {
     }
 
     public static final String SERVER_URL = "http://navi-ci.elasticbeanstalk.com";
     //public static final String SERVER_URL = "http://10.0.3.2:8080";
-    public static final String SERVER_URL_JUN = "http://192.168.57.1:8080";
+    public static final String SERVER_URL_JUN = "http://100.65.74.212:8080";
     public static final String SERVER_URL_STEVE = "http://192.168.2.114:8080";
 
     public static final int TRENDING_DESTINATION_DURATION_MS = 5000;

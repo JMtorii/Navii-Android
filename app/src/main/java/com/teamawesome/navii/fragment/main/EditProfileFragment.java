@@ -54,13 +54,12 @@ public class EditProfileFragment extends NaviiFragment {
                 CharSequence email = newEmail.getText();
                 if (isValidEmail(email)) {
                     User userToUpdate = new User.Builder()
-                            .username(email.toString())
+                            .username(NaviiPreferenceData.getLoggedInUserEmail())
                             .isFacebook(NaviiPreferenceData.isFacebook())
                             .build();
-                    Log.d("NewUsername", userToUpdate.getUsername());
                     Call<ResponseBody> updateCall = parentActivity.userAPI.updateUser(
-                            email.toString(),
-                            userToUpdate);
+                            userToUpdate,
+                            email.toString());
 
                     updateCall.enqueue(new Callback<ResponseBody>() {
                         @Override
