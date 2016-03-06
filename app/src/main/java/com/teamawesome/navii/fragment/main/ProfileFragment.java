@@ -71,6 +71,13 @@ public class ProfileFragment extends NaviiFragment implements OnFocusListenable 
             }
         });
 
+        mEditProfileButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                changeEditProfileFragment();
+            }
+        });
+
         mChangePasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -192,6 +199,19 @@ public class ProfileFragment extends NaviiFragment implements OnFocusListenable 
                 setImageViewWithImage();
             }
         }
+    }
+
+    private void changeEditProfileFragment(){
+        EditProfileFragment fragment = EditProfileFragment.newInstance();
+        String tag = Constants.EDIT_PROFILE_FRAGMENT_TAG;
+        parentActivity.switchFragment(
+                fragment,
+                Constants.NO_ANIM,
+                Constants.NO_ANIM,
+                tag,
+                true,
+                true,
+                true);
     }
 
     private void changePasswordFragment() {

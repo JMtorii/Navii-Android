@@ -9,7 +9,6 @@
         <item>Skip to main activity</item>
         <item>Create user</item>
         <item>Set ip address to Jun</item>
-        <item>Set ip address to Steve</item>
     </string-array>
 
     <string-array name="intro_pager_titles">
@@ -46,13 +45,13 @@
     <string name="tags_message">Choose your Experience!</string>
 
     <!-- Itinerary Recommend Fragment Strings-->
-    <string name="itinerary_recommend_title">Based on Preferences</string>
-    <string name="we_recommend_title">We Recommend</string>
-    <string name="planTrip">Plan Your Own Trip</string>
-
-    <!-- Package Description Fragment String -->
-    <string name="package_description_title">Overview</string>
-    <string name="author_title">Created By</string>
+    <string name="itinerary_recommend_title">We Recommend</string>
+    <string name="new_user">new user</string>
+    <string name="Change_Username">Change Username</string>
+    <string name="new_email">New Email:</string>
+    <string name="change_email">Change Email</string>
+    <string name="author_title">test</string>
+    <string name="planTrip">planTrip</string>
 
     <!-- Travel Parameter Fragment Strings -->
     <string name="select_traveler_number">Select the number of travellers</string>

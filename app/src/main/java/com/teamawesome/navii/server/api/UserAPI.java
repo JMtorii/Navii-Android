@@ -41,8 +41,8 @@ public interface UserAPI {
      * TODO: Fix this in the server and update here. This does not work yet.
      */
     @Headers({"Content-Type: application/json"})
-    @PUT("/user/{userId}")
-    Call<ResponseBody> updateUser(@Path("userId") String userId, @Body User user);
+    @PUT("/user/{username}")
+    Call<ResponseBody> updateUser(@Path("username") String userId, @Body User user);
 
     /**
      * Signs ups the user into the database
