@@ -114,7 +114,7 @@ public class ChangePasswordFragment extends NaviiFragment {
         String newPassword = mNewPasswordField.getText().toString();
         String newPasswordRepeat = mRepeatNewPasswordField.getText().toString();
 
-        return newPassword.equals(newPasswordRepeat) ? true : false;
+        return newPassword.equals(newPasswordRepeat);
     }
 
     private void changePassword() {
