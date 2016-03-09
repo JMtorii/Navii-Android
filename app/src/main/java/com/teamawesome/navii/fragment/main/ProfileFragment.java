@@ -216,7 +216,7 @@ public class ProfileFragment extends NaviiFragment implements OnFocusListenable 
                 Constants.NO_ANIM,
                 tag,
                 true,
-                true,
+                false,
                 true);
     }
 
@@ -228,7 +228,7 @@ public class ProfileFragment extends NaviiFragment implements OnFocusListenable 
                 Constants.NO_ANIM,
                 Constants.NO_ANIM,
                 tag,
-                false,
+                true,
                 false,
                 true
         );
