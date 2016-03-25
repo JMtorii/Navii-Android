@@ -63,11 +63,8 @@ public class EditProfileFragment extends NaviiFragment {
                     updateCall.enqueue(new Callback<ResponseBody>() {
                         @Override
                         public void onResponse(Response<ResponseBody> response, Retrofit retrofit) {
-                            Log.i("update response: code", String.valueOf(response.code()));
-                            Log.i("old email:", NaviiPreferenceData.getLoggedInUserEmail());
                             if (response.code() == 200) {
                                 NaviiPreferenceData.setLoggedInUserEmail(email.toString());
-                                Log.i("new email:", NaviiPreferenceData.getLoggedInUserEmail());
                                 parentActivity.getSupportFragmentManager().popBackStackImmediate();
                             } else {
                                 Log.i("failed", String.valueOf(response.code()));
