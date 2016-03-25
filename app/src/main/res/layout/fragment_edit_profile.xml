@@ -26,6 +26,7 @@
         android:textColor="@color/black"
         android:textColorHint="@color/bootstrap_gray_light"
         android:hint="new email"
+        app:bootstrapBrand="info"
         app:bootstrapSize="md"
         app:roundedCorners="true"/>
 

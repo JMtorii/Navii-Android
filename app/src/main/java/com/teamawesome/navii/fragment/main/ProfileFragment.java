@@ -51,6 +51,13 @@ public class ProfileFragment extends NaviiFragment implements OnFocusListenable 
     }
 
     @Override
+    public void onResume(){
+        super.onResume();
+        mUsernameTextView.setText(NaviiPreferenceData.getLoggedInUserEmail());
+        mUsernameTextView.refreshDrawableState();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         Log.d("ProfileFragment", "onCreateView");

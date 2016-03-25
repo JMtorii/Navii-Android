@@ -45,14 +45,13 @@ public class EditProfileFragment extends NaviiFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
         View v = inflater.inflate(R.layout.fragment_edit_profile,container,false);
-
         newEmail = (BootstrapEditText) v.findViewById(R.id.edit_profile_new_email);
         commitEmail = (BootstrapButton) v.findViewById(R.id.edit_profile_commit_email);
         commitEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CharSequence email = newEmail.getText();
-                if (isValidEmail(email)) {
+                final CharSequence email = newEmail.getText();
+                if (isValidEmail(email)){
                     User userToUpdate = new User.Builder()
                             .username(NaviiPreferenceData.getLoggedInUserEmail())
                             .isFacebook(NaviiPreferenceData.isFacebook())
@@ -65,6 +64,14 @@ public class EditProfileFragment extends NaviiFragment {
                         @Override
                         public void onResponse(Response<ResponseBody> response, Retrofit retrofit) {
                             Log.i("update response: code", String.valueOf(response.code()));
+                            Log.i("old email:", NaviiPreferenceData.getLoggedInUserEmail());
+                            if (response.code() == 200) {
+                                NaviiPreferenceData.setLoggedInUserEmail(email.toString());
+                                Log.i("new email:", NaviiPreferenceData.getLoggedInUserEmail());
+                                parentActivity.getSupportFragmentManager().popBackStackImmediate();
+                            } else {
+                                Log.i("failed", String.valueOf(response.code()));
+                            }
                         }
 
                         @Override
@@ -92,7 +99,8 @@ public class EditProfileFragment extends NaviiFragment {
     }
 
     private boolean isValidEmail(CharSequence email){
-        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches()
+                && !email.toString().equalsIgnoreCase(NaviiPreferenceData.getLoggedInUserEmail());
     }
 
 }
