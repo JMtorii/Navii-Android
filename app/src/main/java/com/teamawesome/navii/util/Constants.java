@@ -38,6 +38,7 @@ public class Constants {
     public static final String ITINERARY_RECOMMEND_FRAGMENT = "ITINERARY_RECOMMEND_FRAGMENT";
     public static final String PACKAGE_DESCRIPTION = "PACKAGE_DESCRIPTION";
     public static final String NO_WIFI_DIALOG = "NO_WIFI";
+    public static final String LOADING_WHEEL_TAG = "LOADING_WHEEL";
 
     // Preference Types
     public static final int PREFERENCE_TYPE_1 = 1;

@@ -1,6 +1,7 @@
 package com.teamawesome.navii.fragment.main;
 
 import android.app.Dialog;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -34,17 +35,27 @@ public class NaviiFragment extends Fragment {
     public void onResume() {
         super.onResume();
         if (!WifiCheck.isConnected(this)) {
-            DialogFragment test = new NaviiDialogFragment();
+            DialogFragment test = new NaviiWifiDialogFragment();
+            test.setCancelable(false);
             test.show(this.getFragmentManager(), Constants.NO_WIFI_DIALOG);
         }
     }
 
-    private class NaviiDialogFragment extends DialogFragment {
+    protected NaviiSpinner startLoader(){
+        NaviiSpinner NaviiLoaderWheel = new NaviiSpinner();
+        NaviiLoaderWheel.setCancelable(false);
+        NaviiLoaderWheel.show(this.getFragmentManager(), Constants.LOADING_WHEEL_TAG);
+        return NaviiLoaderWheel;
+    }
 
-        private NaviiDialogFragment() {
-        }
+    protected void endLoader (NaviiSpinner end){
+        end.dismiss();
+    }
+
+    public class NaviiWifiDialogFragment extends DialogFragment {
 
         @Override
+        @NonNull
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             final Dialog wifiDialog = new Dialog(NaviiFragment.this.getContext());
             wifiDialog.requestWindowFeature(STYLE_NO_TITLE);
@@ -65,6 +76,14 @@ public class NaviiFragment extends Fragment {
             return wifiDialog;
         }
     }
-
-
+    public class NaviiSpinner extends DialogFragment {
+        @Override
+        @NonNull
+        public Dialog onCreateDialog(Bundle savedInstanceState){
+            Dialog naviiLoaderWheel = new Dialog (this.getContext());
+            naviiLoaderWheel.requestWindowFeature(STYLE_NO_TITLE);
+            naviiLoaderWheel.setContentView(R.layout.naviloader);
+            return naviiLoaderWheel;
+        }
+    }
 }
