@@ -66,4 +66,8 @@
     <string name="new_password_text">New Password</string>
     <string name="repeat_new_password_text">Repeat New Password</string>
     <string name="change_password_button">Change Password</string>
+
+    <!-- WifiDialogFragment Strings -->
+    <string name="no_wifi_message">"No Connection Detected."</string>
+    <string name="reconnect_message">"Reconnect"</string>
 </resources>
