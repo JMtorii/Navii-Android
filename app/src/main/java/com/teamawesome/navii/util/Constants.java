@@ -10,7 +10,7 @@ public class Constants {
 
     public static final String SERVER_URL = "http://navi-ci.elasticbeanstalk.com";
     //public static final String SERVER_URL = "http://10.0.3.2:8080";
-    public static final String SERVER_URL_JUN = "http://100.65.74.212:8080";
+    public static final String SERVER_URL_JUN = "http://142.151.249.132:8080";
     public static final String SERVER_URL_STEVE = "http://192.168.2.114:8080";
 
     public static final int TRENDING_DESTINATION_DURATION_MS = 5000;
@@ -37,6 +37,7 @@ public class Constants {
 
     public static final String ITINERARY_RECOMMEND_FRAGMENT = "ITINERARY_RECOMMEND_FRAGMENT";
     public static final String PACKAGE_DESCRIPTION = "PACKAGE_DESCRIPTION";
+    public static final String NO_WIFI_DIALOG = "NO_WIFI";
 
     // Preference Types
     public static final int PREFERENCE_TYPE_1 = 1;
