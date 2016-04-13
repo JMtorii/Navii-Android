@@ -2,6 +2,7 @@ package com.teamawesome.navii.util;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
+import android.net.Network;
 import android.net.NetworkInfo;
 
 import com.teamawesome.navii.fragment.main.NaviiFragment;
@@ -20,7 +21,7 @@ public class WifiCheck {
     public static boolean isConnected(NaviiFragment f){
         ConnectivityManager connectivityManager =
                 (ConnectivityManager) f.getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo wifiInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-        return wifiInfo.isConnected();
+        NetworkInfo networkinfo = connectivityManager.getActiveNetworkInfo();
+        return networkinfo != null;
     }
 }
