@@ -73,6 +73,7 @@ public class ChooseTagsFragment extends NaviiFragment {
                 List<String> checkedList = new ArrayList<>(checkedSet);
                 Call<List<Itinerary>> itineraryListCall =
                         parentActivity.itineraryAPI.getItineraries(checkedList);
+
                 itineraryListCall.enqueue(new Callback<List<Itinerary>>() {
                     @Override
                     public void onResponse(Response<List<Itinerary>> response, Retrofit retrofit) {
@@ -94,7 +95,7 @@ public class ChooseTagsFragment extends NaviiFragment {
 
                     @Override
                     public void onFailure(Throwable t) {
-                        Log.e("failed", t.getMessage());
+                        Log.e("failed", t.toString());
                     }
                 });
 

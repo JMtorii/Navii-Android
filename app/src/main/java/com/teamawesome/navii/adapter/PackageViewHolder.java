@@ -12,14 +12,18 @@ import com.teamawesome.navii.R;
  * Created by sjung on 04/02/16.
  */
 public class PackageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-    public TextView textView;
+    public TextView attractionName;
+    public TextView attractionPrice;
+    public TextView attractionStartTime;
     public ImageView imageView;
 
     public PackageViewHolder(View itemView) {
         super(itemView);
         itemView.setOnClickListener(this);
-        textView = (TextView) itemView.findViewById(R.id.description_name);
-//        imageView = (ImageView) itemView.findViewById(R.id.description_photo);
+        attractionName = (TextView) itemView.findViewById(R.id.attraction_name);
+        attractionPrice = (TextView) itemView.findViewById(R.id.attraction_price);
+        attractionStartTime = (TextView) itemView.findViewById(R.id.attraction_start_time);
+        imageView = (ImageView) itemView.findViewById(R.id.attraction_photo);
     }
 
     @Override

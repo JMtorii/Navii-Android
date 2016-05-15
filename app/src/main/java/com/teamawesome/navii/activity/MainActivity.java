@@ -92,14 +92,14 @@ public class MainActivity extends NaviiActivity {
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
-    @Override
-    public void onBackPressed() {
-        Fragment f = getSupportFragmentManager().findFragmentByTag(curFragmentTag);
-        if (f != null && !f.getTag().equals(Constants.CHOOSE_LOCATION_FRAGMENT_TAG)) {
-            Log.v("test", f.getTag());
-            super.onBackPressed();
-        }
-    }
+//    @Override
+//    public void onBackPressed() {
+//        Fragment f = getSupportFragmentManager().findFragmentByTag(curFragmentTag);
+//        if (f != null && !f.getTag().equals(Constants.CHOOSE_LOCATION_FRAGMENT_TAG)) {
+//            Log.v("test", f.getTag());
+//            super.onBackPressed();
+//        }
+//    }
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {

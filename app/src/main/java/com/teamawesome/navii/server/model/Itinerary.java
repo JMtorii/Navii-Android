@@ -1,11 +1,14 @@
 package com.teamawesome.navii.server.model;
 
+import java.util.List;
+
 /**
  * Created by JMtorii on 2015-10-21.
  */
 public class Itinerary {
     private int itineraryId;
     private String description;
+    private List<Attraction> attractions;
     private int duration;
     private int price;
     private String authorId;
@@ -18,6 +21,7 @@ public class Itinerary {
         this.duration = builder.duration;
         this.description = builder.description;
         this.authorId = builder.authorId;
+        this.attractions = builder.attractions;
     }
 
     public int getItineraryId() {
@@ -40,10 +44,15 @@ public class Itinerary {
         return description;
     }
 
+    public List<Attraction> getAttractions() {
+        return attractions;
+    }
+
     public static class Builder {
         private int itineraryId;
         private String description;
         private int duration;
+        private List<Attraction> attractions;
         private int price;
         private String authorId;
 
@@ -74,9 +83,14 @@ public class Itinerary {
             return this;
         }
 
+        public Builder attractions(List<Attraction> attractions) {
+            this.attractions = attractions;
+            return this;
+        }
         public Itinerary build() {
             return new Itinerary(this);
         }
     }
 }
+
 

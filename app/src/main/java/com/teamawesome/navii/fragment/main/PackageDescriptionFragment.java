@@ -3,30 +3,46 @@ package com.teamawesome.navii.fragment.main;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.MainActivity;
 import com.teamawesome.navii.adapter.DescriptionListAdapter;
+import com.teamawesome.navii.server.model.Attraction;
 import com.teamawesome.navii.server.model.Itinerary;
+import com.teamawesome.navii.server.model.Location;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
  * Created by sjung on 30/01/16.
  */
-public class PackageDescriptionFragment extends NaviiFragment {
+public class PackageDescriptionFragment extends NaviiFragment implements OnMapReadyCallback {
 
     private Itinerary itinerary;
     private ImageView packageImage;
     private TextView packageTitle;
     private TextView packageAuthor;
     private RecyclerView descriptionList;
+    private Spinner startTimeSpinner;
+    private GoogleMap mMap;
+    private static String LOG_TAG = "PackageDescriptionFragment";
 
     public static PackageDescriptionFragment newInstance(Itinerary itinerary) {
         PackageDescriptionFragment fragment = new PackageDescriptionFragment();
@@ -37,51 +53,90 @@ public class PackageDescriptionFragment extends NaviiFragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        Log.d(LOG_TAG, "onCreate()");
         super.onCreate(savedInstanceState);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        ((MainActivity)parentActivity).setActionBarTitle(getString(R.string.package_description_title));
+        ((MainActivity) parentActivity).setActionBarTitle(getString(R.string.package_description_title));
 
+        //Itinerary description setup
         View view = inflater.inflate(R.layout.fragment_package_description, container, false);
 
         packageAuthor = (TextView) view.findViewById(R.id.description_author);
         packageImage = (ImageView) view.findViewById(R.id.description_image);
-        packageTitle = (TextView) view.findViewById(R.id.description_title);
 
-        packageAuthor.setText(itinerary.getAuthorId());
-        packageTitle.setText(itinerary.getDescription());
         packageImage.setBackgroundResource(R.drawable.toronto1);
 
+        //Start Time spinner setup
+        startTimeSpinner = (Spinner) view.findViewById(R.id.package_start_time);
+
+        HashMap<String, Integer> timeMap = new HashMap<>();
+        Integer[] times = {8, 9, 10, 11, 12};
+
+        SpinnerAdapter spinnerAdapter =
+                new ArrayAdapter<>(getContext(), R.layout.support_simple_spinner_dropdown_item, times);
+
+        startTimeSpinner.setAdapter(spinnerAdapter);
+
+        //Attraction list setup
         descriptionList = (RecyclerView) view.findViewById(R.id.description_list);
         descriptionList.setHasFixedSize(true);
 
-        StaggeredGridLayoutManager gridLayoutManager = new StaggeredGridLayoutManager(2, 1);
+        StaggeredGridLayoutManager gridLayoutManager = new StaggeredGridLayoutManager(1, 1);
         descriptionList.setLayoutManager(gridLayoutManager);
 
-        //TODO: Change to actual attraction pictures
-        List<String> items = new ArrayList<>();
-        items.add("Moon");
-        items.add("TD Bank Attraction");
-        items.add("Restaurant Attraction of pain");
-        items.add("Club Attraction of pain");
-        items.add("Something pain");
-        items.add("Oh my god");
-        items.add("Church visit");
-        items.add("Book Burning");
-        items.add("Prayer");
+        List<Attraction> attractions = itinerary.getAttractions();
 
         DescriptionListAdapter descriptionListAdapter =
-                new DescriptionListAdapter(getContext(), items);
+                new DescriptionListAdapter(getContext(), attractions);
 
         descriptionList.setAdapter(descriptionListAdapter);
 
+
+        //Map setup
+        SupportMapFragment mapFragment =
+                (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+
+        mapFragment.getMapAsync(this);
+
         return view;
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+        // Hide the zoom controls as the button panel will cover it.
+        mMap.getUiSettings().setZoomControlsEnabled(false);
+        List<Attraction> attractions = itinerary.getAttractions();
+
+        for (int i = 0; i < attractions.size(); i++) {
+            Log.d("TAG", attractions.get(i).getName());
+            Location location = attractions.get(i).getLocation();
+
+            Log.d("Latitude", ""+location.getLatitude());
+            Log.d("Longitude", ""+location.getLongitude());
+
+            LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+            mMap.addMarker(new MarkerOptions()
+                    .position(latLng)
+                    .title(i + ":" + attractions.get(i).getName())
+                    .snippet(attractions.get(i).getPhotoUri())
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+            );
+        }
+
+        LatLng toronto = new LatLng(43.644, -79.387);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(toronto));
+        mMap.addMarker(new MarkerOptions().position(toronto).title("Toronto"));
+
     }
 
     public void setItinerary(Itinerary itinerary) {
         this.itinerary = itinerary;
     }
+
 
 }
