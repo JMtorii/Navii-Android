@@ -10,10 +10,8 @@
         android:layout_width="fill_parent"
         android:layout_alignParentTop="true"
         android:layout_height="200dp"
-        android:layout_marginBottom="16dp"
         card_view:cardElevation="4dp"
         card_view:cardUseCompatPadding="true">
-
 
         <RelativeLayout
             android:id='@+id/card_description_layout'
@@ -23,11 +21,12 @@
             <ImageView
                 android:id="@+id/description_image"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:padding="5dp"/>
+                android:padding="5dp"
+                android:layout_above="@+id/description_author_title"/>
 
             <TextView
                 android:id="@+id/description_author"
@@ -56,22 +55,23 @@
 
     <Spinner
         android:layout_width="50dp"
-        android:layout_height="20dp"
+        android:layout_height="30dp"
         android:id="@+id/package_start_time"
         android:isScrollContainer="true"
+        android:layout_below="@+id/description_overview"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/description_overview"/>
+        android:backgroundTint="#860707"/>
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_below="@+id/description_overview">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/package_start_time">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/description_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="250dp"
             android:background="#ffffff"
             android:divider="@android:color/transparent"
             android:dividerHeight="10dp"
@@ -85,9 +85,11 @@
     <fragment
         android:id="@+id/map"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/relativeLayout"
         class="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@id/relativeLayout"/>
+        android:layout_alignParentStart="true"/>
+
 </RelativeLayout>

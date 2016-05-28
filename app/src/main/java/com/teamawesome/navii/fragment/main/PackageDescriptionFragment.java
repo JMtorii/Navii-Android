@@ -1,12 +1,13 @@
 package com.teamawesome.navii.fragment.main;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -27,17 +28,16 @@ import com.teamawesome.navii.server.model.Attraction;
 import com.teamawesome.navii.server.model.Itinerary;
 import com.teamawesome.navii.server.model.Location;
 
-import java.util.HashMap;
 import java.util.List;
 
 /**
  * Created by sjung on 30/01/16.
  */
-public class PackageDescriptionFragment extends NaviiFragment implements OnMapReadyCallback {
+public class PackageDescriptionFragment extends NaviiFragment implements OnMapReadyCallback,
+        AdapterView.OnItemSelectedListener {
 
     private Itinerary itinerary;
     private ImageView packageImage;
-    private TextView packageTitle;
     private TextView packageAuthor;
     private RecyclerView descriptionList;
     private Spinner startTimeSpinner;
@@ -68,12 +68,12 @@ public class PackageDescriptionFragment extends NaviiFragment implements OnMapRe
         packageImage = (ImageView) view.findViewById(R.id.description_image);
 
         packageImage.setBackgroundResource(R.drawable.toronto1);
+        packageAuthor.setText(itinerary.getAuthorId());
 
         //Start Time spinner setup
         startTimeSpinner = (Spinner) view.findViewById(R.id.package_start_time);
 
-        HashMap<String, Integer> timeMap = new HashMap<>();
-        Integer[] times = {8, 9, 10, 11, 12};
+        final Integer[] times = {8, 9, 10, 11, 12};
 
         SpinnerAdapter spinnerAdapter =
                 new ArrayAdapter<>(getContext(), R.layout.support_simple_spinner_dropdown_item, times);
@@ -84,7 +84,7 @@ public class PackageDescriptionFragment extends NaviiFragment implements OnMapRe
         descriptionList = (RecyclerView) view.findViewById(R.id.description_list);
         descriptionList.setHasFixedSize(true);
 
-        StaggeredGridLayoutManager gridLayoutManager = new StaggeredGridLayoutManager(1, 1);
+        RecyclerView.LayoutManager gridLayoutManager = new LinearLayoutManager(getContext());
         descriptionList.setLayoutManager(gridLayoutManager);
 
         List<Attraction> attractions = itinerary.getAttractions();
@@ -93,7 +93,6 @@ public class PackageDescriptionFragment extends NaviiFragment implements OnMapRe
                 new DescriptionListAdapter(getContext(), attractions);
 
         descriptionList.setAdapter(descriptionListAdapter);
-
 
         //Map setup
         SupportMapFragment mapFragment =
@@ -113,11 +112,7 @@ public class PackageDescriptionFragment extends NaviiFragment implements OnMapRe
         List<Attraction> attractions = itinerary.getAttractions();
 
         for (int i = 0; i < attractions.size(); i++) {
-            Log.d("TAG", attractions.get(i).getName());
             Location location = attractions.get(i).getLocation();
-
-            Log.d("Latitude", ""+location.getLatitude());
-            Log.d("Longitude", ""+location.getLongitude());
 
             LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
             mMap.addMarker(new MarkerOptions()
@@ -129,9 +124,7 @@ public class PackageDescriptionFragment extends NaviiFragment implements OnMapRe
         }
 
         LatLng toronto = new LatLng(43.644, -79.387);
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(toronto));
-        mMap.addMarker(new MarkerOptions().position(toronto).title("Toronto"));
-
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(toronto, 10));
     }
 
     public void setItinerary(Itinerary itinerary) {
@@ -139,4 +132,13 @@ public class PackageDescriptionFragment extends NaviiFragment implements OnMapRe
     }
 
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 }

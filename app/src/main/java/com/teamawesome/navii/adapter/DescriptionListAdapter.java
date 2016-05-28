@@ -42,6 +42,8 @@ public class DescriptionListAdapter extends RecyclerView.Adapter<PackageViewHold
                 .into(holder.imageView);
 
         holder.attractionName.setText(attractions.get(position).getName());
+        holder.attractionPrice.setText(String.valueOf(attractions.get(position).getPrice()));
+        holder.attractionStartTime.setText(String.valueOf(attractions.get(position).getDuration()));
 
     }
 

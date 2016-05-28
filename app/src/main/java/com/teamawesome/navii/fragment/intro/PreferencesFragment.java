@@ -105,9 +105,7 @@ public class PreferencesFragment extends NaviiFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 imageView = (ImageView) view.findViewById(R.id.preferenceCheckImageView);
-
-                boolean selected = !view.isSelected();
-                if (selected) {
+                if (!imageView.isSelected()) {
                     if (mPreferencesCount == Constants.PREFERENCE_MAX_LIMIT) {
                         return;
                     }
@@ -119,7 +117,7 @@ public class PreferencesFragment extends NaviiFragment {
                     --mPreferencesCount;
                     imageView.setVisibility(View.GONE);
                 }
-                view.setSelected(selected);
+                imageView.setSelected(!imageView.isSelected());
             }
         });
 
