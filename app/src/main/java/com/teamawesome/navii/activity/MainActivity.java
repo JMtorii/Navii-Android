@@ -1,7 +1,9 @@
 package com.teamawesome.navii.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -9,18 +11,31 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.teamawesome.navii.R;
+import com.teamawesome.navii.fragment.intro.PreferencesFragment;
+import com.teamawesome.navii.fragment.main.ChooseLocationFragment;
+import com.teamawesome.navii.fragment.main.ChooseTagsFragment;
 import com.teamawesome.navii.fragment.main.HomeFragment;
+import com.teamawesome.navii.fragment.main.NotificationsFragment;
+import com.teamawesome.navii.fragment.main.PlannedTripsFragment;
+import com.teamawesome.navii.fragment.main.SavedTripsFragment;
+import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.NaviiFragmentManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends NaviiActivity implements NavigationView.OnNavigationItemSelectedListener {
-    @BindView(R.id.toolbar) Toolbar mToolbar;
-    @BindView(R.id.drawer_layout) DrawerLayout mDrawer;
-    @BindView(R.id.nav_view) NavigationView mNavigation;
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
+
+    @BindView(R.id.drawer_layout)
+    DrawerLayout mDrawer;
+
+    @BindView(R.id.nav_view)
+    NavigationView mNavigation;
 
     private NaviiFragmentManager fm;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,22 +68,49 @@ public class MainActivity extends NaviiActivity implements NavigationView.OnNavi
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
+        Fragment fragment = null;
+        String tag = "";
+
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_home) {
+            fragment = new ChooseLocationFragment();
+            tag = Constants.CHOOSE_LOCATION_FRAGMENT_TAG;
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_planned_trips) {
+            fragment = new PlannedTripsFragment();
+            tag = Constants.PLANNING_PLANNED_TRIPS_FRAGMENT_TAG;
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_saved_trips) {
+            fragment = new SavedTripsFragment();
+            tag = Constants.PLANNING_SAVED_TRIPS_FRAGMENT_TAG;
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_preferences) {
+            fragment = PreferencesFragment.newInstance(Constants.PREFERENCE_TYPE_1);
+            tag = Constants.PREFERENCES_FRAGMENT_TAG;
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_notifications) {
+            fragment = new NotificationsFragment();
+            tag = Constants.NOTIFICATIONS_FRAGMENT_TAG;
 
+        } else if (id == R.id.nav_choose_tags) {
+            fragment = new ChooseTagsFragment();
+            tag = Constants.PLANNING_CHOOSE_TAGS_FRAGMENT_TAG;
+
+        } else if (id == R.id.nav_logout) {
+            Intent intent = new Intent(this, IntroActivity.class);
+            startActivity(intent);
         }
+
+        fm.switchFragment(
+            fragment,
+            Constants.NO_ANIM,
+            Constants.NO_ANIM,
+            tag,
+            true,
+            true,
+            true
+        );
 
         mDrawer.closeDrawer(GravityCompat.START);
         return true;

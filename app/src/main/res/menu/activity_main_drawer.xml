@@ -3,21 +3,36 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/nav_home"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:title="Home" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_planned_trips"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:title="Planned Trips" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_saved_trips"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:title="Saved Trips" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/nav_preferences"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:title="Preferences" />
+
+        <item
+            android:id="@+id/nav_notifications"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Notifications" />
+
+        <item
+            android:id="@+id/nav_choose_tags"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Tags" />
+
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Logout" />
     </group>
 
     <item android:title="Communicate">
