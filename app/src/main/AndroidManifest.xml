@@ -45,6 +45,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:supportsRtl="true"
         android:theme="@style/NaviiTheme">
 
         <meta-data
@@ -65,7 +66,8 @@
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/NaviiTheme.NoActionBar">
         </activity>
 
         <activity

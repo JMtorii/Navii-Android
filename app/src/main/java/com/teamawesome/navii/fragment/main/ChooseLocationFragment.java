@@ -96,11 +96,11 @@ public class ChooseLocationFragment extends NaviiFragment implements CalendarDat
     public void onResume() {
         // Example of reattaching to the fragment
         super.onResume();
-        CalendarDatePickerDialogFragment calendarDatePickerDialogFragment = (CalendarDatePickerDialogFragment) parentActivity.getSupportFragmentManager()
-                .findFragmentByTag(FRAG_TAG_DATE_PICKER);
-        if (calendarDatePickerDialogFragment != null) {
-            calendarDatePickerDialogFragment.setOnDateSetListener(this);
-        }
+//        CalendarDatePickerDialogFragment calendarDatePickerDialogFragment = (CalendarDatePickerDialogFragment) parentActivity.getSupportFragmentManager()
+//                .findFragmentByTag(FRAG_TAG_DATE_PICKER);
+//        if (calendarDatePickerDialogFragment != null) {
+//            calendarDatePickerDialogFragment.setOnDateSetListener(this);
+//        }
     }
 
     @Override

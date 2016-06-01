@@ -1,282 +1,324 @@
 package com.teamawesome.navii.activity;
 
-import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 
 import com.teamawesome.navii.R;
-import com.teamawesome.navii.fragment.intro.PreferencesFragment;
-import com.teamawesome.navii.fragment.main.ChooseLocationFragment;
-import com.teamawesome.navii.fragment.main.ChooseTagsFragment;
-import com.teamawesome.navii.fragment.main.NotificationsFragment;
-import com.teamawesome.navii.fragment.main.OnFocusListenable;
-import com.teamawesome.navii.fragment.main.PlannedTripsFragment;
-import com.teamawesome.navii.fragment.main.ProfileFragment;
-import com.teamawesome.navii.fragment.main.SavedTripsFragment;
-import com.teamawesome.navii.server.model.User;
-import com.teamawesome.navii.util.Constants;
+import com.teamawesome.navii.fragment.main.HomeFrargment;
 import com.teamawesome.navii.util.NaviiFragmentManager;
-import com.teamawesome.navii.util.NaviiPreferenceData;
 
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.Response;
-import retrofit.Retrofit;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-public class MainActivity extends NaviiActivity {
-    // Toolbar
-    private Toolbar mToolbar;
+public class MainActivity extends NaviiActivity implements NavigationView.OnNavigationItemSelectedListener {
+    @BindView(R.id.toolbar) Toolbar mToolbar;
+    @BindView(R.id.drawer_layout) DrawerLayout mDrawer;
+    @BindView(R.id.nav_view) NavigationView mNavigation;
 
-    // Navigation drawer
-    private DrawerLayout mDrawerLayout;
-    private LinearLayout mDrawerLinearLayout;
-    private ListView mDrawerList;
-    private ActionBarDrawerToggle mDrawerToggle;
-    private LinearLayout mProfileButton;
-    private String[] mNavDrawerTitles;
-
-    // Fragment manager
-    // TODO: do we need this?
-    private String curFragmentTag = Constants.CHOOSE_LOCATION_FRAGMENT_TAG;
+    private NaviiFragmentManager fm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main2);
+        ButterKnife.bind(this);
+
+        setSupportActionBar(mToolbar);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+
+        mDrawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        mNavigation.setNavigationItemSelectedListener(this);
 
         fm = new NaviiFragmentManager(getSupportFragmentManager(), R.id.main_activity_content_frame);
-
-        mToolbar = (Toolbar) findViewById(R.id.main_activity_toolbar);
-        mProfileButton = (LinearLayout) findViewById(R.id.main_activity_profile_button);
-        mNavDrawerTitles = getResources().getStringArray(R.array.nav_drawer_array);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.main_activity_drawer_layout);
-        mDrawerLinearLayout = (LinearLayout) findViewById(R.id.main_activity_drawer_linear_layout);
-        mDrawerList = (ListView) findViewById(R.id.main_activity_left_drawer);
-
-        setupToolbar();
-        setupDrawer();
-        setupUserInformation();
-
-        if (savedInstanceState == null) {
-            selectDrawerItem(0);
-        }
-    }
-
-    /**
-     * When using the ActionBarDrawerToggle, you must call it during
-     * onPostCreate() and onConfigurationChanged()...
-     */
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        // Sync the toggle state after onRestoreInstanceState has occurred.
-        mDrawerToggle.syncState();
+        fm.switchFragment(new HomeFrargment(), -1, -1, "HomeFragment", true, true, true);
     }
 
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        // Pass any configuration change to the drawer toggle
-        mDrawerToggle.onConfigurationChanged(newConfig);
+    public void onBackPressed() {
+        if (mDrawer != null && mDrawer.isDrawerOpen(GravityCompat.START)) {
+            mDrawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 
-//    @Override
-//    public void onBackPressed() {
-//        Fragment f = getSupportFragmentManager().findFragmentByTag(curFragmentTag);
-//        if (f != null && !f.getTag().equals(Constants.CHOOSE_LOCATION_FRAGMENT_TAG)) {
-//            Log.v("test", f.getTag());
-//            super.onBackPressed();
-//        }
-//    }
-
+    @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
 
-        Fragment fragment = getSupportFragmentManager().findFragmentByTag(Constants.PROFILE_FRAGMENT_TAG);
-        if (fragment != null && fragment.isVisible() && fragment instanceof OnFocusListenable) {
-            ((OnFocusListenable) fragment).onWindowFocusChanged(hasFocus);
-        }
-    }
+        if (id == R.id.nav_camera) {
+            // Handle the camera action
+        } else if (id == R.id.nav_gallery) {
 
-    private void setupToolbar() {
-        mToolbar.setTitle("Main Activity");
+        } else if (id == R.id.nav_slideshow) {
 
-        // TODO: add appropriate action items to menu
-        mToolbar.inflateMenu(R.menu.toolbar_main_activity_menu);
-        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                // TODO: add appropriate menu items
-//                switch (menuItem.getItemId()) {
-//                    case R.id.action_settings:
-//                        // TODO: add custom animation
-//                        Fragment fragment = new SettingsMainFragment();
-//                        FragmentManager fragmentManager = getSupportFragmentManager();
-//                        fragmentManager.beginTransaction().add(R.id.content_frame, fragment).commit();
-//                        return true;
-//                }
+        } else if (id == R.id.nav_manage) {
 
-                return false;
-            }
-        });
-    }
+        } else if (id == R.id.nav_share) {
 
-    private void setupDrawer() {
-        // set a custom shadow that overlays the main content when the drawer opens
-        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-        // set up the drawer's list view with items and click listener
-        mDrawerList.setAdapter(new ArrayAdapter<Object>(this, R.layout.drawer_main_list_item, mNavDrawerTitles));
-        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+        } else if (id == R.id.nav_send) {
 
-        // ActionBarDrawerToggle ties together the the proper interactions
-        // between the sliding drawer and the action bar app icon
-        mDrawerToggle = new ActionBarDrawerToggle(
-                this,                  /* host Activity */
-                mDrawerLayout,         /* DrawerLayout object */
-                mToolbar,  /* nav drawer image to replace 'Up' caret */                  // THIS WAS MODIFIED
-                R.string.drawer_open,  /* "open drawer" description for accessibility */
-                R.string.drawer_close  /* "close drawer" description for accessibility */
-        ) {
-            public void onDrawerClosed(View view) {
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
-
-            public void onDrawerOpened(View drawerView) {
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
-        };
-
-        mDrawerToggle.setDrawerIndicatorEnabled(true);
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-
-        mProfileButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment fragment = new ProfileFragment();
-                String tag = Constants.PROFILE_FRAGMENT_TAG;
-
-                fm.switchFragment(
-                        fragment,
-                        Constants.NO_ANIM,
-                        Constants.NO_ANIM,
-                        tag,
-                        true,
-                        true,
-                        true
-                );
-                mDrawerLayout.closeDrawers();
-            }
-        });
-    }
-
-    // TODO: possibly move listener and selectItem to a separate class
-    /* The click listener for ListView in the navigation drawer */
-    private class DrawerItemClickListener implements ListView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            selectDrawerItem(position);
-        }
-    }
-
-    private void selectDrawerItem(int position) {
-        // update the main content by replacing fragments
-        Fragment fragment = null;
-        String tag;
-
-        switch (position) {
-            case 0:         // Home
-                fragment = new ChooseLocationFragment();
-                tag = Constants.CHOOSE_LOCATION_FRAGMENT_TAG;
-                break;
-            case 1:         // Planned Trips
-                fragment = new PlannedTripsFragment();
-                tag = Constants.PLANNING_PLANNED_TRIPS_FRAGMENT_TAG;
-                break;
-            case 2:         // Saved Trips
-                fragment = new SavedTripsFragment();
-                tag = Constants.PLANNING_SAVED_TRIPS_FRAGMENT_TAG;
-                break;
-            case 3:         // Preferences
-                fragment = PreferencesFragment.newInstance(Constants.PREFERENCE_TYPE_1);
-                tag = Constants.PREFERENCES_FRAGMENT_TAG;
-                break;
-            case 4:         // Notifications
-                fragment = new NotificationsFragment();
-                tag = Constants.NOTIFICATIONS_FRAGMENT_TAG;
-                break;
-            case 5:          // Tags
-                fragment = new ChooseTagsFragment();
-                tag = Constants.PLANNING_CHOOSE_TAGS_FRAGMENT_TAG;
-                break;
-            case 6:         // Logout
-                Intent intent = new Intent(this, IntroActivity.class);
-                startActivity(intent);
-                tag = "";
-                NaviiPreferenceData.clearAllUserData();
-                break;
-            default:        // this should never happen
-                tag = "";
-                break;
         }
 
-        if (fragment != null) {
-            fm.switchFragment(
-                    fragment,
-                    Constants.NO_ANIM,
-                    Constants.NO_ANIM,
-                    tag,
-                    true,
-                    true,
-                    true
-            );
-
-            // update selected item and title, then close the drawer
-            mDrawerList.setItemChecked(position, false);
-            mToolbar.setTitle(mNavDrawerTitles[position]);
-            mDrawerLayout.closeDrawer(mDrawerLinearLayout);
-        }
-    }
-
-    private void setupUserInformation() {
-        Call<User> call = userAPI.getUser(NaviiPreferenceData.getLoggedInUserEmail());
-        call.enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Response<User> response, Retrofit retrofit) {
-                if (response.code() == 400) {
-                    Log.w("MainActivity", "Something messed up.");
-                    // TODO: possibly log the user out
-
-                } else if (response.code() == 200) {
-                    Log.w("MainActivity", "Success.");
-                    User user = response.body();
-                    NaviiPreferenceData.setLoggedInUserEmail(user.getUsername());
-                    NaviiPreferenceData.setIsFacebook(user.isFacebook());
-                } else {
-                    Log.w("MainActivity", "What the fuck happened. Response code: " + String.valueOf(response.code()));
-                }
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                Log.w("Sign Up", "Failed: " + t.getMessage());
-            }
-        });
+        mDrawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 
     public void setActionBarTitle(String text) {
         mToolbar.setTitle(text);
     }
 }
+//    // Toolbar
+//    private Toolbar mToolbar;
+//
+//    // Navigation drawer
+//    private DrawerLayout mDrawerLayout;
+//    private LinearLayout mDrawerLinearLayout;
+//    private ListView mDrawerList;
+//    private ActionBarDrawerToggle mDrawerToggle;
+//    private LinearLayout mProfileButton;
+//    private String[] mNavDrawerTitles;
+//
+//    // Fragment manager
+//    // TODO: do we need this?
+//    private String curFragmentTag = Constants.CHOOSE_LOCATION_FRAGMENT_TAG;
+//
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_main2);
+//
+//        fm = new NaviiFragmentManager(getSupportFragmentManager(), R.id.main_activity_content_frame);
+//
+//        mToolbar = (Toolbar) findViewById(R.id.main_activity_toolbar);
+//        mProfileButton = (LinearLayout) findViewById(R.id.main_activity_profile_button);
+//        mNavDrawerTitles = getResources().getStringArray(R.array.nav_drawer_array);
+//        mDrawerLayout = (DrawerLayout) findViewById(R.id.main_activity_drawer_layout);
+//        mDrawerLinearLayout = (LinearLayout) findViewById(R.id.main_activity_drawer_linear_layout);
+//        mDrawerList = (ListView) findViewById(R.id.main_activity_left_drawer);
+//
+//        setupToolbar();
+//        setupDrawer();
+//        setupUserInformation();
+//
+//        if (savedInstanceState == null) {
+//            selectDrawerItem(0);
+//        }
+//    }
+//
+//    /**
+//     * When using the ActionBarDrawerToggle, you must call it during
+//     * onPostCreate() and onConfigurationChanged()...
+//     */
+//    @Override
+//    protected void onPostCreate(Bundle savedInstanceState) {
+//        super.onPostCreate(savedInstanceState);
+//        // Sync the toggle state after onRestoreInstanceState has occurred.
+//        mDrawerToggle.syncState();
+//    }
+//
+//    @Override
+//    public void onConfigurationChanged(Configuration newConfig) {
+//        super.onConfigurationChanged(newConfig);
+//        // Pass any configuration change to the drawer toggle
+//        mDrawerToggle.onConfigurationChanged(newConfig);
+//    }
+//
+////    @Override
+////    public void onBackPressed() {
+////        Fragment f = getSupportFragmentManager().findFragmentByTag(curFragmentTag);
+////        if (f != null && !f.getTag().equals(Constants.CHOOSE_LOCATION_FRAGMENT_TAG)) {
+////            Log.v("test", f.getTag());
+////            super.onBackPressed();
+////        }
+////    }
+//
+//    @Override
+//    public void onWindowFocusChanged(boolean hasFocus) {
+//        super.onWindowFocusChanged(hasFocus);
+//
+//        Fragment fragment = getSupportFragmentManager().findFragmentByTag(Constants.PROFILE_FRAGMENT_TAG);
+//        if (fragment != null && fragment.isVisible() && fragment instanceof OnFocusListenable) {
+//            ((OnFocusListenable) fragment).onWindowFocusChanged(hasFocus);
+//        }
+//    }
+//
+//    private void setupToolbar() {
+//        mToolbar.setTitle("Main Activity");
+//
+//        // TODO: add appropriate action items to menu
+//        mToolbar.inflateMenu(R.menu.toolbar_main_activity_menu);
+//        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem menuItem) {
+//                // TODO: add appropriate menu items
+////                switch (menuItem.getItemId()) {
+////                    case R.id.action_settings:
+////                        // TODO: add custom animation
+////                        Fragment fragment = new SettingsMainFragment();
+////                        FragmentManager fragmentManager = getSupportFragmentManager();
+////                        fragmentManager.beginTransaction().add(R.id.content_frame, fragment).commit();
+////                        return true;
+////                }
+//
+//                return false;
+//            }
+//        });
+//    }
+//
+//    private void setupDrawer() {
+//        // set a custom shadow that overlays the main content when the drawer opens
+//        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+//        // set up the drawer's list view with items and click listener
+//        mDrawerList.setAdapter(new ArrayAdapter<Object>(this, R.layout.drawer_main_list_item, mNavDrawerTitles));
+//        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+//
+//        // ActionBarDrawerToggle ties together the the proper interactions
+//        // between the sliding drawer and the action bar app icon
+//        mDrawerToggle = new ActionBarDrawerToggle(
+//                this,                  /* host Activity */
+//                mDrawerLayout,         /* DrawerLayout object */
+//                mToolbar,  /* nav drawer image to replace 'Up' caret */                  // THIS WAS MODIFIED
+//                R.string.drawer_open,  /* "open drawer" description for accessibility */
+//                R.string.drawer_close  /* "close drawer" description for accessibility */
+//        ) {
+//            public void onDrawerClosed(View view) {
+//                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+//            }
+//
+//            public void onDrawerOpened(View drawerView) {
+//                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+//            }
+//        };
+//
+//        mDrawerToggle.setDrawerIndicatorEnabled(true);
+//        mDrawerLayout.setDrawerListener(mDrawerToggle);
+//
+//        mProfileButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Fragment fragment = new ProfileFragment();
+//                String tag = Constants.PROFILE_FRAGMENT_TAG;
+//
+//                fm.switchFragment(
+//                        fragment,
+//                        Constants.NO_ANIM,
+//                        Constants.NO_ANIM,
+//                        tag,
+//                        true,
+//                        true,
+//                        true
+//                );
+//                mDrawerLayout.closeDrawers();
+//            }
+//        });
+//    }
+//
+//    // TODO: possibly move listener and selectItem to a separate class
+//    /* The click listener for ListView in the navigation drawer */
+//    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+//        @Override
+//        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//            selectDrawerItem(position);
+//        }
+//    }
+//
+//    private void selectDrawerItem(int position) {
+//        // update the main content by replacing fragments
+//        Fragment fragment = null;
+//        String tag;
+//
+//        switch (position) {
+//            case 0:         // Home
+//                fragment = new ChooseLocationFragment();
+//                tag = Constants.CHOOSE_LOCATION_FRAGMENT_TAG;
+//                break;
+//            case 1:         // Planned Trips
+//                fragment = new PlannedTripsFragment();
+//                tag = Constants.PLANNING_PLANNED_TRIPS_FRAGMENT_TAG;
+//                break;
+//            case 2:         // Saved Trips
+//                fragment = new SavedTripsFragment();
+//                tag = Constants.PLANNING_SAVED_TRIPS_FRAGMENT_TAG;
+//                break;
+//            case 3:         // Preferences
+//                fragment = PreferencesFragment.newInstance(Constants.PREFERENCE_TYPE_1);
+//                tag = Constants.PREFERENCES_FRAGMENT_TAG;
+//                break;
+//            case 4:         // Notifications
+//                fragment = new NotificationsFragment();
+//                tag = Constants.NOTIFICATIONS_FRAGMENT_TAG;
+//                break;
+//            case 5:          // Tags
+//                fragment = new ChooseTagsFragment();
+//                tag = Constants.PLANNING_CHOOSE_TAGS_FRAGMENT_TAG;
+//                break;
+//            case 6:         // Logout
+//                Intent intent = new Intent(this, IntroActivity.class);
+//                startActivity(intent);
+//                tag = "";
+//                NaviiPreferenceData.clearAllUserData();
+//                break;
+//            default:        // this should never happen
+//                tag = "";
+//                break;
+//        }
+//
+//        if (fragment != null) {
+//            fm.switchFragment(
+//                    fragment,
+//                    Constants.NO_ANIM,
+//                    Constants.NO_ANIM,
+//                    tag,
+//                    true,
+//                    true,
+//                    true
+//            );
+//
+//            // update selected item and title, then close the drawer
+//            mDrawerList.setItemChecked(position, false);
+//            mToolbar.setTitle(mNavDrawerTitles[position]);
+//            mDrawerLayout.closeDrawer(mDrawerLinearLayout);
+//        }
+//    }
+//
+//    private void setupUserInformation() {
+//        Call<User> call = userAPI.getUser(NaviiPreferenceData.getLoggedInUserEmail());
+//        call.enqueue(new Callback<User>() {
+//            @Override
+//            public void onResponse(Response<User> response, Retrofit retrofit) {
+//                if (response.code() == 400) {
+//                    Log.w("MainActivity", "Something messed up.");
+//                    // TODO: possibly log the user out
+//
+//                } else if (response.code() == 200) {
+//                    Log.w("MainActivity", "Success.");
+//                    User user = response.body();
+//                    NaviiPreferenceData.setLoggedInUserEmail(user.getUsername());
+//                    NaviiPreferenceData.setIsFacebook(user.isFacebook());
+//                } else {
+//                    Log.w("MainActivity", "What the fuck happened. Response code: " + String.valueOf(response.code()));
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Throwable t) {
+//                Log.w("Sign Up", "Failed: " + t.getMessage());
+//            }
+//        });
+//    }
+//
+//    public void setActionBarTitle(String text) {
+//        mToolbar.setTitle(text);
+//    }
+//}

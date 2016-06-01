@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion '23.0.2'
+    buildToolsVersion '23.0.3'
 
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
@@ -31,29 +31,44 @@ android {
     }
 }
 
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+    }
+}
+
+apply plugin: 'com.neenbedankt.android-apt'
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'com.orhanobut:logger:1.11'
-    compile 'fr.avianey.com.viewpagerindicator:library:2.4.1@aar'
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:cardview-v7:23.4.0'
+    compile 'com.android.support:recyclerview-v7:23.4.0'
+    compile 'com.android.support:design:23.4.0'
+    compile 'com.google.android.gms:play-services-maps:9.0.1'
     compile 'com.squareup.retrofit:retrofit:2.0.0-beta2'
     compile 'com.squareup.retrofit:converter-jackson:2.0.0-beta2'
     compile 'io.reactivex:rxandroid:1.0.1'
     compile 'io.reactivex:rxjava:1.0.14'
     compile 'com.squareup.retrofit:adapter-rxjava:2.0.0-beta2'
+    compile 'joda-time:joda-time:2.1'
+    compile 'fr.avianey.com.viewpagerindicator:library:2.4.1@aar'
     compile 'com.beardedhen:androidbootstrap:2.0.0'
     compile 'com.code-troopers.betterpickers:library:2.2.1'
-    compile 'joda-time:joda-time:2.1'
     compile 'com.daimajia.slider:library:1.1.5@aar'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.anton46:collection-picker:1.0.2'
     compile 'com.daimajia.easing:library:1.0.1@aar'
     compile 'com.daimajia.androidanimations:library:1.1.3@aar'
-    compile 'com.android.support:cardview-v7:23.1.+'
-    compile 'com.android.support:recyclerview-v7:23.1.+'
-    compile 'com.google.android.gms:play-services-maps:8.4.0'
+    compile 'com.jakewharton:butterknife:8.0.1'
+
+    apt 'com.jakewharton:butterknife-compiler:8.0.1'
+
 }
