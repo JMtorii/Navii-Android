@@ -1,4 +1,4 @@
-package com.teamawesome.navii.fragment.main;
+package com.teamawesome.navii.util;
 
 /**
  * Created by JMtorii on 2015-11-18.

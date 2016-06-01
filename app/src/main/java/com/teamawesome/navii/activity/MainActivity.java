@@ -9,7 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.teamawesome.navii.R;
-import com.teamawesome.navii.fragment.main.HomeFrargment;
+import com.teamawesome.navii.fragment.main.HomeFragment;
 import com.teamawesome.navii.util.NaviiFragmentManager;
 
 import butterknife.BindView;
@@ -38,7 +38,7 @@ public class MainActivity extends NaviiActivity implements NavigationView.OnNavi
         mNavigation.setNavigationItemSelectedListener(this);
 
         fm = new NaviiFragmentManager(getSupportFragmentManager(), R.id.main_activity_content_frame);
-        fm.switchFragment(new HomeFrargment(), -1, -1, "HomeFragment", true, true, true);
+        fm.switchFragment(new HomeFragment(), -1, -1, "HomeFragment", true, true, true);
     }
 
     @Override

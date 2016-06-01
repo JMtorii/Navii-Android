@@ -11,7 +11,7 @@ import com.teamawesome.navii.R;
 /**
  * Created by JMtorii on 16-05-31.
  */
-public class HomeFrargment extends Fragment {
+public class HomeFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
