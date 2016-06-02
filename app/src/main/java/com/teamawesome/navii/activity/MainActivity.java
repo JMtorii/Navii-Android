@@ -8,21 +8,33 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.teamawesome.navii.R;
+import com.teamawesome.navii.adapter.ParallaxPagerAdapter;
+import com.teamawesome.navii.fragment.Fragment1;
+import com.teamawesome.navii.fragment.Fragment2;
+import com.teamawesome.navii.fragment.Fragment3;
 import com.teamawesome.navii.fragment.intro.PreferencesFragment;
 import com.teamawesome.navii.fragment.main.ChooseLocationFragment;
 import com.teamawesome.navii.fragment.main.ChooseTagsFragment;
-import com.teamawesome.navii.fragment.main.HomeFragment;
 import com.teamawesome.navii.fragment.main.NotificationsFragment;
 import com.teamawesome.navii.fragment.main.PlannedTripsFragment;
 import com.teamawesome.navii.fragment.main.SavedTripsFragment;
 import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.NaviiFragmentManager;
+import com.teamawesome.navii.views.ParallaxHorizontalScrollView;
+import com.teamawesome.navii.views.ParallaxViewPager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends NaviiActivity implements NavigationView.OnNavigationItemSelectedListener {
     @BindView(R.id.toolbar)
@@ -34,7 +46,16 @@ public class MainActivity extends NaviiActivity implements NavigationView.OnNavi
     @BindView(R.id.nav_view)
     NavigationView mNavigation;
 
-    private NaviiFragmentManager fm;
+    @BindView(R.id.main_next_button)
+    Button mNextButton;
+
+    @BindView(R.id.main_horizontal_scrollview)
+    ParallaxHorizontalScrollView realHorizontalScrollView;
+
+    @BindView(R.id.main_view_pager)
+    ParallaxViewPager realViewPager;
+
+    private static NaviiFragmentManager fm;
 
 
     @Override
@@ -52,8 +73,19 @@ public class MainActivity extends NaviiActivity implements NavigationView.OnNavi
 
         mNavigation.setNavigationItemSelectedListener(this);
 
-        fm = new NaviiFragmentManager(getSupportFragmentManager(), R.id.main_activity_content_frame);
-        fm.switchFragment(new HomeFragment(), -1, -1, "HomeFragment", true, true, true);
+        // TODO: remove if we're sure that we're not using navigational fragments
+//        fm = new NaviiFragmentManager(getSupportFragmentManager(), R.id.main_activity_content_frame);
+//        fm.switchFragment(new HomeFragment(), -1, -1, "HomeFragment", true, true, true);
+
+        List<Fragment> fragments = new ArrayList<>();
+        fragments.add(Fragment.instantiate(this, Fragment1.class.getName()));
+        fragments.add(Fragment.instantiate(this, Fragment2.class.getName()));
+        fragments.add(Fragment.instantiate(this, Fragment3.class.getName()));
+
+        ParallaxPagerAdapter realViewPagerAdapter = new ParallaxPagerAdapter(super.getSupportFragmentManager(), fragments);
+        realViewPager.setAdapter(realViewPagerAdapter);
+        realViewPager.configure(realHorizontalScrollView);
+        realViewPager.setCurrentItem(0);
     }
 
     @Override
@@ -114,6 +146,18 @@ public class MainActivity extends NaviiActivity implements NavigationView.OnNavi
 
         mDrawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @OnClick(R.id.main_next_button)
+    public void nextPress(View view) {
+        int index = realViewPager.getCurrentItem();
+        int maxIndex = realViewPager.getChildCount();
+        Log.i(this.getClass().getName(), Integer.toString(maxIndex));
+        Log.i(this.getClass().getName(), Integer.toString(index));
+
+        if (index < maxIndex) {
+            realViewPager.setCurrentItem(index + 1, true);
+        }
     }
 
     public void setActionBarTitle(String text) {

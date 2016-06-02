@@ -21,4 +21,9 @@
 
     <style name="NaviiTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="MainButton" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">@color/primary</item>
+        <item name="colorButtonNormal">@color/primaryDark</item>
+    </style>
+
 </resources>
