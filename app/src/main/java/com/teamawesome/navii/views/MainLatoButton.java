@@ -42,7 +42,7 @@ public class MainLatoButton extends Button implements LatoType {
             typedArray.recycle();
         }
 
-        setBackgroundResource(R.drawable.main_lato_button_bg);
+//        setBackgroundResource(R.drawable.main_lato_button_bg);
     }
 
     public void setFont(String fontType) {
