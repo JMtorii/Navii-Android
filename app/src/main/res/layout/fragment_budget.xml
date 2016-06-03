@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.beardedhen.androidbootstrap.AwesomeTextView
+        android:layout_height="wrap_content"
+        android:layout_width="400dp"
+        android:singleLine="true"
+        android:maxLength="6"
+        android:textSize="30sp"
+        app:showOutline="false"
+        android:text="Test"
+        android:layout_above="@+id/digit_pad"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="110dp">
+
+    </com.beardedhen.androidbootstrap.AwesomeTextView>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/digit_pad"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="237dp"
+        android:background="@color/lightGrey"
+        android:layout_gravity="bottom"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+    </android.support.v7.widget.RecyclerView>
+
+</RelativeLayout>
