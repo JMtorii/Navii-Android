@@ -22,8 +22,10 @@
     <style name="NaviiTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="MainButton" parent="Theme.AppCompat.Light">
-        <item name="colorControlHighlight">@color/primary</item>
-        <item name="colorButtonNormal">@color/primaryDark</item>
+        <item name="colorButtonNormal">@android:color/white</item>
+        <item name="colorControlHighlight">@color/primaryDark</item>
+        <item name="android:text">@string/next</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
 </resources>

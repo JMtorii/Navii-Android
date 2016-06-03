@@ -7,4 +7,8 @@
     <declare-styleable name="RealViewPager">
         <attr name="parallaxVelocity" format="float" />
     </declare-styleable>
+
+    <declare-styleable name="MainLatoButton">
+        <attr name="fontType" format="string"/>
+    </declare-styleable>
 </resources>

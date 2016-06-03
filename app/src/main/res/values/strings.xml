@@ -73,4 +73,7 @@
     <!-- WifiDialogFragment Strings -->
     <string name="no_wifi_message">"No Connection Detected."</string>
     <string name="reconnect_message">"Reconnect"</string>
+
+    <!-- Buttons -->
+    <string name="next">"Next"</string>
 </resources>

@@ -27,15 +27,15 @@
         android:layout_height="match_parent"
         app:parallaxVelocity="0.2"/>
 
-    <Button
+    <com.teamawesome.navii.views.MainLatoButton
         android:layout_width="200dp"
         android:layout_height="70dp"
         android:id="@+id/main_next_button"
-        android:text="Button"
         android:theme="@style/MainButton"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="@dimen/main_button_bottom_margin"
+        android:layout_centerHorizontal="true"
+        app:fontType="Bold"
         />
 
 </RelativeLayout>
