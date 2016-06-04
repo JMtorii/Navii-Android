@@ -15,9 +15,9 @@ import android.widget.Button;
 
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.adapter.ParallaxPagerAdapter;
-import com.teamawesome.navii.fragment.Fragment1;
-import com.teamawesome.navii.fragment.Fragment2;
-import com.teamawesome.navii.fragment.Fragment3;
+import com.teamawesome.navii.fragment.TravelDestinationFragment;
+import com.teamawesome.navii.fragment.TravelDurationFragment;
+import com.teamawesome.navii.fragment.TravelParticipantsFragment;
 import com.teamawesome.navii.fragment.intro.PreferencesFragment;
 import com.teamawesome.navii.fragment.main.ChooseLocationFragment;
 import com.teamawesome.navii.fragment.main.ChooseTagsFragment;
@@ -79,9 +79,9 @@ public class MainActivity extends NaviiActivity implements NavigationView.OnNavi
 //        fm.switchFragment(new HomeFragment(), -1, -1, "HomeFragment", true, true, true);
 
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(Fragment.instantiate(this, Fragment1.class.getName()));
-        fragments.add(Fragment.instantiate(this, Fragment2.class.getName()));
-        fragments.add(Fragment.instantiate(this, Fragment3.class.getName()));
+        fragments.add(Fragment.instantiate(this, TravelDestinationFragment.class.getName()));
+        fragments.add(Fragment.instantiate(this, TravelDurationFragment.class.getName()));
+        fragments.add(Fragment.instantiate(this, TravelParticipantsFragment.class.getName()));
 
         ParallaxPagerAdapter realViewPagerAdapter = new ParallaxPagerAdapter(super.getSupportFragmentManager(), fragments);
         realViewPager.setAdapter(realViewPagerAdapter);

@@ -10,16 +10,16 @@ import android.widget.TextView;
 import com.teamawesome.navii.R;
 
 /**
- * Created by jtorii on 16-05-17.
+ * Created by jtorii on 16-05-13.
  */
-public class Fragment2 extends Fragment {
+public class TravelDestinationFragment extends Fragment {
 
-    private TextView mPartTwoTextView;
+    private TextView headerTextView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.part_two_fragment, container, false);
-        mPartTwoTextView = (TextView) v.findViewById(R.id.part_two_text_view);
+        View v = inflater.inflate(R.layout.fragment_travel_destination, container, false);
+        headerTextView = (TextView) v.findViewById(R.id.travel_destination_header_text);
 
         return v;
     }

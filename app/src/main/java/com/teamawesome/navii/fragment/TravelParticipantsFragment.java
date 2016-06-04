@@ -12,13 +12,13 @@ import com.teamawesome.navii.R;
 /**
  * Created by jtorii on 16-05-17.
  */
-public class Fragment3 extends Fragment {
+public class TravelParticipantsFragment extends Fragment {
 
     private TextView mPartThreeTextView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.part_three_fragment, container, false);
+        View v = inflater.inflate(R.layout.fragment_travel_participants, container, false);
         mPartThreeTextView = (TextView) v.findViewById(R.id.part_three_text_view);
 
         return v;

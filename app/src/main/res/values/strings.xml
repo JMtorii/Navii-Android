@@ -39,6 +39,10 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_buzz_feed">BuzzFeedActivity</string>
 
+    <!-- Travel Destination Strings -->
+    <string name="destination_header_text">I want to go to</string>
+    <string name="destination_placeholder_text">Toronto</string>
+
     <!--Preference Fragment Strings    -->
     <string name="preferences_title">Preferences</string>
     <string name="preferences_message">Choose 5 or more that apply! You can change these later in your settings</string>

@@ -10,16 +10,16 @@ import android.widget.TextView;
 import com.teamawesome.navii.R;
 
 /**
- * Created by jtorii on 16-05-13.
+ * Created by jtorii on 16-05-17.
  */
-public class Fragment1 extends Fragment {
+public class TravelDurationFragment extends Fragment {
 
-    private TextView mPartOneTextView;
+    private TextView mPartTwoTextView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.part_one_fragment, container, false);
-        mPartOneTextView = (TextView) v.findViewById(R.id.part_one_text_view);
+        View v = inflater.inflate(R.layout.fragment_travel_duration, container, false);
+        mPartTwoTextView = (TextView) v.findViewById(R.id.part_two_text_view);
 
         return v;
     }
