@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <attr name="fontType" format="string"/>
+
     <declare-styleable name="ParallaxHorizontalScrollView">
-        <attr name="src" format="reference" />
+        <attr name="src" format="reference"/>
     </declare-styleable>
 
     <declare-styleable name="ParallaxViewPager">
-        <attr name="parallaxVelocity" format="float" />
+        <attr name="parallaxVelocity" format="float"/>
     </declare-styleable>
 
     <declare-styleable name="MainLatoButton">
-        <attr name="fontType" format="string"/>
+        <attr name="fontType"/>
+    </declare-styleable>
+
+    <declare-styleable name="MainLatoTextView">
+        <attr name="fontType"/>
+    </declare-styleable>
+
+    <declare-styleable name="MainLatoEditText">
+        <attr name="fontType"/>
     </declare-styleable>
 </resources>

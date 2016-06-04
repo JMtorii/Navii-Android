@@ -40,8 +40,8 @@
     <string name="title_activity_buzz_feed">BuzzFeedActivity</string>
 
     <!-- Travel Destination Strings -->
-    <string name="destination_header_text">I want to go to</string>
-    <string name="destination_placeholder_text">Toronto</string>
+    <string name="destination_header_text">I want\nto go to</string>
+    <string name="destination_placeholder_text">TORONTO</string>
 
     <!--Preference Fragment Strings    -->
     <string name="preferences_title">Preferences</string>
