@@ -6,12 +6,10 @@
 
 
     <com.teamawesome.navii.util.NaviiBudgetButton
-
-        android:background="?android:attr/selectableItemBackground"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:gravity="center"
         android:layout_width="100dp"
         android:layout_height="128dp"
         android:textSize="30sp"
-        android:id="@+id/budget_button"
-        android:onClick="pressed"/>
+        android:id="@+id/budget_button"/>
 </RelativeLayout>

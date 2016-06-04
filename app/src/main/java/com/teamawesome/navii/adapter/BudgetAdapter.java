@@ -8,8 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import com.beardedhen.androidbootstrap.AwesomeTextView;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.util.NaviiBudgetButton;
+import com.teamawesome.navii.views.LatoType;
+import com.teamawesome.navii.views.MainLatoEditText;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Ian on 5/31/2016.
@@ -35,24 +42,30 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(final BudgetAdapter.ViewHolder holder, int position) {
-        if (position == 10){
-            holder.budgetButton.setText(String.valueOf(0));
-            holder.budgetButton.setDigit(0);
+        switch (position){
+            case 9:
+                holder.budgetButton.setText("DEL");
+                holder.budgetButton.setDigit(9);
+                break;
+            case 10:
+                holder.budgetButton.setText(String.valueOf(0));
+                holder.budgetButton.setDigit(0);
+                break;
+            case 11:
+                holder.budgetButton.setText("NXT");
+                holder.budgetButton.setDigit(11);
+                break;
+            default:
+                holder.budgetButton.setText(String.valueOf(position + 1));
+                holder.budgetButton.setDigit(position + 1);
+                break;
         }
-        else {
-            holder.budgetButton.setText(String.valueOf(position + 1));
-            holder.budgetButton.setDigit(position + 1);
-        }
+
         int buttonHeight = ((int) (screenHeight*0.4))/4;
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(screenWidth/3,
                 buttonHeight);
         holder.budgetButton.setLayoutParams(params);
-        holder.budgetButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                holder.budgetButton.pressed(v);
-            }
-        });
+
     }
 
     @Override
@@ -62,13 +75,41 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
-        public NaviiBudgetButton budgetButton;
+
+        @BindView(R.id.budget_button)
+        NaviiBudgetButton budgetButton;
+
+        @OnClick (R.id.budget_button)
+        public void pressed(View v){
+            if (budgetButton.getDigit() == 9){
+                backspace(v);
+            }
+            else if (budgetButton.getDigit() == 11){
+                //nothing yet
+            }
+            else {
+                View parent = v.getRootView();
+                MainLatoEditText latoEditText =
+                        (MainLatoEditText) parent.findViewById(R.id.budget_text);
+                String newText = latoEditText.getText().toString() + budgetButton.getDigit();
+                latoEditText.setText(newText);
+            }
+        }
+
+        public void backspace(View v){
+            View parent = v.getRootView();
+            MainLatoEditText latoEditText =
+                    (MainLatoEditText) parent.findViewById(R.id.budget_text);
+            StringBuilder newText = new StringBuilder(latoEditText.getText());
+            if (newText.length() > 1) {
+                newText.deleteCharAt(newText.length() - 1);
+                latoEditText.setText(newText);
+            }
+        }
 
         public ViewHolder(View itemView) {
             super(itemView);
-            budgetButton =
-                    (NaviiBudgetButton) itemView.findViewById(R.id.budget_button);
-
+            ButterKnife.bind(this, itemView);
         }
     }
 }
