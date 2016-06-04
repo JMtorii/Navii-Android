@@ -2,6 +2,8 @@ package com.teamawesome.navii.views;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -10,6 +12,7 @@ import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 
 import com.teamawesome.navii.R;
+import com.teamawesome.navii.util.BitmapGrayscaler;
 
 /**
  * Created by jtorii on 16-05-17.
@@ -46,11 +49,16 @@ public class ParallaxHorizontalScrollView extends HorizontalScrollView {
             setHorizontalScrollBarEnabled(false);
 
             Drawable background = attributesArray.getDrawable(R.styleable.ParallaxHorizontalScrollView_src);
+            Bitmap bitmap = BitmapGrayscaler.drawableToBitmap(background);
+            Bitmap grayscaleBitmap = BitmapGrayscaler.createGrayscale(bitmap);
+            BitmapDrawable ob = new BitmapDrawable(getResources(), grayscaleBitmap);
+
             if (background != null) {
                 // set background
                 ImageView iv = new ImageView(context);
                 iv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-                iv.setImageDrawable(background);
+//                iv.setImageDrawable(background);
+                iv.setImageDrawable(ob);
                 iv.setAdjustViewBounds(true);
                 this.addView(iv);
             }

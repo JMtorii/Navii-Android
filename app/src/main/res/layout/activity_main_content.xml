@@ -7,25 +7,9 @@
     android:layout_height="match_parent"
     android:background="@android:color/holo_orange_light"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:id="@+id/main_layout"
     tools:context="com.teamawesome.navii.activity.MainActivity"
     tools:showIn="@layout/activity_main2">
-
-    <com.teamawesome.navii.views.ParallaxHorizontalScrollView
-        android:id="@+id/main_horizontal_scrollview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:src="@mipmap/toronto_background"/>
-
-    <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:background="@drawable/background_color"/>-->
-
-    <com.teamawesome.navii.views.ParallaxViewPager
-        android:id="@+id/main_view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:parallaxVelocity="0.2"/>
 
     <com.teamawesome.navii.views.MainLatoButton
         android:layout_width="225dp"
@@ -37,5 +21,24 @@
         android:layout_centerHorizontal="true"
         app:fontType="Bold"
         />
+
+    <com.teamawesome.navii.views.ParallaxHorizontalScrollView
+        android:id="@+id/main_horizontal_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:src="@mipmap/toronto_background"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/main_background_gradient"/>
+
+    <com.teamawesome.navii.views.ParallaxViewPager
+        android:id="@+id/main_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:parallaxVelocity="0.2"/>
+
+
 
 </RelativeLayout>

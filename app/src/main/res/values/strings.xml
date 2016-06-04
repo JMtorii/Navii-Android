@@ -49,7 +49,9 @@
 
     <!--Choose Tags Fragment Strings    -->
     <string name="tags_title">Tags</string>
-    <string name="tags_message">Choose your Experience!</string>
+    <string name="tags_message">Select the tags that would interest you the most for your
+        trip</string>
+    <string name="next_button_text">Next</string>
 
     <!-- Itinerary Recommend Fragment Strings-->
     <string name="itinerary_recommend_title">Based on preferences</string>
