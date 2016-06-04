@@ -61,12 +61,6 @@ public class MainActivity extends NaviiActivity implements NavigationView.OnNavi
         setContentView(R.layout.activity_main2);
         ButterKnife.bind(this);
 
-
-        List<Fragment> fragments = new ArrayList<>();
-        fragments.add(Fragment.instantiate(this, TravelDestinationFragment.class.getName()));
-        fragments.add(Fragment.instantiate(this, TravelDurationFragment.class.getName()));
-        fragments.add(Fragment.instantiate(this, TravelParticipantsFragment.class.getName()));
-
         setupActionBar();
         setupNavigationView();
         setupParallaxViews();
