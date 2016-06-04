@@ -65,7 +65,6 @@ public class MainActivity extends NaviiActivity implements NavigationView.OnNavi
         setupActionBar();
         setupNavigationView();
         setupParallaxViews();
-
     }
 
     @Override

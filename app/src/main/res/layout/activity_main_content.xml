@@ -28,10 +28,10 @@
         android:layout_height="match_parent"
         app:src="@mipmap/toronto_background"/>
 
-    <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:background="@drawable/background_color"/>-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/main_background_gradient"/>
 
     <com.teamawesome.navii.views.ParallaxViewPager
         android:id="@+id/main_view_pager"
