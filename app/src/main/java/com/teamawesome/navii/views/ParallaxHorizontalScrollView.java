@@ -57,7 +57,6 @@ public class ParallaxHorizontalScrollView extends HorizontalScrollView {
                 // set background
                 ImageView iv = new ImageView(context);
                 iv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-//                iv.setImageDrawable(background);
                 iv.setImageDrawable(ob);
                 iv.setAdjustViewBounds(true);
                 this.addView(iv);

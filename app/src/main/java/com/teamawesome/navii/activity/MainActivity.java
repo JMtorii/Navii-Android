@@ -116,7 +116,7 @@ public class MainActivity extends NaviiActivity implements NavigationView.OnNavi
             startActivity(intent);
         }
 
-        fm.switchFragment(
+        switchFragment(
                 fragment,
                 Constants.NO_ANIM,
                 Constants.NO_ANIM,

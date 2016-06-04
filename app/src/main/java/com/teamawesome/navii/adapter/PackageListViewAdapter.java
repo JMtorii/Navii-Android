@@ -8,7 +8,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.NaviiActivity;
 import com.teamawesome.navii.fragment.main.PackageDescriptionFragment;
@@ -46,11 +45,13 @@ public class PackageListViewAdapter extends ArrayAdapter<Itinerary>{
         view.setTag(itineraries.get(position));
 
         ImageView imageView = (ImageView) view.findViewById(R.id.package_image_view);
-        Picasso.with(getContext())
-                .load(R.drawable.toronto1)
-                .centerCrop()
-                .fit()
-                .into(imageView);
+
+        // TODO: set the background resource
+//        Picasso.with(getContext())
+//                .load(R.drawable.toronto1)
+//                .centerCrop()
+//                .fit()
+//                .into(imageView);
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
