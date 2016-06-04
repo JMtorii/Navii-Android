@@ -2,7 +2,7 @@
     <style name="NaviiTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primaryDark</item>
-        <item name="android:windowBackground">@color/chalkWhite</item>
+        <item name="android:windowBackground">@color/bootstrap_gray_lighter</item>
         <item name="android:colorBackground">@color/chalkWhite</item>
         <item name="android:textColor">@color/black</item>
 

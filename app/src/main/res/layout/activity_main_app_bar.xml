@@ -11,9 +11,11 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:clipToPadding="false">
 
-        <!-- The main content view -->
+         <!--The main content view-->
         <!--<FrameLayout-->
             <!--android:id="@+id/main_activity_content_frame"-->
             <!--android:layout_width="match_parent"-->

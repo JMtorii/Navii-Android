@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <selector xmlns:android="http://schemas.android.com/apk/res/android">
-        <item
-            android:state_pressed="true"
-            android:drawable="@color/chalkWhite"
-            />
-        <item
-            android:state_pressed="false"
-            android:drawable="@color/primary"
-            />
-    </selector>
+    <item
+        android:drawable="@drawable/tag_grid_item_background"
+        android:state_selected="false"/>
+    <item
+        android:drawable="@drawable/tag_grid_item_selected_background"
+        android:state_selected="true" />
 </selector>

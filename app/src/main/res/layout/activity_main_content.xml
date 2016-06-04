@@ -7,8 +7,20 @@
     android:layout_height="match_parent"
     android:background="@android:color/holo_orange_light"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:id="@+id/main_layout"
     tools:context="com.teamawesome.navii.activity.MainActivity"
     tools:showIn="@layout/activity_main2">
+
+    <com.teamawesome.navii.views.MainLatoButton
+        android:layout_width="225dp"
+        android:layout_height="70dp"
+        android:id="@+id/main_next_button"
+        android:theme="@style/MainButton"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/main_button_bottom_margin"
+        android:layout_centerHorizontal="true"
+        app:fontType="Bold"
+        />
 
     <com.teamawesome.navii.views.ParallaxHorizontalScrollView
         android:id="@+id/main_horizontal_scrollview"
@@ -27,15 +39,6 @@
         android:layout_height="match_parent"
         app:parallaxVelocity="0.2"/>
 
-    <com.teamawesome.navii.views.MainLatoButton
-        android:layout_width="225dp"
-        android:layout_height="70dp"
-        android:id="@+id/main_next_button"
-        android:theme="@style/MainButton"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/main_button_bottom_margin"
-        android:layout_centerHorizontal="true"
-        app:fontType="Bold"
-        />
+
 
 </RelativeLayout>

@@ -25,6 +25,7 @@ import com.teamawesome.navii.fragment.main.NotificationsFragment;
 import com.teamawesome.navii.fragment.main.PlannedTripsFragment;
 import com.teamawesome.navii.fragment.main.SavedTripsFragment;
 import com.teamawesome.navii.util.Constants;
+import com.teamawesome.navii.util.NaviiFragmentManager;
 import com.teamawesome.navii.views.ParallaxHorizontalScrollView;
 import com.teamawesome.navii.views.ParallaxViewPager;
 
@@ -54,16 +55,17 @@ public class MainActivity extends NaviiActivity implements NavigationView.OnNavi
     @BindView(R.id.main_view_pager)
     ParallaxViewPager parallaxViewPager;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         ButterKnife.bind(this);
 
+        fm = new NaviiFragmentManager(getSupportFragmentManager(), R.id.main_layout);
         setupActionBar();
         setupNavigationView();
         setupParallaxViews();
+
     }
 
     @Override
@@ -116,13 +118,13 @@ public class MainActivity extends NaviiActivity implements NavigationView.OnNavi
         }
 
         fm.switchFragment(
-            fragment,
-            Constants.NO_ANIM,
-            Constants.NO_ANIM,
-            tag,
-            true,
-            true,
-            true
+                fragment,
+                Constants.NO_ANIM,
+                Constants.NO_ANIM,
+                tag,
+                true,
+                true,
+                true
         );
 
         mDrawer.closeDrawer(GravityCompat.START);
