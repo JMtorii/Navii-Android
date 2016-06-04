@@ -6,11 +6,8 @@ import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import com.teamawesome.navii.R;
-import com.teamawesome.navii.views.MainLatoButton;
 import com.teamawesome.navii.views.MainLatoEditText;
 import com.teamawesome.navii.views.MainLatoTextView;
 
@@ -35,7 +32,14 @@ public class TravelDestinationFragment extends Fragment {
         ButterKnife.bind(this, v);
 
         mDestinationEditView.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
+        mDestinationEditView.setKeyListener(null);
 
         return v;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mDestinationEditView.setSelected(true);
     }
 }
