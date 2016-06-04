@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.teamawesome.navii.R;
@@ -27,6 +28,18 @@ public class ParallaxViewPager extends ViewPager {
     public ParallaxViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs);
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent event) {
+        // Never allow swiping to switch between pages
+        return false;
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        // Never allow swiping to switch between pages
+        return false;
     }
 
     private void init(Context context, AttributeSet attrs) {
@@ -52,23 +65,8 @@ public class ParallaxViewPager extends ViewPager {
         overrideScrollListener();
     }
 
-//    public void configureWithMyListener(ParallaxHorizontalScrollView realHorizontalScrollView) {
-//        this.mRealHorizontalScrollView = realHorizontalScrollView;
-//        this.mRealHorizontalScrollViewWidth = this.mRealHorizontalScrollView.getWidth();
-//    }
-
     public void setRealHorizontalScrollViewPosition(int scrollX, int position) {
         this.mRealHorizontalScrollView.scrollTo(Math.round((scrollX * mParallaxVelocity) + (position * mParallaxVelocity * this.mRealHorizontalScrollView.getWidth())), 0);
-    }
-
-    /**
-     *  Override scroll listener
-     *
-     *  @param scrollX scroll X
-     *  @param position current item position
-     */
-    public void manageScrollWithMyListeners(int scrollX, int position) {
-        setRealHorizontalScrollViewPosition(scrollX, position);
     }
 
     private void overrideScrollListener() {
