@@ -43,6 +43,12 @@
     <string name="destination_header_text">I want\nto go to</string>
     <string name="destination_placeholder_text">TORONTO</string>
 
+    <!-- Travel Duration Strings -->
+    <string name="duration_from_text">FROM</string>
+    <string name="duration_to_text">TO</string>
+    <string name="duration_from_date">September 31, 2016</string>
+    <string name="duration_to_date">September 31, 2016</string>
+
     <!--Preference Fragment Strings    -->
     <string name="preferences_title">Preferences</string>
     <string name="preferences_message">Choose 5 or more that apply! You can change these later in your settings</string>

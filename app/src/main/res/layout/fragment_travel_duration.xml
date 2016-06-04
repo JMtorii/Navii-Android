@@ -1,16 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical" android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/part_two_text_view"
+    <com.teamawesome.navii.views.MainLatoTextView
+        android:id="@+id/duration_from_text_view"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:text="Part Two!"
-        android:textColor="@android:color/white"
-        android:gravity="center"
-        android:textSize="24sp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="65dp"
+        android:layout_marginRight="65dp"
         android:layout_marginTop="80dp"
+        android:gravity="center"
+        android:text="@string/duration_from_text"
+        android:textColor="@android:color/white"
+        android:textSize="50sp"
+        />
+
+    <com.teamawesome.navii.views.MainLatoEditText
+        android:id="@+id/duration_from_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:inputType="date"
+        android:text="@string/duration_from_date"
+        android:textColor="@android:color/white"
+        android:textSize="30sp"
+        />
+
+    <com.teamawesome.navii.views.MainLatoTextView
+        android:id="@+id/duration_to_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="65dp"
+        android:layout_marginRight="65dp"
+        android:layout_marginTop="60dp"
+        android:gravity="center"
+        android:text="@string/duration_to_text"
+        android:textColor="@android:color/white"
+        android:textSize="50sp"
+        />
+
+    <com.teamawesome.navii.views.MainLatoEditText
+        android:id="@+id/duration_to_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:inputType="date"
+        android:text="@string/duration_to_date"
+        android:textColor="@android:color/white"
+        android:textSize="30sp"
         />
 
 </LinearLayout>
