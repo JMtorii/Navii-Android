@@ -22,7 +22,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.teamawesome.navii.R;
-import com.teamawesome.navii.activity.MainActivity;
 import com.teamawesome.navii.adapter.DescriptionListAdapter;
 import com.teamawesome.navii.server.model.Attraction;
 import com.teamawesome.navii.server.model.Itinerary;
@@ -59,7 +58,7 @@ public class PackageDescriptionFragment extends NaviiFragment implements OnMapRe
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        ((MainActivity) parentActivity).setActionBarTitle(getString(R.string.package_description_title));
+//        ((MainActivity) parentActivity).setActionBarTitle(getString(R.string.package_description_title));
 
         //Itinerary description setup
         View view = inflater.inflate(R.layout.fragment_package_description, container, false);

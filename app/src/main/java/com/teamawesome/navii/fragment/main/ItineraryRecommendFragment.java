@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.teamawesome.navii.R;
-import com.teamawesome.navii.activity.MainActivity;
 import com.teamawesome.navii.adapter.PackageListViewAdapter;
 import com.teamawesome.navii.server.model.Itinerary;
 
@@ -30,7 +29,7 @@ public class ItineraryRecommendFragment extends NaviiFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        ((MainActivity)parentActivity).setActionBarTitle(getString(R.string.we_recommend_title));
+//        ((MainActivity)parentActivity).setActionBarTitle(getString(R.string.we_recommend_title));
 
         View view = inflater.inflate(R.layout.fragment_itinerary_recommend, container, false);
 

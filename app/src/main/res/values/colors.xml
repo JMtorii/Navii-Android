@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="primary" type="color">#e67200</item>
-    <item name="primaryDark" type="color">#b35900</item>
+    <item name="primary" type="color">#F15E55</item>
+    <item name="primaryDark" type="color">#B24F4D</item>
     <item name="chalkWhite" type="color">#FCFCFC</item>
     <item name="lightGrey" type="color">#D3D3D3</item>
     <item name="black" type="color">#000000</item>

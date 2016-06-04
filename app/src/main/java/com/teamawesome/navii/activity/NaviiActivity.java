@@ -61,8 +61,12 @@ public abstract class NaviiActivity extends AppCompatActivity {
         itineraryAPI = retrofitObservable.create(ItineraryAPI.class);
     }
 
-    public void switchFragment(Fragment newFragment, int enterAnim, int exitAnim, String tag,
-                               boolean isReplace, boolean clearBackStack,
+    public void switchFragment(Fragment newFragment,
+                               int enterAnim,
+                               int exitAnim,
+                               String tag,
+                               boolean isReplace,
+                               boolean clearBackStack,
                                boolean isAddedToBackStack) {
         fm.switchFragment(
                 newFragment,

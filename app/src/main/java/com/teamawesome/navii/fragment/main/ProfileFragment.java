@@ -21,6 +21,7 @@ import com.teamawesome.navii.R;
 import com.teamawesome.navii.util.BitmapResizer;
 import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.NaviiPreferenceData;
+import com.teamawesome.navii.util.OnFocusListenable;
 
 import java.io.File;
 import java.io.IOException;

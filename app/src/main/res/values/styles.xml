@@ -1,19 +1,32 @@
 <resources>
-    <style name="NaviiTheme" parent="Theme.AppCompat.NoActionBar">
+    <style name="NaviiTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primaryDark</item>
         <item name="android:windowBackground">@color/chalkWhite</item>
         <item name="android:colorBackground">@color/chalkWhite</item>
         <item name="android:textColor">@color/black</item>
 
-        <item name="android:windowNoTitle">true</item>
-        <item name="windowActionBar">false</item>
-        <item name="toolbarStyle">@style/Widget.AppCompat.Toolbar</item>
-
         <item name="vpiCirclePageIndicatorStyle">@style/CircleIndicatorStyle</item>
     </style>
 
     <style name="CircleIndicatorStyle" parent="Theme.PageIndicatorDefaults">
+    </style>
+
+    <style name="NaviiTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="NaviiTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="NaviiTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="MainButton" parent="Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">@android:color/white</item>
+        <item name="colorControlHighlight">@color/primaryDark</item>
+        <item name="android:text">@string/next</item>
+        <item name="android:textColor">@color/primary</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
 </resources>
