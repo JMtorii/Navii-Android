@@ -25,7 +25,6 @@ import com.teamawesome.navii.fragment.main.NotificationsFragment;
 import com.teamawesome.navii.fragment.main.PlannedTripsFragment;
 import com.teamawesome.navii.fragment.main.SavedTripsFragment;
 import com.teamawesome.navii.util.Constants;
-import com.teamawesome.navii.util.NaviiFragmentManager;
 import com.teamawesome.navii.views.ParallaxHorizontalScrollView;
 import com.teamawesome.navii.views.ParallaxViewPager;
 
@@ -50,12 +49,10 @@ public class MainActivity extends NaviiActivity implements NavigationView.OnNavi
     Button mNextButton;
 
     @BindView(R.id.main_horizontal_scrollview)
-    ParallaxHorizontalScrollView realHorizontalScrollView;
+    ParallaxHorizontalScrollView parallaxHorizontalScrollView;
 
     @BindView(R.id.main_view_pager)
-    ParallaxViewPager realViewPager;
-
-    private static NaviiFragmentManager fm;
+    ParallaxViewPager parallaxViewPager;
 
 
     @Override
@@ -79,10 +76,10 @@ public class MainActivity extends NaviiActivity implements NavigationView.OnNavi
         fragments.add(Fragment.instantiate(this, Fragment2.class.getName()));
         fragments.add(Fragment.instantiate(this, Fragment3.class.getName()));
 
-        ParallaxPagerAdapter realViewPagerAdapter = new ParallaxPagerAdapter(super.getSupportFragmentManager(), fragments);
-        realViewPager.setAdapter(realViewPagerAdapter);
-        realViewPager.configure(realHorizontalScrollView);
-        realViewPager.setCurrentItem(0);
+        ParallaxPagerAdapter parallaxPagerAdapter = new ParallaxPagerAdapter(super.getSupportFragmentManager(), fragments);
+        parallaxViewPager.setAdapter(parallaxPagerAdapter);
+        parallaxViewPager.configure(parallaxHorizontalScrollView);
+        parallaxViewPager.setCurrentItem(0);
     }
 
     @Override
@@ -90,9 +87,9 @@ public class MainActivity extends NaviiActivity implements NavigationView.OnNavi
         if (mDrawer != null && mDrawer.isDrawerOpen(GravityCompat.START)) {
             mDrawer.closeDrawer(GravityCompat.START);
         } else {
-            int index = realViewPager.getCurrentItem();
+            int index = parallaxViewPager.getCurrentItem();
             if (index != 0) {
-                realViewPager.setCurrentItem(--index, true);
+                parallaxViewPager.setCurrentItem(--index, true);
             }
         }
     }
@@ -150,13 +147,13 @@ public class MainActivity extends NaviiActivity implements NavigationView.OnNavi
 
     @OnClick(R.id.main_next_button)
     public void nextPress(View view) {
-        int index = realViewPager.getCurrentItem();
-        int maxIndex = realViewPager.getChildCount();
+        int index = parallaxViewPager.getCurrentItem();
+        int maxIndex = parallaxViewPager.getChildCount();
         Log.i(this.getClass().getName(), Integer.toString(maxIndex));
         Log.i(this.getClass().getName(), Integer.toString(index));
 
         if (index < maxIndex) {
-            realViewPager.setCurrentItem(index + 1, true);
+            parallaxViewPager.setCurrentItem(index + 1, true);
         }
     }
 }

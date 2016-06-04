@@ -17,9 +17,9 @@ import com.teamawesome.navii.R;
  */
 public class ParallaxViewPager extends ViewPager {
 
-    private ParallaxHorizontalScrollView mRealHorizontalScrollView;
+    private ParallaxHorizontalScrollView mParallaxHorizontalScrollView;
     private float mParallaxVelocity;
-    private int mRealHorizontalScrollViewWidth;
+    private int mParallaxHorizontalScrollViewWidth;
 
     public ParallaxViewPager(Context context) {
         super(context);
@@ -45,28 +45,28 @@ public class ParallaxViewPager extends ViewPager {
     private void init(Context context, AttributeSet attrs) {
         TypedArray attributesArray = context.getTheme().obtainStyledAttributes(
                 attrs,
-                R.styleable.RealViewPager,
+                R.styleable.ParallaxViewPager,
                 0,
                 0
         );
 
         try {
-            mParallaxVelocity = attributesArray.getFloat(R.styleable.RealViewPager_parallaxVelocity, 0.3f);
+            mParallaxVelocity = attributesArray.getFloat(R.styleable.ParallaxViewPager_parallaxVelocity, 0.3f);
 
         } finally {
             attributesArray.recycle();
         }
     }
 
-    public void configure(ParallaxHorizontalScrollView realHorizontalScrollView) {
-        this.mRealHorizontalScrollView = realHorizontalScrollView;
-        this.mRealHorizontalScrollViewWidth = this.mRealHorizontalScrollView.getWidth();
+    public void configure(ParallaxHorizontalScrollView parallaxHorizontalScrollView) {
+        this.mParallaxHorizontalScrollView = parallaxHorizontalScrollView;
+        this.mParallaxHorizontalScrollViewWidth = this.mParallaxHorizontalScrollView.getWidth();
 
         overrideScrollListener();
     }
 
-    public void setRealHorizontalScrollViewPosition(int scrollX, int position) {
-        this.mRealHorizontalScrollView.scrollTo(Math.round((scrollX * mParallaxVelocity) + (position * mParallaxVelocity * this.mRealHorizontalScrollView.getWidth())), 0);
+    public void setParallaxHorizontalScrollViewPosition(int scrollX, int position) {
+        this.mParallaxHorizontalScrollView.scrollTo(Math.round((scrollX * mParallaxVelocity) + (position * mParallaxVelocity * this.mParallaxHorizontalScrollView.getWidth())), 0);
     }
 
     private void overrideScrollListener() {
@@ -74,14 +74,14 @@ public class ParallaxViewPager extends ViewPager {
             this.setOnScrollChangeListener(new OnScrollChangeListener() {
                 @Override
                 public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                    setRealHorizontalScrollViewPosition(scrollX, 0);
+                    setParallaxHorizontalScrollViewPosition(scrollX, 0);
                 }
             });
         } else {
             this.setOnPageChangeListener(new OnPageChangeListener() {
                 @Override
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                    setRealHorizontalScrollViewPosition(positionOffsetPixels, position);
+                    setParallaxHorizontalScrollViewPosition(positionOffsetPixels, position);
                 }
 
                 @Override

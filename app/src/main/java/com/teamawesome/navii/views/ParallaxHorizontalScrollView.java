@@ -35,7 +35,7 @@ public class ParallaxHorizontalScrollView extends HorizontalScrollView {
     private void init(Context context, AttributeSet attrs) {
         TypedArray attributesArray = context.getTheme().obtainStyledAttributes(
                 attrs,
-                R.styleable.RealHorizontalScrollView,
+                R.styleable.ParallaxHorizontalScrollView,
                 0,
                 0
         );
@@ -45,7 +45,7 @@ public class ParallaxHorizontalScrollView extends HorizontalScrollView {
             setVerticalScrollBarEnabled(false);
             setHorizontalScrollBarEnabled(false);
 
-            Drawable background = attributesArray.getDrawable(R.styleable.RealHorizontalScrollView_src);
+            Drawable background = attributesArray.getDrawable(R.styleable.ParallaxHorizontalScrollView_src);
             if (background != null) {
                 // set background
                 ImageView iv = new ImageView(context);
