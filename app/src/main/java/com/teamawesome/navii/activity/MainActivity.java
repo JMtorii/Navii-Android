@@ -67,9 +67,10 @@ public class MainActivity extends NaviiActivity implements NavigationView.OnNavi
         setSupportActionBar(mToolbar);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-
         mDrawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        setTitle("");
 
         mNavigation.setNavigationItemSelectedListener(this);
 
