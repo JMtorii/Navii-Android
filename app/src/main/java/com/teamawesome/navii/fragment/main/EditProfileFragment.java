@@ -13,8 +13,6 @@ import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.squareup.okhttp.ResponseBody;
 import com.teamawesome.navii.R;
 
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
 import com.teamawesome.navii.server.model.User;
 import com.teamawesome.navii.util.NaviiPreferenceData;
 
@@ -90,9 +88,7 @@ public class EditProfileFragment extends NaviiFragment {
     }
 
     private void animateWrongCredentials(int id) {
-        YoYo.with(Techniques.Shake)
-                .duration(700)
-                .playOn(parentActivity.findViewById(id));
+        // TODO: implement me
     }
 
     private boolean isValidEmail(CharSequence email){

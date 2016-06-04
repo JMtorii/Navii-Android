@@ -10,8 +10,6 @@ import android.view.ViewGroup;
 import com.beardedhen.androidbootstrap.AwesomeTextView;
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.IntroActivity;
 import com.teamawesome.navii.activity.MainActivity;
@@ -141,8 +139,6 @@ public class IntroPageFiveFragment extends IntroAbstractPageFragment {
     }
 
     private void animateWrongCredentials() {
-        YoYo.with(Techniques.Shake)
-                .duration(700)
-                .playOn(parentActivity.findViewById(R.id.intro_page5_edit_text_linear_layout));
+        // TODO: implement me
     }
 }

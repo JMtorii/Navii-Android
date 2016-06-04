@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="RealHorizontalScrollView">
+    <declare-styleable name="ParallaxHorizontalScrollView">
         <attr name="src" format="reference" />
     </declare-styleable>
 
-    <declare-styleable name="RealViewPager">
+    <declare-styleable name="ParallaxViewPager">
         <attr name="parallaxVelocity" format="float" />
     </declare-styleable>
 
