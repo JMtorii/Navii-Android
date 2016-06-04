@@ -93,7 +93,10 @@ public class MainActivity extends NaviiActivity implements NavigationView.OnNavi
         if (mDrawer != null && mDrawer.isDrawerOpen(GravityCompat.START)) {
             mDrawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            int index = realViewPager.getCurrentItem();
+            if (index != 0) {
+                realViewPager.setCurrentItem(--index, true);
+            }
         }
     }
 
