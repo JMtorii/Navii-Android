@@ -66,7 +66,8 @@ public class PackageDescriptionFragment extends NaviiFragment implements OnMapRe
         packageAuthor = (TextView) view.findViewById(R.id.description_author);
         packageImage = (ImageView) view.findViewById(R.id.description_image);
 
-        packageImage.setBackgroundResource(R.drawable.toronto1);
+        // TODO: set the background resource
+//        packageImage.setBackgroundResource(R.drawable.toronto1);
         packageAuthor.setText(itinerary.getAuthorId());
 
         //Start Time spinner setup
