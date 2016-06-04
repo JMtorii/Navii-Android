@@ -61,25 +61,9 @@ public class MainActivity extends NaviiActivity implements NavigationView.OnNavi
         setContentView(R.layout.activity_main2);
         ButterKnife.bind(this);
 
-        setSupportActionBar(mToolbar);
-
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        mDrawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        setTitle("");
-
-        mNavigation.setNavigationItemSelectedListener(this);
-
-        List<Fragment> fragments = new ArrayList<>();
-        fragments.add(Fragment.instantiate(this, Fragment1.class.getName()));
-        fragments.add(Fragment.instantiate(this, Fragment2.class.getName()));
-        fragments.add(Fragment.instantiate(this, Fragment3.class.getName()));
-
-        ParallaxPagerAdapter parallaxPagerAdapter = new ParallaxPagerAdapter(super.getSupportFragmentManager(), fragments);
-        parallaxViewPager.setAdapter(parallaxPagerAdapter);
-        parallaxViewPager.configure(parallaxHorizontalScrollView);
-        parallaxViewPager.setCurrentItem(0);
+        setupActionBar();
+        setupNavigationView();
+        setupParallaxViews();
     }
 
     @Override
@@ -155,5 +139,31 @@ public class MainActivity extends NaviiActivity implements NavigationView.OnNavi
         if (index < maxIndex) {
             parallaxViewPager.setCurrentItem(index + 1, true);
         }
+    }
+
+    private void setupActionBar() {
+        setSupportActionBar(mToolbar);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        mDrawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        setTitle("");
+    }
+
+    private void setupNavigationView() {
+        mNavigation.setNavigationItemSelectedListener(this);
+    }
+
+    private void setupParallaxViews() {
+        List<Fragment> fragments = new ArrayList<>();
+        fragments.add(Fragment.instantiate(this, Fragment1.class.getName()));
+        fragments.add(Fragment.instantiate(this, Fragment2.class.getName()));
+        fragments.add(Fragment.instantiate(this, Fragment3.class.getName()));
+
+        ParallaxPagerAdapter parallaxPagerAdapter = new ParallaxPagerAdapter(super.getSupportFragmentManager(), fragments);
+        parallaxViewPager.setAdapter(parallaxPagerAdapter);
+        parallaxViewPager.configure(parallaxHorizontalScrollView);
+        parallaxViewPager.setCurrentItem(0);
     }
 }
