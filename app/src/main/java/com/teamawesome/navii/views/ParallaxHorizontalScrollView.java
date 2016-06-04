@@ -12,7 +12,7 @@ import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 
 import com.teamawesome.navii.R;
-import com.teamawesome.navii.util.BitmapGrayscaler;
+import com.teamawesome.navii.util.NaviiGraphics;
 
 /**
  * Created by jtorii on 16-05-17.
@@ -49,8 +49,8 @@ public class ParallaxHorizontalScrollView extends HorizontalScrollView {
             setHorizontalScrollBarEnabled(false);
 
             Drawable background = attributesArray.getDrawable(R.styleable.ParallaxHorizontalScrollView_src);
-            Bitmap bitmap = BitmapGrayscaler.drawableToBitmap(background);
-            Bitmap grayscaleBitmap = BitmapGrayscaler.createGrayscale(bitmap);
+            Bitmap bitmap = NaviiGraphics.drawableToBitmap(background);
+            Bitmap grayscaleBitmap = NaviiGraphics.createGrayscale(bitmap);
             BitmapDrawable ob = new BitmapDrawable(getResources(), grayscaleBitmap);
 
             if (background != null) {
