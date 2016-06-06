@@ -26,9 +26,9 @@ public class NaviiFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        parentActivity = getActivity().getClass().equals(MainActivity.class) ?
-//                (MainActivity) getActivity() :
-//                (IntroActivity) getActivity();
+        parentActivity = getActivity().getClass().equals(MainActivity.class) ?
+                (MainActivity) getActivity() :
+                (IntroActivity) getActivity();
     }
 
     @Override
