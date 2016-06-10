@@ -1,6 +1,5 @@
 package com.teamawesome.navii.adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,14 +13,10 @@ import java.util.List;
 /**
  * Created by JMtorii on 16-06-04.
  */
-
-// TODO: remove context if not available
 public class PackageOverviewRecyclerViewAdapter extends RecyclerView.Adapter<PackageOverviewViewHolder> {
-    private Context mContext;
     private List<String> mItems;
 
-    public PackageOverviewRecyclerViewAdapter(Context context, List<String> items) {
-        this.mContext = context;
+    public PackageOverviewRecyclerViewAdapter(List<String> items) {
         this.mItems = items;
     }
 
@@ -33,7 +28,7 @@ public class PackageOverviewRecyclerViewAdapter extends RecyclerView.Adapter<Pac
 
     @Override
     public void onBindViewHolder(PackageOverviewViewHolder holder, int position) {
-        holder.name.setText(mItems.get(position));
+        holder.setName(mItems.get(position));
     }
 
     @Override

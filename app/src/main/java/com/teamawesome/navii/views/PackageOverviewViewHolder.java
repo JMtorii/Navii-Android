@@ -1,28 +1,34 @@
 package com.teamawesome.navii.views;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.teamawesome.navii.R;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by JMtorii on 16-06-05.
  */
-
-// TODO: implement Butterknife
-public class PackageOverviewViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-    public TextView name;
+public class PackageOverviewViewHolder extends RecyclerView.ViewHolder {
+    @BindView(R.id.package_overview_item_text)
+    TextView name;
 
     public PackageOverviewViewHolder(View itemView) {
         super(itemView);
-        itemView.setOnClickListener(this);
-        name = (TextView) itemView.findViewById(R.id.package_overview_item_text);
+        ButterKnife.bind(this, itemView);
     }
 
-    @Override
-    public void onClick(View view) {
-        Toast.makeText(view.getContext(), "Clicked Position = " + getPosition(), Toast.LENGTH_SHORT).show();
+    public void setName(String name) {
+        this.name.setText(name);
+    }
+
+    @OnClick(R.id.card_view)
+    public void clicked() {
+        Log.i("Hey", name.getText().toString());
     }
 }

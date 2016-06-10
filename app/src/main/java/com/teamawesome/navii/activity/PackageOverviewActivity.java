@@ -10,15 +10,15 @@ import com.teamawesome.navii.adapter.PackageOverviewRecyclerViewAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
  * Created by JMtorii on 16-06-04.
  */
-
-// TODO: implement Butterknife
 public class PackageOverviewActivity extends NaviiActivity {
-    private StaggeredGridLayoutManager mStaggeredGridLayoutManager;
+    @BindView(R.id.package_overview_recycler_view)
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,15 +26,14 @@ public class PackageOverviewActivity extends NaviiActivity {
         setContentView(R.layout.activity_package_overview);
         ButterKnife.bind(this);
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.package_overview_recycler_view);
         recyclerView.setHasFixedSize(true);
 
-        mStaggeredGridLayoutManager = new StaggeredGridLayoutManager(3, 1);
+        // TODO: set grid layout parameters
+        StaggeredGridLayoutManager mStaggeredGridLayoutManager = new StaggeredGridLayoutManager(3, 1);
         recyclerView.setLayoutManager(mStaggeredGridLayoutManager);
 
         List<String> items = getListItemData();
-
-        PackageOverviewRecyclerViewAdapter adapter = new PackageOverviewRecyclerViewAdapter(PackageOverviewActivity.this, items);
+        PackageOverviewRecyclerViewAdapter adapter = new PackageOverviewRecyclerViewAdapter(items);
         recyclerView.setAdapter(adapter);
     }
 
