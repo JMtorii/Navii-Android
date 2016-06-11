@@ -48,7 +48,12 @@
     <string name="duration_from_text">FROM</string>
     <string name="duration_to_text">TO</string>
     <string name="duration_from_date">September 31, 2016</string>
-    <string name="duration_to_date">September 31, 2016</string>
+    <string name="duration_to_date">September 31, 2016</string>z
+
+    <!-- Travel Participants Strings -->
+    <string name="participants_header_text">How many travellers?</string>
+    <string name="participants_default_adult_numbers">2 Adults</string>
+    <string name="participants_default_children_numbers">0 Children</string>
 
     <!--Preference Fragment Strings    -->
     <string name="preferences_title">Preferences</string>
