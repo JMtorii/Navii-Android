@@ -16,7 +16,6 @@
     android:gravity="center"
     android:padding="8dp"
     android:background="@drawable/grid_item_selector"
-    android:text="Medium Text"
     android:textAppearance="?android:attr/textAppearanceMedium"
     android:textColor="@color/black"/>
 </RelativeLayout>

@@ -1,18 +1,18 @@
-package com.teamawesome.navii.fragment.main;
+package com.teamawesome.navii.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.adapter.TagGridAdapter;
+import com.teamawesome.navii.fragment.main.ItineraryRecommendFragment;
 import com.teamawesome.navii.server.model.Itinerary;
 import com.teamawesome.navii.util.Constants;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -27,21 +27,27 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 /**
- * Created by sjung on 18/11/15.
+ * Created by sjung on 10/06/16.
  */
-public class ChooseTagsFragment extends NaviiFragment {
-
+public class TagSelectActivity extends NaviiActivity {
     @BindView(R.id.tags_picker)
     RecyclerView mTagsGridView;
+//
+//    @BindView(R.id.tags_next_button)
+//    Button mNextButton;
 
     private TagGridAdapter mTagGridAdapter;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_planning_tags, container, false);
-        ButterKnife.bind(this, view);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_planning_tags);
 
-        Observable<List<String>> observable = parentActivity.tagsAPI.getTags();
+        ButterKnife.bind(this);
+
+        final RecyclerView.LayoutManager gridLayoutManager =
+                new GridLayoutManager(this, 2);
+        Observable<List<String>> observable = tagsAPI.getTags();
         observable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<List<String>>() {
@@ -59,28 +65,34 @@ public class ChooseTagsFragment extends NaviiFragment {
                     public void onNext(List<String> tags) {
                         mTagGridAdapter = new TagGridAdapter(tags);
                         mTagsGridView.setAdapter(mTagGridAdapter);
-                        RecyclerView.LayoutManager gridLayoutManager =
-                                new GridLayoutManager(getContext(), 2);
                         mTagsGridView.setLayoutManager(gridLayoutManager);
                     }
                 });
-
-        return view;
     }
 
+//    @OnClick(R.id.tags_next_button)
     public void nextPress() {
 
+        Bundle tagsBundle = new Bundle();
+
+        tagsBundle.putStringArrayList("tags",
+                new ArrayList<>(mTagGridAdapter.getSelectedTags()));
+        Intent itineraryRecommendIntent = new Intent(this, ItineraryRecommendFragment.class);
+        itineraryRecommendIntent.
+                putStringArrayListExtra("TAGS", new ArrayList<>(mTagGridAdapter.getSelectedTags()));
+
         Call<List<Itinerary>> itineraryListCall =
-                parentActivity.itineraryAPI.getItineraries(mTagGridAdapter.getSelectedTags());
+                itineraryAPI.getItineraries(mTagGridAdapter.getSelectedTags());
 
         itineraryListCall.enqueue(new Callback<List<Itinerary>>() {
             @Override
             public void onResponse(Response<List<Itinerary>> response, Retrofit retrofit) {
                 if (response.code() == 200) {
                     List<Itinerary> itineraryList = response.body();
+
                     ItineraryRecommendFragment itineraryRecommendFragment =
                             ItineraryRecommendFragment.newInstance(itineraryList);
-                    parentActivity.switchFragment(
+                    switchFragment(
                             itineraryRecommendFragment,
                             Constants.NO_ANIM,
                             Constants.NO_ANIM,
@@ -98,5 +110,4 @@ public class ChooseTagsFragment extends NaviiFragment {
             }
         });
     }
-
 }

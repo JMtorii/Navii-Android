@@ -83,6 +83,17 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden">
         </activity>
+
+        <activity android:name=".activity.TagSelectActivity"
+                  android:label="@string/tags_title"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="stateHidden">
+        </activity>
+        <activity android:name=".activity.ItineraryRecommendActivity"
+                  android:label="@string/tags_title"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="stateHidden">
+        </activity>
     </application>
 
 </manifest>

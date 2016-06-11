@@ -59,6 +59,6 @@ public class NaviiPreferenceData {
     }
 
     private static SharedPreferences getSharedPreferences() {
-        return PreferenceManager.getDefaultSharedPreferences(NaviiApplication.getAppContext());
+        return PreferenceManager.getDefaultSharedPreferences(NaviiApplication.getInstance().getAppContext());
     }
 }

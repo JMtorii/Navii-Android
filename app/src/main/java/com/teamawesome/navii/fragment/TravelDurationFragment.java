@@ -3,14 +3,13 @@ package com.teamawesome.navii.fragment;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
-import android.widget.TextView;
 
 import com.teamawesome.navii.R;
-import com.teamawesome.navii.activity.MainActivity;
 import com.teamawesome.navii.views.MainLatoEditText;
 import com.teamawesome.navii.views.MainLatoTextView;
 
@@ -72,21 +71,28 @@ public class TravelDurationFragment extends Fragment {
             }
         };
 
-        mFromEditText.setOnClickListener(new View.OnClickListener() {
+        mFromEditText.setInputType(InputType.TYPE_NULL);
+        mToEditText.setInputType(InputType.TYPE_NULL);
+
+        mFromEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onClick(View v) {
-                new DatePickerDialog(getActivity(), date, myCalendar
-                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    new DatePickerDialog(getActivity(), date, myCalendar
+                            .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                            myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                }
             }
         });
 
-        mToEditText.setOnClickListener(new View.OnClickListener() {
+        mToEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onClick(View v) {
-                new DatePickerDialog(getActivity(), date, myCalendar2
-                        .get(Calendar.YEAR), myCalendar2.get(Calendar.MONTH),
-                        myCalendar2.get(Calendar.DAY_OF_MONTH)).show();
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    new DatePickerDialog(getActivity(), date, myCalendar2
+                            .get(Calendar.YEAR), myCalendar2.get(Calendar.MONTH),
+                            myCalendar2.get(Calendar.DAY_OF_MONTH)).show();
+                }
             }
         });
 

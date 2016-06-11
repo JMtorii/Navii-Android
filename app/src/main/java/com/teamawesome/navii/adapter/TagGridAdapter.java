@@ -1,6 +1,5 @@
 package com.teamawesome.navii.adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,20 +22,20 @@ import butterknife.OnClick;
  */
 public class TagGridAdapter extends RecyclerView.Adapter<TagGridAdapter.TagGridViewHolder> {
 
-    private final Context mContext;
     private List<String> mTags;
     private Set<String> mSelectedTags;
 
-    public TagGridAdapter(Context context, List<String> tags) {
+    public TagGridAdapter(List<String> tags) {
         super();
-        this.mContext = context;
         this.mTags = tags;
         this.mSelectedTags = new HashSet<>();
     }
 
     @Override
     public TagGridViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.tags_selectable_grid_item, null);
+        View view = LayoutInflater
+                .from(parent.getContext())
+                .inflate(R.layout.tags_selectable_grid_item, null);
         return new TagGridViewHolder(view);
     }
 
