@@ -12,6 +12,7 @@ import android.widget.ListView;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.IntroActivity;
 import com.teamawesome.navii.activity.MainActivity;
+import com.teamawesome.navii.activity.PackageOverviewActivity;
 import com.teamawesome.navii.server.api.UserAPI;
 import com.teamawesome.navii.server.model.User;
 import com.teamawesome.navii.util.Constants;
@@ -102,7 +103,8 @@ public class DebugMainActivity extends ListActivity {
         } else if (id == 3) {
             NaviiPreferenceData.setIPAddress(Constants.SERVER_URL_JUN);
         } else if (id == 4) {
-            NaviiPreferenceData.setIPAddress(Constants.SERVER_URL_STEVE);
+            Intent packageOverviewIntent = new Intent(this, PackageOverviewActivity.class);
+            startActivity(packageOverviewIntent);
         }
     }
 }

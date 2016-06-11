@@ -1,6 +1,7 @@
 package com.teamawesome.navii.adapter;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -8,10 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import com.beardedhen.androidbootstrap.AwesomeTextView;
 import com.teamawesome.navii.R;
+import com.teamawesome.navii.fragment.main.NaviiFragment;
 import com.teamawesome.navii.util.NaviiBudgetButton;
-import com.teamawesome.navii.views.LatoType;
 import com.teamawesome.navii.views.MainLatoEditText;
 
 import butterknife.BindView;
@@ -25,8 +25,11 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
 
     int screenWidth;
     int screenHeight;
-    public BudgetAdapter(DisplayMetrics metrics) {
+    NaviiFragment f;
+
+    public BudgetAdapter(NaviiFragment f, DisplayMetrics metrics) {
         super();
+        this.f = f;
         this.screenWidth = metrics.widthPixels;
         this.screenHeight = metrics.heightPixels;
     }
@@ -44,7 +47,8 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
     public void onBindViewHolder(final BudgetAdapter.ViewHolder holder, int position) {
         switch (position){
             case 9:
-                holder.budgetButton.setText("DEL");
+                Drawable img = f.getResources().getDrawable(R.drawable.ic_backspace_black_48dp, null);
+                holder.budgetButton.setCompoundDrawablesWithIntrinsicBounds(null, img, null, null);
                 holder.budgetButton.setDigit(9);
                 break;
             case 10:
@@ -52,7 +56,8 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
                 holder.budgetButton.setDigit(0);
                 break;
             case 11:
-                holder.budgetButton.setText("NXT");
+                Drawable img2 = f.getResources().getDrawable(R.drawable.ic_check_circle_black_48dp, null);
+                holder.budgetButton.setCompoundDrawablesWithIntrinsicBounds(null, img2, null, null);
                 holder.budgetButton.setDigit(11);
                 break;
             default:
@@ -65,7 +70,6 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(screenWidth/3,
                 buttonHeight);
         holder.budgetButton.setLayoutParams(params);
-
     }
 
     @Override
@@ -80,6 +84,7 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
         NaviiBudgetButton budgetButton;
 
         @OnClick (R.id.budget_button)
+
         public void pressed(View v){
             if (budgetButton.getDigit() == 9){
                 backspace(v);
@@ -105,6 +110,10 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
                 newText.deleteCharAt(newText.length() - 1);
                 latoEditText.setText(newText);
             }
+        }
+
+        public void drawNext(){
+
         }
 
         public ViewHolder(View itemView) {

@@ -21,35 +21,36 @@ import com.teamawesome.navii.util.WifiCheck;
  */
 public class NaviiFragment extends Fragment {
     protected NaviiActivity parentActivity;
+    private NaviiSpinner NaviiLoaderWheel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        parentActivity = getActivity().getClass().equals(MainActivity.class) ?
-//                (MainActivity) getActivity() :
-//                (IntroActivity) getActivity();
+        parentActivity = getActivity().getClass().equals(MainActivity.class) ?
+                (MainActivity) getActivity() :
+                (IntroActivity) getActivity();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (!WifiCheck.isConnected(this)) {
-            DialogFragment test = new NaviiWifiDialogFragment();
-            test.setCancelable(false);
-            test.show(this.getFragmentManager(), Constants.NO_WIFI_DIALOG);
-        }
+//        if (!WifiCheck.isConnected(this)) {
+//            DialogFragment test = new NaviiWifiDialogFragment();
+//            test.setCancelable(false);
+//            test.show(this.getFragmentManager(), Constants.NO_WIFI_DIALOG);
+//        }
     }
 
-    protected NaviiSpinner startLoader(){
-        NaviiSpinner NaviiLoaderWheel = new NaviiSpinner();
+    protected void startLoader(){
+        NaviiLoaderWheel = new NaviiSpinner();
         NaviiLoaderWheel.setCancelable(false);
         NaviiLoaderWheel.show(this.getFragmentManager(), Constants.LOADING_WHEEL_TAG);
-        return NaviiLoaderWheel;
     }
 
-    protected void endLoader (NaviiSpinner end){
-        end.dismiss();
+    protected void endLoader (){
+        NaviiLoaderWheel.dismiss();
+        NaviiLoaderWheel = null;
     }
 
     public class NaviiWifiDialogFragment extends DialogFragment {
@@ -76,7 +77,9 @@ public class NaviiFragment extends Fragment {
             return wifiDialog;
         }
     }
+
     public class NaviiSpinner extends DialogFragment {
+
         @Override
         @NonNull
         public Dialog onCreateDialog(Bundle savedInstanceState){

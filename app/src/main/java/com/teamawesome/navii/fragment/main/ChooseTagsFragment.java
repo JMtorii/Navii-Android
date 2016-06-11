@@ -1,22 +1,26 @@
 package com.teamawesome.navii.fragment.main;
 
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.GridView;
 
 import com.teamawesome.navii.R;
-import com.teamawesome.navii.adapter.TagsGridAdapter;
-import com.teamawesome.navii.server.api.TagsAPI;
-import com.teamawesome.navii.util.NaviiPreferenceData;
+import com.teamawesome.navii.adapter.TagGridAdapter;
+import com.teamawesome.navii.server.model.Itinerary;
+import com.teamawesome.navii.util.Constants;
 
 import java.util.List;
 
-import retrofit.JacksonConverterFactory;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import retrofit.Call;
+import retrofit.Callback;
+import retrofit.Response;
 import retrofit.Retrofit;
-import retrofit.RxJavaCallAdapterFactory;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -27,81 +31,72 @@ import rx.schedulers.Schedulers;
  */
 public class ChooseTagsFragment extends NaviiFragment {
 
-    private Button mNextButton;
-    private GridView mTagsGridView;
-    private TagsGridAdapter mAdapter;
+    @BindView(R.id.tags_picker)
+    RecyclerView mTagsGridView;
 
+    private TagGridAdapter mTagGridAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_planning_tags, container, false);
+        ButterKnife.bind(this, view);
 
-        mTagsGridView = (GridView) view.findViewById(R.id.tags_picker);
-
-        Retrofit retrofitObservable = new Retrofit.Builder()
-                .baseUrl(NaviiPreferenceData.getIPAddress())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .addConverterFactory(JacksonConverterFactory.create())
-                .build();
-
-        TagsAPI tagsAPI= retrofitObservable.create(TagsAPI.class);
-
-        Observable<List<String>> observable = tagsAPI.getTags();
+        Observable<List<String>> observable = parentActivity.tagsAPI.getTags();
         observable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<List<String>>() {
                     @Override
                     public void onCompleted() {
-                        // nothing to do here
+
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        // nothing to do here
+                        Log.e("ERROR", e.getMessage());
                     }
 
                     @Override
                     public void onNext(List<String> tags) {
-                        TagsGridAdapter adapter =
-                                new TagsGridAdapter(getContext(), R.layout.tags_selectable_grid_item, tags);
-                        mTagsGridView.setAdapter(adapter);
-                        mAdapter = adapter;
+                        mTagGridAdapter = new TagGridAdapter(getContext(), tags);
+                        mTagsGridView.setAdapter(mTagGridAdapter);
+                        RecyclerView.LayoutManager gridLayoutManager =
+                                new GridLayoutManager(getContext(), 2);
+                        mTagsGridView.setLayoutManager(gridLayoutManager);
                     }
                 });
 
-//        mNextButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Call<List<Itinerary>> itineraryListCall =
-//                        parentActivity.itineraryAPI.getItineraries(mAdapter.getSelectedTags());
-//
-//                itineraryListCall.enqueue(new Callback<List<Itinerary>>() {
-//                    @Override
-//                    public void onResponse(Response<List<Itinerary>> response, Retrofit retrofit) {
-//                        if (response.code() == 200) {
-//                            List<Itinerary> itineraryList = response.body();
-//                            ItineraryRecommendFragment itineraryRecommendFragment =
-//                                    ItineraryRecommendFragment.newInstance(itineraryList);
-//                            parentActivity.switchFragment(
-//                                    itineraryRecommendFragment,
-//                                    Constants.NO_ANIM,
-//                                    Constants.NO_ANIM,
-//                                    Constants.ITINERARY_RECOMMEND_FRAGMENT,
-//                                    true,
-//                                    true,
-//                                    true
-//                            );
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Throwable t) {
-//                        Log.e("failed", t.toString());
-//                    }
-//                });
-//
-//            }
-//        });
         return view;
     }
+
+    public void nextPress() {
+
+        Call<List<Itinerary>> itineraryListCall =
+                parentActivity.itineraryAPI.getItineraries(mTagGridAdapter.getSelectedTags());
+
+        itineraryListCall.enqueue(new Callback<List<Itinerary>>() {
+            @Override
+            public void onResponse(Response<List<Itinerary>> response, Retrofit retrofit) {
+                if (response.code() == 200) {
+                    List<Itinerary> itineraryList = response.body();
+                    ItineraryRecommendFragment itineraryRecommendFragment =
+                            ItineraryRecommendFragment.newInstance(itineraryList);
+                    parentActivity.switchFragment(
+                            itineraryRecommendFragment,
+                            Constants.NO_ANIM,
+                            Constants.NO_ANIM,
+                            Constants.ITINERARY_RECOMMEND_FRAGMENT,
+                            true,
+                            true,
+                            true
+                    );
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Log.e("failed", t.toString());
+            }
+        });
+    }
+
 }

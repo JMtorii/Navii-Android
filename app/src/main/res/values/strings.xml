@@ -12,6 +12,7 @@
         <item>Skip to main activity</item>
         <item>Create user</item>
         <item>Set ip address to Jun</item>
+        <item>Package Overview</item>
     </string-array>
 
     <string-array name="intro_pager_titles">

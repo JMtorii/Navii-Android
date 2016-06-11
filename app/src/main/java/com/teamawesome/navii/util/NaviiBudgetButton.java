@@ -3,12 +3,13 @@ package com.teamawesome.navii.util;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.widget.Button;
+
+import com.teamawesome.navii.views.MainLatoButton;
 
 /**
  * Created by Ian on 5/30/2016.
  */
-public class NaviiBudgetButton extends Button {
+public class NaviiBudgetButton extends MainLatoButton {
     public int getDigit() {
         return digit;
     }

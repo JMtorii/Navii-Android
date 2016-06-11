@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp"
+
+    >
+<com.teamawesome.navii.views.MainLatoTextView
     android:id="@+id/tag_name"
+    android:focusable="false"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginLeft="2dp"
     android:layout_marginRight="2dp"
-    android:background="@drawable/button_background"
     android:gravity="center"
     android:padding="8dp"
+    android:background="@drawable/grid_item_selector"
     android:text="Medium Text"
     android:textAppearance="?android:attr/textAppearanceMedium"
     android:textColor="@color/black"/>
+</RelativeLayout>
