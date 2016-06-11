@@ -41,6 +41,7 @@ public abstract class NaviiActivity extends AppCompatActivity {
         retrofitObservable = new Retrofit.Builder()
                 .baseUrl(NaviiPreferenceData.getIPAddress())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+
                 .addConverterFactory(JacksonConverterFactory.create())
                 .build();
 

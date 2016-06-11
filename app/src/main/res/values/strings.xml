@@ -13,6 +13,7 @@
         <item>Create user</item>
         <item>Set ip address to Jun</item>
         <item>Package Overview</item>
+        <item>Tags/Itineraries</item>
     </string-array>
 
     <string-array name="intro_pager_titles">
@@ -61,7 +62,7 @@
     <string name="next_button_text">Next</string>
 
     <!-- Itinerary Recommend Fragment Strings-->
-    <string name="itinerary_recommend_title">Based on preferences</string>
+    <string name="itinerary_recommend_title">Recommended Itineraries</string>
     <string name="author_title">Created by</string>
     <string name="we_recommend_title">We Recommend</string>
     <string name="planTrip">Plan your own Trip</string>

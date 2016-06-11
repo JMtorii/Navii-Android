@@ -78,6 +78,7 @@ public class ParallaxViewPager extends ViewPager {
                 }
             });
         } else {
+
             this.setOnPageChangeListener(new OnPageChangeListener() {
                 @Override
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
