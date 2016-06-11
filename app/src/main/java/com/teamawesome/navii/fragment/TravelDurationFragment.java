@@ -41,6 +41,9 @@ public class TravelDurationFragment extends Fragment {
     private Calendar myCalendar = Calendar.getInstance();
     private DatePickerDialog.OnDateSetListener date;
 
+    private Calendar myCalendar2 = Calendar.getInstance();
+    private DatePickerDialog.OnDateSetListener date2;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_travel_duration, container, false);
@@ -58,6 +61,17 @@ public class TravelDurationFragment extends Fragment {
             }
         };
 
+        date2 = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                myCalendar2.set(Calendar.YEAR, year);
+                myCalendar2.set(Calendar.MONTH, monthOfYear);
+                myCalendar2.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel();
+            }
+        };
+
         mFromEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,11 +81,20 @@ public class TravelDurationFragment extends Fragment {
             }
         });
 
+        mToEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(getActivity(), date, myCalendar2
+                        .get(Calendar.YEAR), myCalendar2.get(Calendar.MONTH),
+                        myCalendar2.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
         return v;
     }
 
     private void updateLabel() {
-        String myFormat = "MM/dd/yy";
+        String myFormat = "MMMM d, yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
         mFromEditText.setText(sdf.format(myCalendar.getTime()));
