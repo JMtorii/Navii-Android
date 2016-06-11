@@ -39,12 +39,14 @@
                 android:layout_centerHorizontal="true"
                 android:background="@drawable/circle_plus_button"/>
 
-            <com.beardedhen.androidbootstrap.AwesomeTextView
+            <com.teamawesome.navii.views.MainLatoTextView
                 android:id="@+id/travel_participants_adult_text"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
+                android:layout_width="120dp"
+                android:layout_height="42dp"
+                android:gravity="center"
+                android:textSize="25sp"
                 android:text="@string/participants_default_adult_numbers"
-                android:textColor="@android:color/black"/>
+                android:textColor="@android:color/white"/>
 
             <View
                 android:id="@+id/travel_participants_adult_down_button"
@@ -74,10 +76,12 @@
 
             <com.teamawesome.navii.views.MainLatoTextView
                 android:id="@+id/travel_participants_child_text"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
+                android:layout_width="120dp"
+                android:layout_height="42dp"
+                android:gravity="center"
+                android:textSize="25sp"
                 android:text="@string/participants_default_children_numbers"
-                android:textColor="@android:color/black"/>
+                android:textColor="@android:color/white"/>
 
             <View
                 android:id="@+id/travel_participants_child_down_button"

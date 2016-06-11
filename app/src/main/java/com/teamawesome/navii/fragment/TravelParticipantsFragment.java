@@ -29,7 +29,7 @@ public class TravelParticipantsFragment extends Fragment {
     View mAdultDownButton;
 
     @BindView(R.id.travel_participants_adult_text)
-    AwesomeTextView mAdultTextView;
+    MainLatoTextView mAdultTextView;
 
     @BindView(R.id.travel_participants_child_up_button)
     View mChildUpButton;
