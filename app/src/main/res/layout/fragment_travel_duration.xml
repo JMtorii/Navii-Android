@@ -18,7 +18,7 @@
         android:textSize="50sp"
         />
 
-    <com.teamawesome.navii.views.MainLatoEditText
+    <com.teamawesome.navii.views.MainLatoTextView
         android:id="@+id/duration_from_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,6 +29,15 @@
         android:text="@string/duration_from_date"
         android:textColor="@android:color/white"
         android:textSize="30sp"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="3dp"
+        android:background="@android:color/white"
         />
 
     <com.teamawesome.navii.views.MainLatoTextView
@@ -44,7 +53,7 @@
         android:textSize="50sp"
         />
 
-    <com.teamawesome.navii.views.MainLatoEditText
+    <com.teamawesome.navii.views.MainLatoTextView
         android:id="@+id/duration_to_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -55,6 +64,15 @@
         android:text="@string/duration_to_date"
         android:textColor="@android:color/white"
         android:textSize="30sp"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="3dp"
+        android:background="@android:color/white"
         />
 
 </LinearLayout>

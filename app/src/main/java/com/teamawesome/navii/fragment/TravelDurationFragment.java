@@ -1,6 +1,7 @@
 package com.teamawesome.navii.fragment;
 
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
@@ -10,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.DatePicker;
 
 import com.teamawesome.navii.R;
-import com.teamawesome.navii.views.MainLatoEditText;
 import com.teamawesome.navii.views.MainLatoTextView;
 
 import java.text.SimpleDateFormat;
@@ -32,10 +32,10 @@ public class TravelDurationFragment extends Fragment {
     MainLatoTextView mToTextView;
 
     @BindView(R.id.duration_from_date)
-    MainLatoEditText mFromEditText;
+    MainLatoTextView mFromDateTextView;
 
     @BindView(R.id.duration_to_date)
-    MainLatoEditText mToEditText;
+    MainLatoTextView mToDateTextView;
 
     private Calendar myCalendar = Calendar.getInstance();
     private DatePickerDialog.OnDateSetListener date;
@@ -67,32 +67,25 @@ public class TravelDurationFragment extends Fragment {
                 myCalendar2.set(Calendar.YEAR, year);
                 myCalendar2.set(Calendar.MONTH, monthOfYear);
                 myCalendar2.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                updateLabel();
+                updateLabel2();
             }
         };
 
-        mFromEditText.setInputType(InputType.TYPE_NULL);
-        mToEditText.setInputType(InputType.TYPE_NULL);
-
-        mFromEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        mFromDateTextView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    new DatePickerDialog(getActivity(), date, myCalendar
-                            .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                            myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-                }
+            public void onClick(View v) {
+                new DatePickerDialog(getActivity(), R.style.DialogTheme, date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
 
-        mToEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        mToDateTextView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    new DatePickerDialog(getActivity(), date, myCalendar2
-                            .get(Calendar.YEAR), myCalendar2.get(Calendar.MONTH),
-                            myCalendar2.get(Calendar.DAY_OF_MONTH)).show();
-                }
+            public void onClick(View v) {
+                new DatePickerDialog(getActivity(), R.style.DialogTheme, date2, myCalendar2
+                        .get(Calendar.YEAR), myCalendar2.get(Calendar.MONTH),
+                        myCalendar2.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
 
@@ -103,6 +96,13 @@ public class TravelDurationFragment extends Fragment {
         String myFormat = "MMMM d, yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
-        mFromEditText.setText(sdf.format(myCalendar.getTime()));
+        mFromDateTextView.setText(sdf.format(myCalendar.getTime()));
+    }
+
+    private void updateLabel2() {
+        String myFormat = "MMMM d, yyyy";
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+        mToDateTextView.setText(sdf.format(myCalendar2.getTime()));
     }
 }
