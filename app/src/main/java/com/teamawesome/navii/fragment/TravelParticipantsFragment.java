@@ -38,10 +38,10 @@ public class TravelParticipantsFragment extends Fragment {
     View mChildDownButton;
 
     @BindView(R.id.travel_participants_child_text)
-    AwesomeTextView mChildTextView;
+    MainLatoTextView mChildTextView;
 
-    private int childCounter = 2;
-    private int adultCounter = 0;
+    private int adultCounter = 2;
+    private int childCounter = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

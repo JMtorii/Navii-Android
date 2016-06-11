@@ -14,7 +14,7 @@
         android:gravity="center"
         android:text="@string/participants_header_text"
         android:textColor="@android:color/white"
-        android:textSize="50sp"
+        android:textSize="42sp"
         />
 
     <LinearLayout
