@@ -19,6 +19,7 @@ import com.teamawesome.navii.fragment.TravelDestinationFragment;
 import com.teamawesome.navii.fragment.TravelDurationFragment;
 import com.teamawesome.navii.fragment.TravelParticipantsFragment;
 import com.teamawesome.navii.fragment.intro.PreferencesFragment;
+import com.teamawesome.navii.fragment.main.BudgetFragment;
 import com.teamawesome.navii.fragment.main.ChooseLocationFragment;
 import com.teamawesome.navii.fragment.main.ChooseTagsFragment;
 import com.teamawesome.navii.fragment.main.NotificationsFragment;
@@ -73,9 +74,12 @@ public class MainActivity extends NaviiActivity implements NavigationView.OnNavi
             mDrawer.closeDrawer(GravityCompat.START);
         } else {
             int index = parallaxViewPager.getCurrentItem();
-            if (index != 0) {
-                parallaxViewPager.setCurrentItem(--index, true);
+            if (mNextButton.getVisibility() == View.VISIBLE && index == 4)
+                mNextButton.setVisibility(View.INVISIBLE);
+            else if (index != 0) {
+                mNextButton.setVisibility(View.VISIBLE);
             }
+            parallaxViewPager.setCurrentItem(--index, true);
         }
     }
 
@@ -140,6 +144,8 @@ public class MainActivity extends NaviiActivity implements NavigationView.OnNavi
         if (index < maxIndex) {
             parallaxViewPager.setCurrentItem(index + 1, true);
         }
+        if (index + 1 == 3)
+            mNextButton.setVisibility(View.INVISIBLE);
     }
 
     private void setupActionBar() {
@@ -161,6 +167,8 @@ public class MainActivity extends NaviiActivity implements NavigationView.OnNavi
         fragments.add(Fragment.instantiate(this, TravelDestinationFragment.class.getName()));
         fragments.add(Fragment.instantiate(this, TravelDurationFragment.class.getName()));
         fragments.add(Fragment.instantiate(this, TravelParticipantsFragment.class.getName()));
+        fragments.add(Fragment.instantiate(this, BudgetFragment.class.getName()));
+        fragments.add(Fragment.instantiate(this, ChooseTagsFragment.class.getName()));
 
         ParallaxPagerAdapter parallaxPagerAdapter = new ParallaxPagerAdapter(super.getSupportFragmentManager(), fragments);
         parallaxViewPager.setAdapter(parallaxPagerAdapter);
