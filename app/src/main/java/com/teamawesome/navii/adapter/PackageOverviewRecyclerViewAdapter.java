@@ -14,9 +14,9 @@ import java.util.List;
  * Created by JMtorii on 16-06-04.
  */
 public class PackageOverviewRecyclerViewAdapter extends RecyclerView.Adapter<PackageOverviewViewHolder> {
-    private List<String> mItems;
+    private List<Integer> mItems;
 
-    public PackageOverviewRecyclerViewAdapter(List<String> items) {
+    public PackageOverviewRecyclerViewAdapter(List<Integer> items) {
         this.mItems = items;
     }
 
@@ -28,7 +28,7 @@ public class PackageOverviewRecyclerViewAdapter extends RecyclerView.Adapter<Pac
 
     @Override
     public void onBindViewHolder(PackageOverviewViewHolder holder, int position) {
-        holder.setName(mItems.get(position));
+        holder.setImage(mItems.get(position));
     }
 
     @Override

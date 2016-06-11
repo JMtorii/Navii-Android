@@ -28,21 +28,26 @@ public class PackageOverviewActivity extends NaviiActivity {
 
         recyclerView.setHasFixedSize(true);
 
-        // TODO: set grid layout parameters
-        StaggeredGridLayoutManager mStaggeredGridLayoutManager = new StaggeredGridLayoutManager(3, 1);
+        StaggeredGridLayoutManager mStaggeredGridLayoutManager = new StaggeredGridLayoutManager(2, 1);
         recyclerView.setLayoutManager(mStaggeredGridLayoutManager);
 
-        List<String> items = getListItemData();
+        List<Integer> items = getListItemData();
         PackageOverviewRecyclerViewAdapter adapter = new PackageOverviewRecyclerViewAdapter(items);
         recyclerView.setAdapter(adapter);
     }
 
-    private List<String> getListItemData() {
-        List<String> items = new ArrayList<>();
-        items.add("Hello");
-        items.add("Bye");
-        items.add("What are you doing?");
-        items.add("Hm");
+    private List<Integer> getListItemData() {
+        List<Integer> items = new ArrayList<>();
+        items.add(R.drawable.bird);
+        items.add(R.drawable.rough_logo);
+        items.add(R.drawable.imagination);
+        items.add(R.drawable.tmp_social_buttons);
+        items.add(R.drawable.rough_calendar);
+        items.add(R.drawable.circle_minus_button);
+        items.add(R.drawable.circle_plus_button);
+        items.add(R.drawable.bird);
+        items.add(R.drawable.rough_logo);
+        items.add(R.drawable.imagination);
 
         return items;
     }
