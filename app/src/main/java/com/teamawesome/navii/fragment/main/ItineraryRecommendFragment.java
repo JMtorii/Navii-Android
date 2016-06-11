@@ -34,7 +34,7 @@ public class ItineraryRecommendFragment extends NaviiFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 //        ((MainActivity)parentActivity).setActionBarTitle(getString(R.string.we_recommend_title));
-        View view = inflater.inflate(R.layout.activity_itinerary_recommend, container, false);
+        View view = inflater.inflate(R.layout.fragment_itinerary_recommend, container, false);
         ButterKnife.bind(this, view);
 
         return view;

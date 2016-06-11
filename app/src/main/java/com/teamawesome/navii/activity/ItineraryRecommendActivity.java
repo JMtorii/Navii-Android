@@ -35,7 +35,7 @@ public class ItineraryRecommendActivity extends NaviiActivity {
         Call<List<Itinerary>> itineraryListCall =
                 itineraryAPI.getItineraries(tags);
 
-        setContentView(R.layout.activity_itinerary_recommend);
+        setContentView(R.layout.fragment_itinerary_recommend);
 
         final Context context = this;
         itineraryListCall.enqueue(new Callback<List<Itinerary>>() {
