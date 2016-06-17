@@ -56,7 +56,6 @@ public class MainActivity extends NaviiActivity2 {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main2);
         ButterKnife.bind(this);
 
         setupParallaxViews();
@@ -69,12 +68,9 @@ public class MainActivity extends NaviiActivity2 {
             mDrawer.closeDrawer(GravityCompat.START);
         } else {
             int index = parallaxViewPager.getCurrentItem();
-            if (mNextButton.getVisibility() == View.VISIBLE && index == 4)
-                mNextButton.setVisibility(View.INVISIBLE);
-            else if (index != 0) {
-                mNextButton.setVisibility(View.VISIBLE);
+            if (index != 0) {
+                parallaxViewPager.setCurrentItem(--index, true);
             }
-            parallaxViewPager.setCurrentItem(--index, true);
         }
     }
 
@@ -88,8 +84,6 @@ public class MainActivity extends NaviiActivity2 {
         if (index < maxIndex) {
             parallaxViewPager.setCurrentItem(index + 1, true);
         }
-        if (index + 1 == 3)
-            mNextButton.setVisibility(View.INVISIBLE);
     }
 
     private void setupParallaxViews() {
