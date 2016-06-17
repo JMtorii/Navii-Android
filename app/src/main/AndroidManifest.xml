@@ -89,10 +89,17 @@
                   android:screenOrientation="portrait"
                   android:windowSoftInputMode="stateHidden">
         </activity>
+
         <activity android:name=".activity.ItineraryRecommendActivity"
                   android:label="@string/tags_title"
                   android:screenOrientation="portrait"
                   android:windowSoftInputMode="stateHidden">
+        </activity>
+
+        <activity android:name=".activity.PlannedTripsActivity"
+            android:label="@string/planTrip"
+            android:screenOrientation="portrait"
+            android:theme="@style/NaviiTheme.NoActionBar">
         </activity>
     </application>
 
