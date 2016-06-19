@@ -37,7 +37,7 @@
         <item name="colorControlHighlight">@drawable/grid_item_color_selector</item>
         <item name="android:colorActivatedHighlight">@drawable/grid_item_color_selector</item>
         <item name="android:colorButtonNormal">@drawable/grid_item_bg_selector</item>
-        <item name="radius">5dp</item>
+        <item name="android:radius">5dp</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">20sp</item>
     </style>

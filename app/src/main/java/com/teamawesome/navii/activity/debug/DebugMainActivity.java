@@ -13,6 +13,7 @@ import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.HeartAndSoulDetailsActivity;
 import com.teamawesome.navii.activity.MainActivity;
 import com.teamawesome.navii.activity.PackageOverviewActivity;
+import com.teamawesome.navii.activity.PreferencesActivity;
 import com.teamawesome.navii.server.api.UserAPI;
 import com.teamawesome.navii.server.model.User;
 import com.teamawesome.navii.util.Constants;
@@ -105,6 +106,9 @@ public class DebugMainActivity extends ListActivity {
         } else if (id == 4) {       // Heart and Soul Details Activity
             Intent heartAndSoulDetailsActivity = new Intent(this, HeartAndSoulDetailsActivity.class);
             startActivity(heartAndSoulDetailsActivity);
+        } else if (id == 5) {       // Heart and Soul Details Activity
+            Intent preferenceActivity = new Intent(this, PreferencesActivity.class);
+            startActivity(preferenceActivity);
         }
     }
 }

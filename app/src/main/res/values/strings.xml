@@ -9,6 +9,7 @@
         <item>Set ip address to Jun</item>
         <item>Package Overview Activity</item>
         <item>Heart and Soul Details Activity</item>
+        <item>Preferences</item>
     </string-array>
 
     <string-array name="intro_pager_titles">

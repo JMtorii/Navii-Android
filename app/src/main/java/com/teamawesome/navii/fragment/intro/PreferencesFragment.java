@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.teamawesome.navii.NaviiApplication;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.IntroActivity;
 import com.teamawesome.navii.activity.MainActivity;
@@ -75,7 +76,8 @@ public class PreferencesFragment extends NaviiFragment {
         //TODO: change to server implementation
         numberOfPreferences = 3;
 
-        Observable<PreferencesQuestion> observable = parentActivity.preferenceAPI.getPreferences(preferenceType);
+        Observable<PreferencesQuestion> observable =
+            NaviiApplication.getInstance().getPreferenceAPI().getPreferences(preferenceType);
 
         observable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
