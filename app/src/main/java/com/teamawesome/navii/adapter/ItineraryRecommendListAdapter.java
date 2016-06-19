@@ -42,6 +42,8 @@ public class ItineraryRecommendListAdapter extends
 
     @Override
     public void onBindViewHolder(ItineraryRecommendViewHolder holder, int position) {
+
+
         holder.mTextView.setText(itineraries.get(position).getDescription());
 
         Picasso.with(context)

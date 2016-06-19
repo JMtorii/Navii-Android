@@ -1,12 +1,13 @@
 package com.teamawesome.navii.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.teamawesome.navii.R;
+import com.teamawesome.navii.views.MainLatoButton;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -23,12 +24,12 @@ import butterknife.OnClick;
 public class TagGridAdapter extends RecyclerView.Adapter<TagGridAdapter.TagGridViewHolder> {
 
     private List<String> mTags;
-    private Set<String> mSelectedTags;
+    private Set<String> mActiveTags;
 
     public TagGridAdapter(List<String> tags) {
         super();
         this.mTags = tags;
-        this.mSelectedTags = new HashSet<>();
+        this.mActiveTags = new HashSet<>();
     }
 
     @Override
@@ -41,9 +42,12 @@ public class TagGridAdapter extends RecyclerView.Adapter<TagGridAdapter.TagGridV
 
     @Override
     public void onBindViewHolder(TagGridViewHolder holder, int position) {
+        Log.d("Position", ""+position);
         String tag = mTags.get(position);
-        holder.name.setText(tag);
+        String text = tag.substring(0, 1).toUpperCase() + tag.substring(1);
+        holder.name.setText(text);
         holder.name.setTag(tag);
+        holder.name.setActivated(mActiveTags.contains(tag));
     }
 
     @Override
@@ -51,22 +55,25 @@ public class TagGridAdapter extends RecyclerView.Adapter<TagGridAdapter.TagGridV
         return mTags.size();
     }
 
-    public List<String> getSelectedTags() {
-        return new ArrayList<>(mSelectedTags);
+    public List<String> getActiveTags() {
+        return new ArrayList<>(mActiveTags);
     }
 
     class TagGridViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tag_name)
-        TextView name;
+        MainLatoButton name;
 
         @OnClick(R.id.tag_name)
         void tagSelect(View v) {
-            boolean selected = v.isSelected();
-            v.setSelected(!selected);
-            if (selected) {
-                mSelectedTags.add(v.getTag().toString());
+            boolean activated = !v.isActivated();
+
+            v.setActivated(activated);
+            Log.d("TAG", "Selected: " + activated);
+
+            if (activated) {
+                mActiveTags.add(v.getTag().toString());
             } else {
-                mSelectedTags.remove(v.getTag().toString());
+                mActiveTags.remove(v.getTag().toString());
             }
         }
 

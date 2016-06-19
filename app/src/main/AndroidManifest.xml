@@ -50,7 +50,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+            android:value="@string/google_maps_key"/>
 
         <activity
             android:name=".activity.debug.DebugMainActivity"
@@ -84,22 +84,17 @@
             android:windowSoftInputMode="stateHidden">
         </activity>
 
-        <activity android:name=".activity.TagSelectActivity"
-                  android:label="@string/tags_title"
-                  android:screenOrientation="portrait"
-                  android:windowSoftInputMode="stateHidden">
-        </activity>
-
-        <activity android:name=".activity.ItineraryRecommendActivity"
-                  android:label="@string/tags_title"
-                  android:screenOrientation="portrait"
-                  android:windowSoftInputMode="stateHidden">
-        </activity>
-
         <activity android:name=".activity.PlannedTripsActivity"
             android:label="@string/planTrip"
             android:screenOrientation="portrait"
             android:theme="@style/NaviiTheme.NoActionBar">
+        </activity>
+
+        <activity
+            android:name=".activity.ItineraryRecommendActivity"
+            android:label="@string/itinerary_recommend_title"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden">
         </activity>
     </application>
 

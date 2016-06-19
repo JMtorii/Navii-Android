@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -92,6 +93,15 @@ public class MainActivity extends NaviiActivity2 {
                 mNextButton.setVisibility(View.VISIBLE);
             parallaxViewPager.setCurrentItem(index + 1, true);
         }
+
+        ParallaxPagerAdapter adapter = (ParallaxPagerAdapter) parallaxViewPager.getAdapter();
+        Fragment f = adapter.getItem(index);
+        if(adapter.getItem(index).getClass().equals(ChooseTagsFragment.class)) {
+
+            Log.d("TAG", "Hurray");
+            ChooseTagsFragment cf = (ChooseTagsFragment) f;
+            cf.nextPress();
+        }
     }
 
     private void setupParallaxViews() {
@@ -102,6 +112,7 @@ public class MainActivity extends NaviiActivity2 {
         fragments.add(Fragment.instantiate(this, BudgetFragment.class.getName()));
         //TODO switch back to proper fragment
         fragments.add(Fragment.instantiate(this, TestFragment.class.getName()));
+        fragments.add(ChooseTagsFragment.instantiate(this, ChooseTagsFragment.class.getName()));
 
         ParallaxPagerAdapter parallaxPagerAdapter = new ParallaxPagerAdapter(super.getSupportFragmentManager(), fragments);
         parallaxViewPager.setOffscreenPageLimit(5);

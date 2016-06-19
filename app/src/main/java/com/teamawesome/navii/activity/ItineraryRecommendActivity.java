@@ -2,8 +2,11 @@ package com.teamawesome.navii.activity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
+import com.teamawesome.navii.NaviiApplication;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.adapter.ItineraryRecommendListAdapter;
 import com.teamawesome.navii.server.model.Itinerary;
@@ -12,10 +15,10 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.Response;
-import retrofit.Retrofit;
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by sjung on 11/06/16.
@@ -23,36 +26,50 @@ import retrofit.Retrofit;
 public class ItineraryRecommendActivity extends NaviiActivity {
 
     @BindView(R.id.itineraryList)
-    RecyclerView listView;
+    RecyclerView itineraryRecyclerView;
 
+    ItineraryRecommendListAdapter recommendListAdapter;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_itinerary_recommend);
+
         ButterKnife.bind(this);
 
-        List<String> tags = getIntent().getStringArrayListExtra("tags");
+        List<String> tags = getIntent().getStringArrayListExtra("TAGS");
 
-        Call<List<Itinerary>> itineraryListCall =
-                itineraryAPI.getItineraries(tags);
+        Log.d("TAGS", tags.toString());
 
-        setContentView(R.layout.fragment_itinerary_recommend);
+        NaviiApplication application = (NaviiApplication) getApplication();
+
+        Observable<List<Itinerary>> itineraryListCall = application.getItineraryAPI()
+                .getItineraries(tags);
 
         final Context context = this;
-        itineraryListCall.enqueue(new Callback<List<Itinerary>>() {
-            @Override
-            public void onResponse(Response<List<Itinerary>> response, Retrofit retrofit) {
-                if (response.code() == 200) {
-                    ItineraryRecommendListAdapter adapter =
-                            new ItineraryRecommendListAdapter(context, response.body());
+        itineraryListCall.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<List<Itinerary>>() {
+                    @Override
+                    public void onCompleted() {
+                        //nothing to do here
+                    }
 
-                    listView.setAdapter(adapter);
-                }
-            }
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e("ItineraryActivity", "onError", e);
+                    }
 
-            @Override
-            public void onFailure(Throwable t) {
+                    @Override
+                    public void onNext(List<Itinerary> itineraries) {
+                        Log.d("tags", "I made it, I made it");
+                        recommendListAdapter = new ItineraryRecommendListAdapter(context, itineraries);
+                        itineraryRecyclerView.setAdapter(recommendListAdapter);
 
-            }
-        });
+                        RecyclerView.LayoutManager gridLayoutManager =
+                                new GridLayoutManager(context, 1, GridLayoutManager.VERTICAL,
+                                        false);
+                        itineraryRecyclerView.setLayoutManager(gridLayoutManager);
+                    }
+                });
     }
 }

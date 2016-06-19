@@ -1,5 +1,6 @@
 package com.teamawesome.navii.fragment.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -8,19 +9,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.teamawesome.navii.NaviiApplication;
 import com.teamawesome.navii.R;
+import com.teamawesome.navii.activity.ItineraryRecommendActivity;
 import com.teamawesome.navii.adapter.TagGridAdapter;
-import com.teamawesome.navii.server.model.Itinerary;
-import com.teamawesome.navii.util.Constants;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.Response;
-import retrofit.Retrofit;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -41,7 +39,8 @@ public class ChooseTagsFragment extends NaviiFragment {
         View view = inflater.inflate(R.layout.fragment_planning_tags, container, false);
         ButterKnife.bind(this, view);
 
-        Observable<List<String>> observable = parentActivity.tagsAPI.getTags();
+        NaviiApplication application = (NaviiApplication) getActivity().getApplication();
+        Observable<List<String>> observable = application.getTagsAPI().getTags();
         observable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<List<String>>() {
@@ -60,7 +59,7 @@ public class ChooseTagsFragment extends NaviiFragment {
                         mTagGridAdapter = new TagGridAdapter(tags);
                         mTagsGridView.setAdapter(mTagGridAdapter);
                         RecyclerView.LayoutManager gridLayoutManager =
-                                new GridLayoutManager(getContext(), 2);
+                                new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
                         mTagsGridView.setLayoutManager(gridLayoutManager);
                     }
                 });
@@ -70,33 +69,12 @@ public class ChooseTagsFragment extends NaviiFragment {
 
     public void nextPress() {
 
-        Call<List<Itinerary>> itineraryListCall =
-                parentActivity.itineraryAPI.getItineraries(mTagGridAdapter.getSelectedTags());
+        Bundle tagsBundle = new Bundle();
 
-        itineraryListCall.enqueue(new Callback<List<Itinerary>>() {
-            @Override
-            public void onResponse(Response<List<Itinerary>> response, Retrofit retrofit) {
-                if (response.code() == 200) {
-                    List<Itinerary> itineraryList = response.body();
-                    ItineraryRecommendFragment itineraryRecommendFragment =
-                            ItineraryRecommendFragment.newInstance(itineraryList);
-                    parentActivity.switchFragment(
-                            itineraryRecommendFragment,
-                            Constants.NO_ANIM,
-                            Constants.NO_ANIM,
-                            Constants.ITINERARY_RECOMMEND_FRAGMENT,
-                            true,
-                            true,
-                            true
-                    );
-                }
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                Log.e("failed", t.toString());
-            }
-        });
+        Intent itineraryRecommendIntent = new Intent(getContext(), ItineraryRecommendActivity.class);
+        itineraryRecommendIntent.
+                putStringArrayListExtra("TAGS", new ArrayList<>(mTagGridAdapter.getActiveTags()));
+        startActivity(itineraryRecommendIntent);
     }
 
 }
