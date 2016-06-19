@@ -13,8 +13,6 @@ import com.teamawesome.navii.util.NaviiFragmentManager;
  */
 public class UploadImageTestActivity extends NaviiActivity {
 
-    private static final int PHOTO_SELECTED = 1;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,9 +31,5 @@ public class UploadImageTestActivity extends NaviiActivity {
                 false,
                 false
         );
-
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("image/*");
-        startActivityForResult(intent, PHOTO_SELECTED);
     }
 }

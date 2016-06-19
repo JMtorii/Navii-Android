@@ -66,6 +66,10 @@ dependencies {
     compile 'com.beardedhen:androidbootstrap:2.0.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.anton46:collection-picker:1.0.2'
+    compile 'com.amazonaws:aws-android-sdk-core:2.+'
+    compile 'com.amazonaws:aws-android-sdk-cognito:2.+'
+    compile 'com.amazonaws:aws-android-sdk-s3:2.+'
+    compile 'com.amazonaws:aws-android-sdk-ddb:2.+'
     compile 'com.jakewharton:butterknife:8.0.1'
 
     apt 'com.jakewharton:butterknife-compiler:8.0.1'
