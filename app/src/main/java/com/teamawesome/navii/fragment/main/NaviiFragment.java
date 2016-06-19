@@ -13,6 +13,7 @@ import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.IntroActivity;
 import com.teamawesome.navii.activity.MainActivity;
 import com.teamawesome.navii.activity.NaviiActivity;
+import com.teamawesome.navii.fragment.NaviiFragmentInterface;
 import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.WifiCheck;
 

@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -18,6 +17,7 @@ import com.teamawesome.navii.fragment.TravelParticipantsFragment;
 import com.teamawesome.navii.fragment.debug.TestFragment;
 import com.teamawesome.navii.fragment.main.BudgetFragment;
 import com.teamawesome.navii.fragment.main.ChooseTagsFragment;
+import com.teamawesome.navii.fragment.main.NaviiParallaxFragment;
 import com.teamawesome.navii.util.NavigationConfiguration;
 import com.teamawesome.navii.views.ParallaxHorizontalScrollView;
 import com.teamawesome.navii.views.ParallaxViewPager;
@@ -95,13 +95,9 @@ public class MainActivity extends NaviiNavigationalActivity {
         }
 
         ParallaxPagerAdapter adapter = (ParallaxPagerAdapter) parallaxViewPager.getAdapter();
-        Fragment f = adapter.getItem(index);
-        if(adapter.getItem(index).getClass().equals(ChooseTagsFragment.class)) {
+        NaviiParallaxFragment f = (NaviiParallaxFragment) adapter.getItem(index);
 
-            Log.d("TAG", "Hurray");
-            ChooseTagsFragment cf = (ChooseTagsFragment) f;
-            cf.nextPress();
-        }
+        f.nextFunction();
     }
 
     private void setupParallaxViews() {
@@ -112,7 +108,7 @@ public class MainActivity extends NaviiNavigationalActivity {
         fragments.add(Fragment.instantiate(this, BudgetFragment.class.getName()));
         //TODO switch back to proper fragment
         fragments.add(Fragment.instantiate(this, TestFragment.class.getName()));
-        fragments.add(ChooseTagsFragment.instantiate(this, ChooseTagsFragment.class.getName()));
+        fragments.add(Fragment.instantiate(this, ChooseTagsFragment.class.getName()));
 
         ParallaxPagerAdapter parallaxPagerAdapter = new ParallaxPagerAdapter(super.getSupportFragmentManager(), fragments);
         parallaxViewPager.setOffscreenPageLimit(fragments.size());

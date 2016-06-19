@@ -10,7 +10,7 @@ import android.widget.RelativeLayout;
 
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.MainActivity;
-import com.teamawesome.navii.fragment.main.NaviiFragment;
+import com.teamawesome.navii.fragment.main.BudgetFragment;
 import com.teamawesome.navii.util.NaviiBudgetButton;
 import com.teamawesome.navii.views.MainLatoEditText;
 
@@ -25,9 +25,9 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
 
     private int screenWidth;
     private int screenHeight;
-    private static NaviiFragment budgetFragment;
+    private static BudgetFragment budgetFragment;
 
-    public BudgetAdapter(NaviiFragment f, int heightPixels, int widthPixels) {
+    public BudgetAdapter(BudgetFragment f, int heightPixels, int widthPixels) {
         super();
         budgetFragment = f;
         this.screenWidth = widthPixels;

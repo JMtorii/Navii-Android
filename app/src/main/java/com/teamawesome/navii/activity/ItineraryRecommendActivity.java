@@ -40,10 +40,8 @@ public class ItineraryRecommendActivity extends NaviiActivity {
 
         Log.d("TAGS", tags.toString());
 
-        NaviiApplication application = (NaviiApplication) getApplication();
 
-        Observable<List<Itinerary>> itineraryListCall = application.getItineraryAPI()
-                .getItineraries(tags);
+        Observable<List<Itinerary>> itineraryListCall = NaviiApplication.getInstance().getItineraryAPI().getItineraries(tags);
 
         final Context context = this;
         itineraryListCall.subscribeOn(Schedulers.newThread())

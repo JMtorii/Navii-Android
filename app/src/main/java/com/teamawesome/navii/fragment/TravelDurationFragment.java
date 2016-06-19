@@ -1,16 +1,14 @@
 package com.teamawesome.navii.fragment;
 
 import android.app.DatePickerDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 
 import com.teamawesome.navii.R;
+import com.teamawesome.navii.fragment.main.NaviiParallaxFragment;
 import com.teamawesome.navii.views.MainLatoTextView;
 
 import java.text.SimpleDateFormat;
@@ -23,7 +21,7 @@ import butterknife.ButterKnife;
 /**
  * Created by jtorii on 16-05-17.
  */
-public class TravelDurationFragment extends Fragment {
+public class TravelDurationFragment extends NaviiParallaxFragment {
 
     @BindView(R.id.duration_from_text_view)
     MainLatoTextView mFromTextView;

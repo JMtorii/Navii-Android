@@ -27,7 +27,7 @@ import rx.schedulers.Schedulers;
 /**
  * Created by sjung on 18/11/15.
  */
-public class ChooseTagsFragment extends NaviiFragment {
+public class ChooseTagsFragment extends NaviiParallaxFragment {
 
     @BindView(R.id.tags_picker)
     RecyclerView mTagsGridView;
@@ -39,8 +39,7 @@ public class ChooseTagsFragment extends NaviiFragment {
         View view = inflater.inflate(R.layout.fragment_planning_tags, container, false);
         ButterKnife.bind(this, view);
 
-        NaviiApplication application = (NaviiApplication) getActivity().getApplication();
-        Observable<List<String>> observable = application.getTagsAPI().getTags();
+        Observable<List<String>> observable = NaviiApplication.getInstance().getTagsAPI().getTags();
         observable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<List<String>>() {
@@ -67,10 +66,8 @@ public class ChooseTagsFragment extends NaviiFragment {
         return view;
     }
 
-    public void nextPress() {
-
-        Bundle tagsBundle = new Bundle();
-
+    @Override
+    public void nextFunction() {
         Intent itineraryRecommendIntent = new Intent(getContext(), ItineraryRecommendActivity.class);
         itineraryRecommendIntent.
                 putStringArrayListExtra("TAGS", new ArrayList<>(mTagGridAdapter.getActiveTags()));

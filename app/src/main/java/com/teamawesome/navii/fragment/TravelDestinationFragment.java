@@ -1,13 +1,13 @@
 package com.teamawesome.navii.fragment;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.teamawesome.navii.R;
+import com.teamawesome.navii.fragment.main.NaviiParallaxFragment;
 import com.teamawesome.navii.views.MainLatoEditText;
 import com.teamawesome.navii.views.MainLatoTextView;
 
@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
 /**
  * Created by jtorii on 16-05-13.
  */
-public class TravelDestinationFragment extends Fragment {
+public class TravelDestinationFragment extends NaviiParallaxFragment {
 
     @BindView(R.id.travel_destination_header_text)
     MainLatoTextView mHeaderTextView;
