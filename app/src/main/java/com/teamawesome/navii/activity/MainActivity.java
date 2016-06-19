@@ -14,6 +14,7 @@ import com.teamawesome.navii.adapter.ParallaxPagerAdapter;
 import com.teamawesome.navii.fragment.TravelDestinationFragment;
 import com.teamawesome.navii.fragment.TravelDurationFragment;
 import com.teamawesome.navii.fragment.TravelParticipantsFragment;
+import com.teamawesome.navii.fragment.debug.TestFragment;
 import com.teamawesome.navii.fragment.main.BudgetFragment;
 import com.teamawesome.navii.fragment.main.ChooseTagsFragment;
 import com.teamawesome.navii.util.NavigationConfiguration;
@@ -62,12 +63,18 @@ public class MainActivity extends NaviiActivity2 {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        //super.onBackPressed();
         if (mDrawer != null && mDrawer.isDrawerOpen(GravityCompat.START)) {
             mDrawer.closeDrawer(GravityCompat.START);
         } else {
             int index = parallaxViewPager.getCurrentItem();
+            int maxIndex = parallaxViewPager.getChildCount();
             if (index != 0) {
+                int lastFragmentId = parallaxViewPager.getChildAt(maxIndex - 1).getId();
+                if (parallaxViewPager.getChildAt(index).getId() != lastFragmentId)
+                    mNextButton.setVisibility(View.VISIBLE);
+                else
+                    mNextButton.setVisibility(View.INVISIBLE);
                 parallaxViewPager.setCurrentItem(--index, true);
             }
         }
@@ -79,6 +86,10 @@ public class MainActivity extends NaviiActivity2 {
         int maxIndex = parallaxViewPager.getChildCount();
 
         if (index < maxIndex) {
+            if (parallaxViewPager.getChildAt(index).getId() == R.id.budget_fragment)
+                mNextButton.setVisibility(View.INVISIBLE);
+            else
+                mNextButton.setVisibility(View.VISIBLE);
             parallaxViewPager.setCurrentItem(index + 1, true);
         }
     }
@@ -89,9 +100,11 @@ public class MainActivity extends NaviiActivity2 {
         fragments.add(Fragment.instantiate(this, TravelDurationFragment.class.getName()));
         fragments.add(Fragment.instantiate(this, TravelParticipantsFragment.class.getName()));
         fragments.add(Fragment.instantiate(this, BudgetFragment.class.getName()));
-        fragments.add(Fragment.instantiate(this, ChooseTagsFragment.class.getName()));
+        //TODO switch back to proper fragment
+        fragments.add(Fragment.instantiate(this, TestFragment.class.getName()));
 
         ParallaxPagerAdapter parallaxPagerAdapter = new ParallaxPagerAdapter(super.getSupportFragmentManager(), fragments);
+        parallaxViewPager.setOffscreenPageLimit(5);
         parallaxViewPager.setAdapter(parallaxPagerAdapter);
         parallaxViewPager.configure(parallaxHorizontalScrollView);
         parallaxViewPager.setCurrentItem(0);

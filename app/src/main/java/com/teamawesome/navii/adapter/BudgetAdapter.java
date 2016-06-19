@@ -3,18 +3,16 @@ package com.teamawesome.navii.adapter;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import com.teamawesome.navii.R;
+import com.teamawesome.navii.activity.MainActivity;
 import com.teamawesome.navii.fragment.main.NaviiFragment;
 import com.teamawesome.navii.util.NaviiBudgetButton;
 import com.teamawesome.navii.views.MainLatoEditText;
-import com.teamawesome.navii.views.ParallaxViewPager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,15 +23,15 @@ import butterknife.OnClick;
  */
 public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder> {
 
-    int screenWidth;
-    int screenHeight;
-    static NaviiFragment nf;
+    private int screenWidth;
+    private int screenHeight;
+    private static NaviiFragment budgetFragment;
 
-    public BudgetAdapter(NaviiFragment f, DisplayMetrics metrics) {
+    public BudgetAdapter(NaviiFragment f, int heightPixels, int widthPixels) {
         super();
-        nf = f;
-        this.screenWidth = metrics.widthPixels;
-        this.screenHeight = metrics.heightPixels;
+        budgetFragment = f;
+        this.screenWidth = widthPixels;
+        this.screenHeight = heightPixels;
     }
 
     @Override
@@ -46,10 +44,11 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(final BudgetAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         switch (position){
             case 9:
-                Drawable img = nf.getResources().getDrawable(R.drawable.ic_backspace_black_48dp, null);
+                Drawable img = budgetFragment.getResources()
+                        .getDrawable(R.drawable.ic_backspace_black_48dp, null);
                 holder.budgetButton.setCompoundDrawablesWithIntrinsicBounds(null, img, null, null);
                 holder.budgetButton.setDigit(9);
                 break;
@@ -58,7 +57,8 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
                 holder.budgetButton.setDigit(0);
                 break;
             case 11:
-                Drawable img2 = nf.getResources().getDrawable(R.drawable.ic_check_circle_black_48dp, null);
+                Drawable img2 = budgetFragment.getResources()
+                        .getDrawable(R.drawable.ic_check_circle_black_48dp, null);
                 holder.budgetButton.setCompoundDrawablesWithIntrinsicBounds(null, img2, null, null);
                 holder.budgetButton.setDigit(11);
                 break;
@@ -108,7 +108,7 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
             }
         }
 
-        private void backspace(View v){
+        public void backspace(View v){
             View parent = v.getRootView();
             MainLatoEditText latoEditText =
                     (MainLatoEditText) parent.findViewById(R.id.budget_text);
@@ -119,14 +119,11 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
             }
         }
 
-        private void next(View v){
+        public void next(View v){
             View parent = v.getRootView();
-            Button mNextButton = (Button) parent.findViewById(R.id.main_next_button);
-            ParallaxViewPager p = (ParallaxViewPager) nf.getActivity().findViewById(R.id.main_view_pager);
-            p.setCurrentItem(p.getCurrentItem() + 1, true);
-            mNextButton.setVisibility(View.VISIBLE);
+            MainActivity m = (MainActivity) budgetFragment.getActivity();
+            m.nextPress(parent);
         }
-
 
     }
 }

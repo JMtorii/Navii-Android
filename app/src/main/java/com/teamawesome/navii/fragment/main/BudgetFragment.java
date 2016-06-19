@@ -12,7 +12,6 @@ import android.widget.RelativeLayout;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.adapter.BudgetAdapter;
 import com.teamawesome.navii.views.MainLatoEditText;
-import com.teamawesome.navii.views.MainLatoTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,7 +50,7 @@ public class BudgetFragment extends NaviiFragment {
         mainLatoEditText.setKeyListener(null);
 
         r.setLayoutParams(padHeight);
-        RecyclerView.Adapter b = new BudgetAdapter(this, metrics);
+        RecyclerView.Adapter b = new BudgetAdapter(this, metrics.heightPixels, metrics.widthPixels);
         GridLayoutManager g = new GridLayoutManager(r.getContext(), 3);
         r.setAdapter(b);
         r.setLayoutManager(g);

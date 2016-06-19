@@ -3,7 +3,8 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:focusableInTouchMode="true"
-              android:orientation="vertical">
+              android:orientation="vertical"
+    android:id="@+id/travel_duration">
 
     <com.teamawesome.navii.views.MainLatoTextView
         android:id="@+id/duration_from_text_view"
