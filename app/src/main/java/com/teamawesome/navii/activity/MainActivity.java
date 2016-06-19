@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -78,8 +77,6 @@ public class MainActivity extends NaviiActivity2 {
     public void nextPress(View view) {
         int index = parallaxViewPager.getCurrentItem();
         int maxIndex = parallaxViewPager.getChildCount();
-        Log.i(this.getClass().getName(), Integer.toString(maxIndex));
-        Log.i(this.getClass().getName(), Integer.toString(index));
 
         if (index < maxIndex) {
             parallaxViewPager.setCurrentItem(index + 1, true);

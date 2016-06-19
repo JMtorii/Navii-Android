@@ -5,7 +5,6 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.view.View;
 
 import com.teamawesome.navii.R;
@@ -16,10 +15,8 @@ import com.teamawesome.navii.R;
  * Credits to mallethugo
  */
 public class ParallaxViewPager extends ViewPager {
-
     private ParallaxHorizontalScrollView mParallaxHorizontalScrollView;
     private float mParallaxVelocity;
-    private int mParallaxHorizontalScrollViewWidth;
 
     public ParallaxViewPager(Context context) {
         super(context);
@@ -30,17 +27,18 @@ public class ParallaxViewPager extends ViewPager {
         init(context, attrs);
     }
 
-    @Override
-    public boolean onInterceptTouchEvent(MotionEvent event) {
-        // Never allow swiping to switch between pages
-        return false;
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        // Never allow swiping to switch between pages
-        return false;
-    }
+    // Uncomment this if you want to intercept the touch events
+//    @Override
+//    public boolean onInterceptTouchEvent(MotionEvent event) {
+//        // Never allow swiping to switch between pages
+//        return false;
+//    }
+//
+//    @Override
+//    public boolean onTouchEvent(MotionEvent event) {
+//        // Never allow swiping to switch between pages
+//        return false;
+//    }
 
     private void init(Context context, AttributeSet attrs) {
         TypedArray attributesArray = context.getTheme().obtainStyledAttributes(
@@ -60,8 +58,6 @@ public class ParallaxViewPager extends ViewPager {
 
     public void configure(ParallaxHorizontalScrollView parallaxHorizontalScrollView) {
         this.mParallaxHorizontalScrollView = parallaxHorizontalScrollView;
-        this.mParallaxHorizontalScrollViewWidth = this.mParallaxHorizontalScrollView.getWidth();
-
         overrideScrollListener();
     }
 
