@@ -115,7 +115,7 @@ public class MainActivity extends NaviiNavigationalActivity {
         fragments.add(ChooseTagsFragment.instantiate(this, ChooseTagsFragment.class.getName()));
 
         ParallaxPagerAdapter parallaxPagerAdapter = new ParallaxPagerAdapter(super.getSupportFragmentManager(), fragments);
-        parallaxViewPager.setOffscreenPageLimit(5);
+        parallaxViewPager.setOffscreenPageLimit(fragments.size());
         parallaxViewPager.setAdapter(parallaxPagerAdapter);
         parallaxViewPager.configure(parallaxHorizontalScrollView);
         parallaxViewPager.setCurrentItem(0);

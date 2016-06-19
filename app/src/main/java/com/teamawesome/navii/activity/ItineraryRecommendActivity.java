@@ -65,9 +65,7 @@ public class ItineraryRecommendActivity extends NaviiActivity {
                         recommendListAdapter = new ItineraryRecommendListAdapter(context, itineraries);
                         itineraryRecyclerView.setAdapter(recommendListAdapter);
 
-                        RecyclerView.LayoutManager gridLayoutManager =
-                                new GridLayoutManager(context, 1, GridLayoutManager.VERTICAL,
-                                        false);
+                        RecyclerView.LayoutManager gridLayoutManager = new GridLayoutManager(context, 1, GridLayoutManager.VERTICAL, false);
                         itineraryRecyclerView.setLayoutManager(gridLayoutManager);
                     }
                 });
