@@ -12,6 +12,9 @@ public class Constants {
     //public static final String SERVER_URL = "http://10.0.3.2:8080";
     public static final String SERVER_URL_JUN = "http://142.151.249.132:8080";
     public static final String SERVER_URL_STEVE = "http://192.168.2.114:8080";
+    public static final String SERVER_URL_PROD = "https://www.naviappweb.com:443";
+
+    public static final String PICTURE_BUCKET = "elasticbeanstalk-us-east-1-107709745779/images";
 
     public static final int TRENDING_DESTINATION_DURATION_MS = 5000;
 
@@ -47,4 +50,7 @@ public class Constants {
 
     public static final int PREFERENCE_MIN_LIMIT = 1;
     public static final int PREFERENCE_MAX_LIMIT = 3;
+
+    // Permissions
+    public static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 51808;
 }

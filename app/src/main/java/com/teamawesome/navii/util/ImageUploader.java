@@ -20,6 +20,34 @@ import com.amazonaws.services.s3.model.ResponseHeaderOverrides;
 import java.io.File;
 import java.util.Date;
 
+// AMAZON COGNITO CREDENTIALS.  IMPORTANT.
+
+// GET AWS CREDENTIALS
+// Initialize the Amazon Cognito credentials provider
+//CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
+//        getApplicationContext(),
+//        "us-east-1:31ad60dc-feaf-4683-804a-04b88f007d7a", // Identity Pool ID
+//        Regions.US_EAST_1 // Region
+//        );
+// Initialize the Cognito Sync client
+
+// STORE USER DATA
+//CognitoSyncManager syncClient = new CognitoSyncManager(
+//        getApplicationContext(),
+//        Regions.US_EAST_1, // Region
+//        credentialsProvider);
+//
+//// Create a record in a dataset and synchronize with the server
+//        Dataset dataset = syncClient.openOrCreateDataset("myDataset");
+//        dataset.put("myKey", "myValue");
+//        dataset.synchronize(new DefaultSyncCallback() {
+//@Override
+//public void onSuccess(Dataset dataset, List newRecords) {
+//        //Your handler code here
+//        }
+//        });
+
+
 /**
  * Created by ecrothers on 16-03-03.
  */
@@ -61,9 +89,10 @@ public class ImageUploader {
     private class UploadToS3 extends AsyncTask<File, Integer, Long> {
         protected Long doInBackground(File... files) {
             // Create an S3 client
-//            String accessKey, secretKey;
-            BasicAWSCredentials bac = new BasicAWSCredentials("AKIAI67CPRBHXAGTO33A",
-                    "wxETPVLbptOst5dn4C9MBHnrJuc5vb+scnOE7fBd");
+            // String accessKey, secretKey;
+
+            // TODO: This is bad.  Do this right.
+            BasicAWSCredentials bac = new BasicAWSCredentials("", "");
             AmazonS3 s3 = new AmazonS3Client(bac);
 
             // Set the region of your S3 bucket
@@ -86,7 +115,7 @@ public class ImageUploader {
 
             // TODO: Do not need presigned URL request, use generic URL
             GeneratePresignedUrlRequest urlRequest = new GeneratePresignedUrlRequest(
-                    "TODO: NAME", /*Constants.PICTURE_BUCKET,*/ mRemoteName);
+                    Constants.PICTURE_BUCKET, mRemoteName);
             urlRequest.setExpiration(new Date(System.currentTimeMillis() + 3600000 * 24 * 365));  // Added an hour's worth of milliseconds to the current time.
             urlRequest.setResponseHeaders(override);
             mUploadedImageUrl = s3.generatePresignedUrl( urlRequest ).toString();
