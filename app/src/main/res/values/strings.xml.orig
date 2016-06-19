@@ -9,8 +9,11 @@
         <item>Set ip address to Jun</item>
         <item>Package Overview Activity</item>
         <item>Heart and Soul Details Activity</item>
-        <item>Upload Image Test</item>
+<<<<<<< Updated upstream
         <item>Preferences</item>
+=======
+        <item>Upload Image Test</item>
+>>>>>>> Stashed changes
     </string-array>
 
     <string-array name="intro_pager_titles">

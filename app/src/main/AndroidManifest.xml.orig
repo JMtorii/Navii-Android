@@ -103,13 +103,17 @@
             android:theme="@style/NaviiTheme.NoActionBar">
         </activity>
 
+<<<<<<< Updated upstream
         <activity android:name=".activity.PreferencesActivity"
                   android:label="@string/preferences_title"
                   android:screenOrientation="portrait"
                   android:theme="@style/NaviiTheme.NoActionBar">
         </activity>
 
+        <activity android:name=".activity.ImageUploadTestActivity"
+=======
         <activity android:name=".activity.UploadImageTestActivity"
+>>>>>>> Stashed changes
             android:label="Test Image Upload"
             android:screenOrientation="portrait"
             android:theme="@style/NaviiTheme.NoActionBar">

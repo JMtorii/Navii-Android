@@ -11,7 +11,7 @@ import android.widget.ListView;
 
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.HeartAndSoulDetailsActivity;
-import com.teamawesome.navii.activity.ImageUploadTestActivity;
+import com.teamawesome.navii.activity.UploadImageTestActivity;
 import com.teamawesome.navii.activity.MainActivity;
 import com.teamawesome.navii.activity.PackageOverviewActivity;
 import com.teamawesome.navii.activity.PreferencesActivity;
@@ -108,7 +108,7 @@ public class DebugMainActivity extends ListActivity {
             Intent heartAndSoulDetailsActivity = new Intent(this, HeartAndSoulDetailsActivity.class);
             startActivity(heartAndSoulDetailsActivity);
         } else if (id == 5) {       // Upload profile image test
-            Intent imageUploadTestActivity = new Intent(this, ImageUploadTestActivity.class);
+            Intent imageUploadTestActivity = new Intent(this, UploadImageTestActivity.class);
             startActivity(imageUploadTestActivity);
         } else if (id == 6) {       // Heart and Soul Details Activity
             Intent preferenceActivity = new Intent(this, PreferencesActivity.class);
