@@ -84,7 +84,8 @@
             android:windowSoftInputMode="stateHidden">
         </activity>
 
-        <activity android:name=".activity.PlannedTripsActivity"
+        <activity
+            android:name=".activity.PlannedTripsActivity"
             android:label="@string/planTrip"
             android:screenOrientation="portrait"
             android:theme="@style/NaviiTheme.NoActionBar">
@@ -97,19 +98,28 @@
             android:windowSoftInputMode="stateHidden">
         </activity>
 
-        <activity android:name=".activity.HeartAndSoulDetailsActivity"
+        <activity
+            android:name=".activity.HeartAndSoulDetailsActivity"
             android:label="@string/planTrip"
             android:screenOrientation="portrait"
             android:theme="@style/NaviiTheme.NoActionBar">
         </activity>
 
-        <activity android:name=".activity.PreferencesActivity"
-                  android:label="@string/preferences_title"
-                  android:screenOrientation="portrait"
-                  android:theme="@style/NaviiTheme.NoActionBar">
+        <activity
+            android:name=".activity.PreferencesActivity"
+            android:label="@string/preferences_title"
+            android:screenOrientation="portrait"
+            android:theme="@style/NaviiTheme.NoActionBar">
         </activity>
 
-        <activity android:name=".activity.UploadImageTestActivity"
+        <activity
+            android:name=".activity.ItineraryScheduleActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NaviiTheme.NoActionBar">
+        </activity>
+
+        <activity
+            android:name=".activity.UploadImageTestActivity"
             android:label="Test Image Upload"
             android:screenOrientation="portrait"
             android:theme="@style/NaviiTheme.NoActionBar">

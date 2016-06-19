@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -42,12 +43,10 @@ public class ItineraryRecommendListAdapter extends
 
     @Override
     public void onBindViewHolder(ItineraryRecommendViewHolder holder, int position) {
-
-
         holder.mTextView.setText(itineraries.get(position).getDescription());
 
         Picasso.with(context)
-                .load(R.drawable.imagination)
+                .load(itineraries.get(position).getAttractions().get(0).getPhotoUri())
                 .centerCrop()
                 .fit()
                 .into(holder.mImageView);

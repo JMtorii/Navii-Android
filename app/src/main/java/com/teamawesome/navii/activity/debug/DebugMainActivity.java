@@ -11,6 +11,7 @@ import android.widget.ListView;
 
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.HeartAndSoulDetailsActivity;
+import com.teamawesome.navii.activity.ItineraryScheduleActivity;
 import com.teamawesome.navii.activity.UploadImageTestActivity;
 import com.teamawesome.navii.activity.MainActivity;
 import com.teamawesome.navii.activity.PackageOverviewActivity;
@@ -113,6 +114,9 @@ public class DebugMainActivity extends ListActivity {
         } else if (id == 6) {       // Heart and Soul Details Activity
             Intent preferenceActivity = new Intent(this, PreferencesActivity.class);
             startActivity(preferenceActivity);
+        } else if (id == 7) {
+            Intent itineraryScheduleActivity = new Intent(this, ItineraryScheduleActivity.class);
+            startActivity(itineraryScheduleActivity);
         }
     }
 }

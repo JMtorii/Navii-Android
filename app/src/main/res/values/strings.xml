@@ -11,6 +11,7 @@
         <item>Heart and Soul Details Activity</item>
         <item>Upload Image Test</item>
         <item>Preferences</item>
+        <item>Itinerary Schedule</item>
     </string-array>
 
     <string-array name="intro_pager_titles">
