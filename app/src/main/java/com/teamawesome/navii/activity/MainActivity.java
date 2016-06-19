@@ -29,7 +29,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends NaviiActivity2 {
+public class MainActivity extends NaviiNavigationalActivity {
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
 

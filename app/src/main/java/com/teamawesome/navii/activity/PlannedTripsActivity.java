@@ -7,7 +7,7 @@ import com.teamawesome.navii.util.NavigationConfiguration;
 /**
  * Created by JMtorii on 16-06-15.
  */
-public class PlannedTripsActivity extends NaviiActivity2 {
+public class PlannedTripsActivity extends NaviiNavigationalActivity {
     @Override
     protected NavigationConfiguration getNavConfig() {
         return NavigationConfiguration.PlannedTrips;

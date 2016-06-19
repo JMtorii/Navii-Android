@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.teamawesome.navii.R;
+import com.teamawesome.navii.activity.HeartAndSoulDetailsActivity;
 import com.teamawesome.navii.activity.MainActivity;
 import com.teamawesome.navii.activity.PackageOverviewActivity;
 import com.teamawesome.navii.server.api.UserAPI;
@@ -62,10 +63,10 @@ public class DebugMainActivity extends ListActivity {
         String item = (String) getListAdapter().getItem(position);
 
         // TODO: make this an enum
-        if (id == 0) {      // Actual application
+        if (id == 0) {              // Actual application
             Intent mainIntent = new Intent(this, MainActivity.class);
             startActivity(mainIntent);
-        } else if (id == 1) {
+        } else if (id == 1) {       // Create user
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(Constants.SERVER_URL)    // THIS ONLY WORKS IN JUN'S CASE
                     .addConverterFactory(JacksonConverterFactory.create())
@@ -96,11 +97,14 @@ public class DebugMainActivity extends ListActivity {
                     Log.i("failed", t.getMessage());
                 }
             });
-        } else if (id == 2) {
+        } else if (id == 2) {       // Set ip address
             NaviiPreferenceData.setIPAddress(Constants.SERVER_URL_JUN);
-        } else if (id == 3) {
+        } else if (id == 3) {       // Package Overview Activity
             Intent packageOverviewIntent = new Intent(this, PackageOverviewActivity.class);
             startActivity(packageOverviewIntent);
+        } else if (id == 4) {       // Heart and Soul Details Activity
+            Intent heartAndSoulDetailsActivity = new Intent(this, HeartAndSoulDetailsActivity.class);
+            startActivity(heartAndSoulDetailsActivity);
         }
     }
 }

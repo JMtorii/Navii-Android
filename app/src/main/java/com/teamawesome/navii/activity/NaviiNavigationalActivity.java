@@ -19,7 +19,7 @@ import butterknife.ButterKnife;
 /**
  * Created by JMtorii on 16-06-16.
  */
-public abstract class NaviiActivity2 extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public abstract class NaviiNavigationalActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
