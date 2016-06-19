@@ -1,20 +1,18 @@
 package com.teamawesome.navii.fragment.main;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
-import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.teamawesome.navii.R;
 
 
 public class UploadImageFragment extends NaviiFragment {
+    private static final int PHOTO_SELECTED = 1;
 
     private BootstrapButton mUploadImageButton;
 
@@ -33,6 +31,9 @@ public class UploadImageFragment extends NaviiFragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getContext(), "Boop.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                startActivityForResult(intent, PHOTO_SELECTED);
             }
         });
 
