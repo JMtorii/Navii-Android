@@ -1,4 +1,4 @@
-package com.teamawesome.navii.activity.debug;
+ package com.teamawesome.navii.activity.debug;
 
 import android.app.ListActivity;
 import android.content.Intent;
@@ -10,7 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.teamawesome.navii.R;
-import com.teamawesome.navii.activity.IntroActivity;
 import com.teamawesome.navii.activity.MainActivity;
 import com.teamawesome.navii.activity.PackageOverviewActivity;
 import com.teamawesome.navii.activity.TagSelectActivity;
@@ -65,12 +64,9 @@ public class DebugMainActivity extends ListActivity {
 
         // TODO: make this an enum
         if (id == 0) {      // Actual application
-            Intent homeIntent = new Intent(this, IntroActivity.class);
-            startActivity(homeIntent);
-        } else if (id == 1) {       // Skip to main activity
             Intent mainIntent = new Intent(this, MainActivity.class);
             startActivity(mainIntent);
-        } else if (id == 2) {
+        } else if (id == 1) {
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(Constants.SERVER_URL)    // THIS ONLY WORKS IN JUN'S CASE
                     .addConverterFactory(JacksonConverterFactory.create())
@@ -101,12 +97,12 @@ public class DebugMainActivity extends ListActivity {
                     Log.i("failed", t.getMessage());
                 }
             });
-        } else if (id == 3) {
+        } else if (id == 2) {
             NaviiPreferenceData.setIPAddress(Constants.SERVER_URL_JUN);
-        } else if (id == 4) {
+        } else if (id == 3) {
             Intent packageOverviewIntent = new Intent(this, PackageOverviewActivity.class);
             startActivity(packageOverviewIntent);
-        } else if (id == 5) {
+        } else if (id == 4) {
             Intent tagSelectIntent = new Intent(this, TagSelectActivity.class);
             startActivity(tagSelectIntent);
         }
