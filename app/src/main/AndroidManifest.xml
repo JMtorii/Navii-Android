@@ -107,6 +107,7 @@
                   android:label="@string/preferences_title"
                   android:screenOrientation="portrait"
                   android:theme="@style/NaviiTheme.NoActionBar">
+        </activity>
 
         <activity android:name=".activity.ImageUploadTestActivity"
             android:label="Test Image Upload"
