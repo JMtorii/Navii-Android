@@ -41,6 +41,11 @@
     <string name="drawer_notifications">Notifications</string>
     <string name="drawer_tags">Tags</string>
     <string name="drawer_profile">My Profile</string>
+    <string name="drawer_logout">Logout</string>
+
+    <!-- Toolbar Title Strings -->
+    <string name="toolbar_home"></string>
+    <string name="toolbar_planned_trips">Planned Trips</string>
 
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>

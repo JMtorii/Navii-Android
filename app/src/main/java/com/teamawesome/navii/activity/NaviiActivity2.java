@@ -89,7 +89,7 @@ public abstract class NaviiActivity2 extends AppCompatActivity implements Naviga
         mDrawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        setTitle("");
+        setTitle(getResources().getString(getNavConfig().getToolbarTitleResId()));
     }
 
     protected void setupNavigationView() {

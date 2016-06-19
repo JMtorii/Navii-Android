@@ -5,34 +5,34 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Home" />
+            android:title="@string/drawer_home" />
         <item
             android:id="@+id/nav_planned_trips"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Planned Trips" />
+            android:title="@string/drawer_planned_trips" />
         <item
             android:id="@+id/nav_saved_trips"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Saved Trips" />
+            android:title="@string/drawer_saved_trips" />
         <item
             android:id="@+id/nav_preferences"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Preferences" />
+            android:title="@string/drawer_preferences" />
 
         <item
             android:id="@+id/nav_notifications"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Notifications" />
+            android:title="@string/drawer_notifications" />
 
         <item
             android:id="@+id/nav_choose_tags"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Tags" />
+            android:title="@string/drawer_tags" />
 
         <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Logout" />
+            android:title="@string/drawer_logout" />
     </group>
 
     <item android:title="Communicate">
