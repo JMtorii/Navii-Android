@@ -20,7 +20,7 @@ import butterknife.ButterKnife;
 /**
  * Created by Ian on 5/30/2016.
  */
-public class BudgetFragment extends NaviiFragment {
+public class BudgetFragment extends NaviiParallaxFragment {
     @BindView(R.id.budget_text)
     MainLatoEditText mainLatoEditText;
 
