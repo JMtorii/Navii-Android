@@ -8,7 +8,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@+id/itinerary_schedule_content">
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
@@ -25,5 +26,7 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         app:backgroundTint="@color/primary"
-        android:src="@android:drawable/ic_input_add"/>
+        app:layout_anchor="@id/itinerary_schedule_content"
+        app:layout_anchorGravity="bottom|right|end"
+        android:src="@drawable/ic_add_white_24dp"/>
 </android.support.design.widget.CoordinatorLayout>
