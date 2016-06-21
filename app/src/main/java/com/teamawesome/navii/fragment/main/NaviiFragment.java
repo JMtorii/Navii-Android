@@ -1,21 +1,17 @@
 package com.teamawesome.navii.fragment.main;
 
 import android.app.Dialog;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.Toast;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.teamawesome.navii.R;
-import com.teamawesome.navii.activity.IntroActivity;
-import com.teamawesome.navii.activity.MainActivity;
 import com.teamawesome.navii.activity.NaviiActivity;
-import com.teamawesome.navii.fragment.NaviiFragmentInterface;
 import com.teamawesome.navii.util.Constants;
-import com.teamawesome.navii.util.WifiCheck;
 
 /**
  * Created by JMtorii on 15-12-25.

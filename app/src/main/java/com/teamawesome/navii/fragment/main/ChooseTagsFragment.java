@@ -45,7 +45,7 @@ public class ChooseTagsFragment extends NaviiParallaxFragment {
                 .subscribe(new Subscriber<List<String>>() {
                     @Override
                     public void onCompleted() {
-
+                        // nothing to do here
                     }
 
                     @Override
@@ -57,8 +57,7 @@ public class ChooseTagsFragment extends NaviiParallaxFragment {
                     public void onNext(List<String> tags) {
                         mTagGridAdapter = new TagGridAdapter(tags);
                         mTagsGridView.setAdapter(mTagGridAdapter);
-                        RecyclerView.LayoutManager gridLayoutManager =
-                                new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
+                        RecyclerView.LayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
                         mTagsGridView.setLayoutManager(gridLayoutManager);
                     }
                 });
@@ -69,9 +68,7 @@ public class ChooseTagsFragment extends NaviiParallaxFragment {
     @Override
     public void nextFunction() {
         Intent itineraryRecommendIntent = new Intent(getContext(), ItineraryRecommendActivity.class);
-        itineraryRecommendIntent.
-                putStringArrayListExtra("TAGS", new ArrayList<>(mTagGridAdapter.getActiveTags()));
+        itineraryRecommendIntent.putStringArrayListExtra("TAGS", new ArrayList<>(mTagGridAdapter.getActiveTags()));
         startActivity(itineraryRecommendIntent);
     }
-
 }
