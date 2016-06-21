@@ -88,15 +88,15 @@ public class TravelParticipantsFragment extends NaviiParallaxFragment {
 
     private void setChildTextViewText() {
         if (childCounter != 1)
-            mChildTextView.setText(Integer.toString(childCounter) + " Children");
+            mChildTextView.setText(String.format("%s Children", Integer.toString(childCounter)));
         else
-            mChildTextView.setText(Integer.toString(childCounter) + " Child");
+            mChildTextView.setText(String.format("%s Child", Integer.toString(childCounter)));
     }
 
     private void setAdultTextViewText() {
         if (adultCounter != 1)
-            mAdultTextView.setText(Integer.toString(adultCounter) + " Adults");
+            mAdultTextView.setText(String.format("%s Adults", Integer.toString(adultCounter)));
         else
-            mAdultTextView.setText(Integer.toString(adultCounter) + " Adult");
+            mAdultTextView.setText(String.format("%s Adult", Integer.toString(adultCounter)));
     }
 }
