@@ -17,9 +17,17 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="NaviiTheme.NoActionBar.TransparentStatus" parent="NaviiTheme.NoActionBar">
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
     <style name="NaviiTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="NaviiTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="WhiteToolbarText" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/grey_primary</item>
+    </style>
 
     <style name="MainButton" parent="Widget.AppCompat.Button.Colored">
         <item name="colorButtonNormal">@android:color/white</item>
@@ -40,6 +48,17 @@
         <item name="android:radius">5dp</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="FabStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">16dp</item>
+        <item name="android:src">@drawable/ic_add_black</item>
+        <item name="borderWidth">0dp</item>
+        <item name="elevation">6dp</item>
+        <item name="pressedTranslationZ">12dp</item>
+        <item name="rippleColor">@android:color/white</item>
     </style>
 
 </resources>

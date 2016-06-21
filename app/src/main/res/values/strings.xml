@@ -98,4 +98,7 @@
 
     <!-- Buttons -->
     <string name="next">"Next"</string>
+
+    <!-- Heart and Soul Details Strings -->
+    <string name="heart_and_soul_details_title">Heart and Soul Details</string>
 </resources>

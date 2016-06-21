@@ -7,5 +7,6 @@
     <item name="grey" type="color">#535356</item>
     <item name="black" type="color">#000000</item>
     <item name="babyBlue" type="color">#92CBDE</item>
-
+    <color name="transparent">#00000000</color>
+    <color name="grey_primary">#262626</color>
 </resources>

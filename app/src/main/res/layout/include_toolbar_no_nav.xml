@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:gravity="center"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/NaviiTheme.NoActionBar.TransparentStatus"
+        app:contentInsetEnd="10dp"
+        app:contentInsetStart="10dp"
+        app:titleTextAppearance="@style/WhiteToolbarText">
+
+        <com.teamawesome.navii.views.MainLatoTextView
+            android:id="@+id/tv_toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textAppearance="@style/WhiteToolbarText"
+            app:fontType="Bold"/>
+
+        <com.teamawesome.navii.views.MainLatoButton
+            android:id="@+id/btn_toolbar_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|left"
+            android:background="@color/transparent"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:padding="5dp"
+            android:textColor="@color/grey"
+            android:textSize="12sp"
+            android:visibility="gone"/>
+
+        <com.teamawesome.navii.views.MainLatoButton
+            android:id="@+id/btn_toolbar_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|right"
+            android:background="@color/transparent"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:padding="5dp"
+            android:textColor="@color/grey"
+            android:textSize="12sp"
+            android:visibility="gone"/>
+
+        <ImageButton
+            android:id="@+id/imgbtn_toolbar_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|left"
+            android:background="@color/transparent"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:padding="5dp"
+            android:visibility="gone"/>
+
+        <ImageButton
+            android:id="@+id/imgbtn_toolbar_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|right"
+            android:background="@color/transparent"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:padding="5dp"
+            android:visibility="gone"/>
+
+    </android.support.v7.widget.Toolbar>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginBottom="-2dp"
+        android:background="@drawable/drop_shadow"/>
+</LinearLayout>
