@@ -17,7 +17,6 @@ public class HeartAndSoulDetailsActivity extends NaviiToolbarActivity {
     @BindView(R.id.collapsing_toolbar_imageview)
     ImageView toolbarImageView;
 
-
     @Override
     public ToolbarConfiguration getToolbarConfiguration() {
         return ToolbarConfiguration.HeartAndSoulDetails;
