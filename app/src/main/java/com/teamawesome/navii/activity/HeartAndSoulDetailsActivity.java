@@ -6,10 +6,12 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.widget.ImageView;
 
 import com.teamawesome.navii.R;
+import com.teamawesome.navii.fragment.main.HeartAndSoulEditDialogFragment;
 import com.teamawesome.navii.util.ToolbarConfiguration;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by JMtorii on 16-06-11.
@@ -45,7 +47,12 @@ public class HeartAndSoulDetailsActivity extends NaviiToolbarActivity {
         toolbarImageView.setImageResource(R.drawable.toronto);
         collapsingToolbarLayout.setTitle("Test Title");
 
-
         getWindow().setStatusBarColor(Color.TRANSPARENT);
+    }
+
+    @OnClick(R.id.heart_and_soul_detail_fab)
+    public void fabClicked() {
+        HeartAndSoulEditDialogFragment dialog = new HeartAndSoulEditDialogFragment();
+        dialog.show(getSupportFragmentManager(), "HeartAndSoulEditDialogFragment");
     }
 }
