@@ -34,11 +34,9 @@ public class ItineraryScheduleActivity extends Activity {
     @BindView(R.id.itinerary_recycler_view)
     RecyclerView mItineraryRecyclerView;
 
-    DescriptionListAdapter mDescriptionListAdapter;
-
-    public ItemTouchHelper mItemTouchHelper;
-
-    public ItemTouchHelper.Callback mCallback;
+    private DescriptionListAdapter mDescriptionListAdapter;
+    private ItemTouchHelper mItemTouchHelper;
+    private ItemTouchHelper.Callback mCallback;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -165,8 +163,7 @@ public class ItineraryScheduleActivity extends Activity {
                 touchVH.overlay.setAlpha(1.0f);
 
                 if (!isCurrentlyActive) {
-                    super.onChildDrawOver(c, recyclerView, viewHolder, dX, dY, actionState,
-                            isCurrentlyActive);
+                    super.onChildDrawOver(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
                 }
             }
 
@@ -184,8 +181,7 @@ public class ItineraryScheduleActivity extends Activity {
             public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
                 Log.d("TAG", "clearView:");
                 super.clearView(recyclerView, viewHolder);
-                DescriptionListAdapter.PackageViewHolder touchVH =
-                        (DescriptionListAdapter.PackageViewHolder) viewHolder;
+                DescriptionListAdapter.PackageViewHolder touchVH = (DescriptionListAdapter.PackageViewHolder) viewHolder;
 
                 touchVH.overlay.setVisibility(View.INVISIBLE);
 

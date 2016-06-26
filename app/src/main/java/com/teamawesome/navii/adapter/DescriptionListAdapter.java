@@ -33,8 +33,7 @@ import butterknife.OnClick;
 /**
  * Created by sjung on 03/02/16.
  */
-public class DescriptionListAdapter extends RecyclerView.Adapter<DescriptionListAdapter
-        .PackageViewHolder> {
+public class DescriptionListAdapter extends RecyclerView.Adapter<DescriptionListAdapter.PackageViewHolder> {
 
     private List<Attraction> mAttractionList;
     private Context context;
@@ -79,10 +78,8 @@ public class DescriptionListAdapter extends RecyclerView.Adapter<DescriptionList
     }
 
     public void refreshStartTimes() {
-
-
         for (int i = 0; i < getItemCount(); i++) {
-
+            // TODO: implement me
         }
     }
 
@@ -96,7 +93,6 @@ public class DescriptionListAdapter extends RecyclerView.Adapter<DescriptionList
         Attraction prev = mAttractionList.remove(from);
         mAttractionList.add(to > from ? to - 1 : to, prev);
         notifyItemMoved(from, to);
-
     }
 
     @Override

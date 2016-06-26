@@ -16,6 +16,7 @@ import com.teamawesome.navii.R;
  */
 public class HeartAndSoulEditDialogFragment extends DialogFragment {
     @Override
+
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.DialogSlideAnimation);
         LayoutInflater inflater = getActivity().getLayoutInflater();

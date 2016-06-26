@@ -24,8 +24,7 @@ public class PackageOverviewRecyclerViewAdapter extends RecyclerView.Adapter<Pac
         this.mItems = items;
     }
 
-    public PackageOverviewRecyclerViewAdapter(List<Integer> items, Context context, List<String>
-            photoURIList) {
+    public PackageOverviewRecyclerViewAdapter(List<Integer> items, Context context, List<String> photoURIList) {
         this.mItems = items;
         this.mContext = context;
         this.mPhotoURIList = photoURIList;

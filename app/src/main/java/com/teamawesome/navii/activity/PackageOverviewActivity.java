@@ -40,8 +40,7 @@ public class PackageOverviewActivity extends NaviiActivity {
         recyclerView.setLayoutManager(mStaggeredGridLayoutManager);
 
         List<Integer> items = getListItemData();
-        PackageOverviewRecyclerViewAdapter adapter = new PackageOverviewRecyclerViewAdapter
-                (items, this, photoUriList);
+        PackageOverviewRecyclerViewAdapter adapter = new PackageOverviewRecyclerViewAdapter(items, this, photoUriList);
         recyclerView.setAdapter(adapter);
     }
 

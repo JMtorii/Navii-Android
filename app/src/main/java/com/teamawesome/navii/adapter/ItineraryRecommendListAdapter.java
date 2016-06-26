@@ -28,8 +28,7 @@ import butterknife.OnClick;
 /**
  * Created by sjung on 10/12/15.
  */
-public class ItineraryRecommendListAdapter extends
-        RecyclerView.Adapter<ItineraryRecommendListAdapter.ItineraryRecommendViewHolder> {
+public class ItineraryRecommendListAdapter extends RecyclerView.Adapter<ItineraryRecommendListAdapter.ItineraryRecommendViewHolder> {
 
     private List<Itinerary> itineraries;
     private Context context;
@@ -41,8 +40,7 @@ public class ItineraryRecommendListAdapter extends
 
     @Override
     public ItineraryRecommendViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context)
-                .inflate(R.layout.itinerary_listitem_layout, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.itinerary_listitem_layout, null);
 
         return new ItineraryRecommendViewHolder(view);
     }
@@ -65,8 +63,7 @@ public class ItineraryRecommendListAdapter extends
             public boolean onLongClick(View v) {
                 Log.d("TAG", "onLongClick");
                 Intent itineraryScheduleActivity = new Intent(context, ItineraryScheduleActivity.class);
-                itineraryScheduleActivity.putParcelableArrayListExtra(Constants.ATTRACTION_LIST,
-                        new ArrayList<>(attractionList));
+                itineraryScheduleActivity.putParcelableArrayListExtra(Constants.ATTRACTION_LIST, new ArrayList<>(attractionList));
                 context.startActivity(itineraryScheduleActivity);
                 return true;
             }
@@ -86,19 +83,16 @@ public class ItineraryRecommendListAdapter extends
         @BindView(R.id.package_image_view)
         ImageView mImageView;
 
-        List<Attraction> attractions;
-
-        List<String> photoUriList;
+        private List<Attraction> attractions;
+        private List<String> photoUriList;
 
         @OnClick(R.id.package_image_view)
         void onClick() {
             //TODO: Link with Jun's package descriptor
             Log.d("TAG", "onClick");
             Intent packageOverviewActivity = new Intent(context, PackageOverviewActivity.class);
-            packageOverviewActivity.putParcelableArrayListExtra(Constants.ATTRACTION_LIST, new
-                    ArrayList<>(attractions));
+            packageOverviewActivity.putParcelableArrayListExtra(Constants.ATTRACTION_LIST, new ArrayList<>(attractions));
             context.startActivity(packageOverviewActivity);
-
         }
 
         public ItineraryRecommendViewHolder(View itemView) {
@@ -106,6 +100,5 @@ public class ItineraryRecommendListAdapter extends
             ButterKnife.bind(this, itemView);
             photoUriList = new ArrayList<>();
         }
-
     }
 }
