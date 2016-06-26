@@ -114,8 +114,7 @@
 
         <activity
             android:name=".activity.ItineraryScheduleActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/NaviiTheme.NoActionBar">
+            android:screenOrientation="portrait">
         </activity>
 
         <activity

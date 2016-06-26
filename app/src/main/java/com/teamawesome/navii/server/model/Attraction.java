@@ -1,9 +1,12 @@
 package com.teamawesome.navii.server.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by JMtorii on 2015-10-21.
  */
-public class Attraction {
+public class Attraction implements Parcelable {
     private int attractionId;
     private String name;
     //    private String location;
@@ -26,6 +29,46 @@ public class Attraction {
         this.price = builder.price;
         this.duration = builder.duration;
     }
+
+    protected Attraction(Parcel in) {
+        attractionId = in.readInt();
+        name = in.readString();
+        photoUri = in.readString();
+        blurbUri = in.readString();
+        location = in.readParcelable(Location.class.getClassLoader());
+        price = in.readInt();
+        duration = in.readInt();
+        purchase = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(attractionId);
+        dest.writeString(name);
+        dest.writeString(photoUri);
+        dest.writeString(blurbUri);
+        dest.writeParcelable(location, PARCELABLE_WRITE_RETURN_VALUE);
+        dest.writeInt(price);
+        dest.writeInt(duration);
+        dest.writeString(purchase);
+    }
+
+    public static final Creator<Attraction> CREATOR = new Creator<Attraction>() {
+        @Override
+        public Attraction createFromParcel(Parcel in) {
+            return new Attraction(in);
+        }
+
+        @Override
+        public Attraction[] newArray(int size) {
+            return new Attraction[size];
+        }
+    };
 
     public int getAttractionId() {
         return attractionId;

@@ -3,6 +3,7 @@ package com.teamawesome.navii;
 import android.app.Application;
 import android.content.Context;
 
+import com.squareup.okhttp.OkHttpClient;
 import com.teamawesome.navii.server.api.ItineraryAPI;
 import com.teamawesome.navii.server.api.PreferenceAPI;
 import com.teamawesome.navii.server.api.TagsAPI;
@@ -10,6 +11,8 @@ import com.teamawesome.navii.server.api.UserAPI;
 import com.teamawesome.navii.server.api.UserPreferenceAPI;
 import com.teamawesome.navii.util.NaviiPreferenceData;
 import com.teamawesome.navii.util.RxBus;
+
+import java.util.concurrent.TimeUnit;
 
 import retrofit.JacksonConverterFactory;
 import retrofit.Retrofit;
@@ -38,9 +41,15 @@ public class NaviiApplication extends Application {
         super.onCreate();
         sInstance = this;
         context = getApplicationContext();
+
+        final OkHttpClient okHttpClient = new OkHttpClient();
+        okHttpClient.setReadTimeout(60, TimeUnit.SECONDS);
+        okHttpClient.setConnectTimeout(60, TimeUnit.SECONDS);
+
         retrofit = new Retrofit.Builder()
                 .baseUrl(NaviiPreferenceData.getIPAddress())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .client(okHttpClient)
                 .addConverterFactory(JacksonConverterFactory.create())
                 .build();
     }

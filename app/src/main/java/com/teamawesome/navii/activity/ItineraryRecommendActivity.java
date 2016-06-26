@@ -29,6 +29,7 @@ public class ItineraryRecommendActivity extends NaviiActivity {
     RecyclerView itineraryRecyclerView;
 
     ItineraryRecommendListAdapter recommendListAdapter;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

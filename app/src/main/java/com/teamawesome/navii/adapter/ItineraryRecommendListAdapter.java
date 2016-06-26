@@ -1,18 +1,24 @@
 package com.teamawesome.navii.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.teamawesome.navii.R;
+import com.teamawesome.navii.activity.ItineraryScheduleActivity;
+import com.teamawesome.navii.activity.PackageOverviewActivity;
+import com.teamawesome.navii.server.model.Attraction;
 import com.teamawesome.navii.server.model.Itinerary;
+import com.teamawesome.navii.util.Constants;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -51,6 +57,20 @@ public class ItineraryRecommendListAdapter extends
                 .fit()
                 .into(holder.mImageView);
 
+        holder.attractions = itineraries.get(position).getAttractions();
+
+        final List<Attraction> attractionList = holder.attractions;
+        holder.mImageView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Log.d("TAG", "onLongClick");
+                Intent itineraryScheduleActivity = new Intent(context, ItineraryScheduleActivity.class);
+                itineraryScheduleActivity.putParcelableArrayListExtra(Constants.ATTRACTION_LIST,
+                        new ArrayList<>(attractionList));
+                context.startActivity(itineraryScheduleActivity);
+                return true;
+            }
+        });
     }
 
     @Override
@@ -66,14 +86,26 @@ public class ItineraryRecommendListAdapter extends
         @BindView(R.id.package_image_view)
         ImageView mImageView;
 
+        List<Attraction> attractions;
+
+        List<String> photoUriList;
+
         @OnClick(R.id.package_image_view)
-        void onClick(View v) {
+        void onClick() {
             //TODO: Link with Jun's package descriptor
+            Log.d("TAG", "onClick");
+            Intent packageOverviewActivity = new Intent(context, PackageOverviewActivity.class);
+            packageOverviewActivity.putParcelableArrayListExtra(Constants.ATTRACTION_LIST, new
+                    ArrayList<>(attractions));
+            context.startActivity(packageOverviewActivity);
+
         }
 
         public ItineraryRecommendViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            photoUriList = new ArrayList<>();
         }
+
     }
 }

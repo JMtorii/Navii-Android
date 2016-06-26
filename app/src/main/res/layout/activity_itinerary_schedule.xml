@@ -6,18 +6,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/itinerary_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/itinerary_schedule_content">
-
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/attraction_list">
-        </android.support.v7.widget.RecyclerView>
-
-    </RelativeLayout>
+        android:layout_height="match_parent">
+    </android.support.v7.widget.RecyclerView>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/itinerary_schedule_fab"
@@ -25,8 +18,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_add_white_24dp"
         app:backgroundTint="@color/primary"
-        app:layout_anchor="@id/itinerary_schedule_content"
-        app:layout_anchorGravity="bottom|right|end"
-        android:src="@drawable/ic_add_white_24dp"/>
+        app:layout_anchor="@id/itinerary_recycler_view"
+        app:layout_anchorGravity="bottom|right|end"/>
 </android.support.design.widget.CoordinatorLayout>

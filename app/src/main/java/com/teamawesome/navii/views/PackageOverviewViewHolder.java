@@ -16,7 +16,7 @@ import butterknife.OnClick;
  */
 public class PackageOverviewViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.package_overview_item_image)
-    ImageView image;
+    public ImageView image;
 
     public PackageOverviewViewHolder(View itemView) {
         super(itemView);

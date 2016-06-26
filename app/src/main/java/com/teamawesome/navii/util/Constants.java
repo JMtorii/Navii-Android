@@ -5,11 +5,15 @@ package com.teamawesome.navii.util;
  */
 public class Constants {
 
+    public static final String ATTRACTION_PHOTO_URI = "ATTRACTION_PHOTO_URI";
+    public static final String ATTRACTION_TITLE = "ATTRACTION_TITLE";
+    public static final String ATTRACTION_LOCATION = "ATTRACTION_LOCATION";
+
     private Constants() {
     }
 
-    public static final String SERVER_URL = "http://192.168.0.21:8080";
-    //public static final String SERVER_URL = "http://10.0.3.2:8080";
+//    public static final String SERVER_URL = "http://192.168.0.21:8080";
+    public static final String SERVER_URL = "http:/192.168.0.20:8080";
     public static final String SERVER_URL_JUN = "http://142.151.249.132:8080";
     public static final String SERVER_URL_STEVE = "http://192.168.2.114:8080";
 
@@ -47,4 +51,8 @@ public class Constants {
 
     public static final int PREFERENCE_MIN_LIMIT = 1;
     public static final int PREFERENCE_MAX_LIMIT = 3;
+
+    public static final String PHOTO_URI_LIST = "PHOTO_URI_LIST";
+    public static final String ATTRACTION_LIST = "ATTRACTION_LIST";
+
 }

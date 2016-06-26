@@ -4,9 +4,12 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.fragment.main.HeartAndSoulEditDialogFragment;
+import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.ToolbarConfiguration;
 
 import butterknife.BindView;
@@ -22,6 +25,9 @@ public class HeartAndSoulDetailsActivity extends NaviiToolbarActivity {
 
     @BindView(R.id.collapsing_toolbar)
     CollapsingToolbarLayout collapsingToolbarLayout;
+
+    @BindView(R.id.hns_location)
+    TextView locationTextView;
 
     @Override
     public ToolbarConfiguration getToolbarConfiguration() {
@@ -44,8 +50,28 @@ public class HeartAndSoulDetailsActivity extends NaviiToolbarActivity {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
 
-        toolbarImageView.setImageResource(R.drawable.toronto);
-        collapsingToolbarLayout.setTitle("Test Title");
+        String title = "title";
+        String imageUri = "http://cpl.jumpfactor.netdna-cdn.com/wp-content/uploads/2015/04/plumber-Toronto-Toronto-plumbers.jpg";
+        String address = "";
+
+        if (!getIntent().getExtras().isEmpty()) {
+            title = getIntent().getStringExtra(Constants.ATTRACTION_TITLE);
+            imageUri = getIntent().getStringExtra(Constants.ATTRACTION_PHOTO_URI);
+            address = getIntent().getStringExtra(Constants.ATTRACTION_LOCATION);
+        }
+
+        if (address == null) {
+            address = "Address";
+        }
+        Picasso.with(this)
+                .load(imageUri)
+                .centerCrop()
+                .fit()
+                .into(toolbarImageView);
+
+//        toolbarImageView.setImageResource(R.drawable.toronto);
+        collapsingToolbarLayout.setTitle(title);
+        locationTextView.setText(address);
 
         getWindow().setStatusBarColor(Color.TRANSPARENT);
     }

@@ -6,6 +6,8 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.adapter.PackageOverviewRecyclerViewAdapter;
+import com.teamawesome.navii.server.model.Attraction;
+import com.teamawesome.navii.util.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,13 +28,20 @@ public class PackageOverviewActivity extends NaviiActivity {
         setContentView(R.layout.activity_package_overview);
         ButterKnife.bind(this);
 
-        recyclerView.setHasFixedSize(true);
+        List<Attraction> attractionList = getIntent().getParcelableArrayListExtra(Constants.ATTRACTION_LIST);
+
+        List<String> photoUriList = new ArrayList<>();
+
+        for (Attraction attraction : attractionList) {
+            photoUriList.add(attraction.getPhotoUri());
+        }
 
         StaggeredGridLayoutManager mStaggeredGridLayoutManager = new StaggeredGridLayoutManager(2, 1);
         recyclerView.setLayoutManager(mStaggeredGridLayoutManager);
 
         List<Integer> items = getListItemData();
-        PackageOverviewRecyclerViewAdapter adapter = new PackageOverviewRecyclerViewAdapter(items);
+        PackageOverviewRecyclerViewAdapter adapter = new PackageOverviewRecyclerViewAdapter
+                (items, this, photoUriList);
         recyclerView.setAdapter(adapter);
     }
 

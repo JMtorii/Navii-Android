@@ -1,32 +1,34 @@
  package com.teamawesome.navii.activity.debug;
 
-import android.app.ListActivity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+ import android.app.ListActivity;
+ import android.content.Intent;
+ import android.os.Bundle;
+ import android.util.Log;
+ import android.view.Menu;
+ import android.view.View;
+ import android.widget.ArrayAdapter;
+ import android.widget.ListView;
 
-import com.teamawesome.navii.R;
-import com.teamawesome.navii.activity.HeartAndSoulDetailsActivity;
-import com.teamawesome.navii.activity.ItineraryScheduleActivity;
-import com.teamawesome.navii.activity.UploadImageTestActivity;
-import com.teamawesome.navii.activity.MainActivity;
-import com.teamawesome.navii.activity.PackageOverviewActivity;
-import com.teamawesome.navii.activity.PreferencesActivity;
-import com.teamawesome.navii.server.api.UserAPI;
-import com.teamawesome.navii.server.model.User;
-import com.teamawesome.navii.util.Constants;
-import com.teamawesome.navii.util.NaviiMath;
-import com.teamawesome.navii.util.NaviiPreferenceData;
+ import com.teamawesome.navii.NaviiApplication;
+ import com.teamawesome.navii.R;
+ import com.teamawesome.navii.activity.HeartAndSoulDetailsActivity;
+ import com.teamawesome.navii.activity.ItineraryScheduleActivity;
+ import com.teamawesome.navii.activity.MainActivity;
+ import com.teamawesome.navii.activity.PackageOverviewActivity;
+ import com.teamawesome.navii.activity.PreferencesActivity;
+ import com.teamawesome.navii.activity.UploadImageTestActivity;
+ import com.teamawesome.navii.server.api.UserAPI;
+ import com.teamawesome.navii.server.model.Itinerary;
+ import com.teamawesome.navii.server.model.User;
+ import com.teamawesome.navii.util.Constants;
+ import com.teamawesome.navii.util.NaviiMath;
+ import com.teamawesome.navii.util.NaviiPreferenceData;
 
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.JacksonConverterFactory;
-import retrofit.Response;
-import retrofit.Retrofit;
+ import retrofit.Call;
+ import retrofit.Callback;
+ import retrofit.JacksonConverterFactory;
+ import retrofit.Response;
+ import retrofit.Retrofit;
 
 // TODO: change this to AppCompatActivity for more flexibility
 public class DebugMainActivity extends ListActivity {
@@ -116,6 +118,8 @@ public class DebugMainActivity extends ListActivity {
             startActivity(preferenceActivity);
         } else if (id == 7) {
             Intent itineraryScheduleActivity = new Intent(this, ItineraryScheduleActivity.class);
+            Itinerary itinerary = new Itinerary();
+            NaviiApplication.getInstance().getBus().send(itinerary);
             startActivity(itineraryScheduleActivity);
         }
     }
