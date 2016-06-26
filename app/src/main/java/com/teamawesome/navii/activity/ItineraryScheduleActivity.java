@@ -81,13 +81,10 @@ public class ItineraryScheduleActivity extends Activity {
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
                                   RecyclerView.ViewHolder target) {
                 Log.d("TAG", "onMove:" + viewHolder.getAdapterPosition());
-                DescriptionListAdapter.PackageViewHolder touchVH =
-                        (DescriptionListAdapter.PackageViewHolder) viewHolder;
+                DescriptionListAdapter.PackageViewHolder touchVH = (DescriptionListAdapter.PackageViewHolder) viewHolder;
 
                 mDescriptionListAdapter.move(viewHolder.getAdapterPosition(), target.getAdapterPosition());
                 DescriptionListAdapter descriptionListAdapter = (DescriptionListAdapter) recyclerView.getAdapter();
-
-
 
                 return true;
             }
