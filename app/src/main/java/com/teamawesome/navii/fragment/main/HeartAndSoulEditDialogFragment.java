@@ -7,6 +7,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.view.Window;
 
 import com.teamawesome.navii.R;
 
@@ -18,7 +19,8 @@ public class HeartAndSoulEditDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.DialogSlideAnimation);
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        builder.setView(inflater.inflate(R.layout.fragment_heart_and_soul_edit_dialog, null))
+        builder.setTitle("This is a dialog title")
+                .setView(inflater.inflate(R.layout.fragment_heart_and_soul_edit_dialog, null))
                 .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // Nothing to do here
@@ -35,7 +37,8 @@ public class HeartAndSoulEditDialogFragment extends DialogFragment {
 
     @Override
     public void onStart() {
-        super.onStart();
         getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        super.onStart();
     }
 }

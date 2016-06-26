@@ -69,6 +69,7 @@
     <style name="DialogSlideAnimation" parent="@android:style/Theme.Holo.Dialog">
         <item name="android:windowAnimationStyle">@style/DialogAnimation</item>
         <item name="android:padding">5dp</item>
+        <item name="android:background">@android:color/white</item>
     </style>
 
 </resources>
