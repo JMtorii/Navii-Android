@@ -70,9 +70,6 @@ public class ItineraryScheduleActivity extends Activity {
     public ItemTouchHelper.Callback createCallback() {
         return new ItemTouchHelper.Callback() {
 
-            RecyclerView.ViewHolder currentViewHolder;
-            RecyclerView currentRecyclerView;
-
             @Override
             public int getMovementFlags(RecyclerView recyclerView,
                                         RecyclerView.ViewHolder viewHolder) {
@@ -84,7 +81,14 @@ public class ItineraryScheduleActivity extends Activity {
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
                                   RecyclerView.ViewHolder target) {
                 Log.d("TAG", "onMove:" + viewHolder.getAdapterPosition());
+                DescriptionListAdapter.PackageViewHolder touchVH =
+                        (DescriptionListAdapter.PackageViewHolder) viewHolder;
+
                 mDescriptionListAdapter.move(viewHolder.getAdapterPosition(), target.getAdapterPosition());
+                DescriptionListAdapter descriptionListAdapter = (DescriptionListAdapter) recyclerView.getAdapter();
+
+
+
                 return true;
             }
 

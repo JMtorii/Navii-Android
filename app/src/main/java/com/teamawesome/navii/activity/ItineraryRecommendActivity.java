@@ -11,6 +11,7 @@ import com.teamawesome.navii.R;
 import com.teamawesome.navii.adapter.ItineraryRecommendListAdapter;
 import com.teamawesome.navii.server.model.Itinerary;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -39,8 +40,11 @@ public class ItineraryRecommendActivity extends NaviiActivity {
 
         List<String> tags = getIntent().getStringArrayListExtra("TAGS");
 
-        Log.d("TAGS", tags.toString());
+        if (tags == null) {
+            tags = new ArrayList<>();
+        }
 
+        Log.d("TAGS", tags.toString());
 
         Observable<List<Itinerary>> itineraryListCall = NaviiApplication.getInstance().getItineraryAPI().getItineraries(tags);
 

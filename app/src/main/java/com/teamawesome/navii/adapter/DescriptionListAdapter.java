@@ -37,12 +37,12 @@ public class DescriptionListAdapter extends RecyclerView.Adapter<DescriptionList
 
     private List<Attraction> mAttractionList;
     private Context context;
-    private GregorianCalendar gregorianCalendar;
+    private GregorianCalendar startTime;
 
     public DescriptionListAdapter(Context context, List<Attraction> mAttractionList) {
         this.mAttractionList = mAttractionList;
         this.context = context;
-        this.gregorianCalendar = new GregorianCalendar(2016, 6, 26, 8, 0);
+        this.startTime = new GregorianCalendar(2016, 6, 26, 8, 0);
     }
 
     @Override
@@ -62,7 +62,7 @@ public class DescriptionListAdapter extends RecyclerView.Adapter<DescriptionList
 
     @Override
     public void onBindViewHolder(PackageViewHolder holder, int position) {
-
+        Log.d("onBindViewHolder", "Binding..." + position);
         Picasso.with(context)
                 .load(mAttractionList.get(position).getPhotoUri())
                 .centerCrop()
@@ -72,15 +72,15 @@ public class DescriptionListAdapter extends RecyclerView.Adapter<DescriptionList
         DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
         holder.attractionName.setText(mAttractionList.get(position).getName());
         holder.attractionPrice.setText("$" + String.valueOf(mAttractionList.get(position).getPrice()));
-        holder.attractionStartTime.setText(dateFormat.format(gregorianCalendar.getTime()));
-
-        gregorianCalendar.add(GregorianCalendar.HOUR, mAttractionList.get(position).getDuration());
+        holder.attractionStartTime.setText(dateFormat.format(startTime.getTime()));
+        startTime.add(GregorianCalendar.HOUR, mAttractionList.get(position).getDuration());
     }
 
     public void refreshStartTimes() {
         for (int i = 0; i < getItemCount(); i++) {
             // TODO: implement me
         }
+
     }
 
     public void delete(int position) {
@@ -142,10 +142,5 @@ public class DescriptionListAdapter extends RecyclerView.Adapter<DescriptionList
             heartAndSoulDetailsActivity.putExtras(extras);
             context.startActivity(heartAndSoulDetailsActivity);
         }
-    }
-
-    @OnClick(R.id.overlay)
-    public void deleteView(View view) {
-        Log.d("TAG", "DELETE");
     }
 }
