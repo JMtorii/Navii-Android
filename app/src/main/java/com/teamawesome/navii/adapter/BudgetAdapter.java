@@ -22,14 +22,13 @@ import butterknife.OnClick;
  * Created by Ian on 5/31/2016.
  */
 public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder> {
-
     private int screenWidth;
     private int screenHeight;
     private static BudgetFragment budgetFragment;
 
-    public BudgetAdapter(BudgetFragment f, int heightPixels, int widthPixels) {
+    public BudgetAdapter(BudgetFragment fragment, int heightPixels, int widthPixels) {
         super();
-        budgetFragment = f;
+        budgetFragment = fragment;
         this.screenWidth = widthPixels;
         this.screenHeight = heightPixels;
     }
@@ -39,16 +38,14 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View buttonView = inflater.inflate(R.layout.budget_button, parent, false);
-        ViewHolder viewHolder = new ViewHolder(buttonView);
-        return viewHolder;
+        return new ViewHolder(buttonView);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         switch (position){
             case 9:
-                Drawable img = budgetFragment.getResources()
-                        .getDrawable(R.drawable.ic_backspace_black_48dp, null);
+                Drawable img = budgetFragment.getResources().getDrawable(R.drawable.ic_backspace, null);
                 holder.budgetButton.setCompoundDrawablesWithIntrinsicBounds(null, img, null, null);
                 holder.budgetButton.setDigit(9);
                 break;
@@ -57,8 +54,7 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
                 holder.budgetButton.setDigit(0);
                 break;
             case 11:
-                Drawable img2 = budgetFragment.getResources()
-                        .getDrawable(R.drawable.ic_check_circle_black_48dp, null);
+                Drawable img2 = budgetFragment.getResources().getDrawable(R.drawable.ic_check_circle, null);
                 holder.budgetButton.setCompoundDrawablesWithIntrinsicBounds(null, img2, null, null);
                 holder.budgetButton.setDigit(11);
                 break;
@@ -68,9 +64,8 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
                 break;
         }
 
-        int buttonHeight = ((int) (screenHeight*0.4))/4;
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(screenWidth/3,
-                buttonHeight);
+        int buttonHeight = ((int) (screenHeight * 0.4)) / 4;
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(screenWidth / 3, buttonHeight);
         holder.budgetButton.setLayoutParams(params);
     }
 
@@ -81,10 +76,8 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
-
         @BindView(R.id.budget_button)
         NaviiBudgetButton budgetButton;
-
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -92,26 +85,22 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
         }
 
         @OnClick (R.id.budget_button)
-        public void pressed(View v){
+        public void pressed(View view){
             if (budgetButton.getDigit() == 9){
-                backspace(v);
-            }
-            else if (budgetButton.getDigit() == 11){
-                next(v);
-            }
-            else {
-                View parent = v.getRootView();
-                MainLatoEditText latoEditText =
-                        (MainLatoEditText) parent.findViewById(R.id.budget_text);
+                backspace(view);
+            } else if (budgetButton.getDigit() == 11){
+                next(view);
+            } else {
+                View parent = view.getRootView();
+                MainLatoEditText latoEditText = (MainLatoEditText) parent.findViewById(R.id.budget_text);
                 String newText = latoEditText.getText().toString() + budgetButton.getDigit();
                 latoEditText.setText(newText);
             }
         }
 
-        public void backspace(View v){
-            View parent = v.getRootView();
-            MainLatoEditText latoEditText =
-                    (MainLatoEditText) parent.findViewById(R.id.budget_text);
+        public void backspace(View view){
+            View parent = view.getRootView();
+            MainLatoEditText latoEditText = (MainLatoEditText) parent.findViewById(R.id.budget_text);
             StringBuilder newText = new StringBuilder(latoEditText.getText());
             if (newText.length() > 1) {
                 newText.deleteCharAt(newText.length() - 1);
@@ -119,11 +108,10 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
             }
         }
 
-        public void next(View v){
-            View parent = v.getRootView();
-            MainActivity m = (MainActivity) budgetFragment.getActivity();
-            m.nextPress(parent);
+        public void next(View view){
+            View parent = view.getRootView();
+            MainActivity mainActivity = (MainActivity) budgetFragment.getActivity();
+            mainActivity.nextPress(parent);
         }
-
     }
 }

@@ -22,38 +22,34 @@ import butterknife.ButterKnife;
  */
 public class BudgetFragment extends NaviiParallaxFragment {
     @BindView(R.id.budget_text)
-    MainLatoEditText mainLatoEditText;
+    MainLatoEditText budgetEditText;
 
     @BindView(R.id.digit_pad)
-    RecyclerView r;
+    RecyclerView recyclerView;
 
     @Override
-
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
-
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        DisplayMetrics metrics = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        RelativeLayout.LayoutParams padHeight = new RelativeLayout.LayoutParams(metrics.widthPixels
-                ,(int)(metrics.heightPixels*0.4));
-        padHeight.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         View v = inflater.inflate(R.layout.fragment_budget, container, false);
-
         ButterKnife.bind(this,v);
 
-        mainLatoEditText.setKeyListener(null);
+        DisplayMetrics metrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
-        r.setLayoutParams(padHeight);
-        RecyclerView.Adapter b = new BudgetAdapter(this, metrics.heightPixels, metrics.widthPixels);
-        GridLayoutManager g = new GridLayoutManager(r.getContext(), 3);
-        r.setAdapter(b);
-        r.setLayoutManager(g);
+        RelativeLayout.LayoutParams padHeight = new RelativeLayout.LayoutParams(metrics.widthPixels,(int)(metrics.heightPixels * 0.4));
+        padHeight.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+
+        budgetEditText.setKeyListener(null);
+
+        RecyclerView.Adapter adapter = new BudgetAdapter(this, metrics.heightPixels, metrics.widthPixels);
+        GridLayoutManager gridLayout = new GridLayoutManager(recyclerView.getContext(), 3);
+        recyclerView.setLayoutParams(padHeight);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(gridLayout);
 
         return v;
     }

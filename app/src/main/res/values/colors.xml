@@ -2,6 +2,7 @@
 <resources>
     <item name="primary" type="color">#F15E55</item>
     <item name="primaryDark" type="color">#B24F4D</item>
+    <item name="secondary" type="color">#33B48F</item>
     <item name="chalkWhite" type="color">#FCFCFC</item>
     <item name="lightGrey" type="color">#D3D3D3</item>
     <item name="grey" type="color">#535356</item>
