@@ -23,6 +23,7 @@
         android:textSize="40sp"
         android:textColor="@color/chalkWhite"
         android:text="$"
+        android:gravity="center"
         android:layout_above="@+id/digit_pad"
         android:layout_centerInParent="true"
         android:layout_marginBottom="110dp"/>

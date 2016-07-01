@@ -14,7 +14,6 @@ import com.teamawesome.navii.adapter.ParallaxPagerAdapter;
 import com.teamawesome.navii.fragment.TravelDestinationFragment;
 import com.teamawesome.navii.fragment.TravelDurationFragment;
 import com.teamawesome.navii.fragment.TravelParticipantsFragment;
-import com.teamawesome.navii.fragment.debug.TestFragment;
 import com.teamawesome.navii.fragment.main.BudgetFragment;
 import com.teamawesome.navii.fragment.main.ChooseTagsFragment;
 import com.teamawesome.navii.fragment.main.NaviiParallaxFragment;
@@ -85,9 +84,10 @@ public class MainActivity extends NaviiNavigationalActivity {
     public void nextPress(View view) {
         int index = parallaxViewPager.getCurrentItem();
         int maxIndex = parallaxViewPager.getChildCount();
-
+        //Currently the travel participants fragment precedes the budget fragment
+        //Makes the next button invisible if the "next" fragment is budget
         if (index < maxIndex) {
-            if (parallaxViewPager.getChildAt(index).getId() == R.id.budget_fragment)
+            if (parallaxViewPager.getChildAt(index).getId() == R.id.travel_participants)
                 mNextButton.setVisibility(View.INVISIBLE);
             else
                 mNextButton.setVisibility(View.VISIBLE);
@@ -106,8 +106,6 @@ public class MainActivity extends NaviiNavigationalActivity {
         fragments.add(Fragment.instantiate(this, TravelDurationFragment.class.getName()));
         fragments.add(Fragment.instantiate(this, TravelParticipantsFragment.class.getName()));
         fragments.add(Fragment.instantiate(this, BudgetFragment.class.getName()));
-        //TODO switch back to proper fragment
-        fragments.add(Fragment.instantiate(this, TestFragment.class.getName()));
         fragments.add(Fragment.instantiate(this, ChooseTagsFragment.class.getName()));
 
         ParallaxPagerAdapter parallaxPagerAdapter = new ParallaxPagerAdapter(super.getSupportFragmentManager(), fragments);

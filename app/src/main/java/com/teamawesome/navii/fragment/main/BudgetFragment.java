@@ -7,6 +7,8 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.RelativeLayout;
 
 import com.teamawesome.navii.R;
@@ -35,15 +37,21 @@ public class BudgetFragment extends NaviiParallaxFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_budget, container, false);
-        ButterKnife.bind(this,v);
+        ButterKnife.bind(this, v);
 
         DisplayMetrics metrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
         RelativeLayout.LayoutParams padHeight = new RelativeLayout.LayoutParams(metrics.widthPixels,(int)(metrics.heightPixels * 0.4));
         padHeight.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-
-        budgetEditText.setKeyListener(null);
+        //Messing around with textbox animations
+//        budgetEditText.setKeyListener(null);
+//        Animation pulse = new AlphaAnimation(0.0f, 1.0f);
+//        pulse.setDuration(800);
+//        pulse.setStartOffset(200);
+//        pulse.setRepeatMode(Animation.REVERSE);
+//        pulse.setRepeatCount(Animation.INFINITE);
+//        budgetEditText.startAnimation(pulse);
 
         RecyclerView.Adapter adapter = new BudgetAdapter(this, metrics.heightPixels, metrics.widthPixels);
         GridLayoutManager gridLayout = new GridLayoutManager(recyclerView.getContext(), 3);
