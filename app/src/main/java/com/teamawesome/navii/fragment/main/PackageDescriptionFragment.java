@@ -22,7 +22,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.teamawesome.navii.R;
-import com.teamawesome.navii.adapter.DescriptionListAdapter;
 import com.teamawesome.navii.server.model.Attraction;
 import com.teamawesome.navii.server.model.Itinerary;
 import com.teamawesome.navii.server.model.Location;
@@ -89,10 +88,10 @@ public class PackageDescriptionFragment extends NaviiFragment implements OnMapRe
 
         List<Attraction> attractions = itinerary.getAttractions();
 
-        DescriptionListAdapter descriptionListAdapter =
-                new DescriptionListAdapter(getContext(), attractions);
-
-        descriptionList.setAdapter(descriptionListAdapter);
+////        PackageScheduleViewAdapter packageScheduleViewAdapter =
+////                new PackageScheduleViewAdapter(getContext(), attractions);
+//
+//        descriptionList.setAdapter(packageScheduleViewAdapter);
 
         //Map setup
         SupportMapFragment mapFragment =
