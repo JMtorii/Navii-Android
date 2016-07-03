@@ -3,6 +3,7 @@ package com.teamawesome.navii.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import android.view.MenuItem;
 
 import com.teamawesome.navii.NaviiApplication;
 import com.teamawesome.navii.R;
+import com.teamawesome.navii.fragment.main.SavedTripsFragment;
 import com.teamawesome.navii.util.NavigationConfiguration;
 
 import butterknife.BindView;
@@ -60,6 +62,21 @@ public abstract class NaviiNavigationalActivity extends AppCompatActivity implem
                 break;
             case R.id.nav_planned_trips:
                 launchClass = PlannedTripsActivity.class;
+                break;
+            case R.id.nav_saved_trips:
+                // Saved Trips Activity when created
+                launchClass = null;
+                break;
+            case R.id.nav_preferences:
+                launchClass = PreferencesActivity.class;
+                break;
+            case R.id.nav_notifications:
+                //Notifications Activity when created
+                launchClass = null;
+                break;
+            case R.id.nav_choose_tags:
+                //ChooseTags Activity when created
+                launchClass = null;
                 break;
             default:
                 launchClass = null;
