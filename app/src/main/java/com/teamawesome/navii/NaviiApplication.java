@@ -9,6 +9,7 @@ import com.teamawesome.navii.server.api.PreferenceAPI;
 import com.teamawesome.navii.server.api.TagsAPI;
 import com.teamawesome.navii.server.api.UserAPI;
 import com.teamawesome.navii.server.api.UserPreferenceAPI;
+import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.NaviiPreferenceData;
 import com.teamawesome.navii.util.RxBus;
 
@@ -45,6 +46,8 @@ public class NaviiApplication extends Application {
         final OkHttpClient okHttpClient = new OkHttpClient();
         okHttpClient.setReadTimeout(60, TimeUnit.SECONDS);
         okHttpClient.setConnectTimeout(60, TimeUnit.SECONDS);
+
+        NaviiPreferenceData.setIPAddress(Constants.SERVER_URL);
 
         retrofit = new Retrofit.Builder()
                 .baseUrl(NaviiPreferenceData.getIPAddress())
