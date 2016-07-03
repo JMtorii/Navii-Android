@@ -12,9 +12,12 @@ import android.util.Log;
 import android.view.View;
 
 import com.teamawesome.navii.R;
-import com.teamawesome.navii.adapter.DescriptionListAdapter;
+import com.teamawesome.navii.adapter.PackageScheduleViewAdapter;
 import com.teamawesome.navii.server.model.Attraction;
 import com.teamawesome.navii.util.Constants;
+import com.teamawesome.navii.util.PackageScheduleAttractionItem;
+import com.teamawesome.navii.util.PackageScheduleHeaderItem;
+import com.teamawesome.navii.util.PackageScheduleListItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +37,7 @@ public class ItineraryScheduleActivity extends Activity {
     @BindView(R.id.itinerary_recycler_view)
     RecyclerView mItineraryRecyclerView;
 
-    private DescriptionListAdapter mDescriptionListAdapter;
+    private PackageScheduleViewAdapter mPackageScheduleViewAdapter;
     private ItemTouchHelper mItemTouchHelper;
     private ItemTouchHelper.Callback mCallback;
 
@@ -44,14 +47,28 @@ public class ItineraryScheduleActivity extends Activity {
         setContentView(R.layout.activity_itinerary_schedule);
         ButterKnife.bind(this);
 
-        List<Attraction> attractions =
-                getIntent().getParcelableArrayListExtra(Constants.ATTRACTION_LIST);
+        List<Attraction> attractions = getIntent().getParcelableArrayListExtra(Constants.ATTRACTION_LIST);
         if (attractions == null) {
-            attractions = CreateAttractionList();
+            attractions = createAttractionList();
         }
+        List<PackageScheduleListItem> items = new ArrayList<>();
+        String[] sectionsList = getApplicationContext().getResources().getStringArray(R.array.heart_and_soul_schedule_sections);
+
+        int sectionDivide = (int) Math.round((double) attractions.size() / (double) sectionsList.length);
+        Log.d("TAG", "Section Divide:" + sectionDivide);
+        int counter = 0;
+        for (int i = 0; i < attractions.size(); i++) {
+            if (i == (sectionDivide) * counter) {
+                items.add(new PackageScheduleHeaderItem(sectionsList[counter]));
+                ++counter;
+            }
+            items.add(new PackageScheduleAttractionItem(attractions.get(i)));
+        }
+
         mItineraryRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mDescriptionListAdapter = new DescriptionListAdapter(this, attractions);
-        mItineraryRecyclerView.setAdapter(mDescriptionListAdapter);
+        mPackageScheduleViewAdapter = new PackageScheduleViewAdapter(this, items);
+        mPackageScheduleViewAdapter.setSnackbar(mItineraryRecyclerView);
+        mItineraryRecyclerView.setAdapter(mPackageScheduleViewAdapter);
         mItemTouchHelper = createItemTouchHelper();
         mItemTouchHelper.attachToRecyclerView(mItineraryRecyclerView);
     }
@@ -71,97 +88,86 @@ public class ItineraryScheduleActivity extends Activity {
         return new ItemTouchHelper.Callback() {
 
             @Override
-            public int getMovementFlags(RecyclerView recyclerView,
-                                        RecyclerView.ViewHolder viewHolder) {
-                return mCallback.makeMovementFlags(ItemTouchHelper.UP | ItemTouchHelper.DOWN,
-                        ItemTouchHelper.START | ItemTouchHelper.END);
+            public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+                return mCallback.makeMovementFlags(ItemTouchHelper.UP | ItemTouchHelper.DOWN, ItemTouchHelper.START | ItemTouchHelper.END);
             }
 
             @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
-                                  RecyclerView.ViewHolder target) {
-                Log.d("TAG", "onMove:" + viewHolder.getAdapterPosition());
-                DescriptionListAdapter.PackageViewHolder touchVH = (DescriptionListAdapter.PackageViewHolder) viewHolder;
-
-                mDescriptionListAdapter.move(viewHolder.getAdapterPosition(), target.getAdapterPosition());
-                DescriptionListAdapter descriptionListAdapter = (DescriptionListAdapter) recyclerView.getAdapter();
-
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                mPackageScheduleViewAdapter.move(viewHolder.getAdapterPosition(), target.getAdapterPosition());
                 return true;
             }
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-                mDescriptionListAdapter.delete(viewHolder.getAdapterPosition());
+                if (viewHolder == null || viewHolder.getItemViewType() == 1) {
+                    return;
+                }
+                mPackageScheduleViewAdapter.delete(viewHolder.getAdapterPosition());
             }
 
             @Override
             public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
-                Log.d("TAG", "onSelectedChanged");
+                if (viewHolder == null || viewHolder.getItemViewType() == 1) {
+                    return;
+                }
 
-                super.onSelectedChanged(viewHolder, actionState);
-                final DescriptionListAdapter.PackageViewHolder touchVH = (DescriptionListAdapter.PackageViewHolder) viewHolder;
+                final PackageScheduleViewAdapter.PackageItemViewHolder touchVH = (PackageScheduleViewAdapter.PackageItemViewHolder) viewHolder;
                 if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
-                    touchVH.overlay.setTranslationX(viewHolder.itemView.getWidth());
                     touchVH.overlay.setVisibility(View.VISIBLE);
                 }
+                Snackbar current = mPackageScheduleViewAdapter.getSnackbar();
+                current.dismiss();
+
+
+                super.onSelectedChanged(viewHolder, actionState);
             }
 
             @Override
             public void onChildDraw(Canvas c, RecyclerView recyclerView,
                                     RecyclerView.ViewHolder viewHolder,
                                     float dX, float dY, int actionState, boolean isCurrentlyActive) {
-
-                if (Math.abs(dY) > 0.0f && Math.abs(dX) < 10.0f) {
-                    super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+                if (viewHolder == null || viewHolder.getItemViewType() == 1) {
+                    return;
                 }
-//                if (currentRecyclerView != null && currentViewHolder != null) {
-//                    Log.d("OnChildDraw", "Current:" + currentViewHolder.getAdapterPosition()+
-//                            " Now:" + viewHolder.getAdapterPosition()+ " isActive: "+
-//                            isCurrentlyActive);
-//                    if (!isCurrentlyActive) {
-//                        clearView(currentRecyclerView, currentViewHolder);
-//                        currentRecyclerView = null;
-//                        currentViewHolder = null;
-//                    }
-//                }
+
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
             }
 
             @Override
             public void onChildDrawOver(Canvas c, RecyclerView recyclerView,
                                         RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState,
                                         boolean isCurrentlyActive) {
-                DescriptionListAdapter.PackageViewHolder touchVH =
-                        (DescriptionListAdapter.PackageViewHolder) viewHolder;
+                if (viewHolder == null || viewHolder.getItemViewType() == 1) {
+                    return;
+                }
 
-                float leaveBehindLength = touchVH.overlay.getWidth();
+                PackageScheduleViewAdapter.PackageItemViewHolder touchVH =
+                        (PackageScheduleViewAdapter.PackageItemViewHolder) viewHolder;
+
+                float leaveBehindLength = touchVH.deleteButton.getWidth();
                 final float dir = Math.signum(dX);
-                final float absDX = Math.abs(dX);
 
-                Log.d("onChildDrawOver","dX: " + dX + " layout width:" + touchVH.relativeLayout
-                        .getWidth());
-//                if (absDX < leaveBehindLength) {
-                    touchVH.relativeLayout.setTranslationX(dX);
-//                } else if (absDX > leaveBehindLength) {
-//                    touchVH.relativeLayout.setTranslationX(leaveBehindLength * dir);
-//                    currentRecyclerView = recyclerView;
-//                    currentViewHolder = viewHolder;
-//                }
+                touchVH.cardView.setTranslationX(dX);
 
                 if (dir == 0) {
-                    touchVH.overlay.setTranslationX(-touchVH.overlay.getWidth());
+                    touchVH.overlay.setTranslationX(-touchVH.deleteButton.getWidth());
                 } else {
                     float overlayOffset;
-                    float layoutPositionLeft = touchVH.relativeLayout.getTranslationX();
-                    float layoutPositionRight = layoutPositionLeft + touchVH.relativeLayout.getWidth();
+                    float layoutPositionLeft = touchVH.cardView.getTranslationX();
+                    float layoutPositionRight = layoutPositionLeft + touchVH.cardView.getWidth();
                     if (dir == -1.0) {
                         overlayOffset = layoutPositionRight;
                     } else {
                         overlayOffset = layoutPositionLeft - leaveBehindLength;
                     }
 
+
                     touchVH.overlay.setTranslationX(overlayOffset);
                 }
-                touchVH.overlay.setAlpha(1.0f);
+
+                float alpha = (float) (1.0 - 1.1 * Math.abs(dX) / viewHolder.itemView.getWidth());
+                touchVH.cardView.setAlpha(alpha);
 
                 if (!isCurrentlyActive) {
                     super.onChildDrawOver(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
@@ -180,19 +186,21 @@ public class ItineraryScheduleActivity extends Activity {
 
             @Override
             public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-                Log.d("TAG", "clearView:");
                 super.clearView(recyclerView, viewHolder);
-                DescriptionListAdapter.PackageViewHolder touchVH = (DescriptionListAdapter.PackageViewHolder) viewHolder;
-
+                if (viewHolder == null || viewHolder.getItemViewType() == 1) {
+                    return;
+                }
+                PackageScheduleViewAdapter.PackageItemViewHolder touchVH = (PackageScheduleViewAdapter.PackageItemViewHolder) viewHolder;
+                touchVH.cardView.setAlpha(1.0f);
                 touchVH.overlay.setVisibility(View.INVISIBLE);
 
             }
         };
     }
 
-    private List<Attraction> CreateAttractionList() {
+    private List<Attraction> createAttractionList() {
         List<Attraction> attractions = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 6; i++) {
             attractions.add(
                     new Attraction.Builder()
                             .name("Attraction:" + i)
