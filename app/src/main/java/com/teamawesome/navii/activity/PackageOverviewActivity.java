@@ -51,8 +51,8 @@ public class PackageOverviewActivity extends NaviiActivity {
         items.add(R.drawable.imagination);
         items.add(R.drawable.tmp_social_buttons);
         items.add(R.drawable.rough_calendar);
-        items.add(R.drawable.ic_remove_circle_outline);
-        items.add(R.drawable.ic_add_circle_outline);
+        items.add(R.drawable.ic_minus);
+        items.add(R.drawable.ic_plus);
         items.add(R.drawable.bird);
         items.add(R.drawable.rough_logo);
         items.add(R.drawable.imagination);

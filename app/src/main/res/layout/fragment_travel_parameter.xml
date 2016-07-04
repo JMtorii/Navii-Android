@@ -40,7 +40,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:background="@drawable/ic_add_circle_outline"/>
+                    android:background="@drawable/ic_plus"/>
 
                 <com.beardedhen.androidbootstrap.AwesomeTextView
                     android:id="@+id/travel_paramenter_child_text"
@@ -55,7 +55,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:background="@drawable/ic_remove_circle_outline"/>
+                    android:background="@drawable/ic_minus"/>
 
             </LinearLayout>
 
@@ -73,7 +73,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:background="@drawable/ic_add_circle_outline"/>
+                    android:background="@drawable/ic_plus"/>
 
                 <com.beardedhen.androidbootstrap.AwesomeTextView
                     android:id="@+id/travel_paramenter_adult_text"
@@ -88,7 +88,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:background="@drawable/ic_remove_circle_outline"/>
+                    android:background="@drawable/ic_minus"/>
 
             </LinearLayout>
         </LinearLayout>
@@ -122,7 +122,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:background="@drawable/ic_add_circle_outline"/>
+                    android:background="@drawable/ic_plus"/>
 
                 <com.beardedhen.androidbootstrap.AwesomeTextView
                     android:id="@+id/travel_paramenter_currency_text"
@@ -137,7 +137,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:background="@drawable/ic_remove_circle_outline"/>
+                    android:background="@drawable/ic_minus"/>
             </LinearLayout>
 
             <LinearLayout
@@ -154,7 +154,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:background="@drawable/ic_add_circle_outline"/>
+                    android:background="@drawable/ic_plus"/>
 
                 <com.beardedhen.androidbootstrap.AwesomeTextView
                     android:id="@+id/travel_paramenter_amount_text"
@@ -169,7 +169,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:background="@drawable/ic_remove_circle_outline"/>
+                    android:background="@drawable/ic_minus"/>
 
             </LinearLayout>
 
