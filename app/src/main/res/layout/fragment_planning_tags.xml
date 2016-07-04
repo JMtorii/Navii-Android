@@ -61,6 +61,12 @@
             android:layout_marginTop="10dp"
             android:background="@color/lightGrey"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/view"
+            android:background="@drawable/tags_grid_background_gradient"/>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/tags_picker"
             android:layout_width="match_parent"
