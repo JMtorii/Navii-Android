@@ -6,12 +6,14 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -82,6 +84,7 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
     }
 
     private void onBindPackageItemViewHolder(RecyclerView.ViewHolder holder, int position) {
+        Log.d("TAG", "onBindPackageItemViewHolder:"+position);
         PackageItemViewHolder packageItemViewHolder = (PackageItemViewHolder) holder;
         Attraction current = ((PackageScheduleAttractionItem) mItemList.get(position)).getAttraction();
         Picasso.with(mContext)
@@ -92,7 +95,6 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
 
         DateFormat dateFormat = new SimpleDateFormat(TIME_FORMAT);
 
-        packageItemViewHolder.setIsRecyclable(false);
         packageItemViewHolder.attractionName.setText(current.getName());
         packageItemViewHolder.attractionPrice.setText("$" + String.valueOf(current.getPrice()));
         packageItemViewHolder.attractionStartTime.setText(dateFormat.format(mStartTime.getTime()));
@@ -100,13 +102,15 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
 
     private void onBindSectionViewHolder(RecyclerView.ViewHolder holder, int position) {
         SectionViewHolder sectionViewHolder = (SectionViewHolder) holder;
-        String name = ((PackageScheduleHeaderItem) mItemList.get(position)).getName();
+        PackageScheduleHeaderItem header = (PackageScheduleHeaderItem) mItemList.get(position);
 
-        sectionViewHolder.sectionTitle.setText(name);
+        sectionViewHolder.sectionTitle.setText(header.getName());
+        sectionViewHolder.sectionBackgroundLayout.setBackgroundResource(header.getResId());
     }
 
     public void delete(final int position) {
         final PackageScheduleListItem item = mItemList.remove(position);
+
         this.snackbar.setAction("Undo", new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -146,8 +150,12 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
         @BindView(R.id.section_title)
         TextView sectionTitle;
 
+        @BindView(R.id.section_background_image)
+        RelativeLayout sectionBackgroundLayout;
+
         public SectionViewHolder(View itemView) {
             super(itemView);
+
             ButterKnife.bind(this, itemView);
         }
     }

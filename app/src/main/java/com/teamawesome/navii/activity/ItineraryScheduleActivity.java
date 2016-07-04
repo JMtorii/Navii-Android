@@ -15,6 +15,7 @@ import com.teamawesome.navii.R;
 import com.teamawesome.navii.adapter.PackageScheduleViewAdapter;
 import com.teamawesome.navii.server.model.Attraction;
 import com.teamawesome.navii.util.Constants;
+import com.teamawesome.navii.util.HeartAndSoulHeaderConfiguration;
 import com.teamawesome.navii.util.PackageScheduleAttractionItem;
 import com.teamawesome.navii.util.PackageScheduleHeaderItem;
 import com.teamawesome.navii.util.PackageScheduleListItem;
@@ -52,14 +53,13 @@ public class ItineraryScheduleActivity extends Activity {
             attractions = createAttractionList();
         }
         List<PackageScheduleListItem> items = new ArrayList<>();
-        String[] sectionsList = getApplicationContext().getResources().getStringArray(R.array.heart_and_soul_schedule_sections);
 
-        int sectionDivide = (int) Math.round((double) attractions.size() / (double) sectionsList.length);
+        int sectionDivide = (int) Math.round((double) attractions.size() / (double) 3);
         Log.d("TAG", "Section Divide:" + sectionDivide);
         int counter = 0;
         for (int i = 0; i < attractions.size(); i++) {
             if (i == (sectionDivide) * counter) {
-                items.add(new PackageScheduleHeaderItem(sectionsList[counter]));
+                items.add(new PackageScheduleHeaderItem(HeartAndSoulHeaderConfiguration.getConfiguration(counter)));
                 ++counter;
             }
             items.add(new PackageScheduleAttractionItem(attractions.get(i)));
@@ -103,6 +103,7 @@ public class ItineraryScheduleActivity extends Activity {
                 if (viewHolder == null || viewHolder.getItemViewType() == 1) {
                     return;
                 }
+                PackageScheduleViewAdapter.PackageItemViewHolder touchVH = (PackageScheduleViewAdapter.PackageItemViewHolder) viewHolder;
                 mPackageScheduleViewAdapter.delete(viewHolder.getAdapterPosition());
             }
 
@@ -112,13 +113,12 @@ public class ItineraryScheduleActivity extends Activity {
                     return;
                 }
 
-                final PackageScheduleViewAdapter.PackageItemViewHolder touchVH = (PackageScheduleViewAdapter.PackageItemViewHolder) viewHolder;
+                PackageScheduleViewAdapter.PackageItemViewHolder touchVH = (PackageScheduleViewAdapter.PackageItemViewHolder) viewHolder;
                 if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
                     touchVH.overlay.setVisibility(View.VISIBLE);
                 }
                 Snackbar current = mPackageScheduleViewAdapter.getSnackbar();
                 current.dismiss();
-
 
                 super.onSelectedChanged(viewHolder, actionState);
             }
@@ -127,7 +127,7 @@ public class ItineraryScheduleActivity extends Activity {
             public void onChildDraw(Canvas c, RecyclerView recyclerView,
                                     RecyclerView.ViewHolder viewHolder,
                                     float dX, float dY, int actionState, boolean isCurrentlyActive) {
-                if (viewHolder == null || viewHolder.getItemViewType() == 1) {
+                if (viewHolder == null || viewHolder.getItemViewType() == 1 || Math.signum(dX) != 0) {
                     return;
                 }
 
@@ -138,20 +138,20 @@ public class ItineraryScheduleActivity extends Activity {
             public void onChildDrawOver(Canvas c, RecyclerView recyclerView,
                                         RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState,
                                         boolean isCurrentlyActive) {
-                if (viewHolder == null || viewHolder.getItemViewType() == 1) {
+                if (viewHolder == null || viewHolder.getItemViewType() == 1 || Math.signum(dY) != 0) {
                     return;
                 }
 
                 PackageScheduleViewAdapter.PackageItemViewHolder touchVH =
                         (PackageScheduleViewAdapter.PackageItemViewHolder) viewHolder;
 
-                float leaveBehindLength = touchVH.deleteButton.getWidth();
+                float leaveBehindLength = touchVH.overlay.getWidth();
                 final float dir = Math.signum(dX);
 
                 touchVH.cardView.setTranslationX(dX);
 
                 if (dir == 0) {
-                    touchVH.overlay.setTranslationX(-touchVH.deleteButton.getWidth());
+                    touchVH.overlay.setTranslationX(-touchVH.itemView.getWidth());
                 } else {
                     float overlayOffset;
                     float layoutPositionLeft = touchVH.cardView.getTranslationX();
@@ -161,7 +161,6 @@ public class ItineraryScheduleActivity extends Activity {
                     } else {
                         overlayOffset = layoutPositionLeft - leaveBehindLength;
                     }
-
 
                     touchVH.overlay.setTranslationX(overlayOffset);
                 }
@@ -191,8 +190,7 @@ public class ItineraryScheduleActivity extends Activity {
                     return;
                 }
                 PackageScheduleViewAdapter.PackageItemViewHolder touchVH = (PackageScheduleViewAdapter.PackageItemViewHolder) viewHolder;
-                touchVH.cardView.setAlpha(1.0f);
-                touchVH.overlay.setVisibility(View.INVISIBLE);
+                touchVH.overlay.setVisibility(View.GONE);
 
             }
         };

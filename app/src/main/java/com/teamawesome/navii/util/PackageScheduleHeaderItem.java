@@ -12,13 +12,19 @@ import com.teamawesome.navii.adapter.PackageScheduleViewAdapter;
 public class PackageScheduleHeaderItem implements PackageScheduleListItem {
 
     private String name;
+    private int resId;
 
-    public PackageScheduleHeaderItem(String name) {
-        this.name = name;
+    public PackageScheduleHeaderItem(HeartAndSoulHeaderConfiguration headerConfiguration) {
+        this.name = headerConfiguration.getName();
+        this.resId = headerConfiguration.getResId();
     }
 
     public String getName() {
         return name;
+    }
+
+    public int getResId() {
+        return resId;
     }
 
     @Override
