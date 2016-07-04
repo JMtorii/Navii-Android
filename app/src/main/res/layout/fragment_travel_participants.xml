@@ -37,7 +37,7 @@
                 android:id="@+id/travel_participants_adult_up_button"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:background="@drawable/ic_add_circle_outline"/>
+                android:background="@drawable/ic_plus"/>
 
             <com.teamawesome.navii.views.MainLatoTextView
                 android:id="@+id/travel_participants_adult_text"
@@ -52,7 +52,7 @@
                 android:id="@+id/travel_participants_adult_down_button"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:background="@drawable/ic_remove_circle_outline"/>
+                android:background="@drawable/ic_minus"/>
 
         </LinearLayout>
 
@@ -70,7 +70,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
 
-                android:background="@drawable/ic_add_circle_outline"/>
+                android:background="@drawable/ic_plus"/>
 
             <com.teamawesome.navii.views.MainLatoTextView
                 android:id="@+id/travel_participants_child_text"
@@ -85,7 +85,7 @@
                 android:id="@+id/travel_participants_child_down_button"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:background="@drawable/ic_remove_circle_outline"/>
+                android:background="@drawable/ic_minus"/>
 
         </LinearLayout>
 
