@@ -28,7 +28,7 @@ public class PackageOverviewActivity extends NaviiActivity {
         setContentView(R.layout.activity_package_overview);
         ButterKnife.bind(this);
 
-        List<Attraction> attractionList = getIntent().getParcelableArrayListExtra(Constants.ATTRACTION_LIST);
+        List<Attraction> attractionList = getIntent().getParcelableArrayListExtra(Constants.INTENT_ATTRACTION_LIST);
 
         List<String> photoUriList = new ArrayList<>();
 

@@ -193,11 +193,11 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
             Intent heartAndSoulDetailsActivity = new Intent(mContext, HeartAndSoulDetailsActivity.class);
             Attraction attraction =  ((PackageScheduleAttractionItem) mItemList.get(getAdapterPosition())).getAttraction();
             Bundle extras = new Bundle();
-            extras.putString(Constants.ATTRACTION_PHOTO_URI, attraction.getPhotoUri());
-            extras.putString(Constants.ATTRACTION_TITLE, attraction.getName());
+            extras.putString(Constants.INTENT_ATTRACTION_PHOTO_URI, attraction.getPhotoUri());
+            extras.putString(Constants.INTENT_ATTRACTION_TITLE, attraction.getName());
 
             if (attraction.getLocation() != null) {
-                extras.putString(Constants.ATTRACTION_LOCATION, attraction.getLocation().getAddress());
+                extras.putString(Constants.INTENT_ATTRACTION_LOCATION, attraction.getLocation().getAddress());
             }
             heartAndSoulDetailsActivity.putExtras(extras);
             mContext.startActivity(heartAndSoulDetailsActivity);

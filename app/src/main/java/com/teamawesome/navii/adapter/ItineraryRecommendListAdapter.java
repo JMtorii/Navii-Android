@@ -63,7 +63,7 @@ public class ItineraryRecommendListAdapter extends RecyclerView.Adapter<Itinerar
             public boolean onLongClick(View v) {
                 Log.d("TAG", "onLongClick");
                 Intent itineraryScheduleActivity = new Intent(context, ItineraryScheduleActivity.class);
-                itineraryScheduleActivity.putParcelableArrayListExtra(Constants.ATTRACTION_LIST, new ArrayList<>(attractionList));
+                itineraryScheduleActivity.putParcelableArrayListExtra(Constants.INTENT_ATTRACTION_LIST, new ArrayList<>(attractionList));
                 context.startActivity(itineraryScheduleActivity);
                 return true;
             }
@@ -91,7 +91,7 @@ public class ItineraryRecommendListAdapter extends RecyclerView.Adapter<Itinerar
             //TODO: Link with Jun's package descriptor
             Log.d("TAG", "onClick");
             Intent packageOverviewActivity = new Intent(context, PackageOverviewActivity.class);
-            packageOverviewActivity.putParcelableArrayListExtra(Constants.ATTRACTION_LIST, new ArrayList<>(attractions));
+            packageOverviewActivity.putParcelableArrayListExtra(Constants.INTENT_ATTRACTION_LIST, new ArrayList<>(attractions));
             context.startActivity(packageOverviewActivity);
         }
 

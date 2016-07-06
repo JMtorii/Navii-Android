@@ -55,9 +55,9 @@ public class HeartAndSoulDetailsActivity extends NaviiToolbarActivity {
         String address = "";
 
         if (!getIntent().getExtras().isEmpty()) {
-            title = getIntent().getStringExtra(Constants.ATTRACTION_TITLE);
-            imageUri = getIntent().getStringExtra(Constants.ATTRACTION_PHOTO_URI);
-            address = getIntent().getStringExtra(Constants.ATTRACTION_LOCATION);
+            title = getIntent().getStringExtra(Constants.INTENT_ATTRACTION_TITLE);
+            imageUri = getIntent().getStringExtra(Constants.INTENT_ATTRACTION_PHOTO_URI);
+            address = getIntent().getStringExtra(Constants.INTENT_ATTRACTION_LOCATION);
         }
 
         if (address == null) {

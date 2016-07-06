@@ -48,7 +48,7 @@ public class ItineraryScheduleActivity extends Activity {
         setContentView(R.layout.activity_itinerary_schedule);
         ButterKnife.bind(this);
 
-        List<Attraction> attractions = getIntent().getParcelableArrayListExtra(Constants.ATTRACTION_LIST);
+        List<Attraction> attractions = getIntent().getParcelableArrayListExtra(Constants.INTENT_ATTRACTION_LIST);
         if (attractions == null) {
             attractions = createAttractionList();
         }
