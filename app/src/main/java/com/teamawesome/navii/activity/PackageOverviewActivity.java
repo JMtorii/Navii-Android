@@ -46,15 +46,9 @@ public class PackageOverviewActivity extends NaviiActivity {
 
     private List<Integer> getListItemData() {
         List<Integer> items = new ArrayList<>();
-        items.add(R.drawable.bird);
-        items.add(R.drawable.rough_logo);
         items.add(R.drawable.imagination);
-        items.add(R.drawable.tmp_social_buttons);
-        items.add(R.drawable.rough_calendar);
         items.add(R.drawable.ic_minus);
         items.add(R.drawable.ic_plus);
-        items.add(R.drawable.bird);
-        items.add(R.drawable.rough_logo);
         items.add(R.drawable.imagination);
 
         return items;

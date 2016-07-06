@@ -63,10 +63,10 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == TYPE_ITEM) {
-            View view = LayoutInflater.from(mContext).inflate(R.layout.package_item_view, null);
+            View view = LayoutInflater.from(mContext).inflate(R.layout.adapter_package_schedule_item_view, null);
             return new PackageItemViewHolder(view);
         } else {
-            View view = LayoutInflater.from(mContext).inflate(R.layout.section_item_view, null);
+            View view = LayoutInflater.from(mContext).inflate(R.layout.adapter_package_schedule_section_item_view, null);
             return new SectionViewHolder(view);
         }
     }

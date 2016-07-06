@@ -33,7 +33,7 @@ public class PreferencesGridAdapter extends ArrayAdapter<Preference> {
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.preferences_view, null);
+            view = inflater.inflate(R.layout.adapter_preferences, null);
         }
 
         ImageView imageView = (ImageView) view.findViewById(R.id.preferenceCheckImageView);

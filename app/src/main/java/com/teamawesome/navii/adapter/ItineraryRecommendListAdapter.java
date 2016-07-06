@@ -40,7 +40,7 @@ public class ItineraryRecommendListAdapter extends RecyclerView.Adapter<Itinerar
 
     @Override
     public ItineraryRecommendViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.itinerary_listitem_layout, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.adapter_itinerary_list_item, null);
 
         return new ItineraryRecommendViewHolder(view);
     }

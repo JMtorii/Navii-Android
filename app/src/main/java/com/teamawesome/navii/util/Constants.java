@@ -28,7 +28,6 @@ public class Constants {
 
     public static final String CHANGE_PASSWORD_FRAGMENT = "CHANGE_PASSWORD_FRAGMENT";
 
-
     public static final String PLANNING_SAVED_TRIPS_FRAGMENT_TAG = "PLANNING_SAVED_TRIPS_FRAGMENT_TAG";
     public static final String PLANNING_PLANNED_TRIPS_FRAGMENT_TAG = "PLANNING_PLANNED_TRIPS_FRAGMENT_TAG";
     public static final String PLANNING_CHOOSE_TAGS_FRAGMENT_TAG = "PLANNING_CHOOSE_TAGS_FRAGMENT_TAG";
@@ -54,4 +53,6 @@ public class Constants {
     public static final String PHOTO_URI_LIST = "PHOTO_URI_LIST";
     public static final String ATTRACTION_LIST = "ATTRACTION_LIST";
 
+    // Intents
+    public static final String INTENT_TAGS = "TAGS";
 }

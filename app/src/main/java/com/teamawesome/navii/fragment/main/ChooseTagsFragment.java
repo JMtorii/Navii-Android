@@ -13,6 +13,7 @@ import com.teamawesome.navii.NaviiApplication;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.ItineraryRecommendActivity;
 import com.teamawesome.navii.adapter.TagGridAdapter;
+import com.teamawesome.navii.util.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,8 +70,7 @@ public class ChooseTagsFragment extends NaviiParallaxFragment {
     public void nextFunction() {
         Intent itineraryRecommendIntent = new Intent(getContext(), ItineraryRecommendActivity.class);
         if (mTagGridAdapter != null) {
-            itineraryRecommendIntent.putStringArrayListExtra("TAGS", new ArrayList<>(mTagGridAdapter.getActiveTags()));
-
+            itineraryRecommendIntent.putStringArrayListExtra(Constants.INTENT_TAGS, new ArrayList<>(mTagGridAdapter.getActiveTags()));
         }
         startActivity(itineraryRecommendIntent);
     }

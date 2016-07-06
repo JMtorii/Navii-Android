@@ -97,7 +97,7 @@ public class PreferencesFragment extends NaviiFragment {
                         textView.setText(preferenceQuestion.getQuestion());
                         gridView.setAdapter(
                                 new PreferencesGridAdapter(getContext(),
-                                R.layout.preferences_view,
+                                R.layout.adapter_preferences,
                                 preferenceQuestion.getPreferences())
                         );
                     }

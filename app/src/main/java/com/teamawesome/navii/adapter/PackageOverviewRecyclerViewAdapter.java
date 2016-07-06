@@ -32,7 +32,7 @@ public class PackageOverviewRecyclerViewAdapter extends RecyclerView.Adapter<Pac
 
     @Override
     public PackageOverviewViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_package_overview, null);
+        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_package_overview_list, null);
         return new PackageOverviewViewHolder(layoutView);
     }
 

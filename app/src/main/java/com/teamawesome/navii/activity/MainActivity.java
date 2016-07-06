@@ -11,9 +11,9 @@ import android.widget.Button;
 
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.adapter.ParallaxPagerAdapter;
-import com.teamawesome.navii.fragment.TravelDestinationFragment;
-import com.teamawesome.navii.fragment.TravelDurationFragment;
-import com.teamawesome.navii.fragment.TravelParticipantsFragment;
+import com.teamawesome.navii.fragment.main.TravelDestinationFragment;
+import com.teamawesome.navii.fragment.main.TravelDurationFragment;
+import com.teamawesome.navii.fragment.main.TravelParticipantsFragment;
 import com.teamawesome.navii.fragment.main.BudgetFragment;
 import com.teamawesome.navii.fragment.main.ChooseTagsFragment;
 import com.teamawesome.navii.fragment.main.NaviiParallaxFragment;

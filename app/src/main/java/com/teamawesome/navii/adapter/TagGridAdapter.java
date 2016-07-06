@@ -36,7 +36,7 @@ public class TagGridAdapter extends RecyclerView.Adapter<TagGridAdapter.TagGridV
     public TagGridViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.tags_selectable_grid_item, null);
+                .inflate(R.layout.adapter_tags_selectable_grid_item, null);
         return new TagGridViewHolder(view);
     }
 
