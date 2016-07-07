@@ -19,8 +19,7 @@ import java.util.List;
  */
 public class PreferencesGridAdapter extends ArrayAdapter<Preference> {
     private List<Preference> mPreferences;
-    private static final int CHECKMARK_WIDTH = 50;
-    private static final int CHECKMARK_HEIGHT = 50;
+
 
     public PreferencesGridAdapter(Context context, int resource, List<Preference> preferences) {
         super(context, resource, preferences);
@@ -35,14 +34,6 @@ public class PreferencesGridAdapter extends ArrayAdapter<Preference> {
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.adapter_preferences, null);
         }
-
-        ImageView imageView = (ImageView) view.findViewById(R.id.preferenceCheckImageView);
-
-        Picasso.with(getContext())
-                .load(R.drawable.checkmark)
-                .centerCrop()
-                .resize(CHECKMARK_WIDTH, CHECKMARK_HEIGHT)
-                .into(imageView);
 
         TextView textView = (TextView) view.findViewById(R.id.preferenceTextView);
         textView.setText(mPreferences.get(position).getPreference());

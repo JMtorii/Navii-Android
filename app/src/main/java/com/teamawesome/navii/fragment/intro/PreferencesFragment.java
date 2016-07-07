@@ -46,7 +46,6 @@ public class PreferencesFragment extends NaviiFragment {
 
     private Button mNextButton;
     private GridView gridView;
-    private ImageView imageView;
     private TextView textView;
     private List<Preference> mSelectedPreferences;
     private int mPreferencesCount;
@@ -106,20 +105,18 @@ public class PreferencesFragment extends NaviiFragment {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                imageView = (ImageView) view.findViewById(R.id.preferenceCheckImageView);
-                if (!imageView.isSelected()) {
+                View t = view.findViewById(R.id.preferenceCheckView);
+                if (!t.isSelected()) {
                     if (mPreferencesCount == Constants.PREFERENCE_MAX_LIMIT) {
                         return;
                     }
                     mSelectedPreferences.add((Preference) view.getTag());
                     ++mPreferencesCount;
-                    imageView.setVisibility(View.VISIBLE);
                 } else {
                     mSelectedPreferences.remove((Preference) view.getTag());
                     --mPreferencesCount;
-                    imageView.setVisibility(View.GONE);
                 }
-                imageView.setSelected(!imageView.isSelected());
+                t.setSelected(!t.isSelected());
             }
         });
 

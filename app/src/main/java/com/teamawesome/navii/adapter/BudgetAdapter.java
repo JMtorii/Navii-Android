@@ -47,7 +47,7 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
             case 9:
                 Drawable img = budgetFragment.getResources().getDrawable(R.drawable.ic_backspace, null);
                 holder.budgetButton.setCompoundDrawablesWithIntrinsicBounds(null, img, null, null);
-                holder.budgetButton.setDigit(9);
+                holder.budgetButton.setDigit(-1);
                 break;
             case 10:
                 holder.budgetButton.setText(String.valueOf(0));
@@ -86,7 +86,7 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
 
         @OnClick (R.id.budget_button)
         public void pressed(View view){
-            if (budgetButton.getDigit() == 9){
+            if (budgetButton.getDigit() == -1){
                 backspace(view);
             } else if (budgetButton.getDigit() == 11){
                 next(view);
