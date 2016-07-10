@@ -3,6 +3,7 @@ package com.teamawesome.navii.activity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.adapter.PackageOverviewRecyclerViewAdapter;
@@ -39,18 +40,7 @@ public class PackageOverviewActivity extends NaviiActivity {
         StaggeredGridLayoutManager mStaggeredGridLayoutManager = new StaggeredGridLayoutManager(2, 1);
         recyclerView.setLayoutManager(mStaggeredGridLayoutManager);
 
-        List<Integer> items = getListItemData();
-        PackageOverviewRecyclerViewAdapter adapter = new PackageOverviewRecyclerViewAdapter(items, this, photoUriList);
+        PackageOverviewRecyclerViewAdapter adapter = new PackageOverviewRecyclerViewAdapter(this, photoUriList);
         recyclerView.setAdapter(adapter);
-    }
-
-    private List<Integer> getListItemData() {
-        List<Integer> items = new ArrayList<>();
-        items.add(R.drawable.imagination);
-        items.add(R.drawable.ic_minus);
-        items.add(R.drawable.ic_plus);
-        items.add(R.drawable.imagination);
-
-        return items;
     }
 }
