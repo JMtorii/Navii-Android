@@ -11,7 +11,8 @@
         android:id="@+id/itineraryList"
         android:background="#ffffff"
         android:divider="@android:color/transparent"
-        android:dividerHeight="3dp"/>
+        android:dividerHeight="3dp"
+        android:layout_below="@id/toolbar_layout"/>
 
     <include
         android:id="@+id/toolbar_layout"
