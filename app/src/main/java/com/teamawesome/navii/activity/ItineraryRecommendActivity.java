@@ -11,6 +11,7 @@ import com.teamawesome.navii.R;
 import com.teamawesome.navii.adapter.ItineraryRecommendListAdapter;
 import com.teamawesome.navii.server.model.Itinerary;
 import com.teamawesome.navii.util.Constants;
+import com.teamawesome.navii.util.ToolbarConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,16 +26,30 @@ import rx.schedulers.Schedulers;
 /**
  * Created by sjung on 11/06/16.
  */
-public class ItineraryRecommendActivity extends NaviiActivity {
+public class ItineraryRecommendActivity extends NaviiToolbarActivity {
     @BindView(R.id.itineraryList)
     RecyclerView itineraryRecyclerView;
 
     private ItineraryRecommendListAdapter recommendListAdapter;
 
     @Override
+    public ToolbarConfiguration getToolbarConfiguration() {
+        return ToolbarConfiguration.ItineraryRecommend;
+    }
+
+    @Override
+    public void onLeftButtonClick() {
+        super.onBackPressed();
+    }
+
+    @Override
+    public void onRightButtonClick() {
+        // Nothing to do here
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_itinerary_recommend);
         ButterKnife.bind(this);
 
         List<String> tags = getIntent().getStringArrayListExtra(Constants.INTENT_TAGS);
