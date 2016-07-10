@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferListener;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferObserver;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility;
@@ -91,9 +92,16 @@ public class ImageUploader {
             // Create an S3 client
             // String accessKey, secretKey;
 
-            // TODO: This is bad.  Do this right.
-            BasicAWSCredentials bac = new BasicAWSCredentials("", "");
-            AmazonS3 s3 = new AmazonS3Client(bac);
+            // TODO: This is bad. Should only do this once, not every upload
+
+            // Initialize the Amazon Cognito credentials provider
+            CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
+                    mAppContext,
+                    "us-east-1:31ad60dc-feaf-4683-804a-04b88f007d7a", // Identity Pool ID
+                    Regions.US_EAST_1 // Region
+                    );
+            // Initialize the Cognito Sync client
+            AmazonS3 s3 = new AmazonS3Client(credentialsProvider);
 
             // Set the region of your S3 bucket
             s3.setRegion(Region.getRegion(Regions.US_EAST_1));
