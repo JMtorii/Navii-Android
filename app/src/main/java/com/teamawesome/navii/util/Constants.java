@@ -6,8 +6,8 @@ package com.teamawesome.navii.util;
 public class Constants {
 
     // Server
-    public static final String SERVER_URL = "https://navi-ci.elasticbeanstalk.com";
-    public static final String SERVER_URL_JUN = "http://142.151.249.132:8080";
+    public static final String SERVER_URL = "https://naviappweb.com";
+    public static final String SERVER_URL_JUN = "http://192.168.57.1:8080";
     public static final String SERVER_URL_STEVE = "http://192.168.2.114:8080";
 
     // View
