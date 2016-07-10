@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.views.MainLatoTextView;
@@ -75,9 +76,13 @@ public class TravelParticipantsFragment extends NaviiParallaxFragment {
         mAdultDownButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (adultCounter > 0) {
+                if (adultCounter > 1) {
                     --adultCounter;
                     setAdultTextViewText();
+                } else {
+                    Toast.makeText(getActivity(),
+                            "You cannot have less than 1 adult.",
+                            Toast.LENGTH_LONG).show();
                 }
             }
         });
