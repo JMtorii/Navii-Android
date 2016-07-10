@@ -86,7 +86,7 @@
 
         <activity
             android:name=".activity.PlannedTripsActivity"
-            android:label="@string/planTrip"
+            android:label="@string/itinerary_recommend_plan_trip"
             android:screenOrientation="portrait"
             android:theme="@style/NaviiTheme.NoActionBar">
         </activity>
@@ -95,12 +95,13 @@
             android:name=".activity.ItineraryRecommendActivity"
             android:label="@string/itinerary_recommend_title"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden">
+            android:windowSoftInputMode="stateHidden"
+            android:theme="@style/NaviiTheme.NoActionBar">
         </activity>
 
         <activity
             android:name=".activity.HeartAndSoulDetailsActivity"
-            android:label="@string/planTrip"
+            android:label="@string/itinerary_recommend_plan_trip"
             android:screenOrientation="portrait"
             android:theme="@style/NaviiTheme.NoActionBar">
         </activity>

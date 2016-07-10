@@ -69,10 +69,10 @@
 
     <!-- Itinerary Recommend Fragment Strings-->
     <string name="itinerary_recommend_title">Recommended Itineraries</string>
-    <string name="author_title">Created by</string>
-    <string name="we_recommend_title">We Recommend</string>
-    <string name="planTrip">Plan your own Trip</string>
-    <string name="package_description_title">Overview</string>
+    <string name="itinerary_recommend_author_title">Created by</string>
+    <string name="itinerary_recommend_we_recommend_title">We Recommend</string>
+    <string name="itinerary_recommend_plan_trip">Plan your own Trip</string>
+    <string name="itinerary_recommend_package_description_title">Overview</string>
 
     <!-- EditProfile Fragment Strings-->
     <string name="new_user">new user</string>

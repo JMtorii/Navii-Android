@@ -6,6 +6,7 @@ import com.teamawesome.navii.R;
  * Created by JMtorii on 16-06-19.
  */
 public enum ToolbarConfiguration {
+    ItineraryRecommend(R.layout.activity_itinerary_recommend, R.string.itinerary_recommend_title, 1, R.drawable.ic_chevron_left, -1, 0),
     HeartAndSoulDetails(R.layout.activity_heart_and_soul_details, R.string.heart_and_soul_details_title, -1, 0, -1, 0);
 
     public static final int BUTTON_TYPE_NONE = -1;
@@ -23,7 +24,7 @@ public enum ToolbarConfiguration {
         this.layoutResId = layoutId;
         this.titleResId = titleId;
         this.leftButtonResType = leftButtonType;
-        this.leftResId = rightResId;
+        this.leftResId = leftButtonId;
         this.rightButtonResType = rightButtonType;
         this.rightResId = rightButtonId;
     }
