@@ -3,6 +3,8 @@ package com.teamawesome.navii.adapter;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,10 +45,15 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
+        int buttonHeight = ((int) (screenHeight * 0.4)) / 4;
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(screenWidth / 3, buttonHeight);
+        holder.budgetButton.setLayoutParams(params);
+        int padHeight = (holder.budgetButton.getLayoutParams().height/2) - 24;
         switch (position){
             case 9:
                 Drawable img = budgetFragment.getResources().getDrawable(R.drawable.ic_backspace, null);
-                holder.budgetButton.setCompoundDrawablesWithIntrinsicBounds(null, img, null, null);
+                holder.budgetButton.setCompoundDrawablesRelativeWithIntrinsicBounds(null, img, null, null);
+                holder.budgetButton.setPadding(0,padHeight,0,0);
                 holder.budgetButton.setDigit(-1);
                 break;
             case 10:
@@ -56,6 +63,7 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
             case 11:
                 Drawable img2 = budgetFragment.getResources().getDrawable(R.drawable.ic_check_circle, null);
                 holder.budgetButton.setCompoundDrawablesWithIntrinsicBounds(null, img2, null, null);
+                holder.budgetButton.setPadding(0,padHeight,0,0);
                 holder.budgetButton.setDigit(11);
                 break;
             default:
@@ -63,10 +71,6 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
                 holder.budgetButton.setDigit(position + 1);
                 break;
         }
-
-        int buttonHeight = ((int) (screenHeight * 0.4)) / 4;
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(screenWidth / 3, buttonHeight);
-        holder.budgetButton.setLayoutParams(params);
     }
 
     @Override

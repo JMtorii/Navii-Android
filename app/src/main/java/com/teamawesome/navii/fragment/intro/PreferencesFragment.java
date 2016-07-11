@@ -2,6 +2,9 @@ package com.teamawesome.navii.fragment.intro;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +32,8 @@ import com.teamawesome.navii.util.NaviiPreferenceData;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
@@ -44,12 +49,17 @@ import rx.schedulers.Schedulers;
 public class PreferencesFragment extends NaviiFragment {
     private static final String PREFERENCE_TYPE = "preference_type";
 
-    private Button mNextButton;
-    private GridView gridView;
-    private TextView textView;
-    private List<Preference> mSelectedPreferences;
-    private int mPreferencesCount;
-    private int numberOfPreferences;
+    @BindView (R.id.preferences_next_button)
+    Button mNextButton;
+
+    @BindView(R.id.preferences_layout)
+    RecyclerView gridView;
+
+    @BindView(R.id.preferences_text)
+    TextView textView;
+
+    private PreferencesGridAdapter mAdapter;
+    private NaviiApplication mApplication = NaviiApplication.getInstance();
 
     public static PreferencesFragment newInstance(int preferenceType) {
         PreferencesFragment fragment = new PreferencesFragment();
@@ -64,16 +74,10 @@ public class PreferencesFragment extends NaviiFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_intro_preferences, container, false);
-
-        mNextButton = (Button) view.findViewById(R.id.preferences_next_button);
-        gridView = (GridView) view.findViewById(R.id.preferences_layout);
-        textView = (TextView) view.findViewById(R.id.preferences_text);
-
+        ButterKnife.bind(this, view);
         final int preferenceType = getArguments().getInt(PREFERENCE_TYPE);
-        mSelectedPreferences = new ArrayList<>();
-        mPreferencesCount = 0;
         //TODO: change to server implementation
-        numberOfPreferences = 3;
+        final int numberOfPreferences = 3;
 
         Observable<PreferencesQuestion> observable =
             NaviiApplication.getInstance().getPreferenceAPI().getPreferences(preferenceType);
@@ -94,56 +98,35 @@ public class PreferencesFragment extends NaviiFragment {
                     @Override
                     public void onNext(PreferencesQuestion preferenceQuestion) {
                         textView.setText(preferenceQuestion.getQuestion());
-                        gridView.setAdapter(
-                                new PreferencesGridAdapter(getContext(),
-                                R.layout.adapter_preferences,
-                                preferenceQuestion.getPreferences())
-                        );
+                        mAdapter = new PreferencesGridAdapter(preferenceQuestion.getPreferences());
+                        gridView.setAdapter(mAdapter);
+                        gridView.setLayoutManager(new GridLayoutManager(gridView.getContext(), numberOfPreferences));
                     }
                 });
 
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                View t = view.findViewById(R.id.preferenceCheckView);
-                if (!t.isSelected()) {
-                    if (mPreferencesCount == Constants.PREFERENCE_MAX_LIMIT) {
-                        return;
-                    }
-                    mSelectedPreferences.add((Preference) view.getTag());
-                    ++mPreferencesCount;
-                } else {
-                    mSelectedPreferences.remove((Preference) view.getTag());
-                    --mPreferencesCount;
-                }
-                t.setSelected(!t.isSelected());
-            }
-        });
 
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mPreferencesCount < Constants.PREFERENCE_MIN_LIMIT) {
+                if (mAdapter.getItemCount() < Constants.PREFERENCE_MIN_LIMIT) {
                     //TODO: Replace with toast replacement
                     Toast.makeText(getContext(), "Less than minimum requirements", Toast.LENGTH_LONG).show();
                     return;
                 }
 
-                for (Preference preference : mSelectedPreferences) {
-                    Log.d("onClick", preference.getPreference());
-                }
                 String username = NaviiPreferenceData.getLoggedInUserEmail();
                 // TODO : Change id to the one in shared preferences
                 UserPreference userPreference = new UserPreference.Builder()
                         .username(username)
-                        .preferences(mSelectedPreferences)
+                        .preferences(mAdapter.getmSelectedPreferences())
                         .build();
 
                 // TODO : Change id to the one in shared preferences
                 Log.d("PreferenceFragment: ", username);
-                Call<Void> deleteCall = parentActivity.userPreferenceAPI.deleteAllUserPreference
+                Call<Void> deleteCall = mApplication.getUserPreferenceAPI().deleteAllUserPreference
                         (username, preferenceType);
-                Call<Void> createCall = parentActivity.userPreferenceAPI.createUserPreference(userPreference);
+
+                Call<Void> createCall = mApplication.getUserPreferenceAPI().createUserPreference(userPreference);
 
                 // enqueues the delete call to delete the existing preferences for the user to
                 // replace with new ones
@@ -164,19 +147,11 @@ public class PreferencesFragment extends NaviiFragment {
                     @Override
                     public void onResponse(Response<Void> response, Retrofit retrofit) {
                         Log.i("call response: code", String.valueOf(response.code()));
-
+                        //Switch to the next preference type  (change screens)
                         if (response.code() == 201) {
                             int nextPreference = preferenceType + 1;
                             if (nextPreference <= numberOfPreferences) {
-                                parentActivity.switchFragment(
-                                        PreferencesFragment.newInstance(nextPreference),
-                                        Constants.NO_ANIM,
-                                        Constants.NO_ANIM,
-                                        Constants.PREFERENCES_FRAGMENT_TAG,
-                                        true,
-                                        true,
-                                        true
-                                );
+                                getFragmentManager().beginTransaction().replace(R.id.preference_fragment_frame,  PreferencesFragment.newInstance(nextPreference)).commit();
                             } else {
                                 // If the activity is in the intro stage
                                 if (getActivity().getClass().equals(IntroActivity.class)) {

@@ -45,7 +45,7 @@ public class BudgetFragment extends NaviiParallaxFragment {
         RelativeLayout.LayoutParams padHeight = new RelativeLayout.LayoutParams(metrics.widthPixels,(int)(metrics.heightPixels * 0.4));
         padHeight.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         //Messing around with textbox animations
-//        budgetEditText.setKeyListener(null);
+        budgetEditText.setKeyListener(null);
 //        Animation pulse = new AlphaAnimation(0.0f, 1.0f);
 //        pulse.setDuration(800);
 //        pulse.setStartOffset(200);
