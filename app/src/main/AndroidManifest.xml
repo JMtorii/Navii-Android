@@ -81,7 +81,8 @@
             android:name=".activity.PackageOverviewActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden">
+            android:windowSoftInputMode="stateHidden"
+            android:theme="@style/NaviiTheme.NoActionBar">
         </activity>
 
         <activity

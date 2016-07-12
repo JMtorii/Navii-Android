@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:scrollbars="vertical"
         android:id="@+id/itineraryList"
-        android:background="#ffffff"
+        android:background="#FFFFFF"
         android:divider="@android:color/transparent"
         android:dividerHeight="3dp"
         android:layout_below="@id/toolbar_layout"/>
