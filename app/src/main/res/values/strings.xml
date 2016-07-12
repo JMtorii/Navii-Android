@@ -104,5 +104,6 @@
 
     <!-- Package Overview -->
     <string name="package_overview_title">Package Overview</string>
+    <string name="package_overview_select">Select</string>
 
 </resources>
