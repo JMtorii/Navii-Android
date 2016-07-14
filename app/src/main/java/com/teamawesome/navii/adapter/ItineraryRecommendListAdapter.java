@@ -1,5 +1,6 @@
 package com.teamawesome.navii.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -29,7 +30,6 @@ import butterknife.OnClick;
  * Created by sjung on 10/12/15.
  */
 public class ItineraryRecommendListAdapter extends RecyclerView.Adapter<ItineraryRecommendListAdapter.ItineraryRecommendViewHolder> {
-
     private List<Itinerary> itineraries;
     private Context context;
 
@@ -75,8 +75,7 @@ public class ItineraryRecommendListAdapter extends RecyclerView.Adapter<Itinerar
         return itineraries.size();
     }
 
-    class ItineraryRecommendViewHolder extends RecyclerView.ViewHolder {
-
+    public class ItineraryRecommendViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.package_title)
         TextView mTextView;
 
@@ -86,19 +85,22 @@ public class ItineraryRecommendListAdapter extends RecyclerView.Adapter<Itinerar
         private List<Attraction> attractions;
         private List<String> photoUriList;
 
-        @OnClick(R.id.package_image_view)
-        void onClick() {
-            //TODO: Link with Jun's package descriptor
-            Log.d("TAG", "onClick");
-            Intent packageOverviewActivity = new Intent(context, PackageOverviewActivity.class);
-            packageOverviewActivity.putParcelableArrayListExtra(Constants.INTENT_ATTRACTION_LIST, new ArrayList<>(attractions));
-            context.startActivity(packageOverviewActivity);
-        }
-
         public ItineraryRecommendViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             photoUriList = new ArrayList<>();
+        }
+
+        @OnClick(R.id.package_image_view)
+        public void onClick() {
+            //TODO: Link with Jun's package descriptor
+            Log.d("TAG", "onClick");
+            Intent packageOverviewActivity = new Intent(context, PackageOverviewActivity.class);
+            packageOverviewActivity.putParcelableArrayListExtra(Constants.INTENT_ATTRACTION_LIST, new ArrayList<>(attractions));
+
+            Activity activity = (Activity) context;
+            activity.startActivity(packageOverviewActivity);
+            activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
     }
 }

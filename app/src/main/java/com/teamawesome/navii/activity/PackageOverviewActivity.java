@@ -1,12 +1,17 @@
 package com.teamawesome.navii.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.transition.Fade;
+import android.transition.Slide;
 
+import com.teamawesome.navii.NaviiApplication;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.adapter.PackageOverviewRecyclerViewAdapter;
 import com.teamawesome.navii.server.model.Attraction;
+import com.teamawesome.navii.server.model.Itinerary;
 import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.ToolbarConfiguration;
 
@@ -35,7 +40,10 @@ public class PackageOverviewActivity extends NaviiToolbarActivity {
 
     @Override
     public void onRightButtonClick() {
-        // nothing to do here
+        Intent itineraryScheduleActivity = new Intent(this, ItineraryScheduleActivity.class);
+        Itinerary itinerary = new Itinerary();
+        NaviiApplication.getInstance().getBus().send(itinerary);
+        startActivity(itineraryScheduleActivity);
     }
 
     @Override
@@ -55,5 +63,21 @@ public class PackageOverviewActivity extends NaviiToolbarActivity {
 
         PackageOverviewRecyclerViewAdapter adapter = new PackageOverviewRecyclerViewAdapter(this, photoUriList);
         recyclerView.setAdapter(adapter);
+
+        setupWindowAnimations();
+    }
+
+    private void setupWindowAnimations() {
+//        Slide slide = new Slide();
+//        slide.setDuration(1000);
+//        getWindow().setExitTransition(slide);
+
+        Fade fade = new Fade();
+        fade.setDuration(1000);
+        getWindow().setEnterTransition(fade);
+
+        Slide slide = new Slide();
+        slide.setDuration(1000);
+        getWindow().setReturnTransition(slide);
     }
 }

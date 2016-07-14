@@ -8,6 +8,8 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.transition.Fade;
+import android.transition.Slide;
 import android.util.Log;
 import android.view.View;
 
@@ -71,6 +73,8 @@ public class ItineraryScheduleActivity extends Activity {
         mItineraryRecyclerView.setAdapter(mPackageScheduleViewAdapter);
         mItemTouchHelper = createItemTouchHelper();
         mItemTouchHelper.attachToRecyclerView(mItineraryRecyclerView);
+
+        setupWindowAnimations();
     }
 
     @OnClick(R.id.itinerary_schedule_fab)
@@ -208,5 +212,15 @@ public class ItineraryScheduleActivity extends Activity {
                             .build());
         }
         return attractions;
+    }
+
+    private void setupWindowAnimations() {
+        Fade fade = new Fade();
+        fade.setDuration(1000);
+        getWindow().setEnterTransition(fade);
+
+        Slide slide = new Slide();
+        slide.setDuration(1000);
+        getWindow().setReturnTransition(slide);
     }
 }
