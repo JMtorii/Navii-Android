@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -123,8 +122,8 @@ public class PreferencesFragment extends NaviiFragment {
 
                 // TODO : Change id to the one in shared preferences
                 Log.d("PreferenceFragment: ", username);
-                Call<Void> deleteCall = mApplication.getUserPreferenceAPI().deleteAllUserPreference
-                        (username, preferenceType);
+
+                Call<Void> deleteCall = mApplication.getUserPreferenceAPI().deleteAllUserPreference(username, preferenceType);
 
                 Call<Void> createCall = mApplication.getUserPreferenceAPI().createUserPreference(userPreference);
 
