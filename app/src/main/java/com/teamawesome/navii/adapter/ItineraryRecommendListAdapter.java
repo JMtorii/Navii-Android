@@ -49,25 +49,27 @@ public class ItineraryRecommendListAdapter extends RecyclerView.Adapter<Itinerar
     public void onBindViewHolder(ItineraryRecommendViewHolder holder, int position) {
         holder.mTextView.setText(itineraries.get(position).getDescription());
 
-        Picasso.with(context)
-                .load(itineraries.get(position).getAttractions().get(0).getPhotoUri())
-                .centerCrop()
-                .fit()
-                .into(holder.mImageView);
+        if (itineraries != null && itineraries.get(position).getAttractions() != null) {
+            Picasso.with(context)
+                    .load(itineraries.get(position).getAttractions().get(0).getPhotoUri())
+                    .centerCrop()
+                    .fit()
+                    .into(holder.mImageView);
 
-        holder.attractions = itineraries.get(position).getAttractions();
+            holder.attractions = itineraries.get(position).getAttractions();
 
-        final List<Attraction> attractionList = holder.attractions;
-        holder.mImageView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                Log.d("TAG", "onLongClick");
-                Intent itineraryScheduleActivity = new Intent(context, ItineraryScheduleActivity.class);
-                itineraryScheduleActivity.putParcelableArrayListExtra(Constants.INTENT_ATTRACTION_LIST, new ArrayList<>(attractionList));
-                context.startActivity(itineraryScheduleActivity);
-                return true;
-            }
-        });
+            final List<Attraction> attractionList = holder.attractions;
+            holder.mImageView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    Log.d("TAG", "onLongClick");
+                    Intent itineraryScheduleActivity = new Intent(context, ItineraryScheduleActivity.class);
+                    itineraryScheduleActivity.putParcelableArrayListExtra(Constants.INTENT_ATTRACTION_LIST, new ArrayList<>(attractionList));
+                    context.startActivity(itineraryScheduleActivity);
+                    return true;
+                }
+            });
+        }
     }
 
     @Override
