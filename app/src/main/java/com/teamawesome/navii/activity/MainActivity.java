@@ -111,7 +111,11 @@ public class MainActivity extends NaviiNavigationalActivity {
         ParallaxPagerAdapter parallaxPagerAdapter = new ParallaxPagerAdapter(super.getSupportFragmentManager(), fragments);
         parallaxViewPager.setOffscreenPageLimit(fragments.size());
         parallaxViewPager.setAdapter(parallaxPagerAdapter);
-        parallaxViewPager.configure(parallaxHorizontalScrollView);
+        parallaxViewPager.configure(parallaxHorizontalScrollView, this);
         parallaxViewPager.setCurrentItem(0);
+    }
+
+    public Button getmNextButton(){
+        return this.mNextButton;
     }
 }
