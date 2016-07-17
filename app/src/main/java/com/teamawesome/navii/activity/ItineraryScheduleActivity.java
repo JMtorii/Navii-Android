@@ -83,6 +83,7 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity {
         ButterKnife.bind(this);
 
         List<Attraction> attractions = getIntent().getParcelableArrayListExtra(Constants.INTENT_ATTRACTION_LIST);
+        String title = getIntent().getStringExtra(Constants.INTENT_ATTRACTION_TITLE);
         List<PackageScheduleListItem> items = new ArrayList<>();
 
         int sectionDivide = (int) Math.ceil((double) attractions.size() / (double) 3);
@@ -95,6 +96,7 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity {
             items.add(new PackageScheduleAttractionItem(attractions.get(i)));
         }
 
+        titleText.setText(title);
         mItineraryRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mPackageScheduleViewAdapter = new PackageScheduleViewAdapter(this, items);
         mPackageScheduleViewAdapter.setSnackbar(mItineraryRecyclerView);

@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.teamawesome.navii.R;
-import com.teamawesome.navii.activity.ItineraryScheduleActivity;
 import com.teamawesome.navii.activity.PackageOverviewActivity;
 import com.teamawesome.navii.server.model.Attraction;
 import com.teamawesome.navii.server.model.Itinerary;
@@ -49,7 +47,6 @@ public class ItineraryRecommendListAdapter extends RecyclerView.Adapter<Itinerar
     @Override
     public void onBindViewHolder(ItineraryRecommendViewHolder holder, int position) {
         holder.mTextView.setText(itineraries.get(position).getDescription());
-
         if (itineraries != null && itineraries.get(position).getAttractions() != null) {
             Picasso.with(context)
                     .load(itineraries.get(position).getAttractions().get(0).getPhotoUri())
@@ -58,18 +55,6 @@ public class ItineraryRecommendListAdapter extends RecyclerView.Adapter<Itinerar
                     .into(holder.mImageView);
 
             holder.attractions = itineraries.get(position).getAttractions();
-
-            final List<Attraction> attractionList = holder.attractions;
-            holder.mImageView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    Log.d("TAG", "onLongClick");
-                    Intent itineraryScheduleActivity = new Intent(context, ItineraryScheduleActivity.class);
-                    itineraryScheduleActivity.putParcelableArrayListExtra(Constants.INTENT_ATTRACTION_LIST, new ArrayList<>(attractionList));
-                    context.startActivity(itineraryScheduleActivity);
-                    return true;
-                }
-            });
         }
     }
 
@@ -99,7 +84,7 @@ public class ItineraryRecommendListAdapter extends RecyclerView.Adapter<Itinerar
             if (attractions != null) {
                 Intent packageOverviewActivity = new Intent(context, PackageOverviewActivity.class);
                 packageOverviewActivity.putParcelableArrayListExtra(Constants.INTENT_ATTRACTION_LIST, new ArrayList<>(attractions));
-
+                packageOverviewActivity.putExtra(Constants.INTENT_ATTRACTION_TITLE, mTextView.getText().toString());
                 Activity activity = (Activity) context;
                 activity.startActivity(packageOverviewActivity);
                 activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

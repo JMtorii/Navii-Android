@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.adapter.PackageOverviewRecyclerViewAdapter;
@@ -26,6 +25,7 @@ public class PackageOverviewActivity extends NaviiToolbarActivity {
     RecyclerView recyclerView;
 
     private List<Attraction> attractionList;
+    private String itineraryTitle;
 
     @Override
     public ToolbarConfiguration getToolbarConfiguration() {
@@ -41,6 +41,8 @@ public class PackageOverviewActivity extends NaviiToolbarActivity {
     public void onRightButtonClick() {
         Intent itineraryScheduleActivity = new Intent(this, ItineraryScheduleActivity.class);
         itineraryScheduleActivity.putParcelableArrayListExtra(Constants.INTENT_ATTRACTION_LIST, new ArrayList<>(attractionList));
+        itineraryScheduleActivity.putExtra(Constants.INTENT_ATTRACTION_TITLE, itineraryTitle);
+
         startActivity(itineraryScheduleActivity);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
@@ -51,6 +53,7 @@ public class PackageOverviewActivity extends NaviiToolbarActivity {
         ButterKnife.bind(this);
 
         attractionList = getIntent().getParcelableArrayListExtra(Constants.INTENT_ATTRACTION_LIST);
+        itineraryTitle = getIntent().getStringExtra(Constants.INTENT_ATTRACTION_TITLE);
 
         List<String> photoUriList = new ArrayList<>();
 
