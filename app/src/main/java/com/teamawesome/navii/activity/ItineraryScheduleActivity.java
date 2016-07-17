@@ -83,9 +83,6 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity {
         ButterKnife.bind(this);
 
         List<Attraction> attractions = getIntent().getParcelableArrayListExtra(Constants.INTENT_ATTRACTION_LIST);
-        if (attractions == null) {
-            attractions = createAttractionList();
-        }
         List<PackageScheduleListItem> items = new ArrayList<>();
 
         int sectionDivide = (int) Math.ceil((double) attractions.size() / (double) 3);
@@ -294,20 +291,6 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity {
 
             }
         };
-    }
-
-    private List<Attraction> createAttractionList() {
-        List<Attraction> attractions = new ArrayList<>();
-        for (int i = 0; i < 40; i++) {
-            attractions.add(
-                    new Attraction.Builder()
-                            .name("Attraction:" + i)
-                            .price(100)
-                            .photoUri("http://cpl.jumpfactor.netdna-cdn.com/wp-content/uploads/2015/04/plumber-Toronto-Toronto-plumbers.jpg")
-                            .duration(3)
-                            .build());
-        }
-        return attractions;
     }
 
     private void setupWindowAnimations() {
