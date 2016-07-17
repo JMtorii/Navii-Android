@@ -1,5 +1,6 @@
 package com.teamawesome.navii.activity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -31,6 +32,8 @@ public class ItineraryRecommendActivity extends NaviiToolbarActivity {
     RecyclerView itineraryRecyclerView;
 
     private ItineraryRecommendListAdapter recommendListAdapter;
+
+    private ProgressDialog progressDialog;
 
     @Override
     public ToolbarConfiguration getToolbarConfiguration() {
@@ -68,7 +71,7 @@ public class ItineraryRecommendActivity extends NaviiToolbarActivity {
                 .subscribe(new Subscriber<List<Itinerary>>() {
                     @Override
                     public void onCompleted() {
-                        //nothing to do here
+                        progressDialog.dismiss();
                     }
 
                     @Override
@@ -86,5 +89,7 @@ public class ItineraryRecommendActivity extends NaviiToolbarActivity {
                         itineraryRecyclerView.setLayoutManager(gridLayoutManager);
                     }
                 });
+
+        progressDialog = ProgressDialog.show(this, "Just calm down.", "Loading itineraries...");
     }
 }
