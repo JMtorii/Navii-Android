@@ -56,7 +56,7 @@ public class ChooseTagsFragment extends NaviiParallaxFragment {
 
                     @Override
                     public void onNext(List<String> tags) {
-                        mTagGridAdapter = new TagGridAdapter(tags);
+                        mTagGridAdapter = new TagGridAdapter(tags, getActivity());
                         mTagsGridView.setAdapter(mTagGridAdapter);
                         RecyclerView.LayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
                         mTagsGridView.setLayoutManager(gridLayoutManager);

@@ -1,10 +1,12 @@
 package com.teamawesome.navii.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.views.MainLatoButton;
@@ -25,11 +27,13 @@ public class TagGridAdapter extends RecyclerView.Adapter<TagGridAdapter.TagGridV
 
     private List<String> mTags;
     private Set<String> mActiveTags;
+    private Context mContext;
 
-    public TagGridAdapter(List<String> tags) {
+    public TagGridAdapter(List<String> tags, Context context) {
         super();
         this.mTags = tags;
         this.mActiveTags = new HashSet<>();
+        this.mContext = context;
     }
 
     @Override
@@ -42,7 +46,7 @@ public class TagGridAdapter extends RecyclerView.Adapter<TagGridAdapter.TagGridV
 
     @Override
     public void onBindViewHolder(TagGridViewHolder holder, int position) {
-        Log.d("Position", ""+position);
+        Log.d("Position", "" + position);
         String tag = mTags.get(position);
         String text = tag.substring(0, 1).toUpperCase() + tag.substring(1);
         holder.name.setText(text);
@@ -66,14 +70,26 @@ public class TagGridAdapter extends RecyclerView.Adapter<TagGridAdapter.TagGridV
         @OnClick(R.id.tag_name)
         void tagSelect(View v) {
             boolean activated = !v.isActivated();
+            if (mActiveTags.size() < 7) {
+                v.setActivated(activated);
+                Log.d("TAG", "Selected: " + activated);
 
-            v.setActivated(activated);
-            Log.d("TAG", "Selected: " + activated);
-
-            if (activated) {
-                mActiveTags.add(v.getTag().toString());
+                if (activated) {
+                    mActiveTags.add(v.getTag().toString());
+                } else {
+                    mActiveTags.remove(v.getTag().toString());
+                }
             } else {
-                mActiveTags.remove(v.getTag().toString());
+                if (activated) {
+                    Log.d("TAG", "Selected: " + !activated);
+                    Toast.makeText(mContext,
+                            "You cannot select more than 7 tags. Asshole.",
+                            Toast.LENGTH_LONG).show();
+                } else {
+                    Log.d("TAG", "Selected: " + activated);
+                    v.setActivated(activated);
+                    mActiveTags.remove(v.getTag().toString());
+                }
             }
         }
 
