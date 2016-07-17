@@ -80,7 +80,6 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_itinerary_schedule);
         ButterKnife.bind(this);
 
         List<Attraction> attractions = getIntent().getParcelableArrayListExtra(Constants.INTENT_ATTRACTION_LIST);

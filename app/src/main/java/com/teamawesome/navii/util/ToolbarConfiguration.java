@@ -8,7 +8,7 @@ import com.teamawesome.navii.R;
 public enum ToolbarConfiguration {
     ItineraryRecommend(R.layout.activity_itinerary_recommend, R.string.itinerary_recommend_title, 1, R.drawable.ic_chevron_left, -1, 0),
     PackageOverview(R.layout.activity_package_overview, R.string.package_overview_title, 1, R.drawable.ic_chevron_left, 0, R.string.package_overview_select),
-    HeartAndSoul(R.layout.activity_itinerary_schedule, R.string.heart_and_soul_details_title, 1, R.drawable.ic_chevron_left, 0, R.string.heart_and_soul_select),
+    HeartAndSoul(R.layout.activity_itinerary_schedule, R.string.heart_and_soul_title, 1, R.drawable.ic_chevron_left, 0, R.string.heart_and_soul_select),
     HeartAndSoulDetails(R.layout.activity_heart_and_soul_details, R.string.heart_and_soul_details_title, -1, 0, -1, 0);
 
     public static final int BUTTON_TYPE_NONE = -1;
