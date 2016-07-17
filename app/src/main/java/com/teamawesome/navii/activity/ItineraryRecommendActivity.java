@@ -39,7 +39,7 @@ public class ItineraryRecommendActivity extends NaviiToolbarActivity {
 
     @Override
     public void onLeftButtonClick() {
-        super.onBackPressed();
+        this.onBackPressed();
     }
 
     @Override
@@ -86,5 +86,11 @@ public class ItineraryRecommendActivity extends NaviiToolbarActivity {
                         itineraryRecyclerView.setLayoutManager(gridLayoutManager);
                     }
                 });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 }
