@@ -1,6 +1,5 @@
 package com.teamawesome.navii.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.os.Bundle;
@@ -33,6 +32,7 @@ import com.teamawesome.navii.util.HeartAndSoulHeaderConfiguration;
 import com.teamawesome.navii.util.PackageScheduleAttractionItem;
 import com.teamawesome.navii.util.PackageScheduleHeaderItem;
 import com.teamawesome.navii.util.PackageScheduleListItem;
+import com.teamawesome.navii.util.ToolbarConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +45,7 @@ import butterknife.OnTouch;
 /**
  * Created by sjung on 19/06/16.
  */
-public class ItineraryScheduleActivity extends Activity {
+public class ItineraryScheduleActivity extends NaviiToolbarActivity {
 
     @BindView(R.id.itinerary_schedule_fab)
     FloatingActionButton mAddScheduleFloatingActionButton;
@@ -63,15 +63,26 @@ public class ItineraryScheduleActivity extends Activity {
     private static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
 
     @Override
+    public ToolbarConfiguration getToolbarConfiguration() {
+        return ToolbarConfiguration.HeartAndSoul;
+    }
+
+    @Override
+    public void onLeftButtonClick() {
+        super.onBackPressed();
+    }
+
+    @Override
+    public void onRightButtonClick() {
+        // Nothing to do here
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_itinerary_schedule);
         ButterKnife.bind(this);
 
         List<Attraction> attractions = getIntent().getParcelableArrayListExtra(Constants.INTENT_ATTRACTION_LIST);
-        if (attractions == null) {
-            attractions = createAttractionList();
-        }
         List<PackageScheduleListItem> items = new ArrayList<>();
 
         int sectionDivide = (int) Math.ceil((double) attractions.size() / (double) 3);
@@ -280,20 +291,6 @@ public class ItineraryScheduleActivity extends Activity {
 
             }
         };
-    }
-
-    private List<Attraction> createAttractionList() {
-        List<Attraction> attractions = new ArrayList<>();
-        for (int i = 0; i < 40; i++) {
-            attractions.add(
-                    new Attraction.Builder()
-                            .name("Attraction:" + i)
-                            .price(100)
-                            .photoUri("http://cpl.jumpfactor.netdna-cdn.com/wp-content/uploads/2015/04/plumber-Toronto-Toronto-plumbers.jpg")
-                            .duration(3)
-                            .build());
-        }
-        return attractions;
     }
 
     private void setupWindowAnimations() {
