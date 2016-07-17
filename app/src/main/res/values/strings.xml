@@ -97,14 +97,18 @@
     <!-- Buttons -->
     <string name="next">"Next"</string>
 
+    <!-- Package Overview -->
+    <string name="package_overview_title">Package Overview</string>
+    <string name="package_overview_select">Select</string>
+
+    <!-- Heart and Soul -->
+    <string name="heart_and_soul_title">Heart and Soul</string>
+    <string name="heart_and_soul_select">Select</string>
+
     <!-- Heart and Soul Details Strings -->
     <string name="heart_and_soul_details_title">Heart and Soul Details</string>
     <string name="delete">delete</string>
     <string name="start_time_title">Start Time:</string>
-
-    <!-- Package Overview -->
-    <string name="package_overview_title">Package Overview</string>
-    <string name="package_overview_select">Select</string>
 
     <!-- Errors -->
     <string name="error_steve_fucked_up">Steve fucked up</string>

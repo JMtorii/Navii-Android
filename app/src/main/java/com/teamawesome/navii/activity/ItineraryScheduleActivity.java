@@ -1,6 +1,5 @@
 package com.teamawesome.navii.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.os.Bundle;
@@ -33,6 +32,7 @@ import com.teamawesome.navii.util.HeartAndSoulHeaderConfiguration;
 import com.teamawesome.navii.util.PackageScheduleAttractionItem;
 import com.teamawesome.navii.util.PackageScheduleHeaderItem;
 import com.teamawesome.navii.util.PackageScheduleListItem;
+import com.teamawesome.navii.util.ToolbarConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +45,7 @@ import butterknife.OnTouch;
 /**
  * Created by sjung on 19/06/16.
  */
-public class ItineraryScheduleActivity extends Activity {
+public class ItineraryScheduleActivity extends NaviiToolbarActivity {
 
     @BindView(R.id.itinerary_schedule_fab)
     FloatingActionButton mAddScheduleFloatingActionButton;
@@ -61,6 +61,21 @@ public class ItineraryScheduleActivity extends Activity {
     private ItemTouchHelper.Callback mCallback;
 
     private static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
+
+    @Override
+    public ToolbarConfiguration getToolbarConfiguration() {
+        return ToolbarConfiguration.HeartAndSoul;
+    }
+
+    @Override
+    public void onLeftButtonClick() {
+        super.onBackPressed();
+    }
+
+    @Override
+    public void onRightButtonClick() {
+        // Nothing to do here
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

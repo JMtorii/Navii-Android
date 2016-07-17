@@ -1,69 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/itinerary_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/itinerary_schedule_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_add_white_24dp"
-        app:fabSize="normal"
-        app:backgroundTint="@color/primary"
-        app:layout_anchor="@id/itinerary_recycler_view"
-        app:layout_anchorGravity="bottom|right|end"/>
-
-    <RelativeLayout
-        android:id="@+id/menu_gradient"
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:background="#B4FFFFFF"
-        android:visibility="gone">
+        android:orientation="vertical">
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/itinerary_attraction_add_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:src="@drawable/ic_add_white_24dp"
-            app:backgroundTint="@color/primary"
-            app:fabSize="mini"
-            android:layout_marginLeft="@dimen/fab_margin"
-            android:layout_marginRight="@dimen/fab_margin"
-            android:layout_above="@+id/itinerary_restaurant_add_fab"
-            android:layout_alignStart="@+id/itinerary_restaurant_add_fab"/>
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/itinerary_restaurant_add_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:src="@drawable/ic_add_white_24dp"
-            app:fabSize="mini"
-            app:backgroundTint="@color/primary"
-            app:layout_anchorGravity="bottom|right|end"
-            android:layout_marginLeft="@dimen/fab_margin"
-            android:layout_marginRight="@dimen/fab_margin"
-            android:layout_marginBottom="89dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"/>
-        <View
-            android:id="@+id/anchor"
-            android:layout_height="0dp"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/itinerary_recycler_view"
             android:layout_width="match_parent"
-            android:layout_marginBottom="20dp"/>
-    </RelativeLayout>
+            android:layout_height="match_parent" />
 
-</android.support.design.widget.CoordinatorLayout>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/itinerary_schedule_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@drawable/ic_add_white_24dp"
+            app:fabSize="normal"
+            app:backgroundTint="@color/primary"
+            app:layout_anchor="@id/itinerary_recycler_view"
+            app:layout_anchorGravity="bottom|right|end"/>
+
+        <RelativeLayout
+            android:id="@+id/menu_gradient"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:background="#B4FFFFFF"
+            android:visibility="gone">
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/itinerary_attraction_add_fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:src="@drawable/ic_add_white_24dp"
+                app:backgroundTint="@color/primary"
+                app:fabSize="mini"
+                android:layout_marginLeft="@dimen/fab_margin"
+                android:layout_marginRight="@dimen/fab_margin"
+                android:layout_above="@+id/itinerary_restaurant_add_fab"
+                android:layout_alignStart="@+id/itinerary_restaurant_add_fab"/>
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/itinerary_restaurant_add_fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:src="@drawable/ic_add_white_24dp"
+                app:fabSize="mini"
+                app:backgroundTint="@color/primary"
+                app:layout_anchorGravity="bottom|right|end"
+                android:layout_marginLeft="@dimen/fab_margin"
+                android:layout_marginRight="@dimen/fab_margin"
+                android:layout_marginBottom="89dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"/>
+            <View
+                android:id="@+id/anchor"
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="20dp"/>
+        </RelativeLayout>
+
+    </android.support.design.widget.CoordinatorLayout>
+
+    <include
+        android:id="@+id/toolbar_layout"
+        layout="@layout/include_toolbar_no_nav"/>
+</RelativeLayout>
