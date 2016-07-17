@@ -34,7 +34,6 @@ public class PackageOverviewRecyclerViewAdapter extends RecyclerView.Adapter<Pac
     public void onBindViewHolder(PackageOverviewViewHolder holder, int position) {
         Picasso.with(mContext)
                 .load(mPhotoURIList.get(position))
-                .noFade()
                 .into(holder.image);
     }
 

@@ -73,5 +73,6 @@ public class ChooseTagsFragment extends NaviiParallaxFragment {
             itineraryRecommendIntent.putStringArrayListExtra(Constants.INTENT_TAGS, new ArrayList<>(mTagGridAdapter.getActiveTags()));
         }
         startActivity(itineraryRecommendIntent);
+        getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 }

@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.transition.Fade;
-import android.transition.Slide;
 
 import com.teamawesome.navii.NaviiApplication;
 import com.teamawesome.navii.R;
@@ -44,6 +42,7 @@ public class PackageOverviewActivity extends NaviiToolbarActivity {
         Itinerary itinerary = new Itinerary();
         NaviiApplication.getInstance().getBus().send(itinerary);
         startActivity(itineraryScheduleActivity);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     @Override
@@ -63,21 +62,5 @@ public class PackageOverviewActivity extends NaviiToolbarActivity {
 
         PackageOverviewRecyclerViewAdapter adapter = new PackageOverviewRecyclerViewAdapter(this, photoUriList);
         recyclerView.setAdapter(adapter);
-
-        setupWindowAnimations();
-    }
-
-    private void setupWindowAnimations() {
-//        Slide slide = new Slide();
-//        slide.setDuration(1000);
-//        getWindow().setExitTransition(slide);
-
-        Fade fade = new Fade();
-        fade.setDuration(1000);
-        getWindow().setEnterTransition(fade);
-
-        Slide slide = new Slide();
-        slide.setDuration(1000);
-        getWindow().setReturnTransition(slide);
     }
 }

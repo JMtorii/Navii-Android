@@ -106,4 +106,6 @@
     <string name="package_overview_title">Package Overview</string>
     <string name="package_overview_select">Select</string>
 
+    <!-- Errors -->
+    <string name="error_steve_fucked_up">Steve fucked up</string>
 </resources>

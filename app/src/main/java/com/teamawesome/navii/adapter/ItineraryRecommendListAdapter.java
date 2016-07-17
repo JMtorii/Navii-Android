@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.teamawesome.navii.R;
@@ -95,14 +96,17 @@ public class ItineraryRecommendListAdapter extends RecyclerView.Adapter<Itinerar
 
         @OnClick(R.id.package_image_view)
         public void onClick() {
-            //TODO: Link with Jun's package descriptor
-            Log.d("TAG", "onClick");
-            Intent packageOverviewActivity = new Intent(context, PackageOverviewActivity.class);
-            packageOverviewActivity.putParcelableArrayListExtra(Constants.INTENT_ATTRACTION_LIST, new ArrayList<>(attractions));
+            if (attractions != null) {
+                Intent packageOverviewActivity = new Intent(context, PackageOverviewActivity.class);
+                packageOverviewActivity.putParcelableArrayListExtra(Constants.INTENT_ATTRACTION_LIST, new ArrayList<>(attractions));
 
-            Activity activity = (Activity) context;
-            activity.startActivity(packageOverviewActivity);
-            activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                Activity activity = (Activity) context;
+                activity.startActivity(packageOverviewActivity);
+                activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            } else {
+                Toast.makeText(context, R.string.error_steve_fucked_up, Toast.LENGTH_LONG).show();
+            }
+
         }
     }
 }
