@@ -1,6 +1,7 @@
 package com.teamawesome.navii.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -11,11 +12,22 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.transition.Fade;
 import android.transition.Slide;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.RelativeLayout;
 
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.AutocompleteFilter;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.adapter.PackageScheduleViewAdapter;
 import com.teamawesome.navii.server.model.Attraction;
+import com.teamawesome.navii.server.model.Location;
 import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.HeartAndSoulHeaderConfiguration;
 import com.teamawesome.navii.util.PackageScheduleAttractionItem;
@@ -28,6 +40,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnTouch;
 
 /**
  * Created by sjung on 19/06/16.
@@ -40,9 +53,14 @@ public class ItineraryScheduleActivity extends Activity {
     @BindView(R.id.itinerary_recycler_view)
     RecyclerView mItineraryRecyclerView;
 
+    @BindView(R.id.menu_gradient)
+    RelativeLayout mMenuGradientLayout;
+
     private PackageScheduleViewAdapter mPackageScheduleViewAdapter;
     private ItemTouchHelper mItemTouchHelper;
     private ItemTouchHelper.Callback mCallback;
+
+    private static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,8 +74,7 @@ public class ItineraryScheduleActivity extends Activity {
         }
         List<PackageScheduleListItem> items = new ArrayList<>();
 
-        int sectionDivide = (int) Math.round((double) attractions.size() / (double) 3);
-        Log.d("TAG", "Section Divide:" + sectionDivide);
+        int sectionDivide = (int) Math.ceil((double) attractions.size() / (double) 3);
         int counter = 0;
         for (int i = 0; i < attractions.size(); i++) {
             if (i == (sectionDivide) * counter) {
@@ -77,10 +94,82 @@ public class ItineraryScheduleActivity extends Activity {
         setupWindowAnimations();
     }
 
+    @OnTouch(R.id.itinerary_recycler_view)
+    public boolean onTouch(MotionEvent event) {
+        mPackageScheduleViewAdapter.dismissSnackbar();
+
+        return mItineraryRecyclerView.onTouchEvent(event);
+    }
+
     @OnClick(R.id.itinerary_schedule_fab)
     public void onClick(View view) {
-        Snackbar.make(view, "Nope. Not yet.", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+        try {
+            LatLng latLng1 = new LatLng(43.636665, -79.399875);
+            LatLng latLng2 = new LatLng(43.686420, -79.384329);
+            LatLngBounds latLngBounds = new LatLngBounds(latLng1, latLng2);
+
+            AutocompleteFilter autocompleteFilter = new AutocompleteFilter.Builder()
+                    .setTypeFilter(AutocompleteFilter.TYPE_FILTER_ESTABLISHMENT)
+                    .build();
+
+            Intent intent = new PlaceAutocomplete
+                    .IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
+                    .setFilter(autocompleteFilter)
+                    .setBoundsBias(latLngBounds)
+                    .build(this);
+            startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
+        } catch (GooglePlayServicesRepairableException e) {
+            e.printStackTrace();
+        } catch (GooglePlayServicesNotAvailableException e) {
+            e.printStackTrace();
+        }
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                Place place = PlaceAutocomplete.getPlace(this, data);
+                Log.d("TAG", place.toString());
+                Location location = new Location.Builder()
+                        .address(place.getAddress().toString())
+                        .latitude(place.getLatLng().latitude)
+                        .longitude(place.getLatLng().longitude)
+                        .build();
+
+
+                Attraction attraction = new Attraction.Builder()
+                        .location(location)
+                        .name(place.getName().toString())
+                        .price(place.getPriceLevel())
+                        .build();
+
+                mPackageScheduleViewAdapter.add(new PackageScheduleAttractionItem(attraction));
+
+            } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+                Status status = PlaceAutocomplete.getStatus(this, data);
+                // TODO: Handle the error.
+                Snackbar.make(mItineraryRecyclerView, "Cannot Retrieve Search", Snackbar.LENGTH_SHORT).show();
+
+            } else if (resultCode == RESULT_CANCELED) {
+                Log.i("Search", "Cancelled");
+            }
+        }
+    }
+
+    @OnClick(R.id.menu_gradient)
+    public void touchGradient() {
+        if (mMenuGradientLayout.getVisibility() == View.VISIBLE) {
+            mMenuGradientLayout.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mMenuGradientLayout.getVisibility() == View.VISIBLE) {
+            mMenuGradientLayout.setVisibility(View.GONE);
+            return;
+        }
+        super.onBackPressed();
     }
 
     public ItemTouchHelper createItemTouchHelper() {
@@ -104,11 +193,15 @@ public class ItineraryScheduleActivity extends Activity {
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-                if (viewHolder == null || viewHolder.getItemViewType() == 1) {
+                if (viewHolder == null || viewHolder.getItemViewType() == 1 || direction == ItemTouchHelper.START) {
                     return;
                 }
+                Log.d("TAG", ""+direction);
                 PackageScheduleViewAdapter.PackageItemViewHolder touchVH = (PackageScheduleViewAdapter.PackageItemViewHolder) viewHolder;
                 mPackageScheduleViewAdapter.delete(viewHolder.getAdapterPosition());
+                touchVH.overlay.setVisibility(View.GONE);
+                touchVH.cardView.setVisibility(View.GONE);
+                touchVH.relativeLayout.setVisibility(View.GONE);
             }
 
             @Override
@@ -116,13 +209,10 @@ public class ItineraryScheduleActivity extends Activity {
                 if (viewHolder == null || viewHolder.getItemViewType() == 1) {
                     return;
                 }
-
                 PackageScheduleViewAdapter.PackageItemViewHolder touchVH = (PackageScheduleViewAdapter.PackageItemViewHolder) viewHolder;
                 if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
                     touchVH.overlay.setVisibility(View.VISIBLE);
                 }
-                Snackbar current = mPackageScheduleViewAdapter.getSnackbar();
-                current.dismiss();
 
                 super.onSelectedChanged(viewHolder, actionState);
             }
@@ -152,28 +242,20 @@ public class ItineraryScheduleActivity extends Activity {
                 float leaveBehindLength = touchVH.overlay.getWidth();
                 final float dir = Math.signum(dX);
 
-                touchVH.cardView.setTranslationX(dX);
-
                 if (dir == 0) {
                     touchVH.overlay.setTranslationX(-touchVH.itemView.getWidth());
-                } else {
+                } else if (dir == 1.0) {
+                    touchVH.relativeLayout.setTranslationX(dX);
+
                     float overlayOffset;
-                    float layoutPositionLeft = touchVH.cardView.getTranslationX();
-                    float layoutPositionRight = layoutPositionLeft + touchVH.cardView.getWidth();
-                    if (dir == -1.0) {
-                        overlayOffset = layoutPositionRight;
-                    } else {
+                    float layoutPositionLeft = touchVH.relativeLayout.getTranslationX();
+
+                    if (layoutPositionLeft < leaveBehindLength) {
                         overlayOffset = layoutPositionLeft - leaveBehindLength;
+                    } else {
+                        overlayOffset = 0.0f;
                     }
-
                     touchVH.overlay.setTranslationX(overlayOffset);
-                }
-
-                float alpha = (float) (1.0 - 1.1 * Math.abs(dX) / viewHolder.itemView.getWidth());
-                touchVH.cardView.setAlpha(alpha);
-
-                if (!isCurrentlyActive) {
-                    super.onChildDrawOver(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
                 }
             }
 
@@ -202,7 +284,7 @@ public class ItineraryScheduleActivity extends Activity {
 
     private List<Attraction> createAttractionList() {
         List<Attraction> attractions = new ArrayList<>();
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 40; i++) {
             attractions.add(
                     new Attraction.Builder()
                             .name("Attraction:" + i)
