@@ -74,7 +74,9 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity {
 
     @Override
     public void onRightButtonClick() {
-        // Nothing to do here
+        Intent nextActivity = new Intent(this, HeartAndSoulSaveActivity.class);
+        startActivity(nextActivity);
+        overridePendingTransition(R.anim.slide_in_down, R.anim.hold);
     }
 
     @Override

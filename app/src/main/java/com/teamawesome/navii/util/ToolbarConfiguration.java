@@ -9,7 +9,8 @@ public enum ToolbarConfiguration {
     ItineraryRecommend(R.layout.activity_itinerary_recommend, R.string.itinerary_recommend_title, 1, R.drawable.ic_chevron_left, -1, 0),
     PackageOverview(R.layout.activity_package_overview, R.string.package_overview_title, 1, R.drawable.ic_chevron_left, 0, R.string.package_overview_select),
     HeartAndSoul(R.layout.activity_itinerary_schedule, R.string.heart_and_soul_title, 1, R.drawable.ic_chevron_left, 0, R.string.heart_and_soul_select),
-    HeartAndSoulDetails(R.layout.activity_heart_and_soul_details, R.string.heart_and_soul_details_title, -1, 0, -1, 0);
+    HeartAndSoulDetails(R.layout.activity_heart_and_soul_details, R.string.heart_and_soul_details_title, 1, R.drawable.ic_chevron_left, -1, 0),
+    HeartAndSoulSave(R.layout.activity_heart_and_soul_save, R.string.heart_and_soul_save_title, -1, 0, 1, R.drawable.ic_clear);
 
     public static final int BUTTON_TYPE_NONE = -1;
     public static final int BUTTON_TYPE_TEXT = 0;
