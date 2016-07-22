@@ -105,7 +105,6 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
     private void onBindSectionViewHolder(RecyclerView.ViewHolder holder, int position) {
         SectionViewHolder sectionViewHolder = (SectionViewHolder) holder;
         PackageScheduleHeaderItem header = (PackageScheduleHeaderItem) mItemList.get(position);
-        sectionViewHolder.sectionTitle.setText(header.getName());
         loadHeader(header.getResId(), sectionViewHolder.sectionImageView);
     }
 
@@ -165,9 +164,6 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
     }
 
     public class SectionViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.section_title)
-        TextView sectionTitle;
-
         @BindView(R.id.section_background_image)
         ImageView sectionImageView;
 

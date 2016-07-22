@@ -251,8 +251,7 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity {
                     return;
                 }
 
-                PackageScheduleViewAdapter.PackageItemViewHolder touchVH =
-                        (PackageScheduleViewAdapter.PackageItemViewHolder) viewHolder;
+                PackageScheduleViewAdapter.PackageItemViewHolder touchVH = (PackageScheduleViewAdapter.PackageItemViewHolder) viewHolder;
 
                 float leaveBehindLength = touchVH.overlay.getWidth();
                 final float dir = Math.signum(dX);
