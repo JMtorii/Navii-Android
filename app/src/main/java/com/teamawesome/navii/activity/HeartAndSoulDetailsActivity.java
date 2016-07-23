@@ -36,8 +36,8 @@ public class HeartAndSoulDetailsActivity extends NaviiToolbarActivity {
 
     @Override
     public void onLeftButtonClick() {
-        // nothing to do here
-        onBackPressed();
+        supportFinishAfterTransition();
+        super.onBackPressed();
     }
 
     @Override
