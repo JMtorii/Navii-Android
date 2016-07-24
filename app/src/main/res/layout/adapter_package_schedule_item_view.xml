@@ -12,7 +12,7 @@
         android:layout_height="150dp"
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
-        card:cardBackgroundColor="@color/lightGrey"
+        card:cardBackgroundColor="@color/primary"
         card:cardCornerRadius="0dp"
         card:cardElevation="0dp"
         card:cardUseCompatPadding="true">
