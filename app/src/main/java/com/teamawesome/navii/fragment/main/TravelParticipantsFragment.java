@@ -82,7 +82,7 @@ public class TravelParticipantsFragment extends NaviiParallaxFragment {
                 } else {
                     Toast.makeText(getActivity(),
                             "You cannot have less than 1 adult.",
-                            Toast.LENGTH_LONG).show();
+                            Toast.LENGTH_SHORT).show();
                 }
             }
         });
