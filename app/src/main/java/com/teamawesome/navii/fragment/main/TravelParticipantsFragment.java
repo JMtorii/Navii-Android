@@ -41,9 +41,13 @@ public class TravelParticipantsFragment extends NaviiParallaxFragment {
     private int adultCounter = 2;
     private int childCounter = 0;
 
+    private Toast mToast;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_travel_participants, container, false);
+
+        mToast = Toast.makeText(getActivity(), "You cannot have less than 1 adult.", Toast.LENGTH_SHORT);
 
         ButterKnife.bind(this, v);
 
@@ -80,9 +84,9 @@ public class TravelParticipantsFragment extends NaviiParallaxFragment {
                     --adultCounter;
                     setAdultTextViewText();
                 } else {
-                    Toast.makeText(getActivity(),
-                            "You cannot have less than 1 adult.",
-                            Toast.LENGTH_SHORT).show();
+                    if (mToast.getView() != null && !mToast.getView().isShown()) {
+                        mToast.show();
+                    }
                 }
             }
         });
