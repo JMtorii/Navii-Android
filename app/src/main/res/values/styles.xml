@@ -43,10 +43,6 @@
     <!--</style>-->
 
     <style name="MainButton" parent="Theme.AppCompat.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowActionBarOverlay">true</item>
-        <item name="windowNoTitle">true</item>
-        <item name="android:windowContentOverlay">@null</item>
         <item name="colorButtonNormal">@android:color/white</item>
         <item name="android:colorControlHighlight">@color/primaryDark</item>
         <item name="android:text">@string/next</item>
