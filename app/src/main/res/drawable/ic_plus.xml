@@ -1,4 +1,4 @@
-<ripple android:color="@color/secondary"
+<ripple android:color="@color/primary"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <vector
