@@ -45,12 +45,12 @@ public class OnboardingActivity extends AppCompatActivity {
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return "Title";
+            return "";
         }
 
         @Override
         public int getCount() {
-            return 2;
+            return getResources().getStringArray(R.array.onboarding_titles).length;
         }
 
         @Override
