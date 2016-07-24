@@ -5,11 +5,10 @@
 
     <string-array name="debug_list">
         <item>Main Application</item>
-        <item>Create user</item>
-        <item>Set ip address to Jun</item>
         <item>Upload Image Test</item>
         <item>Preferences</item>
         <item>Itinerary Schedule</item>
+        <item>Onboarding</item>
     </string-array>
 
     <string-array name="intro_pager_titles">
@@ -64,7 +63,7 @@
     <!--Choose Tags Fragment Strings    -->
     <string name="tags_title">Tags</string>
     <string name="tags_message">Select the tags that would interest you the most for your
-        trip</string>
+        trip.</string>
     <string name="next_button_text">Next</string>
 
     <!-- Itinerary Recommend Fragment Strings-->
@@ -113,6 +112,13 @@
     <!-- Heart and Soul Save -->
     <string name="heart_and_soul_save_title">Heart and Soul Save</string>
     <string name="heart_and_soul_save_name_hint">Itinerary Name</string>
+
+    <string-array name="onboarding_titles">
+        <item>Your personal travel agent right at your fingertips.</item>
+        <item>Browse destination packages that fit your schedule.</item>
+        <item>Book your hotel, flight, and attraction passes.</item>
+        <item>Hit up local hot spots and events tailored to you.</item>
+    </string-array>
 
     <!-- Errors -->
     <string name="error_steve_fucked_up">Steve fucked up</string>

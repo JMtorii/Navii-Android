@@ -4,10 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +45,6 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
     private List<PackageScheduleListItem> mItemList;
     private Context mContext;
     private GregorianCalendar mStartTime;
-    private Snackbar snackbar;
 
     private final static int TYPE_ITEM = 0;
     private final static int TYPE_HEADER = 1;
@@ -65,6 +64,7 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        Log.d("PackageSchedule", "onCreateViewHolder");
         if (viewType == TYPE_ITEM) {
             View view = LayoutInflater.from(mContext).inflate(R.layout.adapter_package_schedule_item_view, null);
             return new PackageItemViewHolder(view);
@@ -76,7 +76,6 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        holder.setIsRecyclable(false);
         switch (getItemViewType(position)) {
             case TYPE_ITEM:
                 onBindPackageItemViewHolder(holder, position);
@@ -88,6 +87,7 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
     }
 
     private void onBindPackageItemViewHolder(RecyclerView.ViewHolder holder, int position) {
+        Log.d("PackageSchedule", "onBindPackageItemViewHolder:" + position);
         PackageItemViewHolder packageItemViewHolder = (PackageItemViewHolder) holder;
         Attraction current = ((PackageScheduleAttractionItem) mItemList.get(position)).getAttraction();
 
@@ -98,7 +98,8 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
                 .into(packageItemViewHolder.imageView);
 
         DateFormat dateFormat = new SimpleDateFormat(TIME_FORMAT);
-
+        packageItemViewHolder.itemView.setTranslationX(0.0f);
+        packageItemViewHolder.relativeLayout.setTranslationX(0.0f);
         packageItemViewHolder.attractionName.setText(current.getName());
         packageItemViewHolder.attractionPrice.setText("$" + String.valueOf(current.getPrice()));
         packageItemViewHolder.attractionStartTime.setText(dateFormat.format(mStartTime.getTime()));
@@ -107,12 +108,14 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
     private void onBindSectionViewHolder(RecyclerView.ViewHolder holder, int position) {
         SectionViewHolder sectionViewHolder = (SectionViewHolder) holder;
         PackageScheduleHeaderItem header = (PackageScheduleHeaderItem) mItemList.get(position);
+
+//        Picasso.with(mContext).load(header.getResId()).fit().into(sectionViewHolder.sectionImageView);
         loadHeader(header.getResId(), sectionViewHolder.sectionImageView);
     }
 
     private void loadHeader(int resId, ImageView imageView) {
         if (VectorDrawableWorkerTask.cancelPotentialWork(resId, imageView)) {
-            final VectorDrawableWorkerTask task = new VectorDrawableWorkerTask(imageView, mContext);
+            final VectorDrawableWorkerTask task = new VectorDrawableWorkerTask(imageView, mContext, resId);
 
             final AsyncDrawable asyncDrawable = new AsyncDrawable(task);
             imageView.setImageDrawable(asyncDrawable);
@@ -120,18 +123,11 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
         }
     }
 
-    public void delete(final int position) {
+    public PackageScheduleListItem delete(final int position) {
         final PackageScheduleListItem item = mItemList.remove(position);
 
-        snackbar.setAction("Undo", new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addBack(position, item);
-            }
-        });
-        snackbar.show();
-
         notifyItemRemoved(position);
+        return item;
     }
 
     public void move(int from, int to) {
@@ -145,7 +141,7 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
         notifyItemInserted(1);
     }
 
-    public void addBack(int position, PackageScheduleListItem item) {
+    public void add(int position, PackageScheduleListItem item) {
         mItemList.add(position, item);
         notifyItemInserted(position);
     }
@@ -153,16 +149,6 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
     @Override
     public int getItemCount() {
         return mItemList.size();
-    }
-
-    public void setSnackbar(View view) {
-        this.snackbar = Snackbar.make(view, "Done with this?", Snackbar.LENGTH_INDEFINITE);
-    }
-
-    public void dismissSnackbar() {
-        if (snackbar.isShown()) {
-            snackbar.dismiss();
-        }
     }
 
     public class SectionViewHolder extends RecyclerView.ViewHolder {
@@ -206,6 +192,10 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
         public PackageItemViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+        }
+
+        public View returnView() {
+            return itemView;
         }
 
         @OnClick(R.id.package_item_layout)

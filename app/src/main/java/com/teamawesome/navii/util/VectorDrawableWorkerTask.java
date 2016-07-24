@@ -18,14 +18,11 @@ public class VectorDrawableWorkerTask extends AsyncTask<Integer, Void, Drawable>
     private Context mContext;
     private int resId = 0;
     private String url;
-    private int width;
-    private int height;
 
-    public VectorDrawableWorkerTask(ImageView imageView, Context context) {
+    public VectorDrawableWorkerTask(ImageView imageView, Context context, int resId) {
         // Use a WeakReference to ensure the ImageView can be garbage collected
         imageViewReference = new WeakReference<>(imageView);
-        width = imageView.getWidth();
-        height = imageView.getHeight();
+        this.resId = resId;
         mContext = context;
     }
 
@@ -40,6 +37,12 @@ public class VectorDrawableWorkerTask extends AsyncTask<Integer, Void, Drawable>
         VectorDrawable drawable = (VectorDrawable) ContextCompat.getDrawable(mContext, resId);
 
         return drawable;
+    }
+
+    private Drawable getImage(String url) {
+//        Picasso.with(mContext).load(url).get();
+
+        return null;
     }
 
     // Once complete, see if ImageView is still around and set drawable.
