@@ -4,7 +4,8 @@
     android:layout_height="wrap_content">
 
     <com.teamawesome.navii.util.NaviiBudgetButton
-        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:theme="@style/BudgetButton"
+        android:background="?attr/selectableItemBackground"
         android:gravity="center"
         android:layout_width="100dp"
         android:layout_height="128dp"
