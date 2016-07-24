@@ -89,7 +89,6 @@ public class ItineraryRecommendActivity extends NaviiToolbarActivity {
                         itineraryRecyclerView.setLayoutManager(gridLayoutManager);
                     }
                 });
-
         progressDialog = ProgressDialog.show(this, "Just calm down.", "Loading itineraries...");
     }
 }
