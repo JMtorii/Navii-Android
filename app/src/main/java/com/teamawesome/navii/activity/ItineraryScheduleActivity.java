@@ -57,7 +57,6 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity {
         setupViewPager(mViewPager);
         mTabLayout.setupWithViewPager(mViewPager);
 
-//
         setupWindowAnimations();
     }
 
@@ -147,6 +146,4 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity {
         slide.setDuration(1000);
         getWindow().setReturnTransition(slide);
     }
-
-
 }

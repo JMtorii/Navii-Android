@@ -22,7 +22,6 @@ public enum ToolbarConfiguration {
     private int leftResId;
     private int rightButtonResType;
     private int rightResId;
-    private int toolbarLayoutResId;
 
     ToolbarConfiguration(int layoutId, int titleId, int leftButtonType, int leftButtonId, int rightButtonType, int rightButtonId) {
         this.layoutResId = layoutId;
