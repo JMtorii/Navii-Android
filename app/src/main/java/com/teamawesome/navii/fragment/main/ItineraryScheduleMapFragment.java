@@ -40,9 +40,7 @@ public class ItineraryScheduleMapFragment extends Fragment implements OnMapReady
         View view = inflater.inflate(R.layout.fragment_itinerary_map_view, container, false);
 
         //Map setup
-        SupportMapFragment mapFragment =
-                (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.heart_and_soul_map);
         mapFragment.getMapAsync(this);
 
         return view;
@@ -74,6 +72,7 @@ public class ItineraryScheduleMapFragment extends Fragment implements OnMapReady
                 attractions.add(attraction);
             }
         }
+
         for (int i = 0; i < attractions.size(); i++) {
             Log.d("MapFragment", attractions.get(i).getName());
             Location location = attractions.get(i).getLocation();
@@ -89,6 +88,5 @@ public class ItineraryScheduleMapFragment extends Fragment implements OnMapReady
         LatLng toronto = new LatLng(43.644, -79.387);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(toronto));
         mMap.addMarker(new MarkerOptions().position(toronto).title("Toronto"));
-
     }
 }
