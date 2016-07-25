@@ -3,6 +3,7 @@ package com.teamawesome.navii.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -39,6 +40,9 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity {
 
     @BindView(R.id.itinerary_schedule_viewpager)
     ViewPager mViewPager;
+
+    @BindView(R.id.tab_layout)
+    TabLayout mTabLayout;
 
     private static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
 

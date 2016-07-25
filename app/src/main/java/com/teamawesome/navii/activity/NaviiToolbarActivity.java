@@ -2,7 +2,6 @@ package com.teamawesome.navii.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -50,10 +49,6 @@ public abstract class NaviiToolbarActivity extends AppCompatActivity {
     @BindView(R.id.btn_toolbar_right)
     public MainLatoButton rightTextButton;
 
-    @Nullable
-    @BindView(R.id.tab_layout)
-    public TabLayout mTabLayout;
-
     // TODO: implement loading screen
 //    @Nullable
 //    @BindView(R.id.loading_view)
@@ -66,10 +61,6 @@ public abstract class NaviiToolbarActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         setSupportActionBar(mToolbar);
-
-        if (mTabLayout != null) {
-            mTabLayout.setVisibility(View.GONE);
-        }
 
         final ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
