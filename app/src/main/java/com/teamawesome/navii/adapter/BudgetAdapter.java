@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.MainActivity;
@@ -97,10 +98,7 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
             } else if (budgetButton.getDigit() == 11){
                 next(view);
             } else {
-                View parent = view.getRootView();
-                MainLatoEditText latoEditText = (MainLatoEditText) parent.findViewById(R.id.budget_text);
-                String newText = latoEditText.getText().toString() + budgetButton.getDigit();
-                latoEditText.setText(newText);
+                addDigit(view);
             }
         }
 
@@ -118,6 +116,18 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
             View parent = view.getRootView();
             MainActivity mainActivity = (MainActivity) budgetFragment.getActivity();
             mainActivity.nextPress(parent);
+        }
+
+        public void addDigit(View view){
+            View parent = view.getRootView();
+            MainLatoEditText latoEditText = (MainLatoEditText) parent.findViewById(R.id.budget_text);
+            if (budgetButton.getDigit() == 0 && latoEditText.getText().length() == 1){
+                Toast.makeText(budgetFragment.getActivity(), "Invalid", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                String newText = latoEditText.getText().toString() + budgetButton.getDigit();
+                latoEditText.setText(newText);
+            }
         }
     }
 }
