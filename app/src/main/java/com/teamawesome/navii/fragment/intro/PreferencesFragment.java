@@ -1,35 +1,24 @@
 package com.teamawesome.navii.fragment.intro;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.teamawesome.navii.NaviiApplication;
 import com.teamawesome.navii.R;
-import com.teamawesome.navii.activity.IntroActivity;
-import com.teamawesome.navii.activity.MainActivity;
 import com.teamawesome.navii.adapter.PreferencesGridAdapter;
-import com.teamawesome.navii.fragment.main.ChooseTagsFragment;
 import com.teamawesome.navii.fragment.main.NaviiFragment;
-import com.teamawesome.navii.server.model.Preference;
 import com.teamawesome.navii.server.model.PreferencesQuestion;
 import com.teamawesome.navii.server.model.UserPreference;
 import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.NaviiPreferenceData;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -153,19 +142,21 @@ public class PreferencesFragment extends NaviiFragment {
                                 getFragmentManager().beginTransaction().replace(R.id.preference_fragment_frame,  PreferencesFragment.newInstance(nextPreference)).commit();
                             } else {
                                 // If the activity is in the intro stage
-                                if (getActivity().getClass().equals(IntroActivity.class)) {
-                                    Intent intent = new Intent(parentActivity, MainActivity.class);
-                                    parentActivity.startActivity(intent);
-                                } else if (getActivity().getClass().equals(MainActivity.class)){
-                                    parentActivity.switchFragment(
-                                            new ChooseTagsFragment(),
-                                            Constants.NO_ANIM,
-                                            Constants.NO_ANIM,
-                                            Constants.PLANNING_CHOOSE_TAGS_FRAGMENT_TAG,
-                                            true,
-                                            true,
-                                            true);
-                                }
+
+                                // TODO: delete if needed
+//                                if (getActivity().getClass().equals(IntroActivity.class)) {
+//                                    Intent intent = new Intent(parentActivity, MainActivity.class);
+//                                    parentActivity.startActivity(intent);
+//                                } else if (getActivity().getClass().equals(MainActivity.class)){
+//                                    parentActivity.switchFragment(
+//                                            new ChooseTagsFragment(),
+//                                            Constants.NO_ANIM,
+//                                            Constants.NO_ANIM,
+//                                            Constants.PLANNING_CHOOSE_TAGS_FRAGMENT_TAG,
+//                                            true,
+//                                            true,
+//                                            true);
+//                                }
                             }
                         }
                     }
