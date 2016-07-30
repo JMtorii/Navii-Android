@@ -1,7 +1,8 @@
 package com.teamawesome.navii;
 
-import android.app.Application;
 import android.content.Context;
+import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
 
 import com.squareup.okhttp.OkHttpClient;
 import com.teamawesome.navii.server.api.ItineraryAPI;
@@ -22,7 +23,7 @@ import retrofit.RxJavaCallAdapterFactory;
 /**
  * Created by JMtorii on 2015-11-21.
  */
-public class NaviiApplication extends Application {
+public class NaviiApplication extends MultiDexApplication {
     private static NaviiApplication sInstance;
     private static Context context;
     private static RxBus bus;
@@ -55,6 +56,12 @@ public class NaviiApplication extends Application {
                 .client(okHttpClient)
                 .addConverterFactory(JacksonConverterFactory.create())
                 .build();
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 
     public Context getAppContext() {

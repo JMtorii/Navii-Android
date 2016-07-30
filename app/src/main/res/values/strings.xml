@@ -120,6 +120,14 @@
         <item>Hit up local hot spots and events tailored to you.</item>
     </string-array>
 
+    <!-- Login -->
+    <string name="login_username_hint">E-mail</string>
+    <string name="login_password_hint">Password</string>
+    <string name="login_email_button_text">Login with E-mail</string>
+    <string name="login_fb_button_text">Login with Facebook</string>
+    <string name="login_or">or</string>
+    <string name="login_sign_up">Sign Up</string>
+
     <!-- Errors -->
     <string name="error_steve_fucked_up">Steve fucked up</string>
 </resources>

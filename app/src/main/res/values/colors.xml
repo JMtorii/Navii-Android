@@ -8,6 +8,7 @@
     <item name="grey" type="color">#535356</item>
     <item name="black" type="color">#000000</item>
     <item name="babyBlue" type="color">#92CBDE</item>
+    <item name="fbBlue" type="color">#3B5998</item>
     <color name="transparent">#00000000</color>
     <color name="grey_primary">#262626</color>
     <color name="text_shadow">#7F000000</color>
