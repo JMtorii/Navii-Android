@@ -1,6 +1,5 @@
 package com.teamawesome.navii.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import com.teamawesome.navii.R;
@@ -18,9 +17,9 @@ public class UploadImageTestActivity extends NaviiActivity {
         super.onCreate(savedInstanceState);
 
         UploadImageFragment fragment = new UploadImageFragment();
-        fm = new NaviiFragmentManager(getSupportFragmentManager(), R.id.intro_activity_content_frame);
+        fm = new NaviiFragmentManager(getSupportFragmentManager(), R.id.upload_image_test_frame_layout);
 
-        setContentView(R.layout.activity_intro);
+        setContentView(R.layout.activity_upload_image_test);
 
         switchFragment(
                 fragment,
