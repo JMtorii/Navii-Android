@@ -128,6 +128,13 @@
     <string name="login_or">or</string>
     <string name="login_sign_up">Sign Up</string>
 
+    <!-- Sign Up -->
+    <string name="sign_up_full_name_hint">Full Name</string>
+    <string name="sign_up_email_hint">E-mail</string>
+    <string name="sign_up_password_hint">Password</string>
+    <string name="sign_up_password_again_hint">Retype Your Password</string>
+    <string name="sign_up_button">Sign Up</string>
+
     <!-- Errors -->
     <string name="error_steve_fucked_up">Steve fucked up</string>
 </resources>

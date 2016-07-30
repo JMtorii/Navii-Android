@@ -38,8 +38,7 @@ public class EditProfileFragment extends NaviiFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState){
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View v = inflater.inflate(R.layout.fragment_edit_profile,container,false);
         newEmail = (EditText) v.findViewById(R.id.edit_profile_new_email);
         commitEmail = (Button) v.findViewById(R.id.edit_profile_commit_email);
