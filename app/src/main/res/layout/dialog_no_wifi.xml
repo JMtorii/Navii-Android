@@ -1,25 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@android:color/darker_gray"
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
-    <com.beardedhen.androidbootstrap.BootstrapLabel
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/no_wifi_message"
-        app:bootstrapHeading = "h3"
-        app:bootstrapBrand = "danger"
-        app:roundedCorners="true" />
+        />
 
-    <com.beardedhen.androidbootstrap.BootstrapButton
+    <TextView
         android:id="@+id/reconnect_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="@string/reconnect_message"
-        app:bootstrapBrand="warning"
-        app:bootstrapSize="xl"/>
+        android:text="@string/reconnect_message"/>
 </LinearLayout>

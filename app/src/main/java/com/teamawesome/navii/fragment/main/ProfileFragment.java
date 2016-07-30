@@ -13,10 +13,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.beardedhen.androidbootstrap.BootstrapButton;
-import com.beardedhen.androidbootstrap.BootstrapCircleThumbnail;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.util.BitmapResizer;
 import com.teamawesome.navii.util.Constants;
@@ -38,11 +38,11 @@ public class ProfileFragment extends NaviiFragment implements OnFocusListenable 
     private static final String FILE_SUFFIX_JPG = ".jpg";
     private static final int TAKE_PHOTO_REQUEST_CODE = 1;
 
-    private BootstrapCircleThumbnail mPictureThumbnail;
+    private ImageView mPictureThumbnail;
     private TextView mUsernameTextView;
     private TextView mFacebookTextView;
-    private BootstrapButton mEditProfileButton;
-    private BootstrapButton mChangePasswordButton;
+    private Button mEditProfileButton;
+    private Button mChangePasswordButton;
     private Uri selectedPhotoPath;
 
     @Override
@@ -65,11 +65,11 @@ public class ProfileFragment extends NaviiFragment implements OnFocusListenable 
         parentActivity.setTitle("Spongebob Squarepants");
 
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
-        mPictureThumbnail = (BootstrapCircleThumbnail) v.findViewById(R.id.profile_thumbnail);
+        mPictureThumbnail = (ImageView) v.findViewById(R.id.profile_thumbnail);
         mUsernameTextView = (TextView) v.findViewById(R.id.profile_username_textview);
         mFacebookTextView = (TextView) v.findViewById(R.id.profile_facebook_textview);
-        mEditProfileButton = (BootstrapButton) v.findViewById(R.id.profile_edit_button);
-        mChangePasswordButton = (BootstrapButton) v.findViewById(R.id.profile_change_password_button);
+        mEditProfileButton = (Button) v.findViewById(R.id.profile_edit_button);
+        mChangePasswordButton = (Button) v.findViewById(R.id.profile_change_password_button);
 
         mUsernameTextView.setText(NaviiPreferenceData.getLoggedInUserEmail());
 
