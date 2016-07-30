@@ -13,8 +13,9 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:scaleType="fitXY" />
+        android:layout_marginTop="60dp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/navi_logo"/>
 
     <LinearLayout
         android:id="@+id/login_input_container"
@@ -34,8 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/login_username_hint"
-                android:textColor="@color/grey_primary"
-                android:backgroundTint="@color/grey_primary"/>
+                android:textColor="@color/grey_primary"/>
 
         </android.support.design.widget.TextInputLayout>
 

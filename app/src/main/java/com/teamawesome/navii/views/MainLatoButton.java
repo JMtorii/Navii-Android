@@ -15,12 +15,9 @@ import java.util.Arrays;
  */
 public class MainLatoButton extends Button implements LatoType {
     private static final String BASE_FONT_NAME = "Lato-";
-    private Context mContext;
 
     public MainLatoButton(Context context) {
         super(context);
-        mContext = context;
-
         init(null);
     }
 
