@@ -52,7 +52,6 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity {
 
         String title = getIntent().getStringExtra(Constants.INTENT_ATTRACTION_TITLE);
         mTabLayout.setVisibility(View.VISIBLE);
-
         setSupportActionBar(mToolbar);
         setupViewPager(mViewPager);
         mTabLayout.setupWithViewPager(mViewPager);

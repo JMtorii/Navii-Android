@@ -4,8 +4,8 @@ import com.teamawesome.navii.server.model.Itinerary;
 
 import java.util.List;
 
-import retrofit.http.Body;
-import retrofit.http.POST;
+import retrofit.http.GET;
+import retrofit.http.Path;
 import rx.Observable;
 
 /**
@@ -14,8 +14,8 @@ import rx.Observable;
 public interface ItineraryAPI {
     /**
      * Get itineraries based on tags pressed
-     * @param  tags The List of tags user has selected
+     * @param  tags The Array of tags user has selected
      */
-    @POST("/itinerary/tags")
-    Observable<List<Itinerary>> getItineraries(@Body List<String> tags);
+    @GET("/itinerary/tags/{tag_list}")
+    Observable<List<Itinerary>> getItineraries(@Path("tag_list") String tags);
 }

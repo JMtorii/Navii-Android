@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.teamawesome.navii.NaviiApplication;
@@ -60,10 +61,9 @@ public class ItineraryRecommendActivity extends NaviiToolbarActivity {
         if (tags == null) {
             tags = new ArrayList<>();
         }
+        String tagList = TextUtils.join(",", tags);
 
-        Log.d(Constants.INTENT_TAGS, tags.toString());
-
-        Observable<List<Itinerary>> itineraryListCall = NaviiApplication.getInstance().getItineraryAPI().getItineraries(tags);
+        Observable<List<Itinerary>> itineraryListCall = NaviiApplication.getInstance().getItineraryAPI().getItineraries(tagList);
 
         final Context context = this;
         itineraryListCall.subscribeOn(Schedulers.newThread())
@@ -77,6 +77,7 @@ public class ItineraryRecommendActivity extends NaviiToolbarActivity {
                     @Override
                     public void onError(Throwable e) {
                         Log.e("ItineraryActivity", "onError", e);
+                        progressDialog.dismiss();
                     }
 
                     @Override
