@@ -15,6 +15,8 @@ import com.amazonaws.mobileconnectors.s3.transferutility.TransferListener;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferState;
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.teamawesome.navii.R;
+import com.teamawesome.navii.activity.IntroActivity;
+import com.teamawesome.navii.activity.UploadImageTestActivity;
 import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.ImageUploader;
 
@@ -28,9 +30,11 @@ public class UploadImageFragment extends NaviiFragment {
     private ImageUploader mUploader;
     private TransferListener mTransferListener;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        parentActivity = (UploadImageTestActivity) getActivity();
 
         /**
          * Handle updates from uploading the image file

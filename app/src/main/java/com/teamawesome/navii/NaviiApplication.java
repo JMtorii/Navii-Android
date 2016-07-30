@@ -3,6 +3,8 @@ package com.teamawesome.navii;
 import android.app.Application;
 import android.content.Context;
 
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import com.teamawesome.navii.server.api.ItineraryAPI;
 import com.teamawesome.navii.server.api.PreferenceAPI;
 import com.teamawesome.navii.server.api.TagsAPI;
@@ -38,11 +40,15 @@ public class NaviiApplication extends Application {
         super.onCreate();
         sInstance = this;
         context = getApplicationContext();
-        retrofit = new Retrofit.Builder()
+        /*retrofit = new Retrofit.Builder()
                 .baseUrl(NaviiPreferenceData.getIPAddress())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(JacksonConverterFactory.create())
-                .build();
+                .build();*/
+
+        // Facebook demographics/analytics
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
     }
 
     public Context getAppContext() {

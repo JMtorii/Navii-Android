@@ -97,4 +97,8 @@
 
     <!-- Buttons -->
     <string name="next">"Next"</string>
+
+    <!-- Facebook integration -->
+    <string name="facebook_app_id">521481071395718</string>
+
 </resources>
