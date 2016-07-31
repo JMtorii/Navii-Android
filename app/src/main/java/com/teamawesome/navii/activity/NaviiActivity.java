@@ -3,6 +3,7 @@ package com.teamawesome.navii.activity;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 
+import com.teamawesome.navii.activity.debug.NaviiSuperActivity;
 import com.teamawesome.navii.server.api.ItineraryAPI;
 import com.teamawesome.navii.server.api.PreferenceAPI;
 import com.teamawesome.navii.server.api.TagsAPI;
@@ -18,7 +19,7 @@ import retrofit.RxJavaCallAdapterFactory;
 /**
  * Created by JMtorii on 2015-11-20.
  */
-public abstract class NaviiActivity extends AppCompatActivity {
+public abstract class NaviiActivity extends NaviiSuperActivity {
 
     protected NaviiFragmentManager fm;
     protected Retrofit retrofit;
