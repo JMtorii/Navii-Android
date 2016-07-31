@@ -10,7 +10,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
 
     <compatible-screens>
         <!-- all small size screens -->
@@ -75,8 +75,8 @@
             android:name=".activity.PackageOverviewActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden"
-            android:theme="@style/NaviiTheme.NoActionBar">
+            android:theme="@style/NaviiTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden">
         </activity>
 
         <activity
@@ -90,8 +90,8 @@
             android:name=".activity.ItineraryRecommendActivity"
             android:label="@string/itinerary_recommend_title"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden"
-            android:theme="@style/NaviiTheme.NoActionBar">
+            android:theme="@style/NaviiTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden">
         </activity>
 
         <activity
@@ -103,6 +103,12 @@
 
         <activity
             android:name=".activity.HeartAndSoulSaveActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NaviiTheme.NoActionBar">
+        </activity>
+
+        <activity
+            android:name=".activity.ProfileActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NaviiTheme.NoActionBar">
         </activity>
