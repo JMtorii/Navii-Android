@@ -40,11 +40,11 @@ public class NaviiApplication extends Application {
         super.onCreate();
         sInstance = this;
         context = getApplicationContext();
-        /*retrofit = new Retrofit.Builder()
+        retrofit = new Retrofit.Builder()
                 .baseUrl(NaviiPreferenceData.getIPAddress())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(JacksonConverterFactory.create())
-                .build();*/
+                .build();
 
         // Facebook demographics/analytics
         FacebookSdk.sdkInitialize(getApplicationContext());
