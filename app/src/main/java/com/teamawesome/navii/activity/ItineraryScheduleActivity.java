@@ -44,6 +44,8 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity {
     @BindView(R.id.tab_layout)
     TabLayout mTabLayout;
 
+    private Adapter mAdapter;
+
     private static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
 
     @Override
@@ -78,7 +80,7 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity {
     }
 
     @OnClick(R.id.itinerary_schedule_fab)
-    public void onClick(View view) {
+    public void onFabClick() {
         try {
             LatLng latLng1 = new LatLng(43.636665, -79.399875);
             LatLng latLng2 = new LatLng(43.686420, -79.384329);
@@ -93,6 +95,7 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity {
                     .setFilter(autocompleteFilter)
                     .setBoundsBias(latLngBounds)
                     .build(this);
+
             startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
         } catch (GooglePlayServicesRepairableException e) {
             e.printStackTrace();
@@ -101,11 +104,19 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity {
         }
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        for (int i = 0; i < mAdapter.getCount(); i++) {
+            Fragment fragment = mAdapter.getItem(i);
+            fragment.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
     private void setupViewPager(ViewPager viewPager) {
-        Adapter adapter = new Adapter(getSupportFragmentManager());
-        adapter.addFragment(new ItineraryScheduleViewFragment(), "Schedule");
-        adapter.addFragment(new ItineraryScheduleMapFragment(), "Map");
-        viewPager.setAdapter(adapter);
+        mAdapter = new Adapter(getSupportFragmentManager());
+        mAdapter.addFragment(new ItineraryScheduleViewFragment(), "Schedule");
+        mAdapter.addFragment(new ItineraryScheduleMapFragment(), "Map");
+        viewPager.setAdapter(mAdapter);
     }
 
     static class Adapter extends FragmentPagerAdapter {

@@ -19,7 +19,10 @@ import com.teamawesome.navii.server.model.Itinerary;
 import com.teamawesome.navii.util.Constants;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,6 +34,7 @@ import butterknife.OnClick;
 public class ItineraryRecommendListAdapter extends RecyclerView.Adapter<ItineraryRecommendListAdapter.ItineraryRecommendViewHolder> {
     private List<Itinerary> itineraries;
     private Context context;
+    private Set<String> uniquePictureMap = new HashSet<>();
 
     public ItineraryRecommendListAdapter(Context context, List<Itinerary> itineraries) {
         this.context = context;
@@ -48,11 +52,20 @@ public class ItineraryRecommendListAdapter extends RecyclerView.Adapter<Itinerar
     public void onBindViewHolder(ItineraryRecommendViewHolder holder, int position) {
         holder.mTextView.setText(itineraries.get(position).getDescription());
         if (itineraries != null && itineraries.get(position).getAttractions() != null) {
+            int index = new Random().nextInt(itineraries.get(position).getAttractions().size());
+            String pictureURI = itineraries.get(position).getAttractions().get(index).getPhotoUri();
+
+            while (uniquePictureMap.contains(pictureURI)) {
+                index = new Random().nextInt(itineraries.get(position).getAttractions().size());
+                pictureURI = itineraries.get(position).getAttractions().get(index).getPhotoUri();
+            }
+
             Picasso.with(context)
-                    .load(itineraries.get(position).getAttractions().get(0).getPhotoUri())
+                    .load(pictureURI)
                     .centerCrop()
                     .fit()
                     .into(holder.mImageView);
+            uniquePictureMap.add(pictureURI);
 
             holder.attractions = itineraries.get(position).getAttractions();
         }

@@ -14,8 +14,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.PlacePhotoMetadataResult;
+import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.adapter.PackageScheduleViewAdapter;
@@ -109,10 +112,12 @@ public class ItineraryScheduleViewFragment extends NaviiFragment {
         return mItineraryRecyclerView.onTouchEvent(event);
     }
 
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
                 Place place = PlaceAutocomplete.getPlace(getActivity(), data);
+                String id = place.getId();
                 Log.d("TAG", place.toString());
                 Location location = new Location.Builder()
                         .address(place.getAddress().toString())
@@ -127,6 +132,19 @@ public class ItineraryScheduleViewFragment extends NaviiFragment {
                         .price(place.getPriceLevel())
                         .build();
 
+                GoogleApiClient mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
+                        .build();
+
+                PlacePhotoMetadataResult metadataResult = Places.GeoDataApi.getPlacePhotos(mGoogleApiClient, id).await();
+//                if (metadataResult != null && metadataResult.getStatus().isSuccess()) {
+//                    PlacePhotoMetadataBuffer photoMetadataBuffer = metadataResult.getPhotoMetadata();
+//                    PlacePhotoMetadata photo = photoMetadataBuffer.get(0);
+//                    // Get a full-size bitmap for the photo.
+//                    Bitmap image = photo.getPhoto(mGoogleApiClient).await()
+//                            .getBitmap();
+//                    // Get the attribution text.
+//                    CharSequence attribution = photo.getAttributions();
+//                }
                 mPackageScheduleViewAdapter.add(new PackageScheduleAttractionItem(attraction));
 
             } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
