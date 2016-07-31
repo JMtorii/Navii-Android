@@ -129,6 +129,7 @@
     <string name="login_sign_up">Sign Up</string>
 
     <!-- Sign Up -->
+    <string name="sign_up_title">Sign Up</string>
     <string name="sign_up_full_name_hint">Full Name</string>
     <string name="sign_up_email_hint">E-mail</string>
     <string name="sign_up_password_hint">Password</string>

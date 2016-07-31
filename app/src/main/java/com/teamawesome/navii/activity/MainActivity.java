@@ -6,20 +6,25 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.mixpanel.android.mpmetrics.MixpanelAPI;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.adapter.ParallaxPagerAdapter;
-import com.teamawesome.navii.fragment.main.TravelDestinationFragment;
-import com.teamawesome.navii.fragment.main.TravelDurationFragment;
-import com.teamawesome.navii.fragment.main.TravelParticipantsFragment;
 import com.teamawesome.navii.fragment.main.BudgetFragment;
 import com.teamawesome.navii.fragment.main.ChooseTagsFragment;
 import com.teamawesome.navii.fragment.main.NaviiParallaxFragment;
+import com.teamawesome.navii.fragment.main.TravelDestinationFragment;
+import com.teamawesome.navii.fragment.main.TravelDurationFragment;
+import com.teamawesome.navii.fragment.main.TravelParticipantsFragment;
 import com.teamawesome.navii.util.NavigationConfiguration;
 import com.teamawesome.navii.views.ParallaxHorizontalScrollView;
 import com.teamawesome.navii.views.ParallaxViewPager;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +64,18 @@ public class MainActivity extends NaviiNavigationalActivity {
         ButterKnife.bind(this);
 
         setupParallaxViews();
+
+        String projectToken = "3ff82d13d92fab6d2a258f9ea8a62747";
+        MixpanelAPI mixpanel = MixpanelAPI.getInstance(this, projectToken);
+
+        try {
+            JSONObject props = new JSONObject();
+            props.put("Gender", "Female");
+            props.put("Logged in", false);
+            mixpanel.track("MainActivity - onCreate called", props);
+        } catch (JSONException e) {
+            Log.e("MYAPP", "Unable to add properties to JSONObject", e);
+        }
     }
 
     @Override

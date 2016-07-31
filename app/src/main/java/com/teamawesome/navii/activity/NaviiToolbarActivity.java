@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.teamawesome.navii.R;
+import com.teamawesome.navii.activity.debug.NaviiSuperActivity;
 import com.teamawesome.navii.util.ToolbarConfiguration;
 import com.teamawesome.navii.views.MainLatoButton;
 import com.teamawesome.navii.views.MainLatoTextView;
@@ -19,7 +20,7 @@ import butterknife.ButterKnife;
 /**
  * Created by JMtorii on 16-06-19.
  */
-public abstract class NaviiToolbarActivity extends AppCompatActivity {
+public abstract class NaviiToolbarActivity extends NaviiSuperActivity {
     public abstract ToolbarConfiguration getToolbarConfiguration();
 
     public abstract void onLeftButtonClick();
