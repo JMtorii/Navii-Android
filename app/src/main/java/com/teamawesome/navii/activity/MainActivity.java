@@ -132,7 +132,7 @@ public class MainActivity extends NaviiNavigationalActivity {
         parallaxViewPager.setCurrentItem(0);
     }
 
-    public Button getmNextButton(){
+    public Button getmNextButton() {
         return this.mNextButton;
     }
 }
