@@ -1,12 +1,10 @@
 package com.teamawesome.navii.fragment.intro;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
-import android.text.TextPaint;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,8 +15,7 @@ import android.widget.LinearLayout;
 
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.SignUpActivity;
-
-import java.lang.reflect.Field;
+import com.teamawesome.navii.util.ViewUtilities;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -56,33 +53,10 @@ public class LoginFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         ButterKnife.bind(this, view);
 
-        setTypefaceToInputLayout(usernameInputLayout, FONT_LOCATION);
-        setTypefaceToInputLayout(passwordInputLayout, FONT_LOCATION);
+        ViewUtilities.setTypefaceToInputLayout(getActivity(), usernameInputLayout, FONT_LOCATION);
+        ViewUtilities.setTypefaceToInputLayout(getActivity(), passwordInputLayout, FONT_LOCATION);
 
         return view;
-    }
-
-    // TODO: Move to a helper method
-    private void setTypefaceToInputLayout(TextInputLayout inputLayout, String typeFace){
-        final Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), typeFace);
-        if (inputLayout != null && inputLayout.getEditText() != null) {
-            inputLayout.getEditText().setTypeface(tf);
-            try {
-                // Retrieve the CollapsingTextHelper Field
-                final Field collapsingTextHelperField = inputLayout.getClass().getDeclaredField("mCollapsingTextHelper");
-                collapsingTextHelperField.setAccessible(true);
-
-                // Retrieve an instance of CollapsingTextHelper and its TextPaint
-                final Object collapsingTextHelper = collapsingTextHelperField.get(inputLayout);
-                final Field tpf = collapsingTextHelper.getClass().getDeclaredField("mTextPaint");
-                tpf.setAccessible(true);
-
-                // Apply your Typeface to the CollapsingTextHelper TextPaint
-                ((TextPaint) tpf.get(collapsingTextHelper)).setTypeface(tf);
-            } catch (Exception ignored) {
-                // Nothing to do
-            }
-        }
     }
 
     @OnClick(R.id.login_email_button)
