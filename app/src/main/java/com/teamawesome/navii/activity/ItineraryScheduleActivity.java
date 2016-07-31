@@ -47,19 +47,6 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity {
     private static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        String title = getIntent().getStringExtra(Constants.INTENT_ATTRACTION_TITLE);
-        mTabLayout.setVisibility(View.VISIBLE);
-        setSupportActionBar(mToolbar);
-        setupViewPager(mViewPager);
-        mTabLayout.setupWithViewPager(mViewPager);
-
-        setupWindowAnimations();
-    }
-
-    @Override
     public ToolbarConfiguration getToolbarConfiguration() {
         return ToolbarConfiguration.HeartAndSoul;
     }
@@ -74,6 +61,20 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity {
         Intent nextActivity = new Intent(this, HeartAndSoulSaveActivity.class);
         startActivity(nextActivity);
         overridePendingTransition(R.anim.slide_in_down, R.anim.hold);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        String title = getIntent().getStringExtra(Constants.INTENT_ATTRACTION_TITLE);
+        mTabLayout.setVisibility(View.VISIBLE);
+
+        setSupportActionBar(mToolbar);
+        setupViewPager(mViewPager);
+        mTabLayout.setupWithViewPager(mViewPager);
+
+        setupWindowAnimations();
     }
 
     @OnClick(R.id.itinerary_schedule_fab)

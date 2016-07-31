@@ -1,11 +1,13 @@
 package com.teamawesome.navii.fragment.intro;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.text.TextPaint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +16,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.teamawesome.navii.R;
+import com.teamawesome.navii.activity.SignUpActivity;
 
 import java.lang.reflect.Field;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by JMtorii on 16-07-25.
@@ -79,5 +83,19 @@ public class LoginFragment extends Fragment {
                 // Nothing to do
             }
         }
+    }
+
+    @OnClick(R.id.login_email_button)
+    public void emailButtonPressed() {
+        Log.i(this.getClass().getName(), "Email login button pressed");
+    }
+
+    @OnClick(R.id.login_sign_up_button)
+    public void signUpButtonPressed() {
+        Log.i(this.getClass().getName(), "Sign up button pressed");
+
+        Intent nextActivity = new Intent(getActivity(), SignUpActivity.class);
+        startActivity(nextActivity);
+        getActivity().overridePendingTransition(R.anim.slide_in_down, R.anim.hold);
     }
 }
