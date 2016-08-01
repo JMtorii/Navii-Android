@@ -6,7 +6,7 @@ import com.teamawesome.navii.R;
  * Created by JMtorii on 16-06-19.
  */
 public enum ToolbarConfiguration {
-    SignUp(R.layout.activity_sign_up, R.string.itinerary_recommend_title, -1, 0, 1, R.drawable.ic_clear),
+    SignUp(R.layout.activity_sign_up, R.string.sign_up_title, -1, 0, 1, R.drawable.ic_clear),
     ItineraryRecommend(R.layout.activity_itinerary_recommend, R.string.itinerary_recommend_title, 1, R.drawable.ic_chevron_left, -1, 0),
     PackageOverview(R.layout.activity_package_overview, R.string.package_overview_title, 1, R.drawable.ic_chevron_left, 0, R.string.package_overview_select),
     HeartAndSoul(R.layout.activity_itinerary_schedule, R.string.heart_and_soul_title, 1, R.drawable.ic_chevron_left, 0, R.string.heart_and_soul_select),

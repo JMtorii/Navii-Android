@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:exitFadeDuration="@android:integer/config_shortAnimTime"
+    android:color="@color/chalkWhite">
 
-    <!-- we define background color -->
-    <solid android:color="@color/primary" />
+    <item>
+        <shape>
+            <!-- we define background color -->
+            <solid android:color="@color/primary" />
 
-    <!-- we define border color and thick -->
-    <stroke
-        android:width="0dp"
-        android:color="#444444" />
+            <!-- we define border color and thick -->
+            <stroke
+                android:width="0dp"
+                android:color="#444444" />
 
-    <!-- we define corner radius, note that radius can be different for each corner -->
-    <corners android:radius="5dp" />
+            <!-- we define corner radius, note that radius can be different for each corner -->
+            <corners android:radius="5dp" />
+        </shape>
+    </item>
 
-</shape>
+</ripple>
