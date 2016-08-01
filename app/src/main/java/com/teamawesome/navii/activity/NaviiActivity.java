@@ -1,8 +1,8 @@
 package com.teamawesome.navii.activity;
 
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 
+import com.teamawesome.navii.activity.debug.NaviiSuperActivity;
 import com.teamawesome.navii.util.NaviiFragmentManager;
 
 /**

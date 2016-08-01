@@ -9,16 +9,16 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferListener;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferState;
-import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.teamawesome.navii.R;
-import com.teamawesome.navii.activity.IntroActivity;
 import com.teamawesome.navii.activity.UploadImageTestActivity;
 import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.ImageUploader;
+import com.teamawesome.navii.views.MainLatoButton;
 
 
 public class UploadImageFragment extends NaviiFragment {
@@ -26,7 +26,7 @@ public class UploadImageFragment extends NaviiFragment {
 
     private String mUploadedImageUrlStr = null;
 
-    private BootstrapButton mUploadImageButton;
+    private Button mUploadImageButton;
     private ImageUploader mUploader;
     private TransferListener mTransferListener;
 
@@ -71,7 +71,7 @@ public class UploadImageFragment extends NaviiFragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_upload_image, container, false);
 
-        mUploadImageButton = (BootstrapButton) v.findViewById(R.id.upload_image_button);
+        mUploadImageButton = (Button) v.findViewById(R.id.upload_image_button);
         mUploadImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

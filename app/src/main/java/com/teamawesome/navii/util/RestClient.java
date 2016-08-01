@@ -13,6 +13,7 @@ import com.teamawesome.navii.server.api.UserAPI;
 import com.teamawesome.navii.server.api.UserPreferenceAPI;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import retrofit.JacksonConverterFactory;
 import retrofit.Retrofit;
@@ -22,7 +23,7 @@ import retrofit.RxJavaCallAdapterFactory;
  * Created by ecrothers on 07/31/16.
  */
 public class RestClient {
-    private static Retrofit retrofitReactiveClient;
+    private static Retrofit retrofit;
 
     private static class HeaderInterceptor implements Interceptor {
         @Override
@@ -57,24 +58,27 @@ public class RestClient {
     public static TagsAPI tagsAPI;
 
     public static void init() {
-        OkHttpClient client = new OkHttpClient();
+        final OkHttpClient okHttpClient = new OkHttpClient();
+        okHttpClient.setReadTimeout(60, TimeUnit.SECONDS);
+        okHttpClient.setConnectTimeout(60, TimeUnit.SECONDS);
+        NaviiPreferenceData.setIPAddress(Constants.SERVER_URL);
 
         headerInterceptor = new HeaderInterceptor();
-        client.interceptors().add(headerInterceptor);
+        okHttpClient.interceptors().add(headerInterceptor);
 
-        retrofitReactiveClient = new Retrofit.Builder()
-                .baseUrl(SessionManager.getIPAddress())
-                .client(client)
+        retrofit = new Retrofit.Builder()
+                .baseUrl(NaviiPreferenceData.getIPAddress())
+                .client(okHttpClient)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(JacksonConverterFactory.create())
                 .build();
 
-        userAPI = retrofitReactiveClient.create(UserAPI.class);
-        userPreferenceAPI = retrofitReactiveClient.create(UserPreferenceAPI.class);
-        preferenceAPI = retrofitReactiveClient.create(PreferenceAPI.class);
-        loginAPI = retrofitReactiveClient.create(LoginAPI.class);
-        attractionAPI = retrofitReactiveClient.create(AttractionAPI.class);
-        itineraryAPI = retrofitReactiveClient.create(ItineraryAPI.class);
-        tagsAPI = retrofitReactiveClient.create(TagsAPI.class);
+        userAPI = retrofit.create(UserAPI.class);
+        userPreferenceAPI = retrofit.create(UserPreferenceAPI.class);
+        preferenceAPI = retrofit.create(PreferenceAPI.class);
+        loginAPI = retrofit.create(LoginAPI.class);
+        attractionAPI = retrofit.create(AttractionAPI.class);
+        itineraryAPI = retrofit.create(ItineraryAPI.class);
+        tagsAPI = retrofit.create(TagsAPI.class);
     }
 }

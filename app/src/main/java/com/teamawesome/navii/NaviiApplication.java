@@ -6,6 +6,8 @@ import android.support.multidex.MultiDexApplication;
 
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
+import com.teamawesome.navii.util.Constants;
+import com.teamawesome.navii.util.NaviiPreferenceData;
 import com.teamawesome.navii.util.RestClient;
 import com.teamawesome.navii.util.RxBus;
 
@@ -26,19 +28,6 @@ public class NaviiApplication extends MultiDexApplication {
         super.onCreate();
         sInstance = this;
         context = getApplicationContext();
-
-        final OkHttpClient okHttpClient = new OkHttpClient();
-        okHttpClient.setReadTimeout(60, TimeUnit.SECONDS);
-        okHttpClient.setConnectTimeout(60, TimeUnit.SECONDS);
-
-        NaviiPreferenceData.setIPAddress(Constants.SERVER_URL);
-
-        retrofit = new Retrofit.Builder()
-                .baseUrl(NaviiPreferenceData.getIPAddress())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .client(okHttpClient)
-                .addConverterFactory(JacksonConverterFactory.create())
-                .build();
     }
 
     @Override

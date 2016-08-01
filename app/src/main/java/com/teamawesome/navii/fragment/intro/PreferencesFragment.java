@@ -47,7 +47,6 @@ public class PreferencesFragment extends NaviiFragment {
     TextView textView;
 
     private PreferencesGridAdapter mAdapter;
-    private NaviiApplication mApplication = NaviiApplication.getInstance();
 
     public static PreferencesFragment newInstance(int preferenceType) {
         PreferencesFragment fragment = new PreferencesFragment();

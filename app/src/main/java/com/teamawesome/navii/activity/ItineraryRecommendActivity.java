@@ -64,9 +64,7 @@ public class ItineraryRecommendActivity extends NaviiToolbarActivity {
         }
         String tagList = TextUtils.join(",", tags);
 
-
-        Observable<List<Itinerary>> itineraryListCall = RestClient.itineraryAPI.getItineraries(tags);
-        Observable<List<Itinerary>> itineraryListCall = NaviiApplication.getInstance().getItineraryAPI().getItineraries(tagList);
+        Observable<List<Itinerary>> itineraryListCall = RestClient.itineraryAPI.getItineraries(tagList);
 
         final Context context = this;
         itineraryListCall.subscribeOn(Schedulers.newThread())
