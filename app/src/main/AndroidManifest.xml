@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
 
     <compatible-screens>
         <!-- all small size screens -->
@@ -74,21 +75,16 @@
         </activity>
 
         <activity
-            android:name=".activity.IntroActivity"
+            android:name=".activity.PackageOverviewActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
+            android:theme="@style/NaviiTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden">
         </activity>
 
         <activity
-            android:name=".activity.PackageOverviewActivity"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden">
-        </activity>
-
-        <activity android:name=".activity.PlannedTripsActivity"
-            android:label="@string/planTrip"
+            android:name=".activity.PlannedTripsActivity"
+            android:label="@string/itinerary_recommend_plan_trip"
             android:screenOrientation="portrait"
             android:theme="@style/NaviiTheme.NoActionBar">
         </activity>
@@ -97,23 +93,57 @@
             android:name=".activity.ItineraryRecommendActivity"
             android:label="@string/itinerary_recommend_title"
             android:screenOrientation="portrait"
+            android:theme="@style/NaviiTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden">
         </activity>
 
-        <activity android:name=".activity.HeartAndSoulDetailsActivity"
-            android:label="@string/planTrip"
+        <activity
+            android:name=".activity.HeartAndSoulDetailsActivity"
+            android:label="@string/itinerary_recommend_plan_trip"
             android:screenOrientation="portrait"
             android:theme="@style/NaviiTheme.NoActionBar">
         </activity>
 
-        <activity android:name=".activity.PreferencesActivity"
-                  android:label="@string/preferences_title"
-                  android:screenOrientation="portrait"
-                  android:theme="@style/NaviiTheme.NoActionBar">
+        <activity
+            android:name=".activity.HeartAndSoulSaveActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NaviiTheme.NoActionBar">
         </activity>
 
-        <activity android:name=".activity.UploadImageTestActivity"
+        <activity
+            android:name=".activity.ProfileActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NaviiTheme.NoActionBar">
+        </activity>
+
+        <activity
+            android:name=".activity.PreferencesActivity"
+            android:label="@string/preferences_title"
+            android:screenOrientation="portrait"
+            android:theme="@style/NaviiTheme.NoActionBar">
+        </activity>
+
+        <activity
+            android:name=".activity.ItineraryScheduleActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NaviiTheme.NoActionBar">
+        </activity>
+
+        <activity
+            android:name=".activity.UploadImageTestActivity"
             android:label="Test Image Upload"
+            android:screenOrientation="portrait"
+            android:theme="@style/NaviiTheme.NoActionBar">
+        </activity>
+
+        <activity
+            android:name=".activity.OnboardingActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NaviiTheme.NoActionBar">
+        </activity>
+
+        <activity
+            android:name=".activity.SignUpActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NaviiTheme.NoActionBar">
         </activity>

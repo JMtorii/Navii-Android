@@ -2,10 +2,14 @@
 <resources>
     <item name="primary" type="color">#F15E55</item>
     <item name="primaryDark" type="color">#B24F4D</item>
+    <item name="secondary" type="color">#33B48F</item>
     <item name="chalkWhite" type="color">#FCFCFC</item>
     <item name="lightGrey" type="color">#D3D3D3</item>
     <item name="grey" type="color">#535356</item>
     <item name="black" type="color">#000000</item>
     <item name="babyBlue" type="color">#92CBDE</item>
-
+    <item name="fbBlue" type="color">#3B5998</item>
+    <color name="transparent">#00000000</color>
+    <color name="grey_primary">#262626</color>
+    <color name="text_shadow">#7F000000</color>
 </resources>

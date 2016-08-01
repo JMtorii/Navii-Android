@@ -1,11 +1,14 @@
 package com.teamawesome.navii.server.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Created by sjung on 09/05/16.
  */
-public class Location {
+public class Location implements Parcelable {
     @JsonProperty(value = "country_code")
     private String countryCode;
     private String neighborhoods;
@@ -26,6 +29,27 @@ public class Location {
         this.city = builder.city;
     }
 
+
+    protected Location(Parcel in) {
+        countryCode = in.readString();
+        neighborhoods = in.readString();
+        address = in.readString();
+        latitude = in.readDouble();
+        longitude = in.readDouble();
+        city = in.readString();
+    }
+
+    public static final Creator<Location> CREATOR = new Creator<Location>() {
+        @Override
+        public Location createFromParcel(Parcel in) {
+            return new Location(in);
+        }
+
+        @Override
+        public Location[] newArray(int size) {
+            return new Location[size];
+        }
+    };
 
     public String getCountry_code() {
         return countryCode;
@@ -49,6 +73,21 @@ public class Location {
 
     public String getCity() {
         return city;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(countryCode);
+        dest.writeString(neighborhoods);
+        dest.writeString(address);
+        dest.writeDouble(latitude);
+        dest.writeDouble(longitude);
+        dest.writeString(city);
     }
 
     public static class Builder {

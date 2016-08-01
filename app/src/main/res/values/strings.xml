@@ -5,12 +5,10 @@
 
     <string-array name="debug_list">
         <item>Main Application</item>
-        <item>Create user</item>
-        <item>Set ip address to Jun</item>
-        <item>Package Overview Activity</item>
-        <item>Heart and Soul Details Activity</item>
         <item>Upload Image Test</item>
         <item>Preferences</item>
+        <item>Itinerary Schedule</item>
+        <item>Onboarding</item>
     </string-array>
 
     <string-array name="intro_pager_titles">
@@ -65,15 +63,15 @@
     <!--Choose Tags Fragment Strings    -->
     <string name="tags_title">Tags</string>
     <string name="tags_message">Select the tags that would interest you the most for your
-        trip</string>
+        trip.</string>
     <string name="next_button_text">Next</string>
 
     <!-- Itinerary Recommend Fragment Strings-->
     <string name="itinerary_recommend_title">Recommended Itineraries</string>
-    <string name="author_title">Created by</string>
-    <string name="we_recommend_title">We Recommend</string>
-    <string name="planTrip">Plan your own Trip</string>
-    <string name="package_description_title">Overview</string>
+    <string name="itinerary_recommend_author_title">Created by</string>
+    <string name="itinerary_recommend_we_recommend_title">We Recommend</string>
+    <string name="itinerary_recommend_plan_trip">Plan your own Trip</string>
+    <string name="itinerary_recommend_package_description_title">Overview</string>
 
     <!-- EditProfile Fragment Strings-->
     <string name="new_user">new user</string>
@@ -97,6 +95,49 @@
 
     <!-- Buttons -->
     <string name="next">"Next"</string>
+
+    <!-- Package Overview -->
+    <string name="package_overview_title">Package Overview</string>
+    <string name="package_overview_select">Select</string>
+
+    <!-- Heart and Soul -->
+    <string name="heart_and_soul_title">Heart and Soul</string>
+    <string name="heart_and_soul_select">Select</string>
+
+    <!-- Heart and Soul Details Strings -->
+    <string name="heart_and_soul_details_title">Heart and Soul Details</string>
+    <string name="delete">delete</string>
+    <string name="start_time_title">Start Time:</string>
+
+    <!-- Heart and Soul Save -->
+    <string name="heart_and_soul_save_title">Heart and Soul Save</string>
+    <string name="heart_and_soul_save_name_hint">Itinerary Name</string>
+
+    <string-array name="onboarding_titles">
+        <item>Your personal travel agent right at your fingertips.</item>
+        <item>Browse destination packages that fit your schedule.</item>
+        <item>Book your hotel, flight, and attraction passes.</item>
+        <item>Hit up local hot spots and events tailored to you.</item>
+    </string-array>
+
+    <!-- Login -->
+    <string name="login_username_hint">E-mail</string>
+    <string name="login_password_hint">Password</string>
+    <string name="login_email_button_text">Login with E-mail</string>
+    <string name="login_fb_button_text">Login with Facebook</string>
+    <string name="login_or">or</string>
+    <string name="login_sign_up">Sign Up</string>
+
+    <!-- Sign Up -->
+    <string name="sign_up_title">Sign Up</string>
+    <string name="sign_up_full_name_hint">Full Name</string>
+    <string name="sign_up_email_hint">E-mail</string>
+    <string name="sign_up_password_hint">Password</string>
+    <string name="sign_up_password_again_hint">Retype Your Password</string>
+    <string name="sign_up_button">Sign Up</string>
+
+    <!-- Errors -->
+    <string name="error_steve_fucked_up">Steve fucked up</string>
 
     <!-- Facebook integration -->
     <string name="facebook_app_id">521481071395718</string>

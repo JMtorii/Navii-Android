@@ -7,6 +7,8 @@ import com.teamawesome.navii.R;
 import com.teamawesome.navii.fragment.intro.PreferencesFragment;
 import com.teamawesome.navii.util.Constants;
 
+import butterknife.ButterKnife;
+
 /**
  * Created by sjung on 19/06/16.
  */
@@ -16,7 +18,7 @@ public class PreferencesActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preference);
-
+        ButterKnife.bind(this);
         PreferencesFragment preferencesFragment = PreferencesFragment.newInstance(Constants.PREFERENCE_TYPE_1);
         getSupportFragmentManager()
                 .beginTransaction()

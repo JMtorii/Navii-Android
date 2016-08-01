@@ -5,7 +5,6 @@ import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.teamawesome.navii.R;
 
@@ -18,12 +17,8 @@ public class MainLatoEditText extends EditText implements LatoType {
 
     private static final String BASE_FONT_NAME = "Lato-";
 
-    private Context mContext;
-
     public MainLatoEditText(Context context) {
         super(context);
-        mContext = context;
-
         init(null);
     }
 

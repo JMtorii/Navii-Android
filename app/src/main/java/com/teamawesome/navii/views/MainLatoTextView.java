@@ -17,12 +17,8 @@ public class MainLatoTextView extends TextView implements LatoType {
 
     private static final String BASE_FONT_NAME = "Lato-";
 
-    private Context mContext;
-
     public MainLatoTextView(Context context) {
         super(context);
-        mContext = context;
-
         init(null);
     }
 

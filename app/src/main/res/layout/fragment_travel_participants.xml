@@ -21,7 +21,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="60dp"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -30,15 +30,15 @@
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:paddingLeft="40dp">
+            android:paddingStart="40dp"
+            android:paddingEnd="0dp">
 
             <View
                 android:id="@+id/travel_participants_adult_up_button"
-                android:layout_width="90dp"
-                android:layout_height="90dp"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:background="@drawable/circle_plus_button"/>
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/ic_plus"/>
 
             <com.teamawesome.navii.views.MainLatoTextView
                 android:id="@+id/travel_participants_adult_text"
@@ -51,11 +51,10 @@
 
             <View
                 android:id="@+id/travel_participants_adult_down_button"
-                android:layout_width="90dp"
-                android:layout_height="90dp"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:background="@drawable/circle_minus_button"/>
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/ic_minus"/>
 
         </LinearLayout>
 
@@ -65,15 +64,14 @@
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:paddingRight="40dp">
+            android:paddingEnd="40dp">
 
             <View
                 android:id="@+id/travel_participants_child_up_button"
-                android:layout_width="90dp"
-                android:layout_height="90dp"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:background="@drawable/circle_plus_button"/>
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/ic_plus"/>
 
             <com.teamawesome.navii.views.MainLatoTextView
                 android:id="@+id/travel_participants_child_text"
@@ -86,11 +84,10 @@
 
             <View
                 android:id="@+id/travel_participants_child_down_button"
-                android:layout_width="90dp"
-                android:layout_height="90dp"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:background="@drawable/circle_minus_button"/>
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/ic_minus"/>
 
         </LinearLayout>
 

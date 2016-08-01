@@ -5,12 +5,12 @@ import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.teamawesome.navii.NaviiApplication;
 import com.teamawesome.navii.R;
+import com.teamawesome.navii.activity.debug.NaviiSuperActivity;
 import com.teamawesome.navii.util.NavigationConfiguration;
 
 import butterknife.BindView;
@@ -19,7 +19,7 @@ import butterknife.ButterKnife;
 /**
  * Created by JMtorii on 16-06-16.
  */
-public abstract class NaviiNavigationalActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public abstract class NaviiNavigationalActivity extends NaviiSuperActivity implements NavigationView.OnNavigationItemSelectedListener {
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
@@ -60,6 +60,24 @@ public abstract class NaviiNavigationalActivity extends AppCompatActivity implem
                 break;
             case R.id.nav_planned_trips:
                 launchClass = PlannedTripsActivity.class;
+                break;
+            case R.id.nav_saved_trips:
+                // Saved Trips Activity when created
+                launchClass = null;
+                break;
+            case R.id.nav_preferences:
+                launchClass = PreferencesActivity.class;
+                break;
+            case R.id.nav_notifications:
+                //Notifications Activity when created
+                launchClass = null;
+                break;
+            case R.id.nav_choose_tags:
+                //ChooseTags Activity when created
+                launchClass = null;
+                break;
+            case R.id.nav_profile:
+                launchClass = ProfileActivity.class;
                 break;
             default:
                 launchClass = null;

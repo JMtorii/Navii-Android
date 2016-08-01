@@ -10,8 +10,7 @@
         android:layout_height="190dp"
         android:layout_marginTop="30dp"
         android:id="@+id/intro_thanks_rough_logo"
-        android:layout_gravity="center_horizontal"
-        android:src="@drawable/rough_logo" />
+        android:layout_gravity="center_horizontal"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -31,17 +30,12 @@
         android:gravity="center"
         android:layout_marginTop="20dp" />
 
-    <com.beardedhen.androidbootstrap.BootstrapButton
+    <Button
         android:layout_width="120dp"
         android:layout_height="40dp"
         android:text="Next"
         android:id="@+id/intro_thanks_next_button"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        app:roundedCorners="true"
-        app:bootstrapBrand="info"
-        app:bootstrapSize="lg"
-        app:buttonMode="regular"
-        app:showOutline="false" />
+        android:layout_marginTop="30dp" />
 
 </LinearLayout>

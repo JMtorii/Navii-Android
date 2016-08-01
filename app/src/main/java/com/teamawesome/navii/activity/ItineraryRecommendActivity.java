@@ -1,9 +1,11 @@
 package com.teamawesome.navii.activity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.teamawesome.navii.NaviiApplication;
@@ -11,7 +13,10 @@ import com.teamawesome.navii.R;
 import com.teamawesome.navii.adapter.ItineraryRecommendListAdapter;
 import com.teamawesome.navii.server.model.Itinerary;
 import com.teamawesome.navii.util.RestClient;
+import com.teamawesome.navii.util.Constants;
+import com.teamawesome.navii.util.ToolbarConfiguration;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -24,25 +29,44 @@ import rx.schedulers.Schedulers;
 /**
  * Created by sjung on 11/06/16.
  */
-public class ItineraryRecommendActivity extends NaviiActivity {
-
+public class ItineraryRecommendActivity extends NaviiToolbarActivity {
     @BindView(R.id.itineraryList)
     RecyclerView itineraryRecyclerView;
 
-    ItineraryRecommendListAdapter recommendListAdapter;
+    private ItineraryRecommendListAdapter recommendListAdapter;
+
+    private ProgressDialog progressDialog;
+
+    @Override
+    public ToolbarConfiguration getToolbarConfiguration() {
+        return ToolbarConfiguration.ItineraryRecommend;
+    }
+
+    @Override
+    public void onLeftButtonClick() {
+        super.onBackPressed();
+    }
+
+    @Override
+    public void onRightButtonClick() {
+        // Nothing to do here
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_itinerary_recommend);
-
         ButterKnife.bind(this);
 
-        List<String> tags = getIntent().getStringArrayListExtra("TAGS");
+        List<String> tags = getIntent().getStringArrayListExtra(Constants.INTENT_TAGS);
 
-        Log.d("TAGS", tags.toString());
+        if (tags == null) {
+            tags = new ArrayList<>();
+        }
+        String tagList = TextUtils.join(",", tags);
 
 
         Observable<List<Itinerary>> itineraryListCall = RestClient.itineraryAPI.getItineraries(tags);
+        Observable<List<Itinerary>> itineraryListCall = NaviiApplication.getInstance().getItineraryAPI().getItineraries(tagList);
 
         final Context context = this;
         itineraryListCall.subscribeOn(Schedulers.newThread())
@@ -50,12 +74,13 @@ public class ItineraryRecommendActivity extends NaviiActivity {
                 .subscribe(new Subscriber<List<Itinerary>>() {
                     @Override
                     public void onCompleted() {
-                        //nothing to do here
+                        progressDialog.dismiss();
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         Log.e("ItineraryActivity", "onError", e);
+                        progressDialog.dismiss();
                     }
 
                     @Override
@@ -68,5 +93,6 @@ public class ItineraryRecommendActivity extends NaviiActivity {
                         itineraryRecyclerView.setLayoutManager(gridLayoutManager);
                     }
                 });
+        progressDialog = ProgressDialog.show(this, "Just calm down.", "Loading itineraries...");
     }
 }

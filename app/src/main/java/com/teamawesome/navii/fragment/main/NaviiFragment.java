@@ -1,21 +1,17 @@
 package com.teamawesome.navii.fragment.main;
 
 import android.app.Dialog;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
-import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.teamawesome.navii.R;
-import com.teamawesome.navii.activity.IntroActivity;
-import com.teamawesome.navii.activity.MainActivity;
 import com.teamawesome.navii.activity.NaviiActivity;
-import com.teamawesome.navii.fragment.NaviiFragmentInterface;
 import com.teamawesome.navii.util.Constants;
-import com.teamawesome.navii.util.WifiCheck;
 
 /**
  * Created by JMtorii on 15-12-25.
@@ -62,8 +58,7 @@ public class NaviiFragment extends Fragment {
             final Dialog wifiDialog = new Dialog(NaviiFragment.this.getContext());
             wifiDialog.requestWindowFeature(STYLE_NO_TITLE);
             wifiDialog.setContentView(R.layout.dialog_no_wifi);
-            BootstrapButton wifiButton =
-                    (BootstrapButton) wifiDialog.findViewById(R.id.reconnect_button);
+            Button wifiButton = (Button) wifiDialog.findViewById(R.id.reconnect_button);
             wifiButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -7,12 +7,11 @@ import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
-import com.beardedhen.androidbootstrap.BootstrapButton;
-import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.squareup.okhttp.ResponseBody;
 import com.teamawesome.navii.R;
-
 import com.teamawesome.navii.server.model.User;
 import com.teamawesome.navii.util.NaviiPreferenceData;
 import com.teamawesome.navii.util.RestClient;
@@ -27,9 +26,8 @@ import retrofit.Retrofit;
  */
 public class EditProfileFragment extends NaviiFragment {
 
-    private BootstrapEditText newEmail;
-
-    private BootstrapButton commitEmail;
+    private EditText newEmail;
+    private Button commitEmail;
 
     public static EditProfileFragment newInstance(){
         EditProfileFragment fragment = new EditProfileFragment();
@@ -41,11 +39,10 @@ public class EditProfileFragment extends NaviiFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState){
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View v = inflater.inflate(R.layout.fragment_edit_profile,container,false);
-        newEmail = (BootstrapEditText) v.findViewById(R.id.edit_profile_new_email);
-        commitEmail = (BootstrapButton) v.findViewById(R.id.edit_profile_commit_email);
+        newEmail = (EditText) v.findViewById(R.id.edit_profile_new_email);
+        commitEmail = (Button) v.findViewById(R.id.edit_profile_commit_email);
         commitEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,8 +90,7 @@ public class EditProfileFragment extends NaviiFragment {
     }
 
     private boolean isValidEmail(CharSequence email){
-        return Patterns.EMAIL_ADDRESS.matcher(email).matches()
-                && !email.toString().equalsIgnoreCase(NaviiPreferenceData.getLoggedInUserEmail());
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches() && !email.toString().equalsIgnoreCase(NaviiPreferenceData.getLoggedInUserEmail());
     }
 
 }

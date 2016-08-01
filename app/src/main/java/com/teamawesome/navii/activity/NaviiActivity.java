@@ -8,7 +8,7 @@ import com.teamawesome.navii.util.NaviiFragmentManager;
 /**
  * Created by JMtorii on 2015-11-20.
  */
-public abstract class NaviiActivity extends AppCompatActivity {
+public abstract class NaviiActivity extends NaviiSuperActivity {
 
     protected NaviiFragmentManager fm;
 

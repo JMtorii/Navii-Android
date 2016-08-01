@@ -7,17 +7,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
-import com.anton46.collectionitempicker.Item;
-import com.beardedhen.androidbootstrap.BootstrapButton;
-import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.util.NaviiPreferenceData;
 import com.teamawesome.navii.util.RestClient;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import rx.Observable;
 import rx.Subscriber;
@@ -27,10 +23,10 @@ import rx.schedulers.Schedulers;
 
 public class ChangePasswordFragment extends NaviiFragment {
 
-    private BootstrapEditText mCurrentPasswordField;
-    private BootstrapEditText mNewPasswordField;
-    private BootstrapEditText mRepeatNewPasswordField;
-    private BootstrapButton mChangePasswordButton;
+    private EditText mCurrentPasswordField;
+    private EditText mNewPasswordField;
+    private EditText mRepeatNewPasswordField;
+    private Button mChangePasswordButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,11 +34,10 @@ public class ChangePasswordFragment extends NaviiFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_change_password, container, false);
 
-        mCurrentPasswordField = (BootstrapEditText) v.findViewById(R.id.current_password);
+        mCurrentPasswordField = (EditText) v.findViewById(R.id.current_password);
         mCurrentPasswordField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -60,7 +55,7 @@ public class ChangePasswordFragment extends NaviiFragment {
             }
         });
 
-        mNewPasswordField = (BootstrapEditText) v.findViewById(R.id.new_password);
+        mNewPasswordField = (EditText) v.findViewById(R.id.new_password);
         mNewPasswordField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -78,7 +73,7 @@ public class ChangePasswordFragment extends NaviiFragment {
             }
         });
 
-        mRepeatNewPasswordField = (BootstrapEditText) v.findViewById(R.id.repeat_new_password);
+        mRepeatNewPasswordField = (EditText) v.findViewById(R.id.repeat_new_password);
         mRepeatNewPasswordField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -96,7 +91,7 @@ public class ChangePasswordFragment extends NaviiFragment {
             }
         });
 
-        mChangePasswordButton = (BootstrapButton) v.findViewById(R.id.change_password_button);
+        mChangePasswordButton = (Button) v.findViewById(R.id.change_password_button);
         mChangePasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

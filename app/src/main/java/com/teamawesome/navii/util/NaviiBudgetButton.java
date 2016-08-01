@@ -10,10 +10,6 @@ import com.teamawesome.navii.views.MainLatoButton;
  * Created by Ian on 5/30/2016.
  */
 public class NaviiBudgetButton extends MainLatoButton {
-    public int getDigit() {
-        return digit;
-    }
-
     private int digit;
 
     public NaviiBudgetButton(Context context) {
@@ -26,6 +22,10 @@ public class NaviiBudgetButton extends MainLatoButton {
 
     public NaviiBudgetButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+    }
+
+    public int getDigit() {
+        return digit;
     }
 
     public void setDigit(int digit){

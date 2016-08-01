@@ -40,7 +40,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textSize="20sp"/>
 
-        <GridView
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/preferences_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

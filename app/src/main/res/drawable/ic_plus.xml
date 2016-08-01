@@ -1,0 +1,29 @@
+<ripple android:color="@color/primary"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <vector
+            android:width="24dp"
+            android:height="24dp"
+            android:viewportWidth="24.0"
+            android:viewportHeight="24.0">
+            <path
+                android:pathData="M12,12m-11.701,0a11.701,11.701 0,1 1,23.402 0a11.701,11.701 0,1 1,-23.402 0"
+                android:strokeWidth="0.5754"
+                android:fillAlpha="0.6"
+                android:fillColor="#FFFFFF"
+                android:strokeColor="#FFFFFF"/>
+            <path
+                android:pathData="M7.732,11.315L16.268,11.315"
+                android:strokeWidth="1.0637"
+                android:fillColor="#00000000"
+                android:strokeColor="#FFFFFF"/>
+            <path
+                android:pathData="M12,7.094L12,15.726"
+                android:strokeWidth="1.1282"
+                android:fillColor="#00000000"
+                android:strokeColor="#FFFFFF"/>
+        </vector>
+    </item>
+</ripple>
+
+

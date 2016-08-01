@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion '23.0.3'
+    compileSdkVersion 24
+    buildToolsVersion '24.0.0'
 
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
@@ -18,9 +18,11 @@ android {
     defaultConfig {
         applicationId "com.teamawesome.navii"
         minSdkVersion 21
-        targetSdkVersion 23
+        targetSdkVersion 24
         versionCode 1
         versionName "1.0"
+        vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -51,27 +53,29 @@ repositories {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:24.0.0'
+    compile 'com.android.support:cardview-v7:24.0.0'
+    compile 'com.android.support:recyclerview-v7:24.0.0'
+    compile 'com.android.support:design:24.0.0'
+    compile 'com.android.support:multidex:1.0.1'
+    compile 'com.squareup.okhttp3:okhttp:3.3.1'
+    compile 'com.google.android.gms:play-services-maps:9.2.0'
+    compile 'com.google.android.gms:play-services-places:9.2.0'
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
-    compile 'com.android.support:appcompat-v7:23.4.0'
-    compile 'com.android.support:cardview-v7:23.4.0'
-    compile 'com.android.support:recyclerview-v7:23.4.0'
-    compile 'com.android.support:design:23.4.0'
-    compile 'com.google.android.gms:play-services-maps:9.0.2'
     compile 'com.squareup.retrofit:retrofit:2.0.0-beta2'
     compile 'com.squareup.retrofit:converter-jackson:2.0.0-beta2'
     compile 'io.reactivex:rxandroid:1.0.1'
     compile 'io.reactivex:rxjava:1.0.14'
     compile 'com.squareup.retrofit:adapter-rxjava:2.0.0-beta2'
     compile 'joda-time:joda-time:2.1'
-    compile 'fr.avianey.com.viewpagerindicator:library:2.4.1@aar'
-    compile 'com.beardedhen:androidbootstrap:2.0.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.anton46:collection-picker:1.0.2'
     compile 'com.amazonaws:aws-android-sdk-core:2.2.+'
     compile 'com.amazonaws:aws-android-sdk-s3:2.2.+'
     compile 'com.amazonaws:aws-android-sdk-ddb:2.2.+'
     compile 'com.jakewharton:butterknife:8.0.1'
-
     apt 'com.jakewharton:butterknife-compiler:8.0.1'
-
+    compile 'com.facebook.android:facebook-android-sdk:4.14.0'
+    compile "com.mixpanel.android:mixpanel-android:4.+"
+    compile "com.google.android.gms:play-services:9.2.0"
 }

@@ -14,6 +14,7 @@ import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.ItineraryRecommendActivity;
 import com.teamawesome.navii.adapter.TagGridAdapter;
 import com.teamawesome.navii.util.RestClient;
+import com.teamawesome.navii.util.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +47,7 @@ public class ChooseTagsFragment extends NaviiParallaxFragment {
                 .subscribe(new Subscriber<List<String>>() {
                     @Override
                     public void onCompleted() {
-
+                        // nothing to do here
                     }
 
                     @Override
@@ -56,10 +57,9 @@ public class ChooseTagsFragment extends NaviiParallaxFragment {
 
                     @Override
                     public void onNext(List<String> tags) {
-                        mTagGridAdapter = new TagGridAdapter(tags);
+                        mTagGridAdapter = new TagGridAdapter(tags, getActivity());
                         mTagsGridView.setAdapter(mTagGridAdapter);
-                        RecyclerView.LayoutManager gridLayoutManager =
-                                new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
+                        RecyclerView.LayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
                         mTagsGridView.setLayoutManager(gridLayoutManager);
                     }
                 });
@@ -70,9 +70,10 @@ public class ChooseTagsFragment extends NaviiParallaxFragment {
     @Override
     public void nextFunction() {
         Intent itineraryRecommendIntent = new Intent(getContext(), ItineraryRecommendActivity.class);
-        itineraryRecommendIntent.
-                putStringArrayListExtra("TAGS", new ArrayList<>(mTagGridAdapter.getActiveTags()));
+        if (mTagGridAdapter != null) {
+            itineraryRecommendIntent.putStringArrayListExtra(Constants.INTENT_TAGS, new ArrayList<>(mTagGridAdapter.getActiveTags()));
+        }
         startActivity(itineraryRecommendIntent);
+        getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
-
 }
