@@ -11,7 +11,8 @@ import android.widget.ListView;
 import com.teamawesome.navii.NaviiApplication;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.ItineraryScheduleActivity;
-import com.teamawesome.navii.activity.MainActivity;
+ import com.teamawesome.navii.activity.LoginActivity;
+ import com.teamawesome.navii.activity.MainActivity;
  import com.teamawesome.navii.activity.OnboardingActivity;
  import com.teamawesome.navii.activity.PreferencesActivity;
 import com.teamawesome.navii.activity.UploadImageTestActivity;
@@ -73,6 +74,9 @@ public class DebugMainActivity extends ListActivity {
         } else if (id == 4) {       // Onboarding
             Intent onboardingActivity = new Intent(this, OnboardingActivity.class);
             startActivity(onboardingActivity);
+        } else if (id == 5) {       // Login
+            Intent loginActivity = new Intent(this, LoginActivity.class);
+            startActivity(loginActivity);
         }
     }
 }

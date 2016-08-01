@@ -31,6 +31,8 @@ public class NaviiApplication extends MultiDexApplication {
         context = getApplicationContext();
         RestClient.init();
         SessionManager.init(context);
+        FacebookSdk.sdkInitialize(context);
+
     }
 
     @Override

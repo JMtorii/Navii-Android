@@ -9,6 +9,7 @@
         <item>Preferences</item>
         <item>Itinerary Schedule</item>
         <item>Onboarding</item>
+        <item>Login</item>
     </string-array>
 
     <string-array name="intro_pager_titles">
