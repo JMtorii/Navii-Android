@@ -180,7 +180,7 @@ public class LoginActivity extends Activity {
     }
 
     private void attemptSignup(final String username, final String email, final String hashedPassword) {
-        User user = new User.Builder().username(username).password(hashedPassword).build();
+        User user = new User.Builder().username(username).email(email).password(hashedPassword).build();
         Call<Void> call = RestClient.userAPI.createUser(user);
         call.enqueue(new Callback<Void>() {
             @Override
@@ -204,7 +204,7 @@ public class LoginActivity extends Activity {
     }
 
     private void attemptLogin(final String username, final String email, final String hashedPassword) {
-        User user = new User.Builder().username(username).password(hashedPassword).build();
+        User user = new User.Builder().username(username).email(email).password(hashedPassword).build();
         Call<ResponseBody> call = RestClient.loginAPI.attemptLogin(user);
         call.enqueue(new Callback<ResponseBody>() {
             @Override

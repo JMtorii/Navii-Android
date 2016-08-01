@@ -9,10 +9,10 @@ public class Constants {
     }
 
     // Server
-    public static final String SERVER_URL = "https://naviappweb.com";
+    public static final String SERVER_URL = "http://192.168.1.172:8080";
+    //public static final String SERVER_URL = "https://naviappweb.com";
     public static final String SERVER_URL_JUN = "http://192.168.57.1:8080";
     public static final String SERVER_URL_STEVE = "http://192.168.2.114:8080";
-    public static final String SERVER_URL_PROD = "https://www.naviappweb.com:443";
 
     public static final String PICTURE_BUCKET = "elasticbeanstalk-us-east-1-107709745779/images";
 

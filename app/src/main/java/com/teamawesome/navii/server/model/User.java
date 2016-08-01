@@ -15,6 +15,9 @@ public class User {
     @JsonProperty(value = "username")
     private String username;
 
+    @JsonProperty(value = "email")
+    private String email;
+
     @JsonProperty(value = "password")
     private String password;
 
@@ -24,22 +27,30 @@ public class User {
     @JsonProperty(value = "is_facebook")
     private boolean isFacebook;
 
+    @JsonProperty(value = "verified")
+    private boolean verified;
+
     public User() {}
 
     private User(Builder builder) {
-        this.userId = builder.userId;
         this.username = builder.username;
+        this.email = builder.email;
         this.password = builder.password;
         this.salt = builder.salt;
         this.isFacebook = builder.isFacebook;
-    }
-
-    public int getUserId() {
-        return userId;
+        this.verified = builder.verified;
     }
 
     public String getUsername() {
         return username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public boolean getVerified() {
+        return verified;
     }
 
     public String getPassword() {
@@ -55,21 +66,22 @@ public class User {
     }
 
     public static class Builder {
-        private int userId;
         private String username;
+        private String email;
         private String password;
         private String salt;
         private boolean isFacebook;
+        private boolean verified;
 
         public Builder() {}
 
-        public Builder userId(int userId) {
-            this.userId = userId;
+        public Builder username(String username) {
+            this.username = username;
             return this;
         }
 
-        public Builder username(String username) {
-            this.username = username;
+        public Builder email(String email) {
+            this.email = email;
             return this;
         }
 
@@ -85,6 +97,11 @@ public class User {
 
         public Builder isFacebook(boolean isFacebook) {
             this.isFacebook = isFacebook;
+            return this;
+        }
+
+        public Builder verified(boolean verified) {
+            this.verified = verified;
             return this;
         }
 
