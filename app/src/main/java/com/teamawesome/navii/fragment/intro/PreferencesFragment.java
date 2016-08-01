@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.teamawesome.navii.NaviiApplication;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.IntroActivity;
 import com.teamawesome.navii.activity.MainActivity;
@@ -25,6 +24,7 @@ import com.teamawesome.navii.server.model.PreferencesQuestion;
 import com.teamawesome.navii.server.model.UserPreference;
 import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.NaviiPreferenceData;
+import com.teamawesome.navii.util.RestClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,8 +76,7 @@ public class PreferencesFragment extends NaviiFragment {
         //TODO: change to server implementation
         numberOfPreferences = 3;
 
-        Observable<PreferencesQuestion> observable =
-            NaviiApplication.getInstance().getPreferenceAPI().getPreferences(preferenceType);
+        Observable<PreferencesQuestion> observable = RestClient.preferenceAPI.getPreferences(preferenceType);
 
         observable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -144,9 +143,9 @@ public class PreferencesFragment extends NaviiFragment {
 
                 // TODO : Change id to the one in shared preferences
                 Log.d("PreferenceFragment: ", username);
-                Call<Void> deleteCall = parentActivity.userPreferenceAPI.deleteAllUserPreference
+                Call<Void> deleteCall = RestClient.userPreferenceAPI.deleteAllUserPreference
                         (username, preferenceType);
-                Call<Void> createCall = parentActivity.userPreferenceAPI.createUserPreference(userPreference);
+                Call<Void> createCall = RestClient.userPreferenceAPI.createUserPreference(userPreference);
 
                 // enqueues the delete call to delete the existing preferences for the user to
                 // replace with new ones

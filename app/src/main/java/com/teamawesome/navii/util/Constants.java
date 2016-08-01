@@ -8,7 +8,9 @@ public class Constants {
     private Constants() {
     }
 
-    public static final String SERVER_URL = "http://192.168.0.21:8080";
+    public static final String SERVER_URL = "http://192.168.1.172:8080";
+    //public static final String SERVER_URL = "http://localhost:8080";
+    //public static final String SERVER_URL = "http://192.168.0.21:8080";
     //public static final String SERVER_URL = "http://10.0.3.2:8080";
     public static final String SERVER_URL_JUN = "http://142.151.249.132:8080";
     public static final String SERVER_URL_STEVE = "http://192.168.2.114:8080";

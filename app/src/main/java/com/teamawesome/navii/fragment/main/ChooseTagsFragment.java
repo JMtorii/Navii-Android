@@ -13,6 +13,7 @@ import com.teamawesome.navii.NaviiApplication;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.ItineraryRecommendActivity;
 import com.teamawesome.navii.adapter.TagGridAdapter;
+import com.teamawesome.navii.util.RestClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +40,7 @@ public class ChooseTagsFragment extends NaviiParallaxFragment {
         View view = inflater.inflate(R.layout.fragment_planning_tags, container, false);
         ButterKnife.bind(this, view);
 
-        Observable<List<String>> observable = NaviiApplication.getInstance().getTagsAPI().getTags();
+        Observable<List<String>> observable = RestClient.tagsAPI.getTags();
         observable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<List<String>>() {

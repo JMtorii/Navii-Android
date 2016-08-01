@@ -14,6 +14,7 @@ import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.util.NaviiPreferenceData;
+import com.teamawesome.navii.util.RestClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -122,7 +123,7 @@ public class ChangePasswordFragment extends NaviiFragment {
         String currentPassword = mCurrentPasswordField.getText().toString();
         String newPassword = mNewPasswordField.getText().toString();
 
-        Observable<Void> observable = parentActivity.userAPIObservable
+        Observable<Void> observable = RestClient.userAPI
                 .changePassword(userEmail, currentPassword, newPassword);
         observable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())

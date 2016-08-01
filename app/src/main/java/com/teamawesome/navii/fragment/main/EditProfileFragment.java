@@ -15,6 +15,7 @@ import com.teamawesome.navii.R;
 
 import com.teamawesome.navii.server.model.User;
 import com.teamawesome.navii.util.NaviiPreferenceData;
+import com.teamawesome.navii.util.RestClient;
 
 import retrofit.Call;
 import retrofit.Callback;
@@ -54,7 +55,7 @@ public class EditProfileFragment extends NaviiFragment {
                             .username(NaviiPreferenceData.getLoggedInUserEmail())
                             .isFacebook(NaviiPreferenceData.isFacebook())
                             .build();
-                    Call<ResponseBody> updateCall = parentActivity.userAPI.updateUser(
+                    Call<ResponseBody> updateCall = RestClient.userAPI.updateUser(
                             userToUpdate,
                             email.toString());
 

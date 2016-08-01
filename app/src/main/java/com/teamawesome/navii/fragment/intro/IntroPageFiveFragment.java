@@ -15,6 +15,7 @@ import com.teamawesome.navii.activity.IntroActivity;
 import com.teamawesome.navii.activity.MainActivity;
 import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.NaviiPreferenceData;
+import com.teamawesome.navii.util.RestClient;
 
 import retrofit.Call;
 import retrofit.Callback;
@@ -61,7 +62,7 @@ public class IntroPageFiveFragment extends IntroAbstractPageFragment {
         mSignUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Call<Void> call = parentActivity.userAPI.signUp(mEmailEditText.getText().toString(), mPassWordEditText.getText().toString());
+                Call<Void> call = RestClient.userAPI.signUp(mEmailEditText.getText().toString(), mPassWordEditText.getText().toString());
                 call.enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Response<Void> response, Retrofit retrofit) {
@@ -103,7 +104,7 @@ public class IntroPageFiveFragment extends IntroAbstractPageFragment {
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Call<Void> call = parentActivity.userAPI.login(mEmailEditText.getText().toString(), mPassWordEditText.getText().toString());
+                Call<Void> call = RestClient.userAPI.login(mEmailEditText.getText().toString(), mPassWordEditText.getText().toString());
                 call.enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Response<Void> response, Retrofit retrofit) {

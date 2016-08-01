@@ -10,6 +10,7 @@ import com.teamawesome.navii.NaviiApplication;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.adapter.ItineraryRecommendListAdapter;
 import com.teamawesome.navii.server.model.Itinerary;
+import com.teamawesome.navii.util.RestClient;
 
 import java.util.List;
 
@@ -41,7 +42,7 @@ public class ItineraryRecommendActivity extends NaviiActivity {
         Log.d("TAGS", tags.toString());
 
 
-        Observable<List<Itinerary>> itineraryListCall = NaviiApplication.getInstance().getItineraryAPI().getItineraries(tags);
+        Observable<List<Itinerary>> itineraryListCall = RestClient.itineraryAPI.getItineraries(tags);
 
         final Context context = this;
         itineraryListCall.subscribeOn(Schedulers.newThread())

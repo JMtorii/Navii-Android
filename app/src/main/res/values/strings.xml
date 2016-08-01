@@ -101,4 +101,16 @@
     <!-- Facebook integration -->
     <string name="facebook_app_id">521481071395718</string>
 
+    <!-- Login -->
+    <string name="user_name_hint">Username</string>
+    <string name="email_hint">Email</string>
+    <string name="email_sign_up"><b>Sign Up!</b></string>
+    <string name="facebook_sign_in">Continue with Facebook</string>
+    <string name="password_hint">Password</string>
+    <string name="creation_ToS">Creation of an account means you\'re a-okay with our <b>terms of services</b>.</string>
+    <string name="login">Already have an account? <b>LOGIN</b></string>
+    <string name="tos_legal_stuff">Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting industry. orem Ipsum is simply dummy text of the printing and typesetting iorem Ipsum is simply dummy text of the printing and typesetting iorem Ipsum is simply dummy text of the printing and typesetting iorem Ipsum is simply dummy text of the printing and typesetting iLorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting</string>
+    <string name="terms_of_services">Terms of Services</string>
+    <string name="ok">OK</string>
+
 </resources>
