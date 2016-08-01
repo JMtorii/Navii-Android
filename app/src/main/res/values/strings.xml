@@ -9,7 +9,6 @@
         <item>Preferences</item>
         <item>Itinerary Schedule</item>
         <item>Onboarding</item>
-        <item>Login</item>
     </string-array>
 
     <string-array name="intro_pager_titles">
@@ -122,7 +121,7 @@
     </string-array>
 
     <!-- Login -->
-    <string name="login_username_hint">E-mail</string>
+    <string name="login_email_hint">E-mail</string>
     <string name="login_password_hint">Password</string>
     <string name="login_email_button_text">Login with E-mail</string>
     <string name="login_fb_button_text">Login with Facebook</string>

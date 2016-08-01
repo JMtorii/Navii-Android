@@ -142,19 +142,6 @@
             android:theme="@style/NaviiTheme.NoActionBar">
         </activity>
 
-        <activity
-            android:name=".activity.SignUpActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/NaviiTheme.NoActionBar">
-        </activity>
-
-        <activity
-            android:name=".activity.LoginActivity"
-            android:label="Login Activity"
-            android:screenOrientation="portrait"
-            android:theme="@style/NaviiTheme.NoActionBar">
-        </activity>
-
         <activity android:name="com.facebook.FacebookActivity"
             android:configChanges=
                 "keyboard|keyboardHidden|screenLayout|screenSize|orientation"

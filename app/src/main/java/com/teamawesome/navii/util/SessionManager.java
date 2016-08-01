@@ -15,7 +15,7 @@ public class SessionManager {
 
     private static final String PREF_IP_ADDRESS = "ip_address";
     private static final String IS_LOGINED = "is_logged_in";
-    private static final String KEY_NAME = "name";
+    //private static final String KEY_NAME = "name";
     private static final String KEY_EMAIL = "email";
     private static final String KEY_TOKEN = "token";
 
@@ -25,9 +25,9 @@ public class SessionManager {
         editor = pref.edit();
     }
 
-    public static void createLoginSession(String name, String email, String token) {
+    public static void createLoginSession(String email, String token) {
         editor.putBoolean(IS_LOGINED, true);
-        editor.putString(KEY_NAME, name);
+        //editor.putString(KEY_NAME, name);
         editor.putString(KEY_EMAIL, email);
         editor.putString(KEY_TOKEN, token);
         editor.commit();
@@ -35,7 +35,7 @@ public class SessionManager {
 
     public static void deleteLoginSession() {
         editor.putBoolean(IS_LOGINED, false);
-        editor.putString(KEY_NAME, "");
+        //editor.putString(KEY_NAME, "");
         editor.putString(KEY_EMAIL, "");
         editor.putString(KEY_TOKEN, "");
         editor.commit();
@@ -49,9 +49,9 @@ public class SessionManager {
         return pref.getString(KEY_TOKEN, "");
     }
 
-    public static String getUsername() {
-        return pref.getString(KEY_NAME, "");
-    }
+//    public static String getUsername() {
+//        return pref.getString(KEY_NAME, "");
+//    }
 
     public static String getUserEmail() {
         return pref.getString(KEY_EMAIL, "");

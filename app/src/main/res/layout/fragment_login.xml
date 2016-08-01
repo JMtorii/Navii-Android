@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fb="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -25,16 +26,16 @@
         android:layout_centerInParent="true">
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/login_username_input_layout"
+            android:id="@+id/login_email_input_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal">
 
             <android.support.design.widget.TextInputEditText
-                android:id="@+id/login_username_edit_text"
+                android:id="@+id/login_email_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/login_username_hint"
+                android:hint="@string/login_email_hint"
                 android:textColor="@color/grey_primary"/>
 
         </android.support.design.widget.TextInputLayout>
@@ -144,5 +145,15 @@
         android:background="@color/transparent"
         android:layout_marginBottom="20dp"
         android:layout_alignParentBottom="true" />
+
+    <!--<com.facebook.login.widget.LoginButton
+        android:id="@+id/facebook_login_button"
+        android:layout_centerHorizontal="true"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15dp"
+        fb:com_facebook_login_text="@string/facebook_sign_in"
+        fb:com_facebook_confirm_logout="false"/>-->
 
 </RelativeLayout>
