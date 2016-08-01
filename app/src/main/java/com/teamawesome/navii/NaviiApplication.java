@@ -10,6 +10,7 @@ import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.NaviiPreferenceData;
 import com.teamawesome.navii.util.RestClient;
 import com.teamawesome.navii.util.RxBus;
+import com.teamawesome.navii.util.SessionManager;
 
 /**
  * Created by JMtorii on 2015-11-21.
@@ -28,6 +29,8 @@ public class NaviiApplication extends MultiDexApplication {
         super.onCreate();
         sInstance = this;
         context = getApplicationContext();
+        RestClient.init();
+        SessionManager.init(context);
     }
 
     @Override
