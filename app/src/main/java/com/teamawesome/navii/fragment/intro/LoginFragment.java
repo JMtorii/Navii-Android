@@ -22,6 +22,7 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.squareup.okhttp.ResponseBody;
 import com.teamawesome.navii.R;
+import com.teamawesome.navii.activity.MainActivity;
 import com.teamawesome.navii.server.model.User;
 import com.teamawesome.navii.util.HashingAlgorithm;
 import com.teamawesome.navii.util.RestClient;
@@ -160,68 +161,6 @@ public class LoginFragment extends Fragment {
         });
     }
 
-    private void setupSignupButton() {
-        signUpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String /*username = "", */email = "", password = "";
-//                username = usernameText.getText().toString().trim();
-//                usernameText.setText(username);
-                email = emailLoginEditText.getText().toString().trim();
-                emailLoginEditText.setText(email);
-                password = passwordEditText.getText().toString();
-
-//                if (username.isEmpty()) {
-//                    Toast.makeText(mContext.getApplicationContext(), "Signup failed: You must provide a login name.", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-
-                String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
-                CharSequence inputStr = email;
-                Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
-                Matcher matcher = pattern.matcher(inputStr);
-                if (!matcher.matches()) {
-                    Toast.makeText(mContext.getApplicationContext(), "Signup failed: Not a valid email.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (password.length() < 5) {
-                    Toast.makeText(mContext.getApplicationContext(), "Signup failed: Password not strong enough.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                HashingAlgorithm ha = new HashingAlgorithm();
-                try {
-                    String hashedPassword = ha.sha256(password);
-                    attemptSignup(email, hashedPassword);
-                } catch (Exception e) {
-                    // Failed to hash password
-                }
-            }
-        });
-    }
-
-    private void attemptSignup(final String email, final String hashedPassword) {
-        User user = new User.Builder().email(email).password(hashedPassword).build();
-        Call<Void> call = RestClient.userAPI.createUser(user);
-        call.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Response<Void> response, Retrofit retrofit) {
-                if (response.isSuccess()) {
-                    attemptLogin(email, hashedPassword);
-                } else {
-                    Toast.makeText(mContext.getApplicationContext(), "Signup failed...", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                t.printStackTrace();
-                Toast.makeText(mContext.getApplicationContext(), "Server down, try again later...", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
 //    private void setupFacebookLogin() {
 //        List<String> permissionNeeds = Arrays.asList("public_profile", "email");
 //        facebookLoginButton.setReadPermissions(permissionNeeds);
@@ -307,11 +246,13 @@ public class LoginFragment extends Fragment {
         });
     }
 
+    /**
+     * On successful login, start a new session and begin the main activity
+     */
     private void loginUserComplete(String email, String token) {
         SessionManager.createLoginSession(email, token);
-        // [EC] TODO: Handle succesful login
-        //Intent i = new Intent(this, MainActivity.class);
-        //startActivity(i);
-        //finish();
+        Intent nextActivity = new Intent(mContext, MainActivity.class);
+        startActivity(nextActivity);
+        mContext.finish();
     }
 }
