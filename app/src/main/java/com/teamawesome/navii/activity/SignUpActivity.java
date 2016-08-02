@@ -7,6 +7,8 @@ import android.support.design.widget.TextInputLayout;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.server.model.User;
 import com.teamawesome.navii.util.HashingAlgorithm;
@@ -89,12 +91,13 @@ public class SignUpActivity extends NaviiToolbarActivity {
     @OnClick(R.id.sign_up_button)
     public void signUpButtonPressed() {
         Log.i(this.getClass().getName(), "Sign up button pressed");
-        String username = "", email = "", password = "";
+        String username = "", email = "", password = "", passwordAgain = "";
                 username = nameEditText.getText().toString().trim();
                 nameEditText.setText(username);
         email = emailEditText.getText().toString().trim();
         emailEditText.setText(email);
         password = passwordEditText.getText().toString();
+        passwordAgain = passwordAgainEditText.getText().toString();
 
         if (username.isEmpty()) {
             Toast.makeText(mContext.getApplicationContext(), "Signup failed: You must provide a login name.", Toast.LENGTH_SHORT).show();
@@ -115,17 +118,26 @@ public class SignUpActivity extends NaviiToolbarActivity {
             return;
         }
 
+        if (passwordAgain.compareTo(password) != 0) {
+            Toast.makeText(mContext.getApplicationContext(), "Signup failed: Passwords do not match.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         HashingAlgorithm ha = new HashingAlgorithm();
+        String hashedPassword;
         try {
-            String hashedPassword = ha.sha256(password);
-            attemptSignup(email, hashedPassword);
+            hashedPassword = ha.sha256(password);
         } catch (Exception e) {
             // Failed to hash password
+            Toast.makeText(mContext.getApplicationContext(), "Signup failed: Invalid password.", Toast.LENGTH_SHORT).show();
+            return;
         }
+
+        attemptSignup(email, username, hashedPassword);
     }
 
-    private void attemptSignup(final String email, final String hashedPassword) {
-        User user = new User.Builder().email(email).password(hashedPassword).build();
+    private void attemptSignup(final String email, final String username, final String hashedPassword) {
+        User user = new User.Builder().email(email).username(username).password(hashedPassword).build();
         Call<Void> call = RestClient.userAPI.createUser(user);
         call.enqueue(new Callback<Void>() {
             @Override
