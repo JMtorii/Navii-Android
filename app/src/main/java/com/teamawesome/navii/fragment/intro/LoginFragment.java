@@ -117,7 +117,19 @@ public class LoginFragment extends Fragment {
     @OnClick(R.id.login_email_button)
     public void emailButtonPressed() {
         Log.i(this.getClass().getName(), "Email login button pressed");
-        attemptLogin(emailLoginEditText.toString(), passwordEditText.toString());
+
+        String email = "", password = "";
+        email = emailLoginEditText.getText().toString().trim();
+        emailLoginEditText.setText(email);
+        password = passwordEditText.getText().toString();
+
+        try {
+        HashingAlgorithm ha = new HashingAlgorithm();
+        String hashedPassword = ha.sha256(password);
+        attemptLogin(email, hashedPassword);
+        } catch (Exception e) {
+            Toast.makeText(mContext.getApplicationContext(), "Login failed, invalid password", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @OnClick(R.id.login_sign_up_button)
