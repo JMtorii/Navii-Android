@@ -2,11 +2,8 @@ package com.teamawesome.navii.views;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.os.Build;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.View;
 
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.MainActivity;
@@ -30,7 +27,9 @@ public class ParallaxViewPager extends ViewPager {
         init(context, attrs);
     }
 
-    // Uncomment this if you want to intercept the touch events
+    /*
+     * Uncomment this if you want to intercept the touch events
+     */
 //    @Override
 //    public boolean onInterceptTouchEvent(MotionEvent event) {
 //        // Never allow swiping to switch between pages
@@ -73,15 +72,16 @@ public class ParallaxViewPager extends ViewPager {
     protected void onPageScrolled(int position, float offset, int offsetPixels) {
         super.onPageScrolled(position, offset, offsetPixels);
         if (position == 3) {
-            mActivity.getmNextButton().setVisibility(INVISIBLE);
-        }
-        else {
-            mActivity.getmNextButton().setVisibility(VISIBLE);
+            mActivity.getNextButton().setVisibility(INVISIBLE);
+        } else {
+            mActivity.getNextButton().setVisibility(VISIBLE);
         }
         setParallaxHorizontalScrollViewPosition(offsetPixels, position);
     }
-    //Not deleting this in case above function messes up
 
+    /*
+     * Not deleting this in case above function messes up
+     */
 //    private void overrideScrollListener() {
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 //            this.setOnScrollChangeListener(new OnScrollChangeListener() {

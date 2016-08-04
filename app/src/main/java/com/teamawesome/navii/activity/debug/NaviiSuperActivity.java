@@ -36,7 +36,7 @@ public class NaviiSuperActivity extends AppCompatActivity {
     }
 
 
-    public static class NaviiWifiDialogFragment extends DialogFragment {
+    public class NaviiWifiDialogFragment extends DialogFragment {
         @BindView(R.id.reconnect_button)
         MainLatoButton wifiButton;
 

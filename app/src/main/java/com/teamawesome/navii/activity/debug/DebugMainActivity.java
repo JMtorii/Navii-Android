@@ -11,9 +11,9 @@ import android.widget.ListView;
 import com.teamawesome.navii.NaviiApplication;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.ItineraryScheduleActivity;
- import com.teamawesome.navii.activity.MainActivity;
- import com.teamawesome.navii.activity.OnboardingActivity;
- import com.teamawesome.navii.activity.PreferencesActivity;
+import com.teamawesome.navii.activity.LaunchActivity;
+import com.teamawesome.navii.activity.OnboardingActivity;
+import com.teamawesome.navii.activity.PreferencesActivity;
 import com.teamawesome.navii.activity.UploadImageTestActivity;
 import com.teamawesome.navii.server.model.Itinerary;
 import com.teamawesome.navii.util.Constants;
@@ -57,8 +57,8 @@ public class DebugMainActivity extends ListActivity {
         String item = (String) getListAdapter().getItem(position);
 
         if (id == 0) {              // Actual application
-            Intent mainIntent = new Intent(this, MainActivity.class);
-            startActivity(mainIntent);
+            Intent launchIntent = new Intent(this, LaunchActivity.class);
+            startActivity(launchIntent);
         } else if (id == 1) {       // Upload profile image test
             Intent imageUploadTestActivity = new Intent(this, UploadImageTestActivity.class);
             startActivity(imageUploadTestActivity);

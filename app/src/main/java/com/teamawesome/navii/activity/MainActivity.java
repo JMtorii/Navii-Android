@@ -112,9 +112,9 @@ public class MainActivity extends NaviiNavigationalActivity {
         }
 
         ParallaxPagerAdapter adapter = (ParallaxPagerAdapter) parallaxViewPager.getAdapter();
-        NaviiParallaxFragment f = (NaviiParallaxFragment) adapter.getItem(index);
+        NaviiParallaxFragment fragment = (NaviiParallaxFragment) adapter.getItem(index);
 
-        f.nextFunction();
+        fragment.nextFunction();
     }
 
     private void setupParallaxViews() {
@@ -132,7 +132,7 @@ public class MainActivity extends NaviiNavigationalActivity {
         parallaxViewPager.setCurrentItem(0);
     }
 
-    public Button getmNextButton() {
+    public Button getNextButton() {
         return this.mNextButton;
     }
 }
