@@ -27,6 +27,7 @@ public class NaviiSuperActivity extends AppCompatActivity {
     @Override
     public void onResume(){
         super.onResume();
+
         //Check Connectivity to Wifi
         if (!WifiCheck.isConnected(this)){
             NaviiWifiDialogFragment mNoWifi = new NaviiWifiDialogFragment();
@@ -35,7 +36,7 @@ public class NaviiSuperActivity extends AppCompatActivity {
     }
 
 
-    public class NaviiWifiDialogFragment extends DialogFragment {
+    public static class NaviiWifiDialogFragment extends DialogFragment {
         @BindView(R.id.reconnect_button)
         MainLatoButton wifiButton;
 
