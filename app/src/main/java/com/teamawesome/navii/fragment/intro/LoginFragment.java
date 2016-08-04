@@ -1,69 +1,53 @@
 package com.teamawesome.navii.fragment.intro;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
 import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 import com.squareup.okhttp.ResponseBody;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.MainActivity;
+import com.teamawesome.navii.activity.SignUpActivity;
 import com.teamawesome.navii.server.model.User;
 import com.teamawesome.navii.util.HashingAlgorithm;
+import com.teamawesome.navii.util.NaviiPreferenceData;
 import com.teamawesome.navii.util.RestClient;
-import com.teamawesome.navii.util.SessionManager;
-import com.teamawesome.navii.util.ToolbarConfiguration;
 import com.teamawesome.navii.util.ViewUtilities;
-import com.teamawesome.navii.views.MainLatoButton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
 import retrofit.Retrofit;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import com.teamawesome.navii.activity.SignUpActivity;
-
-import butterknife.OnClick;
 
 /**
  * Created by JMtorii on 16-07-25.
  */
 public class LoginFragment extends Fragment {
-    Activity mContext;
-
-    private CallbackManager callbackManager;
-
     @BindView(R.id.login_logo_image_view)
     ImageView logoImageView;
 
@@ -72,12 +56,6 @@ public class LoginFragment extends Fragment {
 
     @BindView(R.id.login_email_edit_text)
     TextInputEditText emailLoginEditText;
-
-    /*@BindView(R.id.sign_up_email_input_layout)
-    TextInputLayout emailInputLayout;
-
-    @BindView(R.id.sign_up_email_edit_text)
-    TextInputEditText emailEditText;*/
 
     @BindView(R.id.login_password_input_layout)
     TextInputLayout passwordInputLayout;
@@ -95,16 +73,16 @@ public class LoginFragment extends Fragment {
     LoginButton facebookLoginButton;*/
 
     private static final String FONT_LOCATION = "fonts/Lato-Regular.ttf";
+    private CallbackManager callbackManager;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mContext = getActivity();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mContext = getActivity();
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         ButterKnife.bind(this, view);
 
@@ -118,17 +96,15 @@ public class LoginFragment extends Fragment {
     public void emailButtonPressed() {
         Log.i(this.getClass().getName(), "Email login button pressed");
 
-        String email = "", password = "";
-        email = emailLoginEditText.getText().toString().trim();
+        String email = emailLoginEditText.getText().toString().trim();
         emailLoginEditText.setText(email);
-        password = passwordEditText.getText().toString();
+        String password = passwordEditText.getText().toString();
 
         try {
-        HashingAlgorithm ha = new HashingAlgorithm();
-        String hashedPassword = ha.sha256(password);
-        attemptLogin(email, hashedPassword);
+            String hashedPassword = HashingAlgorithm.sha256(password);
+            attemptLogin(email, hashedPassword);
         } catch (Exception e) {
-            Toast.makeText(mContext.getApplicationContext(), "Login failed, invalid password", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity().getApplicationContext(), "Login failed, invalid password", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -161,14 +137,14 @@ public class LoginFragment extends Fragment {
                         e.printStackTrace();
                     }
                 } else {
-                    Toast.makeText(mContext.getApplicationContext(), "Login failed...", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity().getApplicationContext(), "Login failed...", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Throwable t) {
                 t.printStackTrace();
-                Toast.makeText(mContext.getApplicationContext(), "Server down, try again later...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getApplicationContext(), "Server down, try again later...", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -190,7 +166,7 @@ public class LoginFragment extends Fragment {
 //
 //            @Override
 //            public void onError(FacebookException exception) {
-//                Toast.makeText(mContext.getApplicationContext(), "Error while attempting to login.", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity().getApplicationContext(), "Error while attempting to login.", Toast.LENGTH_SHORT).show();
 //            }
 //        });
 //    }
@@ -226,7 +202,7 @@ public class LoginFragment extends Fragment {
                         e.printStackTrace();
                     }
                 } else {
-                    Toast.makeText(mContext.getApplicationContext(), "Login failed...", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity().getApplicationContext(), "Login failed...", Toast.LENGTH_SHORT).show();
                     if (AccessToken.getCurrentAccessToken() != null) {
                         new GraphRequest(AccessToken.getCurrentAccessToken(), "/me/permissions/", null, HttpMethod.DELETE, new GraphRequest
                                 .Callback() {
@@ -243,7 +219,7 @@ public class LoginFragment extends Fragment {
             @Override
             public void onFailure(Throwable t) {
                 t.printStackTrace();
-                Toast.makeText(mContext.getApplicationContext(), "Server down, try again later...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getApplicationContext(), "Server down, try again later...", Toast.LENGTH_SHORT).show();
                 if (AccessToken.getCurrentAccessToken() != null) {
                     new GraphRequest(AccessToken.getCurrentAccessToken(), "/me/permissions/", null, HttpMethod.DELETE, new GraphRequest
                             .Callback() {
@@ -262,9 +238,9 @@ public class LoginFragment extends Fragment {
      * On successful login, start a new session and begin the main activity
      */
     private void loginUserComplete(String email, String token) {
-        SessionManager.createLoginSession(email, token);
-        Intent nextActivity = new Intent(mContext, MainActivity.class);
+        NaviiPreferenceData.createLoginSession(email, token);
+        Intent nextActivity = new Intent(getActivity(), MainActivity.class);
         startActivity(nextActivity);
-        mContext.finish();
+        getActivity().finish();
     }
 }

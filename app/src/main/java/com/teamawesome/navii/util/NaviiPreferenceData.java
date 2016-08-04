@@ -13,12 +13,11 @@ import com.teamawesome.navii.NaviiApplication;
  */
 public class NaviiPreferenceData {
 
-    // TODO: move to Constants?
     private static final String PREF_IP_ADDRESS = "ip_address";
-    private static final String PREF_LOGGED_IN_USER_ID = "logged_in_id";
+    private static final String PREF_IS_LOGGED_IN = "is_logged_in";
     private static final String PREF_LOGGED_IN_USER_EMAIL = "logged_in_email";
     private static final String PREF_IS_FACEBOOK = "is_facebook";
-
+    private static final String PREF_KEY_TOKEN = "token";
 
     public static void setIPAddress(String address) {
         Editor editor = getSharedPreferences().edit();
@@ -28,6 +27,24 @@ public class NaviiPreferenceData {
 
     public static String getIPAddress() {
         return getSharedPreferences().getString(PREF_IP_ADDRESS, "");
+    }
+
+    public static void createLoginSession(String email, String token) {
+        Editor editor = getSharedPreferences().edit();
+        editor.putBoolean(PREF_IS_LOGGED_IN, true);
+        //editor.putString(KEY_NAME, name);
+        editor.putString(PREF_LOGGED_IN_USER_EMAIL, email);
+        editor.putString(PREF_KEY_TOKEN, token);
+        editor.apply();
+    }
+
+    public static void deleteLoginSession() {
+        Editor editor = getSharedPreferences().edit();
+        editor.putBoolean(PREF_IS_LOGGED_IN, false);
+        //editor.putString(KEY_NAME, "");
+        editor.putString(PREF_LOGGED_IN_USER_EMAIL, "");
+        editor.putString(PREF_KEY_TOKEN, "");
+        editor.apply();
     }
 
     public static void setLoggedInUserEmail(String email) {
@@ -40,12 +57,12 @@ public class NaviiPreferenceData {
         return getSharedPreferences().getString(PREF_LOGGED_IN_USER_EMAIL, "");
     }
 
-    public static void clearAllUserData() {
-        Editor editor = getSharedPreferences().edit();
-        editor.remove(PREF_LOGGED_IN_USER_ID);
-        editor.remove(PREF_LOGGED_IN_USER_EMAIL);
-        editor.remove(PREF_IS_FACEBOOK);
-        editor.apply();
+    public static boolean isLoggedIn() {
+        return getSharedPreferences().getBoolean(PREF_IS_LOGGED_IN, false);
+    }
+
+    public static String getToken() {
+        return getSharedPreferences().getString(PREF_KEY_TOKEN, "");
     }
 
     public static void setIsFacebook(boolean isFacebook) {

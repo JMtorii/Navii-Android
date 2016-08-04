@@ -1,14 +1,11 @@
 package com.teamawesome.navii.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.server.model.User;
 import com.teamawesome.navii.util.HashingAlgorithm;
@@ -33,7 +30,6 @@ import retrofit.Retrofit;
  */
 public class SignUpActivity extends NaviiToolbarActivity {
     private static final String FONT_LOCATION = "fonts/Lato-Regular.ttf";
-    private Activity mContext = this;
 
     @BindView(R.id.sign_up_name_input_layout)
     TextInputLayout nameInputLayout;
@@ -91,45 +87,42 @@ public class SignUpActivity extends NaviiToolbarActivity {
     @OnClick(R.id.sign_up_button)
     public void signUpButtonPressed() {
         Log.i(this.getClass().getName(), "Sign up button pressed");
-        String username = "", email = "", password = "", passwordAgain = "";
-                username = nameEditText.getText().toString().trim();
-                nameEditText.setText(username);
-        email = emailEditText.getText().toString().trim();
+        String username = nameEditText.getText().toString().trim();
+        nameEditText.setText(username);
+        String email = emailEditText.getText().toString().trim();
         emailEditText.setText(email);
-        password = passwordEditText.getText().toString();
-        passwordAgain = passwordAgainEditText.getText().toString();
+        String password = passwordEditText.getText().toString();
+        String passwordAgain = passwordAgainEditText.getText().toString();
 
         if (username.isEmpty()) {
-            Toast.makeText(mContext.getApplicationContext(), "Signup failed: You must provide a login name.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Signup failed: You must provide a login name.", Toast.LENGTH_SHORT).show();
             return;
         }
 
         String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
-        CharSequence inputStr = email;
         Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(inputStr);
+        Matcher matcher = pattern.matcher(email);
         if (!matcher.matches()) {
-            Toast.makeText(mContext.getApplicationContext(), "Signup failed: Not a valid email.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Signup failed: Not a valid email.", Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (password.length() < 5) {
-            Toast.makeText(mContext.getApplicationContext(), "Signup failed: Password not strong enough.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Signup failed: Password not strong enough.", Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (passwordAgain.compareTo(password) != 0) {
-            Toast.makeText(mContext.getApplicationContext(), "Signup failed: Passwords do not match.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Signup failed: Passwords do not match.", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        HashingAlgorithm ha = new HashingAlgorithm();
         String hashedPassword;
         try {
-            hashedPassword = ha.sha256(password);
+            hashedPassword = HashingAlgorithm.sha256(password);
         } catch (Exception e) {
             // Failed to hash password
-            Toast.makeText(mContext.getApplicationContext(), "Signup failed: Invalid password.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Signup failed: Invalid password.", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -146,14 +139,14 @@ public class SignUpActivity extends NaviiToolbarActivity {
                     // TODO: Handle this?
                     //attemptLogin(email, hashedPassword);
                 } else {
-                    Toast.makeText(mContext.getApplicationContext(), "Signup failed...", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Signup failed...", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Throwable t) {
                 t.printStackTrace();
-                Toast.makeText(mContext.getApplicationContext(), "Server down, try again later...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Server down, try again later...", Toast.LENGTH_SHORT).show();
             }
         });
     }

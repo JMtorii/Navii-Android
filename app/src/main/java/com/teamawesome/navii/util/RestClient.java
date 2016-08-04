@@ -23,15 +23,13 @@ import retrofit.RxJavaCallAdapterFactory;
  * Created by ecrothers on 07/31/16.
  */
 public class RestClient {
-    private static Retrofit retrofit;
-
     private static class HeaderInterceptor implements Interceptor {
         @Override
         public Response intercept(Chain chain) throws IOException {
             Request request = chain.request();
-            if (SessionManager.checkLogin()) {
+            if (NaviiPreferenceData.isLoggedIn()) {
                 request = request.newBuilder()
-                        .addHeader("X-AUTH-TOKEN", SessionManager.getToken())
+                        .addHeader("X-AUTH-TOKEN", NaviiPreferenceData.getToken())
                         .addHeader("Accept", "*/*")
                         .addHeader("Cache-Control", "no-cache")
                         .addHeader("Content-Type", "application/json")
@@ -43,12 +41,10 @@ public class RestClient {
                         .addHeader("Content-Type", "application/json")
                         .build();
             }
-            Response response = chain.proceed(request);
-            return response;
+            return chain.proceed(request);
         }
     }
 
-    private static HeaderInterceptor headerInterceptor;
     public static UserAPI userAPI;
     public static UserPreferenceAPI userPreferenceAPI;
     public static PreferenceAPI preferenceAPI;
@@ -63,10 +59,10 @@ public class RestClient {
         okHttpClient.setConnectTimeout(60, TimeUnit.SECONDS);
         NaviiPreferenceData.setIPAddress(Constants.SERVER_URL);
 
-        headerInterceptor = new HeaderInterceptor();
+        HeaderInterceptor headerInterceptor = new HeaderInterceptor();
         okHttpClient.interceptors().add(headerInterceptor);
 
-        retrofit = new Retrofit.Builder()
+        Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(NaviiPreferenceData.getIPAddress())
                 .client(okHttpClient)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
