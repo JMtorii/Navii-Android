@@ -40,6 +40,7 @@ public class Constants {
     public static final String INTENT_ITINERARY_TITLE = "INTENT_ITINERARY_TITLE";
     public static final String INTENT_ATTRACTION_LOCATION = "INTENT_ATTRACTION_LOCATION";
     public static final String INTENT_ATTRACTION_LIST = "INTENT_ATTRACTION_LIST";
+    public static final String INTENT_ITINERARY = "INTENT_ITINERARY";
 
     // Permissions
     public static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 51808;

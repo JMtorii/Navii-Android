@@ -3,6 +3,7 @@ package com.teamawesome.navii.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,7 +67,7 @@ public class ItineraryRecommendListAdapter extends RecyclerView.Adapter<Itinerar
                     .fit()
                     .into(holder.mImageView);
             uniquePictureMap.add(pictureURI);
-
+            holder.itinerary = itineraries.get(position);
             holder.attractions = itineraries.get(position).getAttractions();
         }
     }
@@ -85,6 +86,7 @@ public class ItineraryRecommendListAdapter extends RecyclerView.Adapter<Itinerar
 
         private List<Attraction> attractions;
         private List<String> photoUriList;
+        private Itinerary itinerary;
 
         public ItineraryRecommendViewHolder(View itemView) {
             super(itemView);
@@ -98,6 +100,7 @@ public class ItineraryRecommendListAdapter extends RecyclerView.Adapter<Itinerar
                 Intent packageOverviewActivity = new Intent(context, PackageOverviewActivity.class);
                 packageOverviewActivity.putParcelableArrayListExtra(Constants.INTENT_ATTRACTION_LIST, new ArrayList<>(attractions));
                 packageOverviewActivity.putExtra(Constants.INTENT_ITINERARY_TITLE, mTextView.getText().toString());
+                packageOverviewActivity.putExtra(Constants.INTENT_ITINERARY, this.itinerary);
                 Activity activity = (Activity) context;
                 activity.startActivity(packageOverviewActivity);
                 activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
