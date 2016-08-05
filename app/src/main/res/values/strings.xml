@@ -138,6 +138,12 @@
 
     <!-- Errors -->
     <string name="error_steve_fucked_up">Steve fucked up</string>
+    <string name="error_login_validation">Login failed. Verify your email and password</string>
+    <string name="error_login_network">Network error occurred.</string>
+    <string name="error_unknown">Unknown error.</string>
+    <string name="error_dialog_title">An error occurred</string>
+    <string name="error_okay">Okay</string>
+
 
     <!-- Facebook integration -->
     <string name="facebook_app_id">521481071395718</string>
@@ -153,5 +159,8 @@
     <string name="tos_legal_stuff">Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting industry. orem Ipsum is simply dummy text of the printing and typesetting iorem Ipsum is simply dummy text of the printing and typesetting iorem Ipsum is simply dummy text of the printing and typesetting iorem Ipsum is simply dummy text of the printing and typesetting iLorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting</string>
     <string name="terms_of_services">Terms of Services</string>
     <string name="ok">OK</string>
+    <string name="menu_title">Options</string>
+    <string name="eat_item_title">Eat</string>
+    <string name="see_item_title">See</string>
 
 </resources>

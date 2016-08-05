@@ -1,12 +1,15 @@
 package com.teamawesome.navii.fragment.intro;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.view.ContextThemeWrapper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -144,13 +147,25 @@ public class LoginFragment extends Fragment {
                     @Override
                     public void onError(Throwable throwable) {
                         throwable.printStackTrace();
+
+                        String errorMessage;
                         if (throwable instanceof HttpException) {
-                            Toast.makeText(getActivity().getApplicationContext(), "Login failed. Verify your email and password", Toast.LENGTH_SHORT).show();
+                            errorMessage = getResources().getString(R.string.error_login_validation);
                         } else if (throwable instanceof IOException) {
-                            Toast.makeText(getActivity().getApplicationContext(), "Network error occurred.", Toast.LENGTH_SHORT).show();
+                            errorMessage = getResources().getString(R.string.error_login_network);
                         } else {
-                            Toast.makeText(getActivity().getApplicationContext(), "Unknown error occurred.", Toast.LENGTH_SHORT).show();
+                            errorMessage = getResources().getString(R.string.error_unknown);
                         }
+
+                        new AlertDialog.Builder(new ContextThemeWrapper(getContext(), R.style.DialogTheme))
+                                .setTitle(getResources().getString(R.string.error_dialog_title))
+                                .setMessage(errorMessage)
+                                .setPositiveButton(getResources().getString(R.string.error_okay), new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // continue
+                                    }
+                                })
+                                .show();
                     }
 
                     @Override
