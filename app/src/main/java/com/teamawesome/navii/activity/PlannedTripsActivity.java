@@ -2,6 +2,7 @@ package com.teamawesome.navii.activity;
 
 import android.os.Bundle;
 
+import com.teamawesome.navii.R;
 import com.teamawesome.navii.util.NavigationConfiguration;
 
 /**
@@ -16,6 +17,6 @@ public class PlannedTripsActivity extends NaviiNavigationalActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_planned_trips);
+    //    setContentView(R.layout.activity_planned_trips);
     }
 }

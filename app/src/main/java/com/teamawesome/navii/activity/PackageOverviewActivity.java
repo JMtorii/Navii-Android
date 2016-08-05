@@ -26,6 +26,7 @@ public class PackageOverviewActivity extends NaviiToolbarActivity {
 
     private List<Attraction> attractionList;
     private String itineraryTitle;
+    private Itinerary itinerary;
 
     @Override
     public ToolbarConfiguration getToolbarConfiguration() {
@@ -54,6 +55,7 @@ public class PackageOverviewActivity extends NaviiToolbarActivity {
 
         attractionList = getIntent().getParcelableArrayListExtra(Constants.INTENT_ATTRACTION_LIST);
         itineraryTitle = getIntent().getStringExtra(Constants.INTENT_ITINERARY_TITLE);
+        itinerary = getIntent().getParcelableExtra(Constants.INTENT_ITINERARY);
 
         List<String> photoUriList = new ArrayList<>();
 
