@@ -54,7 +54,7 @@
     </style>
 
     <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="textColor">@color/primary</item>
+        <item name="android:colorAccent">@color/primary</item>
     </style>
 
     <style name="TagGridButton" parent="Widget.AppCompat.Button.Colored">
@@ -70,7 +70,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_margin">16dp</item>
-        <item name="android:src">@drawable/ic_mode_edit_black_24dp</item>
+        <item name="android:src">@drawable/ic_mode_edit</item>
         <item name="borderWidth">0dp</item>
         <item name="elevation">6dp</item>
         <item name="pressedTranslationZ">12dp</item>
