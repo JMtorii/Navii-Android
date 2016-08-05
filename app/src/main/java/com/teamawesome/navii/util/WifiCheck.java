@@ -3,7 +3,11 @@ package com.teamawesome.navii.util;
 import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
+import android.net.Network;
 import android.net.NetworkInfo;
+
+import com.teamawesome.navii.activity.NaviiActivity;
+import com.teamawesome.navii.fragment.main.NaviiFragment;
 
 /**
  * Created by Ian on 3/29/2016.
@@ -12,12 +16,13 @@ import android.net.NetworkInfo;
 public class WifiCheck {
 
     /**
-     * Checks if device is connected to WIFI
-     * @param activity the activity which the user is viewing
+     *
+     * @param currentActivity the activity which the user is viewing
      * @return True iff the user is connected to wifi
      */
-    public static boolean isConnected(Activity activity){
-        ConnectivityManager connectivityManager = (ConnectivityManager)activity.getSystemService(Context.CONNECTIVITY_SERVICE);
+    public static boolean isConnected(Activity currentActivity){
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) currentActivity.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkinfo = connectivityManager.getActiveNetworkInfo();
         return networkinfo != null;
     }

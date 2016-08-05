@@ -10,7 +10,7 @@ import android.view.MenuItem;
 
 import com.teamawesome.navii.NaviiApplication;
 import com.teamawesome.navii.R;
-import com.teamawesome.navii.activity.debug.NaviiSuperActivity;
+import com.teamawesome.navii.activity.debug.NaviBaseActivity;
 import com.teamawesome.navii.util.NavigationConfiguration;
 
 import butterknife.BindView;
@@ -19,7 +19,7 @@ import butterknife.ButterKnife;
 /**
  * Created by JMtorii on 16-06-16.
  */
-public abstract class NaviiNavigationalActivity extends NaviiSuperActivity implements NavigationView.OnNavigationItemSelectedListener {
+public abstract class NaviiNavigationalActivity extends NaviBaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
