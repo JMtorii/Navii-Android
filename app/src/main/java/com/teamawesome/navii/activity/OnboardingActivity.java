@@ -26,6 +26,7 @@ public class OnboardingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_onboarding);
         ButterKnife.bind(this);
 
@@ -34,7 +35,19 @@ public class OnboardingActivity extends AppCompatActivity {
 
         OnboardingPagerAdapter mPageAdapter = new OnboardingPagerAdapter(this.getSupportFragmentManager(), this);
         mViewPager.setAdapter(mPageAdapter);
-        mViewPager.setCurrentItem(0);
+
+        // Get the starting fragment, if not provided, choose zero
+        int fragment = getIntent().getIntExtra("fragment", 0);
+
+        // TODO: Bad practice to refer to the login page as always being the "last" page
+        // Translate fragment to corresponding page of the view pager
+        switch (fragment) {
+            case R.layout.fragment_login:
+                fragment = mPageAdapter.getCount();
+                break;
+        }
+
+        mViewPager.setCurrentItem(fragment);
         mCircleIndicator.setViewPager(mViewPager);
         mPageAdapter.registerDataSetObserver(mCircleIndicator.getDataSetObserver());
     }
