@@ -138,6 +138,12 @@
 
     <!-- Errors -->
     <string name="error_steve_fucked_up">Steve fucked up</string>
+    <string name="error_login_validation">Login failed. Verify your email and password</string>
+    <string name="error_login_network">Network error occurred.</string>
+    <string name="error_unknown">Unknown error.</string>
+    <string name="error_dialog_title">An error occurred</string>
+    <string name="error_okay">Okay</string>
+
 
     <!-- Facebook integration -->
     <string name="facebook_app_id">521481071395718</string>
