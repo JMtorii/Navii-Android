@@ -16,6 +16,6 @@ public interface ItineraryAPI {
      * Get itineraries based on tags pressed
      * @param  tags The Array of tags user has selected
      */
-    @GET("/itinerary/tags/{tag_list}")
-    Observable<List<Itinerary>> getItineraries(@Path("tag_list") String tags);
+    @GET("/itinerary/tags/{tag_list}/{num_days}")
+    Observable<List<Itinerary>> getItineraries(@Path("tag_list") String tags, @Path("num_days") int days);
 }

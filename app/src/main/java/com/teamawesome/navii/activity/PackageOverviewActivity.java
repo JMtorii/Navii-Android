@@ -41,7 +41,7 @@ public class PackageOverviewActivity extends NaviiToolbarActivity {
     public void onRightButtonClick() {
         Intent itineraryScheduleActivity = new Intent(this, ItineraryScheduleActivity.class);
         itineraryScheduleActivity.putParcelableArrayListExtra(Constants.INTENT_ATTRACTION_LIST, new ArrayList<>(attractionList));
-        itineraryScheduleActivity.putExtra(Constants.INTENT_ATTRACTION_TITLE, itineraryTitle);
+        itineraryScheduleActivity.putExtra(Constants.INTENT_ITINERARY_TITLE, itineraryTitle);
 
         startActivity(itineraryScheduleActivity);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -53,7 +53,7 @@ public class PackageOverviewActivity extends NaviiToolbarActivity {
         ButterKnife.bind(this);
 
         attractionList = getIntent().getParcelableArrayListExtra(Constants.INTENT_ATTRACTION_LIST);
-        itineraryTitle = getIntent().getStringExtra(Constants.INTENT_ATTRACTION_TITLE);
+        itineraryTitle = getIntent().getStringExtra(Constants.INTENT_ITINERARY_TITLE);
 
         List<String> photoUriList = new ArrayList<>();
 

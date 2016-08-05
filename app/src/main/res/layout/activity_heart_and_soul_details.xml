@@ -32,10 +32,10 @@
                 android:layout_marginBottom="16dp" />
 
             <TextView
+                android:id="@+id/hns_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:text="ajwfpoj aoiwjf poawjf aw foiajwoif awoif aowijf aowa awoifjo awjo waioejf oaiwj oawj oawiof joawi foiaw oaiwejf aoweifj awoeif aowiej faiowe aoiwe fawoei faoiwe faoiwe fioawef fowiaef oiaew aowie" />
+                android:textColor="@android:color/black" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -69,6 +69,7 @@
                 android:text="aiofjiwoefj ioawefjio waojfioajweio ioawe jwiajef iajwof joaw ap oaw fopaw foapw foaw faow fioaw faweofjweai fawopeij faipweo fjoaipewj foieapw ffajoiwe askjfa;jf aw;l fawkl faw; fka;wjfowi foiaw foiaw oiawe fioawe fioawej fiajwf oiaw oawpf jawpo faopw"/>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
+
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/heart_and_soul_detail_fab"

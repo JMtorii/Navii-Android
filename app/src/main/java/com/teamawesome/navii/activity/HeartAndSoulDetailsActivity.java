@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.fragment.main.HeartAndSoulEditDialogFragment;
+import com.teamawesome.navii.server.model.Attraction;
 import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.ToolbarConfiguration;
 
@@ -28,6 +29,9 @@ public class HeartAndSoulDetailsActivity extends NaviiToolbarActivity {
 
     @BindView(R.id.hns_location)
     TextView locationTextView;
+
+    @BindView(R.id.hns_description)
+    TextView descriptionTextView;
 
     @Override
     public ToolbarConfiguration getToolbarConfiguration() {
@@ -53,11 +57,13 @@ public class HeartAndSoulDetailsActivity extends NaviiToolbarActivity {
         String title = "title";
         String imageUri = "http://cpl.jumpfactor.netdna-cdn.com/wp-content/uploads/2015/04/plumber-Toronto-Toronto-plumbers.jpg";
         String address = "";
-
-        if (!getIntent().getExtras().isEmpty()) {
-            title = getIntent().getStringExtra(Constants.INTENT_ATTRACTION_TITLE);
-            imageUri = getIntent().getStringExtra(Constants.INTENT_ATTRACTION_PHOTO_URI);
-            address = getIntent().getStringExtra(Constants.INTENT_ATTRACTION_LOCATION);
+        String description = "description";
+        Attraction attraction = getIntent().getParcelableExtra(Constants.INTENT_ATTRACTION);
+        if (attraction != null) {
+            title = attraction.getName();
+            imageUri = attraction.getPhotoUri();
+            address = attraction.getLocation().getAddress();
+            description = attraction.getBlurbUri();
         }
 
         if (address == null) {
@@ -72,7 +78,7 @@ public class HeartAndSoulDetailsActivity extends NaviiToolbarActivity {
 //        toolbarImageView.setImageResource(R.drawable.toronto);
         collapsingToolbarLayout.setTitle(title);
         locationTextView.setText(address);
-
+        descriptionTextView.setText(description);
         getWindow().setStatusBarColor(Color.TRANSPARENT);
     }
 

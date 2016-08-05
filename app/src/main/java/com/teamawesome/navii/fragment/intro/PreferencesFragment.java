@@ -14,8 +14,8 @@ import android.widget.Toast;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.adapter.PreferencesGridAdapter;
 import com.teamawesome.navii.fragment.main.NaviiFragment;
+import com.teamawesome.navii.server.model.Preference;
 import com.teamawesome.navii.server.model.PreferencesQuestion;
-import com.teamawesome.navii.server.model.UserPreference;
 import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.NaviiPreferenceData;
 import com.teamawesome.navii.util.RestClient;
@@ -100,26 +100,21 @@ public class PreferencesFragment extends NaviiFragment {
                     return;
                 }
 
-                String username = NaviiPreferenceData.getLoggedInUserEmail();
-                // TODO : Change id to the one in shared preferences
-                UserPreference userPreference = new UserPreference.Builder()
-                        .username(username)
-                        .preferences(mAdapter.getmSelectedPreferences())
-                        .build();
+                String email = NaviiPreferenceData.getLoggedInUserEmail();
 
-                // TODO : Change id to the one in shared preferences
-                Log.d("PreferenceFragment: ", username);
+                for (Preference preference : mAdapter.getmSelectedPreferences()) {
+                    Log.d("Preference", preference.getPreference());
+                }
 
-                Call<Void> deleteCall = RestClient.userPreferenceAPI.deleteAllUserPreference
-                        (username, preferenceType);
-                Call<Void> createCall = RestClient.userPreferenceAPI.createUserPreference(userPreference);
+                Call<Void> deleteCall = RestClient.userPreferenceAPI.deleteAllUserPreference(preferenceType);
+                Call<Void> createCall = RestClient.userPreferenceAPI.createUserPreference(mAdapter.getmSelectedPreferences());
 
                 // enqueues the delete call to delete the existing preferences for the user to
                 // replace with new ones
                 deleteCall.enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Response<Void> response, Retrofit retrofit) {
-                        Log.i("response: code", String.valueOf(response.code()));
+                        Log.i("Delete: code", String.valueOf(response.code()));
                     }
 
                     @Override

@@ -52,7 +52,7 @@ public class PreferencesGridAdapter extends RecyclerView.Adapter<PreferencesGrid
     @Override
     public void onBindViewHolder(PreferencesViewholder holder, int position) {
         holder.prefTextView.setText(mPreferences.get(position).getPreference());
-        holder.itemView.setTag(mPreferences.get(position));
+        holder.preferenceButton.setTag(mPreferences.get(position));
     }
 
     @Override

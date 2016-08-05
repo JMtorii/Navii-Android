@@ -93,7 +93,6 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
 
         Picasso.with(mContext)
                 .load(current.getPhotoUri())
-                .centerCrop()
                 .fit()
                 .into(packageItemViewHolder.imageView);
 
@@ -108,9 +107,9 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
     private void onBindSectionViewHolder(RecyclerView.ViewHolder holder, int position) {
         SectionViewHolder sectionViewHolder = (SectionViewHolder) holder;
         PackageScheduleHeaderItem header = (PackageScheduleHeaderItem) mItemList.get(position);
-
+        sectionViewHolder.sectionImageView.setImageResource(header.getResId());
 //        Picasso.with(mContext).load(header.getResId()).fit().into(sectionViewHolder.sectionImageView);
-        loadHeader(header.getResId(), sectionViewHolder.sectionImageView);
+//        loadHeader(header.getResId(), sectionViewHolder.sectionImageView);
     }
 
     private void loadHeader(int resId, ImageView imageView) {
@@ -157,8 +156,8 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
 
         public SectionViewHolder(View itemView) {
             super(itemView);
-
             ButterKnife.bind(this, itemView);
+            itemView.setOnLongClickListener(null);
         }
     }
 
@@ -203,8 +202,7 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
             Intent heartAndSoulDetailsActivity = new Intent(mContext, HeartAndSoulDetailsActivity.class);
             Attraction attraction = ((PackageScheduleAttractionItem) mItemList.get(getAdapterPosition())).getAttraction();
             Bundle extras = new Bundle();
-            extras.putString(Constants.INTENT_ATTRACTION_PHOTO_URI, attraction.getPhotoUri());
-            extras.putString(Constants.INTENT_ATTRACTION_TITLE, attraction.getName());
+            extras.putParcelable(Constants.INTENT_ATTRACTION, attraction);
 
             if (attraction.getLocation() != null) {
                 extras.putString(Constants.INTENT_ATTRACTION_LOCATION, attraction.getLocation().getAddress());

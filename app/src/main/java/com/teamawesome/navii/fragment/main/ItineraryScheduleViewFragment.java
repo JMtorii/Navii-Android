@@ -14,11 +14,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.PlacePhotoMetadataResult;
-import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.adapter.PackageScheduleViewAdapter;
@@ -69,10 +66,17 @@ public class ItineraryScheduleViewFragment extends NaviiFragment {
         if (attractions == null) {
             attractions = new ArrayList<>();
             for (int i = 0; i < 6; i++) {
+                Location location = new Location.Builder()
+                        .latitude(43.636665)
+                        .longitude(-79.399875)
+                        .address("Address")
+                        .build();
+
                 Attraction attraction = new Attraction.Builder()
                         .photoUri("http://www.city-data.com/forum/attachments/city-vs-city/105240d1356338901-greater-downtown-toronto-vs-greater-downtown-toronto-skyline-night-view.jpg")
                         .price(2)
                         .name("Attraction:" + i)
+                        .location(location)
                         .build();
                 attractions.add(attraction);
             }
@@ -132,10 +136,10 @@ public class ItineraryScheduleViewFragment extends NaviiFragment {
                         .price(place.getPriceLevel())
                         .build();
 
-                GoogleApiClient mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
-                        .build();
+//                GoogleApiClient mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
+//                        .build();
 
-                PlacePhotoMetadataResult metadataResult = Places.GeoDataApi.getPlacePhotos(mGoogleApiClient, id).await();
+//                PlacePhotoMetadataResult metadataResult = Places.GeoDataApi.getPlacePhotos(mGoogleApiClient, id).await();
 //                if (metadataResult != null && metadataResult.getStatus().isSuccess()) {
 //                    PlacePhotoMetadataBuffer photoMetadataBuffer = metadataResult.getPhotoMetadata();
 //                    PlacePhotoMetadata photo = photoMetadataBuffer.get(0);
@@ -182,6 +186,9 @@ public class ItineraryScheduleViewFragment extends NaviiFragment {
 
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                if (viewHolder.getItemViewType() == 1) {
+                    return false;
+                }
                 mPackageScheduleViewAdapter.move(viewHolder.getAdapterPosition(), target.getAdapterPosition());
                 return true;
             }
@@ -224,7 +231,7 @@ public class ItineraryScheduleViewFragment extends NaviiFragment {
             public void onChildDraw(Canvas c, RecyclerView recyclerView,
                                     RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState,
                                     boolean isCurrentlyActive) {
-                if (Math.abs(dY) > 0.0f && dX == 0.0f) {
+                if (Math.abs(dY) > 0.0f && dX == 0.0f && viewHolder.getItemViewType() != 1) {
                     super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
                 }
             }

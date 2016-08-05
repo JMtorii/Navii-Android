@@ -130,4 +130,15 @@ public class TravelDurationFragment extends NaviiParallaxFragment {
 
         mToDateTextView.setText(sdf.format(myCalendar2.getTime()));
     }
+
+    public int getDuration() {
+        int days = 1;
+        int difference = daysBetween(myCalendar.getTimeInMillis(), myCalendar2.getTimeInMillis());
+
+        return days + difference;
+    }
+
+    private int daysBetween(long t1, long t2) {
+        return (int) ((t2 - t1) / (1000 * 60 * 60 * 24));
+    }
 }

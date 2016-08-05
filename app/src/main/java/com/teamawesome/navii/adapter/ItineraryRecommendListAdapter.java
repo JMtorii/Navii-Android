@@ -97,7 +97,7 @@ public class ItineraryRecommendListAdapter extends RecyclerView.Adapter<Itinerar
             if (attractions != null) {
                 Intent packageOverviewActivity = new Intent(context, PackageOverviewActivity.class);
                 packageOverviewActivity.putParcelableArrayListExtra(Constants.INTENT_ATTRACTION_LIST, new ArrayList<>(attractions));
-                packageOverviewActivity.putExtra(Constants.INTENT_ATTRACTION_TITLE, mTextView.getText().toString());
+                packageOverviewActivity.putExtra(Constants.INTENT_ITINERARY_TITLE, mTextView.getText().toString());
                 Activity activity = (Activity) context;
                 activity.startActivity(packageOverviewActivity);
                 activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

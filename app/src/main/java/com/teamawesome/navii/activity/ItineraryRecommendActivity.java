@@ -15,7 +15,6 @@ import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.RestClient;
 import com.teamawesome.navii.util.ToolbarConfiguration;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -56,13 +55,16 @@ public class ItineraryRecommendActivity extends NaviiToolbarActivity {
         ButterKnife.bind(this);
 
         List<String> tags = getIntent().getStringArrayListExtra(Constants.INTENT_TAGS);
-
+        String tagList;
         if (tags == null) {
-            tags = new ArrayList<>();
+            tagList = null;
+        } else {
+            tagList = TextUtils.join(",", tags);
         }
-        String tagList = TextUtils.join(",", tags);
 
-        Observable<List<Itinerary>> itineraryListCall = RestClient.itineraryAPI.getItineraries(tagList);
+        int days = 1;
+
+        Observable<List<Itinerary>> itineraryListCall = RestClient.itineraryAPI.getItineraries(tagList, days);
 
         final Context context = this;
         itineraryListCall.subscribeOn(Schedulers.newThread())

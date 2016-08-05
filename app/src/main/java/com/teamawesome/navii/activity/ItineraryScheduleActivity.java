@@ -69,7 +69,7 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        String title = getIntent().getStringExtra(Constants.INTENT_ATTRACTION_TITLE);
+        String title = getIntent().getStringExtra(Constants.INTENT_ITINERARY_TITLE);
         mTabLayout.setVisibility(View.VISIBLE);
 
         setSupportActionBar(mToolbar);

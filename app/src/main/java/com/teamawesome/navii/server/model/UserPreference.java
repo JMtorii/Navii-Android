@@ -8,12 +8,12 @@ import java.util.List;
 @SuppressWarnings("unused")
 public class UserPreference {
     private List<Preference> preferences;
-    private String username;
+    private String email;
 
     public UserPreference() {}
 
     private UserPreference(Builder builder) {
-        this.username = builder.username;
+        this.email = builder.email;
         this.preferences = builder.preferences;
     }
 
@@ -21,12 +21,8 @@ public class UserPreference {
         return preferences;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+    public String getEmail() {
+        return email;
     }
 
     public static Builder getBuilder() {
@@ -36,7 +32,7 @@ public class UserPreference {
     public static class Builder {
 
         private List<Preference> preferences;
-        private String username;
+        private String email;
 
         public Builder() {}
 
@@ -45,8 +41,8 @@ public class UserPreference {
             return this;
         }
 
-        public Builder username(String username) {
-            this.username = username;
+        public Builder email(String email) {
+            this.email = email;
             return this;
         }
 
