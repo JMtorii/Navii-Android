@@ -8,12 +8,11 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.teamawesome.navii.NaviiApplication;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.adapter.ItineraryRecommendListAdapter;
 import com.teamawesome.navii.server.model.Itinerary;
-import com.teamawesome.navii.util.RestClient;
 import com.teamawesome.navii.util.Constants;
+import com.teamawesome.navii.util.RestClient;
 import com.teamawesome.navii.util.ToolbarConfiguration;
 
 import java.util.ArrayList;
@@ -34,7 +33,6 @@ public class ItineraryRecommendActivity extends NaviiToolbarActivity {
     RecyclerView itineraryRecyclerView;
 
     private ItineraryRecommendListAdapter recommendListAdapter;
-
     private ProgressDialog progressDialog;
 
     @Override

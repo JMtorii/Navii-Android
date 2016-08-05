@@ -7,13 +7,14 @@ import retrofit.Call;
 import retrofit.http.Body;
 import retrofit.http.POST;
 import retrofit.http.Path;
+import rx.Observable;
 
 /**
  * Created by ecrothers on 07/31/16.
  */
 public interface LoginAPI {
     @POST("/login")
-    Call<ResponseBody> attemptLogin(@Body User user);
+    Observable<ResponseBody> attemptLogin(@Body User user);
 
     @POST("/login/fb/{accessToken}")
     Call<ResponseBody> attemptFacebookLogin(@Path("accessToken") String accessToken);

@@ -1,5 +1,6 @@
 package com.teamawesome.navii.fragment.intro;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -43,6 +44,10 @@ import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
 import retrofit.Retrofit;
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by JMtorii on 16-07-25.
@@ -74,6 +79,7 @@ public class LoginFragment extends Fragment {
 
     private static final String FONT_LOCATION = "fonts/Lato-Regular.ttf";
     private CallbackManager callbackManager;
+    private ProgressDialog progressDialog;
 
 
     @Override
@@ -124,29 +130,33 @@ public class LoginFragment extends Fragment {
 
     private void attemptLogin(final String email, final String hashedPassword) {
         User user = new User.Builder().email(email).password(hashedPassword).build();
-        Call<ResponseBody> call = RestClient.loginAPI.attemptLogin(user);
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Response<ResponseBody> response, Retrofit retrofit) {
-                if (response.isSuccess()) {
-                    try {
-                        String token = response.body().string();
-                        Log.i("tok", token);
-                        loginUserComplete(email, token);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    Toast.makeText(getActivity().getApplicationContext(), "Login failed...", Toast.LENGTH_SHORT).show();
-                }
-            }
 
-            @Override
-            public void onFailure(Throwable t) {
-                t.printStackTrace();
-                Toast.makeText(getActivity().getApplicationContext(), "Server down, try again later...", Toast.LENGTH_SHORT).show();
-            }
-        });
+        Observable<ResponseBody> call = RestClient.loginAPI.attemptLogin(user);
+        call.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<ResponseBody>() {
+                    @Override
+                    public void onCompleted() {
+                        // Nothing to do here
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                        Toast.makeText(getActivity().getApplicationContext(), "Login failed...", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onNext(ResponseBody responseBody) {
+                        try {
+                            String token = responseBody.string();
+                            Log.i("tok", token);
+                            loginUserComplete(email, token);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
     }
 
 //    private void setupFacebookLogin() {
