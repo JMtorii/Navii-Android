@@ -7,11 +7,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.teamawesome.navii.NaviiApplication;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.debug.NaviBaseActivity;
 import com.teamawesome.navii.util.NavigationConfiguration;
+import com.teamawesome.navii.util.NaviiPreferenceData;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -108,10 +110,13 @@ public abstract class NaviiNavigationalActivity extends NaviBaseActivity impleme
         toggle.syncState();
 
         setTitle(getResources().getString(getNavConfig().getToolbarTitleResId()));
+        setTitle(getResources().getString(getNavConfig().getToolbarTitleResId()));
     }
 
     protected void setupNavigationView() {
         mNavigation.getMenu().findItem(mNavItemId).setChecked(true);
         mNavigation.setNavigationItemSelectedListener(this);
+        //TextView email = (TextView)findViewById(R.id.emailTextView);
+        //email.setText(NaviiPreferenceData.getLoggedInUserEmail());
     }
 }
