@@ -42,6 +42,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit.Call;
 import retrofit.Callback;
+import retrofit.HttpException;
 import retrofit.Response;
 import retrofit.Retrofit;
 import rx.Observable;
@@ -141,9 +142,15 @@ public class LoginFragment extends Fragment {
                     }
 
                     @Override
-                    public void onError(Throwable e) {
-                        e.printStackTrace();
-                        Toast.makeText(getActivity().getApplicationContext(), "Login failed...", Toast.LENGTH_SHORT).show();
+                    public void onError(Throwable throwable) {
+                        throwable.printStackTrace();
+                        if (throwable instanceof HttpException) {
+                            Toast.makeText(getActivity().getApplicationContext(), "Login failed. Verify your email and password", Toast.LENGTH_SHORT).show();
+                        } else if (throwable instanceof IOException) {
+                            Toast.makeText(getActivity().getApplicationContext(), "Network error occurred.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getActivity().getApplicationContext(), "Unknown error occurred.", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override
