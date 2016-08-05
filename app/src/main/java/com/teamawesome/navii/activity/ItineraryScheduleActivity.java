@@ -2,7 +2,6 @@ package com.teamawesome.navii.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.transition.Fade;
 import android.transition.Slide;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -35,8 +35,8 @@ import butterknife.OnClick;
  */
 public class ItineraryScheduleActivity extends NaviiToolbarActivity {
 
-    @BindView(R.id.itinerary_schedule_fab)
-    FloatingActionButton mAddScheduleFloatingActionButton;
+//    @BindView(R.id.itinerary_schedule_fab)
+//    FloatingActionButton mAddScheduleFloatingActionButton;
 
     @BindView(R.id.itinerary_schedule_viewpager)
     ViewPager mViewPager;
@@ -70,16 +70,26 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity {
         super.onCreate(savedInstanceState);
 
         String title = getIntent().getStringExtra(Constants.INTENT_ITINERARY_TITLE);
-        mTabLayout.setVisibility(View.VISIBLE);
+        titleText.setText(title);
 
         setSupportActionBar(mToolbar);
         setupViewPager(mViewPager);
-        mTabLayout.setupWithViewPager(mViewPager);
 
+        mTabLayout.setVisibility(View.VISIBLE);
+        mTabLayout.setupWithViewPager(mViewPager);
         setupWindowAnimations();
     }
 
-    @OnClick(R.id.itinerary_schedule_fab)
+    @OnClick(R.id.eat_menu_item)
+    public void onEatMenuClick() {
+        Toast.makeText(this, "onEatMenu", Toast.LENGTH_SHORT).show();
+    }
+
+    @OnClick(R.id.see_menu_item)
+    public void onSeeMenuClick() {
+        Toast.makeText(this, "onSeeMenu", Toast.LENGTH_SHORT).show();
+    }
+//    @OnClick(R.id.itinerary_schedule_fab)
     public void onFabClick() {
         try {
             LatLng latLng1 = new LatLng(43.636665, -79.399875);
