@@ -19,8 +19,8 @@ public interface UserPreferenceAPI {
     /**
      * Creates a new userpreference
      *
-     * @param preferences UserPreference model
-     * @return Created UserPreference
+     * @param preferences Preference model
+     * @return Created Preference
      */
     @Headers({"Content-Type: application/json", "Cache-Control: no-cache"})
     @POST("/userpreference/create")

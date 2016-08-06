@@ -21,10 +21,14 @@ import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
 import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.squareup.okhttp.ResponseBody;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.MainActivity;
@@ -39,6 +43,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -78,8 +84,8 @@ public class LoginFragment extends Fragment {
     @BindView(R.id.login_sign_up_button)
     Button signUpButton;
 
-    /*@BindView(R.id.facebook_login_button)
-    LoginButton facebookLoginButton;*/
+    @BindView(R.id.facebook_login_button)
+    LoginButton facebookLoginButton;
 
     private static final String FONT_LOCATION = "fonts/Lato-Regular.ttf";
     private CallbackManager callbackManager;
@@ -137,71 +143,71 @@ public class LoginFragment extends Fragment {
 
         Observable<ResponseBody> call = RestClient.loginAPI.attemptLogin(user);
         call.subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<ResponseBody>() {
-                    @Override
-                    public void onCompleted() {
-                        // Nothing to do here
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(new Subscriber<ResponseBody>() {
+                @Override
+                public void onCompleted() {
+                    // Nothing to do here
+                }
+
+                @Override
+                public void onError(Throwable throwable) {
+                    throwable.printStackTrace();
+
+                    String errorMessage;
+                    if (throwable instanceof HttpException) {
+                        errorMessage = getResources().getString(R.string.error_login_validation);
+                    } else if (throwable instanceof IOException) {
+                        errorMessage = getResources().getString(R.string.error_network);
+                    } else {
+                        errorMessage = getResources().getString(R.string.error_unknown);
                     }
 
-                    @Override
-                    public void onError(Throwable throwable) {
-                        throwable.printStackTrace();
+                    new AlertDialog.Builder(new ContextThemeWrapper(getContext(), R.style.DialogTheme))
+                            .setTitle(getResources().getString(R.string.error_dialog_title))
+                            .setMessage(errorMessage)
+                            .setPositiveButton(getResources().getString(R.string.error_okay), new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // Nothing to do here
+                                }
+                            })
+                            .show();
+                }
 
-                        String errorMessage;
-                        if (throwable instanceof HttpException) {
-                            errorMessage = getResources().getString(R.string.error_login_validation);
-                        } else if (throwable instanceof IOException) {
-                            errorMessage = getResources().getString(R.string.error_login_network);
-                        } else {
-                            errorMessage = getResources().getString(R.string.error_unknown);
-                        }
-
-                        new AlertDialog.Builder(new ContextThemeWrapper(getContext(), R.style.DialogTheme))
-                                .setTitle(getResources().getString(R.string.error_dialog_title))
-                                .setMessage(errorMessage)
-                                .setPositiveButton(getResources().getString(R.string.error_okay), new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        // continue
-                                    }
-                                })
-                                .show();
+                @Override
+                public void onNext(ResponseBody responseBody) {
+                    try {
+                        String token = responseBody.string();
+                        Log.i("tok", token);
+                        loginUserComplete(email, token);
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
-
-                    @Override
-                    public void onNext(ResponseBody responseBody) {
-                        try {
-                            String token = responseBody.string();
-                            Log.i("tok", token);
-                            loginUserComplete(email, token);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
+                }
+            });
     }
 
-//    private void setupFacebookLogin() {
-//        List<String> permissionNeeds = Arrays.asList("public_profile", "email");
-//        facebookLoginButton.setReadPermissions(permissionNeeds);
-//
-//        // Callback registration
-//        facebookLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-//            @Override
-//            public void onSuccess(LoginResult loginResult) {
-//                attemptFacebookLogin(AccessToken.getCurrentAccessToken().getToken());
-//            }
-//
-//            @Override
-//            public void onCancel() {
-//            }
-//
-//            @Override
-//            public void onError(FacebookException exception) {
-//                Toast.makeText(getActivity().getApplicationContext(), "Error while attempting to login.", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//    }
+    private void setupFacebookLogin() {
+        List<String> permissionNeeds = Arrays.asList("public_profile", "email");
+        facebookLoginButton.setReadPermissions(permissionNeeds);
+
+        // Callback registration
+        facebookLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                attemptFacebookLogin(AccessToken.getCurrentAccessToken().getToken());
+            }
+
+            @Override
+            public void onCancel() {
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                Toast.makeText(getActivity().getApplicationContext(), "Error while attempting to login.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     private void attemptFacebookLogin(final String facebookToken) {
         Call<ResponseBody> call = RestClient.loginAPI.attemptFacebookLogin(facebookToken);

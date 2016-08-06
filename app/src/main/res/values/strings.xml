@@ -136,14 +136,19 @@
     <string name="sign_up_password_again_hint">Retype Your Password</string>
     <string name="sign_up_button">Sign Up</string>
 
+    <!-- Thank You -->
+    <string name="thank_you_title">You have successfully signed up!</string>
+    <string name="thank_you_button">Start</string>
+
+
     <!-- Errors -->
     <string name="error_steve_fucked_up">Steve fucked up</string>
-    <string name="error_login_validation">Login failed. Verify your email and password</string>
-    <string name="error_login_network">Network error occurred.</string>
-    <string name="error_unknown">Unknown error.</string>
     <string name="error_dialog_title">An error occurred</string>
     <string name="error_okay">Okay</string>
-
+    <string name="error_network">Network error occurred.</string>
+    <string name="error_unknown">Unknown error.</string>
+    <string name="error_login_validation">Login failed. Verify your email and password</string>
+    <string name="error_signup_validation">Sign Up failed. Email may already exist.</string>
 
     <!-- Facebook integration -->
     <string name="facebook_app_id">521481071395718</string>
@@ -160,7 +165,10 @@
     <string name="terms_of_services">Terms of Services</string>
     <string name="ok">OK</string>
     <string name="menu_title">Options</string>
+
+    <!-- Prefetch Page Constants-->
     <string name="eat_item_title">Eat</string>
     <string name="see_item_title">See</string>
+    <string name="google_maps_search">Search</string>
 
 </resources>

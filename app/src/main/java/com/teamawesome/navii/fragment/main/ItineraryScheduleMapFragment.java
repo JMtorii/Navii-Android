@@ -21,6 +21,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.server.model.Attraction;
+import com.teamawesome.navii.server.model.Itinerary;
 import com.teamawesome.navii.server.model.Location;
 import com.teamawesome.navii.util.Constants;
 
@@ -34,6 +35,7 @@ public class ItineraryScheduleMapFragment extends Fragment implements OnMapReady
 
     private GoogleMap mMap;
     private static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
+    private List<Itinerary> itineraries;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,8 @@ public class ItineraryScheduleMapFragment extends Fragment implements OnMapReady
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        setExtraFromBundle();
+
         //Itinerary description setup
         View view = inflater.inflate(R.layout.fragment_itinerary_map_view, container, false);
 
@@ -52,14 +56,75 @@ public class ItineraryScheduleMapFragment extends Fragment implements OnMapReady
         return view;
     }
 
+    private void setExtraFromBundle() {
+        Intent intent = getActivity().getIntent();
+        itineraries = intent.getParcelableArrayListExtra(Constants.INTENT_ITINERARIES);
+    }
+
+    public void updateDay(int position) {
+        setMapView(position);
+    }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-        // Hide the zoom controls as the button panel will cover it.
         mMap.getUiSettings().setZoomControlsEnabled(false);
 
-        List<Attraction> attractions = getActivity().getIntent().getParcelableArrayListExtra(Constants.INTENT_ATTRACTION_LIST);
+        // Hide the zoom controls as the button panel will cover it.
+        setMapView(0);
+        LatLng toronto = new LatLng(43.644, -79.387);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(toronto));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(20), 2000, null);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == Constants.GET_ATTRACTION_EXTRA_REQUEST_CODE) {
+            if (resultCode == Constants.RESPONSE_GOOGLE_SEARCH) {
+                Place place = PlaceAutocomplete.getPlace(getActivity(), data);
+                String id = place.getId();
+                Log.d("TAG", place.toString());
+                Location location = new Location.Builder()
+                        .address(place.getAddress().toString())
+                        .latitude(place.getLatLng().latitude)
+                        .longitude(place.getLatLng().longitude)
+                        .build();
+
+                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                mMap.addMarker(new MarkerOptions()
+                        .position(latLng)
+                        .title(place.getName().toString())
+                        .snippet(place.getWebsiteUri().toString())
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+                );
+            } else if (resultCode == Constants.RESPONSE_ATTRACTION_SELECTED){
+                Attraction attraction = data.getParcelableExtra(Constants.INTENT_ATTRACTION);
+                Location location = new Location.Builder()
+                        .address(attraction.getLocation().getAddress())
+                        .latitude(attraction.getLocation().getLatitude())
+                        .longitude(attraction.getLocation().getLongitude())
+                        .build();
+
+                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                mMap.addMarker(new MarkerOptions()
+                        .position(latLng)
+                        .title(attraction.getName().toString())
+                        .snippet(attraction.getPhotoUri())
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+                );
+            } if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+                Status status = PlaceAutocomplete.getStatus(getActivity(), data);
+                // TODO: Handle the error.
+//                Snackbar.make(mMap, "Cannot Retrieve Search", Snackbar.LENGTH_SHORT).show();
+
+            } else if (resultCode == Activity.RESULT_CANCELED) {
+                Log.i("Search", "Cancelled");
+            }
+        }
+    }
+
+    public void setMapView(int position) {
+        List<Attraction> attractions = itineraries.get(position).getAttractions();
         if (attractions == null) {
             attractions = new ArrayList<>();
             for (int i = 0; i < 6; i++) {
@@ -87,43 +152,9 @@ public class ItineraryScheduleMapFragment extends Fragment implements OnMapReady
                     .position(latLng)
                     .title(i + ":" + attractions.get(i).getName())
                     .snippet(attractions.get(i).getPhotoUri())
+                    .title("A")
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
             );
-        }
-
-        LatLng toronto = new LatLng(43.644, -79.387);
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(toronto));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
-            if (resultCode == Activity.RESULT_OK) {
-                Place place = PlaceAutocomplete.getPlace(getActivity(), data);
-                String id = place.getId();
-                Log.d("TAG", place.toString());
-                Location location = new Location.Builder()
-                        .address(place.getAddress().toString())
-                        .latitude(place.getLatLng().latitude)
-                        .longitude(place.getLatLng().longitude)
-                        .build();
-
-                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                mMap.addMarker(new MarkerOptions()
-                        .position(latLng)
-                        .title(place.getName().toString())
-                        .snippet(place.getWebsiteUri().toString())
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
-                );
-            } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
-                Status status = PlaceAutocomplete.getStatus(getActivity(), data);
-                // TODO: Handle the error.
-//                Snackbar.make(mMap, "Cannot Retrieve Search", Snackbar.LENGTH_SHORT).show();
-
-            } else if (resultCode == Activity.RESULT_CANCELED) {
-                Log.i("Search", "Cancelled");
-            }
         }
     }
 }

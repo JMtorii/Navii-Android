@@ -20,6 +20,7 @@ import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.adapter.PackageScheduleViewAdapter;
 import com.teamawesome.navii.server.model.Attraction;
+import com.teamawesome.navii.server.model.Itinerary;
 import com.teamawesome.navii.server.model.Location;
 import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.HeartAndSoulHeaderConfiguration;
@@ -46,8 +47,9 @@ public class ItineraryScheduleViewFragment extends NaviiFragment {
     private ItemTouchHelper mItemTouchHelper;
     private ItemTouchHelper.Callback mCallback;
     private Snackbar mSnackbar;
-    private static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
+    private int spinnerPosition;
 
+    private List<Itinerary> itineraries;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,28 +61,20 @@ public class ItineraryScheduleViewFragment extends NaviiFragment {
         View view = inflater.inflate(R.layout.fragment_itinerary_schedule_view, container, false);
         ButterKnife.bind(this, view);
 
-        Intent intent = getActivity().getIntent();
-        List<Attraction> attractions = intent.getParcelableArrayListExtra(Constants.INTENT_ATTRACTION_LIST);
+        setExtraFromBundle();
+        spinnerPosition = 0;
+        setPackageScheduleView(spinnerPosition);
+        return view;
+    }
+
+    private void setPackageScheduleView(int position) {
+        List<Attraction> attractions = itineraries.get(position).getAttractions();
         List<PackageScheduleListItem> items = new ArrayList<>();
 
         if (attractions == null) {
             attractions = new ArrayList<>();
-            for (int i = 0; i < 6; i++) {
-                Location location = new Location.Builder()
-                        .latitude(43.636665)
-                        .longitude(-79.399875)
-                        .address("Address")
-                        .build();
-
-                Attraction attraction = new Attraction.Builder()
-                        .photoUri("http://www.city-data.com/forum/attachments/city-vs-city/105240d1356338901-greater-downtown-toronto-vs-greater-downtown-toronto-skyline-night-view.jpg")
-                        .price(2)
-                        .name("Attraction:" + i)
-                        .location(location)
-                        .build();
-                attractions.add(attraction);
-            }
         }
+
         int sectionDivide = (int) Math.ceil((double) attractions.size() / (double) 3);
         int counter = 0;
         for (int i = 0; i < attractions.size(); i++) {
@@ -97,8 +91,11 @@ public class ItineraryScheduleViewFragment extends NaviiFragment {
 
         mItemTouchHelper = createItemTouchHelper();
         mItemTouchHelper.attachToRecyclerView(mItineraryRecyclerView);
+    }
 
-        return view;
+    private void setExtraFromBundle() {
+        Intent intent = getActivity().getIntent();
+        itineraries = intent.getParcelableArrayListExtra(Constants.INTENT_ITINERARIES);
     }
 
     @Override
@@ -108,18 +105,15 @@ public class ItineraryScheduleViewFragment extends NaviiFragment {
         mSnackbar = Snackbar.make(mItineraryRecyclerView, "Done with this?", Snackbar.LENGTH_INDEFINITE);
     }
 
-    @OnTouch(R.id.itinerary_recycler_view)
-    public boolean onTouch(MotionEvent event) {
-        if (mSnackbar != null && mSnackbar.isShown()) {
-            mSnackbar.dismiss();
-        }
-        return mItineraryRecyclerView.onTouchEvent(event);
+    public void updateDay(int position) {
+        setPackageScheduleView(position);
+        spinnerPosition = position;
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
-            if (resultCode == Activity.RESULT_OK) {
+        if (requestCode == Constants.GET_ATTRACTION_EXTRA_REQUEST_CODE) {
+            if (resultCode == Constants.RESPONSE_GOOGLE_SEARCH) {
                 Place place = PlaceAutocomplete.getPlace(getActivity(), data);
                 String id = place.getId();
                 Log.d("TAG", place.toString());
@@ -128,7 +122,6 @@ public class ItineraryScheduleViewFragment extends NaviiFragment {
                         .latitude(place.getLatLng().latitude)
                         .longitude(place.getLatLng().longitude)
                         .build();
-
 
                 Attraction attraction = new Attraction.Builder()
                         .location(location)
@@ -150,8 +143,12 @@ public class ItineraryScheduleViewFragment extends NaviiFragment {
 //                    CharSequence attribution = photo.getAttributions();
 //                }
                 mPackageScheduleViewAdapter.add(new PackageScheduleAttractionItem(attraction));
-
-            } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+                itineraries.get(spinnerPosition).getAttractions().add(attraction);
+            } else if (resultCode == Constants.RESPONSE_ATTRACTION_SELECTED) {
+                Attraction attraction = data.getParcelableExtra(Constants.INTENT_ATTRACTION);
+                mPackageScheduleViewAdapter.add(new PackageScheduleAttractionItem(attraction));
+                itineraries.get(spinnerPosition).getAttractions().add(attraction);
+            } if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
                 Status status = PlaceAutocomplete.getStatus(getActivity(), data);
                 // TODO: Handle the error.
                 Snackbar.make(mItineraryRecyclerView, "Cannot Retrieve Search", Snackbar.LENGTH_SHORT).show();
@@ -162,16 +159,25 @@ public class ItineraryScheduleViewFragment extends NaviiFragment {
         }
     }
 
+    @OnTouch(R.id.itinerary_recycler_view)
+    public boolean onTouch(MotionEvent event) {
+        if (mSnackbar != null && mSnackbar.isShown()) {
+            mSnackbar.dismiss();
+        }
+        return mItineraryRecyclerView.onTouchEvent(event);
+    }
+
     public ItemTouchHelper createItemTouchHelper() {
         mCallback = createCallback();
         return new ItemTouchHelper(mCallback);
     }
 
-    public void showSnackbar(final int position, final PackageScheduleListItem item) {
+    public void showSnackbar(final int position, final PackageScheduleListItem item, final Attraction attraction) {
         mSnackbar.setAction("Undo", new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mPackageScheduleViewAdapter.add(position, item);
+                itineraries.get(spinnerPosition).getAttractions().add(position, attraction);
             }
         }).show();
     }
@@ -201,9 +207,9 @@ public class ItineraryScheduleViewFragment extends NaviiFragment {
                 final PackageScheduleViewAdapter.PackageItemViewHolder touchVH = (PackageScheduleViewAdapter.PackageItemViewHolder) viewHolder;
                 final int position = touchVH.getAdapterPosition();
                 Log.d("TAG", "" + position);
-
+                Attraction attraction = itineraries.get(spinnerPosition).getAttractions().remove(viewHolder.getAdapterPosition());
                 final PackageScheduleListItem item = mPackageScheduleViewAdapter.delete(viewHolder.getAdapterPosition());
-                showSnackbar(position, item);
+                showSnackbar(position, item, attraction);
             }
 
             @Override

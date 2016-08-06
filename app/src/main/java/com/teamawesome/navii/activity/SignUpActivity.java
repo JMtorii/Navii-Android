@@ -1,8 +1,12 @@
 package com.teamawesome.navii.activity;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.view.ContextThemeWrapper;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -14,16 +18,18 @@ import com.teamawesome.navii.util.ToolbarConfiguration;
 import com.teamawesome.navii.util.ViewUtilities;
 import com.teamawesome.navii.views.MainLatoButton;
 
+import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.Response;
-import retrofit.Retrofit;
+import retrofit.HttpException;
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by JMtorii on 16-07-30.
@@ -126,28 +132,48 @@ public class SignUpActivity extends NaviiToolbarActivity {
             return;
         }
 
-        attemptSignup(email, username, hashedPassword);
+        attemptSignUp(email, username, hashedPassword);
     }
 
-    private void attemptSignup(final String email, final String username, final String hashedPassword) {
+    private void attemptSignUp(final String email, final String username, final String hashedPassword) {
         User user = new User.Builder().email(email).username(username).password(hashedPassword).build();
-        Call<Void> call = RestClient.userAPI.createUser(user);
-        call.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Response<Void> response, Retrofit retrofit) {
-                if (response.isSuccess()) {
-                    // TODO: Handle this?
-                    //attemptLogin(email, hashedPassword);
-                } else {
-                    Toast.makeText(getApplicationContext(), "Signup failed...", Toast.LENGTH_SHORT).show();
+        Observable<Void> call = RestClient.userAPI.createUser(user);
+        call.subscribeOn(Schedulers.newThread())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(new Subscriber<Void>() {
+                @Override
+                public void onCompleted() {
+                   // Nothing to do here
                 }
-            }
 
-            @Override
-            public void onFailure(Throwable t) {
-                t.printStackTrace();
-                Toast.makeText(getApplicationContext(), "Server down, try again later...", Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onError(Throwable throwable) {
+                    String errorMessage;
+                    if (throwable instanceof HttpException) {
+                        errorMessage = getResources().getString(R.string.error_signup_validation);
+                    } else if (throwable instanceof IOException) {
+                        errorMessage = getResources().getString(R.string.error_network);
+                    } else {
+                        errorMessage = getResources().getString(R.string.error_unknown);
+                    }
+
+                    new AlertDialog.Builder(new ContextThemeWrapper(getApplicationContext(), R.style.DialogTheme))
+                            .setTitle(getResources().getString(R.string.error_dialog_title))
+                            .setMessage(errorMessage)
+                            .setPositiveButton(getResources().getString(R.string.error_okay), new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // Nothing to do here
+                                }
+                            })
+                            .show();
+                }
+
+                @Override
+                public void onNext(Void aVoid) {
+                    Intent intent = new Intent(getApplicationContext(), ThankYouActivity.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                }
+            });
     }
 }

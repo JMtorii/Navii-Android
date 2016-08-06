@@ -193,10 +193,6 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
             ButterKnife.bind(this, itemView);
         }
 
-        public View returnView() {
-            return itemView;
-        }
-
         @OnClick(R.id.package_item_layout)
         public void detailsView() {
             Intent heartAndSoulDetailsActivity = new Intent(mContext, HeartAndSoulDetailsActivity.class);

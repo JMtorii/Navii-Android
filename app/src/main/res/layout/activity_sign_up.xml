@@ -78,7 +78,7 @@
             android:layout_height="wrap_content"
             android:text="@string/sign_up_button"
             android:textColor="@android:color/white"
-            android:background="@drawable/login_email_button_background"
+            android:background="@drawable/orange_rounded_button_background"
             android:layout_marginTop="60dp"
             app:fontType="Medium"/>
 

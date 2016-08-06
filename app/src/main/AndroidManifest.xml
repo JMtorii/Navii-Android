@@ -134,6 +134,12 @@
         </activity>
 
         <activity
+            android:name=".activity.PrefetchAttractionsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NaviiTheme.NoActionBar">
+        </activity>
+
+        <activity
             android:name=".activity.UploadImageTestActivity"
             android:label="Test Image Upload"
             android:screenOrientation="portrait"
@@ -148,6 +154,12 @@
 
         <activity
             android:name=".activity.SignUpActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NaviiTheme.NoActionBar">
+        </activity>
+
+        <activity
+            android:name=".activity.ThankYouActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NaviiTheme.NoActionBar">
         </activity>
