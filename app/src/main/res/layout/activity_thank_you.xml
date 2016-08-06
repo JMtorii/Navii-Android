@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="60dp"
+    android:layout_marginRight="60dp"
+    android:gravity="center">
+
+    <com.teamawesome.navii.views.MainLatoTextView
+        android:id="@+id/thank_you_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/thank_you_title"
+        android:textSize="30sp"
+        android:gravity="center"
+        app:fontType="Medium"/>
+
+    <com.teamawesome.navii.views.MainLatoButton
+        android:id="@+id/thank_you_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/thank_you_button"
+        android:textColor="@android:color/white"
+        android:background="@drawable/orange_rounded_button_background"
+        android:layout_marginTop="60dp"
+        app:fontType="Medium"/>
+
+</LinearLayout>
