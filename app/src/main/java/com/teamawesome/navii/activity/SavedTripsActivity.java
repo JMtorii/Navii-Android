@@ -26,7 +26,6 @@ import butterknife.ButterKnife;
  * Created by JMtorii on 16-06-15.
  */
 public class SavedTripsActivity extends NaviiNavigationalActivity {
-    public static List<Itinerary> savedItineraries = new ArrayList<>();
 
     @BindView(R.id.planned_trips_view)
     RecyclerView plannedTrips;
@@ -38,10 +37,9 @@ public class SavedTripsActivity extends NaviiNavigationalActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("Size:", String.valueOf(savedItineraries.size()));
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-        SavedTripsAdapter savedTripsAdapter = new SavedTripsAdapter(savedItineraries);
+        SavedTripsAdapter savedTripsAdapter = new SavedTripsAdapter();
         plannedTrips.setAdapter(savedTripsAdapter);
         plannedTrips.setLayoutManager(new LinearLayoutManager(this));
 
