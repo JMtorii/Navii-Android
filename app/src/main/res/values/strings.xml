@@ -73,6 +73,9 @@
     <string name="itinerary_recommend_plan_trip">Plan your own Trip</string>
     <string name="itinerary_recommend_package_description_title">Overview</string>
 
+    <!-- Profile -->
+    <string name="profile_title">Your Profile</string>
+
     <!-- EditProfile Fragment Strings-->
     <string name="new_user">new user</string>
     <string name="Change_Username">Change Username</string>
@@ -165,7 +168,10 @@
     <string name="terms_of_services">Terms of Services</string>
     <string name="ok">OK</string>
     <string name="menu_title">Options</string>
+
+    <!-- Prefetch Page Constants-->
     <string name="eat_item_title">Eat</string>
     <string name="see_item_title">See</string>
+    <string name="google_maps_search">Search</string>
 
 </resources>

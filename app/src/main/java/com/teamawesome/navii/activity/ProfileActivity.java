@@ -48,7 +48,7 @@ public class ProfileActivity extends NaviiNavigationalActivity implements OnFocu
 
     @Override
     protected NavigationConfiguration getNavConfig() {
-        return NavigationConfiguration.Home;
+        return NavigationConfiguration.Profile;
     }
 
     @Override
@@ -59,7 +59,7 @@ public class ProfileActivity extends NaviiNavigationalActivity implements OnFocu
         // Inflate the layout for this fragment
         Log.d("ProfileFragment", "onCreateView");
 
-        setContentView(R.layout.activity_profile);
+//        setContentView(R.layout.activity_profile);
 
         mPictureThumbnail = (ImageView) findViewById(R.id.profile_thumbnail);
         mUsernameTextView = (TextView) findViewById(R.id.profile_username_textview);

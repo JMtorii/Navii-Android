@@ -6,8 +6,9 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
-import android.widget.TextView;
+import android.view.View;
 
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
@@ -67,7 +68,7 @@ public abstract class NaviiNavigationalActivity extends NaviBaseActivity impleme
                 launchClass = MainActivity.class;
                 break;
             case R.id.nav_planned_trips:
-                launchClass = PlannedTripsActivity.class;
+                launchClass = SavedTripsActivity.class;
                 break;
             case R.id.nav_saved_trips:
                 // Saved Trips Activity when created
@@ -140,10 +141,26 @@ public abstract class NaviiNavigationalActivity extends NaviBaseActivity impleme
         //TODO: Find the appropriate place to set side drawer email (and eventually photo)
         //TextView email = (TextView)findViewById(R.id.emailTextView);
         //email.setText(NaviiPreferenceData.getLoggedInUserEmail());
+
+        // ButterKnife nor Google can bind the header layout when we add the header through the XML
+        // As a result, we add this the old-fashioned way
+        View headerView = getLayoutInflater().inflate(R.layout.nav_header_main, mNavigation, false);
+        headerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i(getClass().getName(), "Header has been pressed");
+                Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+        mNavigation.addHeaderView(headerView);
     }
 
     protected void setupNavigationView() {
-        mNavigation.getMenu().findItem(mNavItemId).setChecked(true);
+        // TODO: Implement checked drawer item logic
+//        if (mNavItemId != NavigationConfiguration.PROFILE_DRAWER_ID) {
+//            mNavigation.getMenu().findItem(mNavItemId).setChecked(true);
+//        }
         mNavigation.setNavigationItemSelectedListener(this);
     }
 }

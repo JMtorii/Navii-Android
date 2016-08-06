@@ -87,7 +87,7 @@
         </activity>
 
         <activity
-            android:name=".activity.PlannedTripsActivity"
+            android:name=".activity.SavedTripsActivity"
             android:label="@string/itinerary_recommend_plan_trip"
             android:screenOrientation="portrait"
             android:theme="@style/NaviiTheme.NoActionBar">
@@ -129,6 +129,12 @@
 
         <activity
             android:name=".activity.ItineraryScheduleActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NaviiTheme.NoActionBar">
+        </activity>
+
+        <activity
+            android:name=".activity.PrefetchAttractionsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NaviiTheme.NoActionBar">
         </activity>
