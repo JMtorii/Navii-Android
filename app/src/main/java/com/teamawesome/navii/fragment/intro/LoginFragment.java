@@ -21,10 +21,14 @@ import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
 import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.squareup.okhttp.ResponseBody;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.MainActivity;
@@ -39,6 +43,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -78,8 +84,8 @@ public class LoginFragment extends Fragment {
     @BindView(R.id.login_sign_up_button)
     Button signUpButton;
 
-    /*@BindView(R.id.facebook_login_button)
-    LoginButton facebookLoginButton;*/
+    @BindView(R.id.facebook_login_button)
+    LoginButton facebookLoginButton;
 
     private static final String FONT_LOCATION = "fonts/Lato-Regular.ttf";
     private CallbackManager callbackManager;
@@ -181,27 +187,27 @@ public class LoginFragment extends Fragment {
             });
     }
 
-//    private void setupFacebookLogin() {
-//        List<String> permissionNeeds = Arrays.asList("public_profile", "email");
-//        facebookLoginButton.setReadPermissions(permissionNeeds);
-//
-//        // Callback registration
-//        facebookLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-//            @Override
-//            public void onSuccess(LoginResult loginResult) {
-//                attemptFacebookLogin(AccessToken.getCurrentAccessToken().getToken());
-//            }
-//
-//            @Override
-//            public void onCancel() {
-//            }
-//
-//            @Override
-//            public void onError(FacebookException exception) {
-//                Toast.makeText(getActivity().getApplicationContext(), "Error while attempting to login.", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//    }
+    private void setupFacebookLogin() {
+        List<String> permissionNeeds = Arrays.asList("public_profile", "email");
+        facebookLoginButton.setReadPermissions(permissionNeeds);
+
+        // Callback registration
+        facebookLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                attemptFacebookLogin(AccessToken.getCurrentAccessToken().getToken());
+            }
+
+            @Override
+            public void onCancel() {
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                Toast.makeText(getActivity().getApplicationContext(), "Error while attempting to login.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     private void attemptFacebookLogin(final String facebookToken) {
         Call<ResponseBody> call = RestClient.loginAPI.attemptFacebookLogin(facebookToken);
