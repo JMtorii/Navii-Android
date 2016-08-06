@@ -49,13 +49,13 @@ public class HeartAndSoulSaveActivity extends NaviiToolbarActivity {
 
     @OnClick(R.id.itinerary_save_button)
     public void onClick(){
-        Itinerary saved = getIntent().getParcelableExtra(Constants.INTENT_ITINERARY);
+        Itinerary saved = getIntent().getParcelableExtra(Constants.INTENT_TRIP_TO_SAVE);
         String title = itineraryTitle.getText().toString();
         if (title.trim().isEmpty()){
             Toast.makeText(this, "Put a name", Toast.LENGTH_SHORT).show();
         }
         else{
-            saved.setItineraryNickname(title);
+            saved.setNickname(title);
             //TODO Persist with user?
 //            boolean isDuplicate = false;
 //            for (Itinerary i : SavedTripsActivity.savedItineraries){
