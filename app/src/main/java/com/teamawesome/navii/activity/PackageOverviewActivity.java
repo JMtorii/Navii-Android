@@ -8,6 +8,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.adapter.PackageOverviewRecyclerViewAdapter;
 import com.teamawesome.navii.server.model.Attraction;
+import com.teamawesome.navii.server.model.Itinerary;
 import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.ToolbarConfiguration;
 
@@ -43,6 +44,7 @@ public class PackageOverviewActivity extends NaviiToolbarActivity {
         Intent itineraryScheduleActivity = new Intent(this, ItineraryScheduleActivity.class);
         itineraryScheduleActivity.putParcelableArrayListExtra(Constants.INTENT_ATTRACTION_LIST, new ArrayList<>(attractionList));
         itineraryScheduleActivity.putExtra(Constants.INTENT_ITINERARY_TITLE, itineraryTitle);
+        itineraryScheduleActivity.putExtra(Constants.INTENT_ITINERARY, itinerary);
 
         startActivity(itineraryScheduleActivity);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -56,7 +58,7 @@ public class PackageOverviewActivity extends NaviiToolbarActivity {
         attractionList = getIntent().getParcelableArrayListExtra(Constants.INTENT_ATTRACTION_LIST);
         itineraryTitle = getIntent().getStringExtra(Constants.INTENT_ITINERARY_TITLE);
         itinerary = getIntent().getParcelableExtra(Constants.INTENT_ITINERARY);
-
+        assert itinerary != null;
         List<String> photoUriList = new ArrayList<>();
 
         for (Attraction attraction : attractionList) {

@@ -9,6 +9,9 @@ import java.util.List;
  * Created by JMtorii on 2015-10-21.
  */
 public class Itinerary implements Parcelable{
+    private String itineraryNickname;
+
+
     private int itineraryId;
     private String description;
     private List<Attraction> attractions;
@@ -70,6 +73,14 @@ public class Itinerary implements Parcelable{
 
     public List<Attraction> getAttractions() {
         return attractions;
+    }
+
+    public void setItineraryNickname(String itineraryNickname){
+        this.itineraryNickname = itineraryNickname;
+    }
+
+    public String getItineraryNickname(){
+        return this.itineraryNickname;
     }
 
     @Override

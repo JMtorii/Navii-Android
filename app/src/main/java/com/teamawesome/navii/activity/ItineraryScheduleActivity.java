@@ -21,6 +21,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.fragment.main.ItineraryScheduleMapFragment;
 import com.teamawesome.navii.fragment.main.ItineraryScheduleViewFragment;
+import com.teamawesome.navii.server.model.Itinerary;
 import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.ToolbarConfiguration;
 
@@ -61,6 +62,9 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity {
     @Override
     public void onRightButtonClick() {
         Intent nextActivity = new Intent(this, HeartAndSoulSaveActivity.class);
+        Itinerary savedItinerary = getIntent().getParcelableExtra(Constants.INTENT_ITINERARY);
+        assert savedItinerary != null;
+        nextActivity.putExtra(Constants.INTENT_ITINERARY, savedItinerary);
         startActivity(nextActivity);
         overridePendingTransition(R.anim.slide_in_down, R.anim.hold);
     }

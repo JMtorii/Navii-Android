@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context="com.teamawesome.navii.activity.PlannedTripsActivity">
+        tools:context=".activity.SavedTripsActivity">
 
         <RelativeLayout
             android:layout_width="match_parent"

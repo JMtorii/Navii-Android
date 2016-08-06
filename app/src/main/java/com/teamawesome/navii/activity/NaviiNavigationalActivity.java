@@ -7,7 +7,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
@@ -67,7 +66,7 @@ public abstract class NaviiNavigationalActivity extends NaviBaseActivity impleme
                 launchClass = MainActivity.class;
                 break;
             case R.id.nav_planned_trips:
-                launchClass = PlannedTripsActivity.class;
+                launchClass = SavedTripsActivity.class;
                 break;
             case R.id.nav_saved_trips:
                 // Saved Trips Activity when created
