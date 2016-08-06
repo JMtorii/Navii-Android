@@ -95,6 +95,7 @@ public class LoginFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        callbackManager = CallbackManager.Factory.create();
     }
 
     @Override
@@ -104,8 +105,15 @@ public class LoginFragment extends Fragment {
 
         ViewUtilities.setTypefaceToInputLayout(getActivity(), emailLoginInputLayout, FONT_LOCATION);
         ViewUtilities.setTypefaceToInputLayout(getActivity(), passwordInputLayout, FONT_LOCATION);
+        setupFacebookLogin();
 
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
     @OnClick(R.id.login_email_button)
@@ -190,6 +198,7 @@ public class LoginFragment extends Fragment {
     private void setupFacebookLogin() {
         List<String> permissionNeeds = Arrays.asList("public_profile", "email");
         facebookLoginButton.setReadPermissions(permissionNeeds);
+        facebookLoginButton.setFragment(this);
 
         // Callback registration
         facebookLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {

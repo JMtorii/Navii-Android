@@ -73,6 +73,9 @@
     <string name="itinerary_recommend_plan_trip">Plan your own Trip</string>
     <string name="itinerary_recommend_package_description_title">Overview</string>
 
+    <!-- Profile -->
+    <string name="profile_title">Your Profile</string>
+
     <!-- EditProfile Fragment Strings-->
     <string name="new_user">new user</string>
     <string name="Change_Username">Change Username</string>
