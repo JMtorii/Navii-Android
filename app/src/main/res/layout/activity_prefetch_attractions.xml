@@ -2,12 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@color/lightGrey"
               android:orientation="vertical">
 
+    <com.teamawesome.navii.views.MainLatoTextView
+        android:id="@+id/google_search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="@string/google_maps_search"/>
+
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/itinerary_recycler_view"
+        android:id="@+id/prefetch_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-
 </LinearLayout>

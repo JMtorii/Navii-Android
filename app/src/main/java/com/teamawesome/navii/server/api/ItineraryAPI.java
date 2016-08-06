@@ -1,8 +1,6 @@
 package com.teamawesome.navii.server.api;
 
-import com.teamawesome.navii.server.model.Itinerary;
-
-import java.util.List;
+import com.teamawesome.navii.server.model.HeartAndSoulPackage;
 
 import retrofit.http.GET;
 import retrofit.http.Path;
@@ -17,5 +15,5 @@ public interface ItineraryAPI {
      * @param  tags The Array of tags user has selected
      */
     @GET("/itinerary/tags/{tag_list}/{num_days}")
-    Observable<List<Itinerary>> getItineraries(@Path("tag_list") String tags, @Path("num_days") int days);
+    Observable<HeartAndSoulPackage> getItineraries(@Path("tag_list") String tags, @Path("num_days") int days);
 }

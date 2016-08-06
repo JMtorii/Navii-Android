@@ -27,7 +27,9 @@ public class PackageOverviewActivity extends NaviiToolbarActivity {
 
     private List<Attraction> attractionList;
     private String itineraryTitle;
-    private Itinerary itinerary;
+    private List<Itinerary> itineraries;
+    private List<Attraction> extraAttractions;
+    private List<Attraction> extraRestaurants;
 
     @Override
     public ToolbarConfiguration getToolbarConfiguration() {
@@ -42,10 +44,10 @@ public class PackageOverviewActivity extends NaviiToolbarActivity {
     @Override
     public void onRightButtonClick() {
         Intent itineraryScheduleActivity = new Intent(this, ItineraryScheduleActivity.class);
-        itineraryScheduleActivity.putParcelableArrayListExtra(Constants.INTENT_ATTRACTION_LIST, new ArrayList<>(attractionList));
         itineraryScheduleActivity.putExtra(Constants.INTENT_ITINERARY_TITLE, itineraryTitle);
-        itineraryScheduleActivity.putExtra(Constants.INTENT_ITINERARY, itinerary);
-
+        itineraryScheduleActivity.putParcelableArrayListExtra(Constants.INTENT_ITINERARIES, (ArrayList<Itinerary>)itineraries);
+        itineraryScheduleActivity.putParcelableArrayListExtra(Constants.INTENT_EXTRA_ATTRACTION_LIST, (ArrayList<Attraction>) extraAttractions);
+        itineraryScheduleActivity.putParcelableArrayListExtra(Constants.INTENT_EXTRA_RESTAURANT_LIST, (ArrayList<Attraction>) extraRestaurants);
         startActivity(itineraryScheduleActivity);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
@@ -55,15 +57,15 @@ public class PackageOverviewActivity extends NaviiToolbarActivity {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
 
-        attractionList = getIntent().getParcelableArrayListExtra(Constants.INTENT_ATTRACTION_LIST);
-        itineraryTitle = getIntent().getStringExtra(Constants.INTENT_ITINERARY_TITLE);
-        itinerary = getIntent().getParcelableExtra(Constants.INTENT_ITINERARY);
-        assert itinerary != null;
+        itineraries = getIntent().getParcelableArrayListExtra(Constants.INTENT_ITINERARIES);
+        extraAttractions = getIntent().getParcelableArrayListExtra(Constants.INTENT_EXTRA_ATTRACTION_LIST);
+        extraRestaurants = getIntent().getParcelableArrayListExtra(Constants.INTENT_EXTRA_RESTAURANT_LIST);
         List<String> photoUriList = new ArrayList<>();
 
-        for (Attraction attraction : attractionList) {
+        for (Attraction attraction : itineraries.get(0).getAttractions()) {
             photoUriList.add(attraction.getPhotoUri());
         }
+        itineraryTitle = itineraries.get(0).getDescription();
 
         StaggeredGridLayoutManager mStaggeredGridLayoutManager = new StaggeredGridLayoutManager(2, 1);
         recyclerView.setLayoutManager(mStaggeredGridLayoutManager);

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fb="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="40dp"
-    android:paddingRight="40dp"
-    >
+    android:paddingRight="40dp">
 
     <ImageView
         android:id="@+id/login_logo_image_view"
@@ -62,7 +62,7 @@
         android:id="@+id/login_email_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/login_email_button_background"
+        android:background="@drawable/orange_rounded_button_background"
         android:layout_marginTop="30dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="20dp"
@@ -93,15 +93,16 @@
             app:fontType="Medium" />
     </LinearLayout>
 
-    <!--<com.facebook.login.widget.LoginButton-->
-        <!--android:id="@+id/login_fb_button"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginStart="30dp"-->
-        <!--android:layout_marginEnd="30dp"-->
-        <!--android:layout_marginTop="10dp"-->
-        <!--android:layout_below="@+id/login_email_button"-->
-        <!--/>-->
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/facebook_login_button"
+        android:layout_centerHorizontal="true"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/login_email_button"
+        fb:com_facebook_login_text="@string/facebook_sign_in"
+        fb:com_facebook_confirm_logout="false"/>
 
     <LinearLayout
         android:id="@+id/login_or_view"
@@ -144,15 +145,5 @@
         android:background="@color/transparent"
         android:layout_marginBottom="20dp"
         android:layout_alignParentBottom="true" />
-
-    <!--<com.facebook.login.widget.LoginButton
-        android:id="@+id/facebook_login_button"
-        android:layout_centerHorizontal="true"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="15dp"
-        fb:com_facebook_login_text="@string/facebook_sign_in"
-        fb:com_facebook_confirm_logout="false"/>-->
 
 </RelativeLayout>
