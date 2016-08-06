@@ -55,14 +55,14 @@ public class ItineraryRecommendActivity extends NaviiToolbarActivity {
         ButterKnife.bind(this);
 
         List<String> tags = getIntent().getStringArrayListExtra(Constants.INTENT_TAGS);
+        int days = getIntent().getIntExtra(Constants.INTENT_DAYS, 1);
+
         String tagList;
         if (tags == null) {
             tagList = null;
         } else {
             tagList = TextUtils.join(",", tags);
         }
-
-        int days = 3;
 
         Observable<HeartAndSoulPackage> itineraryListCall = RestClient.itineraryAPI.getItineraries(tagList, days);
 
@@ -83,7 +83,6 @@ public class ItineraryRecommendActivity extends NaviiToolbarActivity {
 
                     @Override
                     public void onNext(HeartAndSoulPackage heartAndSoulPackage) {
-                        Log.d("tags", "I made it, I made it");
                         recommendListAdapter = new ItineraryRecommendListAdapter(context, heartAndSoulPackage);
                         itineraryRecyclerView.setAdapter(recommendListAdapter);
 

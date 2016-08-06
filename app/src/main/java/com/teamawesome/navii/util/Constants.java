@@ -5,8 +5,6 @@ package com.teamawesome.navii.util;
  */
 public class Constants {
 
-
-
     private Constants() {
     }
 
@@ -35,11 +33,11 @@ public class Constants {
     public static final int PREFERENCE_MAX_LIMIT = 3;
 
     // Intents
+    public static String INTENT_DAYS = "INTENT_DAYS";
     public static final String INTENT_TAGS = "TAGS";
     public static final String INTENT_ATTRACTION = "INTENT_ATTRACTION";
     public static final String INTENT_ITINERARY_TITLE = "INTENT_ITINERARY_TITLE";
     public static final String INTENT_ATTRACTION_LOCATION = "INTENT_ATTRACTION_LOCATION";
-    public static final String INTENT_ATTRACTION_LIST = "INTENT_ATTRACTION_LIST";
     public static final String INTENT_ITINERARIES = "INTENT_ITINERARIES";
     public static final String INTENT_EXTRA_ATTRACTION_LIST = "INTENT_EXTRA_ATTRACTION_LIST";
     public static final String INTENT_EXTRA_RESTAURANT_LIST = "INTENT_EXTRA_RESTAURANT_LIST";

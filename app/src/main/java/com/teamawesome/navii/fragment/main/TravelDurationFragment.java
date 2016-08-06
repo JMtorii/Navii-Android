@@ -2,6 +2,7 @@ package com.teamawesome.navii.fragment.main;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -134,8 +135,9 @@ public class TravelDurationFragment extends NaviiParallaxFragment {
     public int getDuration() {
         int days = 1;
         int difference = daysBetween(myCalendar.getTimeInMillis(), myCalendar2.getTimeInMillis());
-
-        return days + difference;
+        int result = days + difference;
+        Log.d("Duration:", Integer.toString(result));
+        return result;
     }
 
     private int daysBetween(long t1, long t2) {

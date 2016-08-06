@@ -9,12 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.teamawesome.navii.NaviiApplication;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.ItineraryRecommendActivity;
+import com.teamawesome.navii.activity.MainActivity;
 import com.teamawesome.navii.adapter.TagGridAdapter;
-import com.teamawesome.navii.util.RestClient;
 import com.teamawesome.navii.util.Constants;
+import com.teamawesome.navii.util.RestClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,8 +70,10 @@ public class ChooseTagsFragment extends NaviiParallaxFragment {
     @Override
     public void nextFunction() {
         Intent itineraryRecommendIntent = new Intent(getContext(), ItineraryRecommendActivity.class);
+        int duration = ((MainActivity) getActivity()).getDuration();
         if (mTagGridAdapter != null) {
             itineraryRecommendIntent.putStringArrayListExtra(Constants.INTENT_TAGS, new ArrayList<>(mTagGridAdapter.getActiveTags()));
+            itineraryRecommendIntent.putExtra(Constants.INTENT_DAYS, duration);
         }
         startActivity(itineraryRecommendIntent);
         getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
