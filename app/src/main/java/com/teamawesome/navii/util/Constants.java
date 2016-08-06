@@ -12,7 +12,7 @@ public class Constants {
 
     // Server
 //    public static final String SERVER_URL = "http://192.168.1.172:8080";
-    public static final String SERVER_URL = "https://naviappweb.com";
+    public static final String SERVER_URL = "http://192.168.0.20:8080";
     public static final String SERVER_URL_JUN = "http://192.168.57.1:8080";
     public static final String SERVER_URL_STEVE = "http://192.168.2.114:8080";
 
@@ -40,7 +40,15 @@ public class Constants {
     public static final String INTENT_ITINERARY_TITLE = "INTENT_ITINERARY_TITLE";
     public static final String INTENT_ATTRACTION_LOCATION = "INTENT_ATTRACTION_LOCATION";
     public static final String INTENT_ATTRACTION_LIST = "INTENT_ATTRACTION_LIST";
-
+    public static final String INTENT_ITINERARIES = "INTENT_ITINERARIES";
+    public static final String INTENT_EXTRA_ATTRACTION_LIST = "INTENT_EXTRA_ATTRACTION_LIST";
+    public static final String INTENT_EXTRA_RESTAURANT_LIST = "INTENT_EXTRA_RESTAURANT_LIST";
     // Permissions
     public static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 51808;
+
+    // Request Codes
+    public static final int GET_ATTRACTION_EXTRA_REQUEST_CODE = 111;
+    public static final int RESPONSE_GOOGLE_SEARCH = 112;
+    public static final int RESPONSE_ATTRACTION_SELECTED = 113;
+
 }

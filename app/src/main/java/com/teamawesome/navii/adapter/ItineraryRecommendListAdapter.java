@@ -14,11 +14,12 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.PackageOverviewActivity;
-import com.teamawesome.navii.server.model.Attraction;
+import com.teamawesome.navii.server.model.HeartAndSoulPackage;
 import com.teamawesome.navii.server.model.Itinerary;
 import com.teamawesome.navii.util.Constants;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
@@ -32,13 +33,13 @@ import butterknife.OnClick;
  * Created by sjung on 10/12/15.
  */
 public class ItineraryRecommendListAdapter extends RecyclerView.Adapter<ItineraryRecommendListAdapter.ItineraryRecommendViewHolder> {
-    private List<Itinerary> itineraries;
+    private HeartAndSoulPackage heartAndSoulPackage;
     private Context context;
     private Set<String> uniquePictureMap = new HashSet<>();
 
-    public ItineraryRecommendListAdapter(Context context, List<Itinerary> itineraries) {
+    public ItineraryRecommendListAdapter(Context context, HeartAndSoulPackage heartAndSoulPackage) {
         this.context = context;
-        this.itineraries = itineraries;
+        this.heartAndSoulPackage = heartAndSoulPackage;
     }
 
     @Override
@@ -50,14 +51,15 @@ public class ItineraryRecommendListAdapter extends RecyclerView.Adapter<Itinerar
 
     @Override
     public void onBindViewHolder(ItineraryRecommendViewHolder holder, int position) {
-        holder.mTextView.setText(itineraries.get(position).getDescription());
-        if (itineraries != null && itineraries.get(position).getAttractions() != null) {
-            int index = new Random().nextInt(itineraries.get(position).getAttractions().size());
-            String pictureURI = itineraries.get(position).getAttractions().get(index).getPhotoUri();
+        Itinerary itinerary = heartAndSoulPackage.getItineraries()[position][0];
+        holder.mTextView.setText(itinerary.getDescription());
+        if (itinerary!= null && itinerary.getAttractions() != null) {
+            int index = new Random().nextInt(itinerary.getAttractions().size());
+            String pictureURI = itinerary.getAttractions().get(index).getPhotoUri();
 
             while (uniquePictureMap.contains(pictureURI)) {
-                index = new Random().nextInt(itineraries.get(position).getAttractions().size());
-                pictureURI = itineraries.get(position).getAttractions().get(index).getPhotoUri();
+                index = new Random().nextInt(itinerary.getAttractions().size());
+                pictureURI = itinerary.getAttractions().get(index).getPhotoUri();
             }
 
             Picasso.with(context)
@@ -67,13 +69,13 @@ public class ItineraryRecommendListAdapter extends RecyclerView.Adapter<Itinerar
                     .into(holder.mImageView);
             uniquePictureMap.add(pictureURI);
 
-            holder.attractions = itineraries.get(position).getAttractions();
+            holder.itineraries = heartAndSoulPackage.getItineraries()[position];
         }
     }
 
     @Override
     public int getItemCount() {
-        return itineraries.size();
+        return heartAndSoulPackage.getItineraries()[0].length;
     }
 
     public class ItineraryRecommendViewHolder extends RecyclerView.ViewHolder {
@@ -83,7 +85,7 @@ public class ItineraryRecommendListAdapter extends RecyclerView.Adapter<Itinerar
         @BindView(R.id.package_image_view)
         ImageView mImageView;
 
-        private List<Attraction> attractions;
+        private Itinerary[] itineraries;
         private List<String> photoUriList;
 
         public ItineraryRecommendViewHolder(View itemView) {
@@ -94,9 +96,11 @@ public class ItineraryRecommendListAdapter extends RecyclerView.Adapter<Itinerar
 
         @OnClick(R.id.package_image_view)
         public void onClick() {
-            if (attractions != null) {
+            if (itineraries != null) {
                 Intent packageOverviewActivity = new Intent(context, PackageOverviewActivity.class);
-                packageOverviewActivity.putParcelableArrayListExtra(Constants.INTENT_ATTRACTION_LIST, new ArrayList<>(attractions));
+                packageOverviewActivity.putParcelableArrayListExtra(Constants.INTENT_ITINERARIES, new ArrayList<>(Arrays.asList(itineraries)));
+                packageOverviewActivity.putParcelableArrayListExtra(Constants.INTENT_EXTRA_ATTRACTION_LIST, new ArrayList<>(heartAndSoulPackage.getExtraAttractions()));
+                packageOverviewActivity.putParcelableArrayListExtra(Constants.INTENT_EXTRA_RESTAURANT_LIST, new ArrayList<>(heartAndSoulPackage.getExtraRestaurants()));
                 packageOverviewActivity.putExtra(Constants.INTENT_ITINERARY_TITLE, mTextView.getText().toString());
                 Activity activity = (Activity) context;
                 activity.startActivity(packageOverviewActivity);
