@@ -15,6 +15,7 @@ public class Itinerary implements Parcelable{
     private int duration;
     private int price;
     private String authorId;
+    private String nickname;
 
     public Itinerary() {}
 
@@ -81,6 +82,14 @@ public class Itinerary implements Parcelable{
 
     public String getDescription() {
         return description;
+    }
+
+    public String getNickname(){
+        return nickname;
+    }
+
+    public void setNickname(String nickname){
+        this.nickname = nickname;
     }
 
     public List<Attraction> getAttractions() {
