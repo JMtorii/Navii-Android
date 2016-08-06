@@ -62,9 +62,8 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity {
     @Override
     public void onRightButtonClick() {
         Intent nextActivity = new Intent(this, HeartAndSoulSaveActivity.class);
-        Itinerary savedItinerary = getIntent().getParcelableExtra(Constants.INTENT_ITINERARY);
-        assert savedItinerary != null;
-        nextActivity.putExtra(Constants.INTENT_ITINERARY, savedItinerary);
+        Itinerary savedItinerary = getIntent().getParcelableExtra(Constants.INTENT_TRIP_TO_SAVE);
+        nextActivity.putExtra(Constants.INTENT_TRIP_TO_SAVE, savedItinerary);
         startActivity(nextActivity);
         overridePendingTransition(R.anim.slide_in_down, R.anim.hold);
     }

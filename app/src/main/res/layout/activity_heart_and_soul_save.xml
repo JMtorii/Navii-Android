@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="60dp"
-            android:background="@drawable/login_email_button_background"
+            android:background="@color/primary"
             android:textColor="@color/chalkWhite"
             android:text="@string/accept"
             app:fontType="Medium"/>
