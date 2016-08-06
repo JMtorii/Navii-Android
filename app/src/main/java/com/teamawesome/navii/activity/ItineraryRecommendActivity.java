@@ -10,7 +10,7 @@ import android.util.Log;
 
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.adapter.ItineraryRecommendListAdapter;
-import com.teamawesome.navii.server.model.Itinerary;
+import com.teamawesome.navii.server.model.HeartAndSoulPackage;
 import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.RestClient;
 import com.teamawesome.navii.util.ToolbarConfiguration;
@@ -62,14 +62,14 @@ public class ItineraryRecommendActivity extends NaviiToolbarActivity {
             tagList = TextUtils.join(",", tags);
         }
 
-        int days = 1;
+        int days = 3;
 
-        Observable<List<Itinerary>> itineraryListCall = RestClient.itineraryAPI.getItineraries(tagList, days);
+        Observable<HeartAndSoulPackage> itineraryListCall = RestClient.itineraryAPI.getItineraries(tagList, days);
 
         final Context context = this;
         itineraryListCall.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<List<Itinerary>>() {
+                .subscribe(new Subscriber<HeartAndSoulPackage>() {
                     @Override
                     public void onCompleted() {
                         progressDialog.dismiss();
@@ -82,9 +82,9 @@ public class ItineraryRecommendActivity extends NaviiToolbarActivity {
                     }
 
                     @Override
-                    public void onNext(List<Itinerary> itineraries) {
+                    public void onNext(HeartAndSoulPackage heartAndSoulPackage) {
                         Log.d("tags", "I made it, I made it");
-                        recommendListAdapter = new ItineraryRecommendListAdapter(context, itineraries);
+                        recommendListAdapter = new ItineraryRecommendListAdapter(context, heartAndSoulPackage);
                         itineraryRecyclerView.setAdapter(recommendListAdapter);
 
                         RecyclerView.LayoutManager gridLayoutManager = new GridLayoutManager(context, 1, GridLayoutManager.VERTICAL, false);

@@ -1,11 +1,14 @@
 package com.teamawesome.navii.server.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 /**
  * Created by JMtorii on 2015-10-21.
  */
-public class Itinerary {
+public class Itinerary implements Parcelable{
     private int itineraryId;
     private String description;
     private List<Attraction> attractions;
@@ -23,6 +26,42 @@ public class Itinerary {
         this.authorId = builder.authorId;
         this.attractions = builder.attractions;
     }
+
+    protected Itinerary(Parcel in) {
+        this.itineraryId = in.readInt();
+        this.price = in.readInt();
+        this.duration = in.readInt();
+        this.description = in.readString();
+        this.authorId = in.readString();
+        this.attractions = in.createTypedArrayList(Attraction.CREATOR);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int i) {
+        dest.writeInt(itineraryId);
+        dest.writeInt(price);
+        dest.writeInt(duration);
+        dest.writeString(description);
+        dest.writeString(authorId);
+        dest.writeTypedList(attractions);
+    }
+
+    public static final Creator<Itinerary> CREATOR = new Creator<Itinerary>() {
+        @Override
+        public Itinerary createFromParcel(Parcel in) {
+            return new Itinerary(in);
+        }
+
+        @Override
+        public Itinerary[] newArray(int size) {
+            return new Itinerary[size];
+        }
+    };
 
     public int getItineraryId() {
         return itineraryId;
