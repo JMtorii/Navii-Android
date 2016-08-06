@@ -23,9 +23,7 @@ import butterknife.OnClick;
  */
 public class SavedTripsAdapter extends RecyclerView.Adapter<SavedTripsAdapter.TripViewHolder> {
 
-    List<Itinerary> itineraries;
-    public SavedTripsAdapter(List<Itinerary> savedItineraries){
-        this.itineraries = savedItineraries;
+    public SavedTripsAdapter(){
     }
 
     @Override
@@ -38,16 +36,13 @@ public class SavedTripsAdapter extends RecyclerView.Adapter<SavedTripsAdapter.Tr
 
     @Override
     public void onBindViewHolder(TripViewHolder holder, int position) {
-        System.out.println(position);
-        holder.itinerary = this.itineraries.get(position);
-        System.out.println(holder.itinerary);
-        holder.tripName.setText(holder.itinerary.getNickname());
+
     }
 
 
     @Override
     public int getItemCount() {
-        return itineraries.size();
+        return 0;
     }
 
     public static class TripViewHolder extends RecyclerView.ViewHolder{

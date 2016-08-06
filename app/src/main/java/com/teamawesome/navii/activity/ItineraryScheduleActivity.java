@@ -21,6 +21,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.fragment.main.ItineraryScheduleMapFragment;
 import com.teamawesome.navii.fragment.main.ItineraryScheduleViewFragment;
+import com.teamawesome.navii.server.model.Attraction;
 import com.teamawesome.navii.server.model.Itinerary;
 import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.ToolbarConfiguration;
@@ -47,6 +48,10 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity {
 
     private Adapter mAdapter;
 
+    private List<Itinerary> itineraries;
+    private List<Attraction> attractions;
+    private List<Attraction> restaurants;
+
     private static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
 
     @Override
@@ -62,8 +67,9 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity {
     @Override
     public void onRightButtonClick() {
         Intent nextActivity = new Intent(this, HeartAndSoulSaveActivity.class);
-        Itinerary savedItinerary = getIntent().getParcelableExtra(Constants.INTENT_TRIP_TO_SAVE);
-        nextActivity.putExtra(Constants.INTENT_TRIP_TO_SAVE, savedItinerary);
+        nextActivity.putParcelableArrayListExtra(Constants.INTENT_ITINERARIES,(ArrayList<Itinerary>) itineraries);
+        nextActivity.putParcelableArrayListExtra(Constants.INTENT_EXTRA_ATTRACTION_LIST,(ArrayList<Attraction>) attractions);
+        nextActivity.putParcelableArrayListExtra(Constants.INTENT_EXTRA_RESTAURANT_LIST, (ArrayList<Attraction>) restaurants);
         startActivity(nextActivity);
         overridePendingTransition(R.anim.slide_in_down, R.anim.hold);
     }
@@ -77,6 +83,10 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity {
 
         setSupportActionBar(mToolbar);
         setupViewPager(mViewPager);
+
+        itineraries = getIntent().getParcelableArrayListExtra(Constants.INTENT_ITINERARIES);
+        attractions = getIntent().getParcelableArrayListExtra(Constants.INTENT_EXTRA_ATTRACTION_LIST);
+        restaurants = getIntent().getParcelableArrayListExtra(Constants.INTENT_EXTRA_RESTAURANT_LIST);
 
         mTabLayout.setVisibility(View.VISIBLE);
         mTabLayout.setupWithViewPager(mViewPager);

@@ -10,6 +10,8 @@ public class HeartAndSoulPackage {
     private List<Attraction> extraRestaurants;
     private List<Attraction> extraAttractions;
 
+    public String packageNickname;
+
     public HeartAndSoulPackage() {
     }
 

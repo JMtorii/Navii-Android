@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.teamawesome.navii.R;
+import com.teamawesome.navii.activity.ItineraryScheduleActivity;
 import com.teamawesome.navii.activity.PackageOverviewActivity;
 import com.teamawesome.navii.server.model.HeartAndSoulPackage;
 import com.teamawesome.navii.server.model.Itinerary;
@@ -97,7 +98,7 @@ public class ItineraryRecommendListAdapter extends RecyclerView.Adapter<Itinerar
         @OnClick(R.id.package_image_view)
         public void onClick() {
             if (itineraries != null) {
-                Intent packageOverviewActivity = new Intent(context, PackageOverviewActivity.class);
+                Intent packageOverviewActivity = new Intent(context, ItineraryScheduleActivity.class);
                 packageOverviewActivity.putParcelableArrayListExtra(Constants.INTENT_ITINERARIES, new ArrayList<>(Arrays.asList(itineraries)));
                 packageOverviewActivity.putParcelableArrayListExtra(Constants.INTENT_EXTRA_ATTRACTION_LIST, new ArrayList<>(heartAndSoulPackage.getExtraAttractions()));
                 packageOverviewActivity.putParcelableArrayListExtra(Constants.INTENT_EXTRA_RESTAURANT_LIST, new ArrayList<>(heartAndSoulPackage.getExtraRestaurants()));
