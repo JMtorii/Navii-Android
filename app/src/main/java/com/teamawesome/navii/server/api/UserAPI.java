@@ -35,7 +35,7 @@ public interface UserAPI {
      */
     @Headers({"Content-Type: application/json"})
     @POST("/user")
-    Call<Void> createUser(@Body User user);
+    Observable<Void> createUser(@Body User user);
 
     /**
      * Changes the user's password after validating

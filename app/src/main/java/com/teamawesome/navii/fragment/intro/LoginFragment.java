@@ -137,48 +137,48 @@ public class LoginFragment extends Fragment {
 
         Observable<ResponseBody> call = RestClient.loginAPI.attemptLogin(user);
         call.subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<ResponseBody>() {
-                    @Override
-                    public void onCompleted() {
-                        // Nothing to do here
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(new Subscriber<ResponseBody>() {
+                @Override
+                public void onCompleted() {
+                    // Nothing to do here
+                }
+
+                @Override
+                public void onError(Throwable throwable) {
+                    throwable.printStackTrace();
+
+                    String errorMessage;
+                    if (throwable instanceof HttpException) {
+                        errorMessage = getResources().getString(R.string.error_login_validation);
+                    } else if (throwable instanceof IOException) {
+                        errorMessage = getResources().getString(R.string.error_network);
+                    } else {
+                        errorMessage = getResources().getString(R.string.error_unknown);
                     }
 
-                    @Override
-                    public void onError(Throwable throwable) {
-                        throwable.printStackTrace();
+                    new AlertDialog.Builder(new ContextThemeWrapper(getContext(), R.style.DialogTheme))
+                            .setTitle(getResources().getString(R.string.error_dialog_title))
+                            .setMessage(errorMessage)
+                            .setPositiveButton(getResources().getString(R.string.error_okay), new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // Nothing to do here
+                                }
+                            })
+                            .show();
+                }
 
-                        String errorMessage;
-                        if (throwable instanceof HttpException) {
-                            errorMessage = getResources().getString(R.string.error_login_validation);
-                        } else if (throwable instanceof IOException) {
-                            errorMessage = getResources().getString(R.string.error_login_network);
-                        } else {
-                            errorMessage = getResources().getString(R.string.error_unknown);
-                        }
-
-                        new AlertDialog.Builder(new ContextThemeWrapper(getContext(), R.style.DialogTheme))
-                                .setTitle(getResources().getString(R.string.error_dialog_title))
-                                .setMessage(errorMessage)
-                                .setPositiveButton(getResources().getString(R.string.error_okay), new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        // continue
-                                    }
-                                })
-                                .show();
+                @Override
+                public void onNext(ResponseBody responseBody) {
+                    try {
+                        String token = responseBody.string();
+                        Log.i("tok", token);
+                        loginUserComplete(email, token);
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
-
-                    @Override
-                    public void onNext(ResponseBody responseBody) {
-                        try {
-                            String token = responseBody.string();
-                            Log.i("tok", token);
-                            loginUserComplete(email, token);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
+                }
+            });
     }
 
 //    private void setupFacebookLogin() {
