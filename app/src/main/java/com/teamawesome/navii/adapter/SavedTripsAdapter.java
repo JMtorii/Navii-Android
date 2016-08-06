@@ -41,7 +41,7 @@ public class SavedTripsAdapter extends RecyclerView.Adapter<SavedTripsAdapter.Tr
         System.out.println(position);
         holder.itinerary = this.itineraries.get(position);
         System.out.println(holder.itinerary);
-        holder.tripName.setText(holder.itinerary.getItineraryNickname());
+        //holder.tripName.setText(holder.itinerary.getItineraryNickname());
     }
 
 
