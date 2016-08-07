@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.teamawesome.navii.R;
-import com.teamawesome.navii.activity.debug.NaviBaseActivity;
 import com.teamawesome.navii.util.ToolbarConfiguration;
 import com.teamawesome.navii.views.MainLatoButton;
 import com.teamawesome.navii.views.MainLatoTextView;

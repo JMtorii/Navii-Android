@@ -1,4 +1,4 @@
-package com.teamawesome.navii.activity.debug;
+package com.teamawesome.navii.activity;
 
 import android.support.v7.app.AppCompatActivity;
 
@@ -11,7 +11,6 @@ import com.teamawesome.navii.util.WifiCheck;
  * Created by Ian on 2016-07-31.
  */
 public class NaviBaseActivity extends AppCompatActivity {
-
     @Override
     public void onResume() {
         super.onResume();
@@ -20,6 +19,4 @@ public class NaviBaseActivity extends AppCompatActivity {
             new NaviWifiDialogFragment().show(this.getSupportFragmentManager(), Constants.LOADING_WHEEL_TAG);
         }
     }
-
-
 }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -38,7 +39,7 @@ import butterknife.OnTouch;
 /**
  * Created by sjung on 22/07/16.
  */
-public class ItineraryScheduleViewFragment extends NaviiFragment {
+public class ItineraryScheduleViewFragment extends Fragment {
 
     @BindView(R.id.itinerary_recycler_view)
     RecyclerView mItineraryRecyclerView;

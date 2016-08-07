@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -108,6 +109,12 @@ public class LoginFragment extends Fragment {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
@@ -148,44 +155,44 @@ public class LoginFragment extends Fragment {
 
         Observable<VoyagerResponse> call = RestClient.loginAPI.attemptLogin(user);
         call.subscribeOn(Schedulers.newThread())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Subscriber<VoyagerResponse>() {
-                @Override
-                public void onCompleted() {
-                    // Nothing to do here
-                }
-
-                @Override
-                public void onError(Throwable throwable) {
-                    throwable.printStackTrace();
-
-                    String errorMessage;
-                    if (throwable instanceof HttpException) {
-                        errorMessage = getResources().getString(R.string.error_login_validation);
-                    } else if (throwable instanceof IOException) {
-                        errorMessage = getResources().getString(R.string.error_network);
-                    } else {
-                        errorMessage = getResources().getString(R.string.error_unknown);
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<VoyagerResponse>() {
+                    @Override
+                    public void onCompleted() {
+                        // Nothing to do here
                     }
 
-                    new AlertDialog.Builder(new ContextThemeWrapper(getContext(), R.style.DialogTheme))
-                            .setTitle(getResources().getString(R.string.error_dialog_title))
-                            .setMessage(errorMessage)
-                            .setPositiveButton(getResources().getString(R.string.error_okay), new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    // Nothing to do here
-                                }
-                            })
-                            .show();
-                }
+                    @Override
+                    public void onError(Throwable throwable) {
+                        throwable.printStackTrace();
 
-                @Override
-                public void onNext(VoyagerResponse response) {
+                        String errorMessage;
+                        if (throwable instanceof HttpException) {
+                            errorMessage = getResources().getString(R.string.error_login_validation);
+                        } else if (throwable instanceof IOException) {
+                            errorMessage = getResources().getString(R.string.error_network);
+                        } else {
+                            errorMessage = getResources().getString(R.string.error_unknown);
+                        }
+
+                        new AlertDialog.Builder(new ContextThemeWrapper(getContext(), R.style.DialogTheme))
+                                .setTitle(getResources().getString(R.string.error_dialog_title))
+                                .setMessage(errorMessage)
+                                .setPositiveButton(getResources().getString(R.string.error_okay), new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // Nothing to do here
+                                    }
+                                })
+                                .show();
+                    }
+
+                    @Override
+                    public void onNext(VoyagerResponse response) {
 //                        String token = responseBody.string();
 //                        Log.i("tok", token);
                         loginUserComplete(response.getUser().getUsername(), response.getUser().getEmail(), response.getToken());
-                }
-            });
+                    }
+                });
     }
 
     private void setupFacebookLogin() {
@@ -214,63 +221,63 @@ public class LoginFragment extends Fragment {
     private void attemptFacebookLogin(final String facebookToken) {
         Observable<ResponseBody> call = RestClient.loginAPI.attemptFacebookLogin(facebookToken);
         call.subscribeOn(Schedulers.newThread())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Subscriber<ResponseBody>() {
-                @Override
-                public void onCompleted() {
-                    // Nothing to do here
-                }
-
-                @Override
-                public void onError(Throwable throwable) {
-                    throwable.printStackTrace();
-                    new AlertDialog.Builder(new ContextThemeWrapper(getContext(), R.style.DialogTheme))
-                            .setTitle(getResources().getString(R.string.error_dialog_title))
-                            .setMessage("Server down, try again later...")
-                            .setPositiveButton(getResources().getString(R.string.error_okay), new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    // Nothing to do here
-                                }
-                            })
-                            .show();
-                    if (AccessToken.getCurrentAccessToken() != null) {
-                        new GraphRequest(AccessToken.getCurrentAccessToken(), "/me/permissions/", null, HttpMethod.DELETE, new GraphRequest
-                                .Callback() {
-
-                            @Override
-                            public void onCompleted(GraphResponse graphResponse) {
-                                LoginManager.getInstance().logOut();
-                            }
-                        }).executeAsync();
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<ResponseBody>() {
+                    @Override
+                    public void onCompleted() {
+                        // Nothing to do here
                     }
-                }
 
-                @Override
-                public void onNext(ResponseBody response) {
-                    try {
-                        final String token = response.string();
-                        // TODO: currently uses user information obtained from Facebook, may want to obtain user information from our own server
-                        GraphRequest request = GraphRequest.newMeRequest(
-                                AccessToken.getCurrentAccessToken(),
-                                new GraphRequest.GraphJSONObjectCallback() {
-                                    @Override
-                                    public void onCompleted(JSONObject object, GraphResponse response) {
-                                        try {
-                                            loginUserComplete(object.getString("name"), object.getString("email"), token);
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
+                    @Override
+                    public void onError(Throwable throwable) {
+                        throwable.printStackTrace();
+                        new AlertDialog.Builder(new ContextThemeWrapper(getContext(), R.style.DialogTheme))
+                                .setTitle(getResources().getString(R.string.error_dialog_title))
+                                .setMessage("Server down, try again later...")
+                                .setPositiveButton(getResources().getString(R.string.error_okay), new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // Nothing to do here
                                     }
-                                });
-                        Bundle parameters = new Bundle();
-                        parameters.putString("fields", "name,email");
-                        request.setParameters(parameters);
-                        request.executeAsync();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                                })
+                                .show();
+                        if (AccessToken.getCurrentAccessToken() != null) {
+                            new GraphRequest(AccessToken.getCurrentAccessToken(), "/me/permissions/", null, HttpMethod.DELETE, new GraphRequest
+                                    .Callback() {
+
+                                @Override
+                                public void onCompleted(GraphResponse graphResponse) {
+                                    LoginManager.getInstance().logOut();
+                                }
+                            }).executeAsync();
+                        }
                     }
-                }
-            });
+
+                    @Override
+                    public void onNext(ResponseBody response) {
+                        try {
+                            final String token = response.string();
+                            // TODO: currently uses user information obtained from Facebook, may want to obtain user information from our own server
+                            GraphRequest request = GraphRequest.newMeRequest(
+                                    AccessToken.getCurrentAccessToken(),
+                                    new GraphRequest.GraphJSONObjectCallback() {
+                                        @Override
+                                        public void onCompleted(JSONObject object, GraphResponse response) {
+                                            try {
+                                                loginUserComplete(object.getString("name"), object.getString("email"), token);
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    });
+                            Bundle parameters = new Bundle();
+                            parameters.putString("fields", "name,email");
+                            request.setParameters(parameters);
+                            request.executeAsync();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
     }
 
     /**

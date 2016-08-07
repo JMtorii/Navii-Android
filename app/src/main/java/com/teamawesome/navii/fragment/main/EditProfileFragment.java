@@ -1,7 +1,9 @@
 package com.teamawesome.navii.fragment.main;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -24,10 +26,11 @@ import retrofit.Retrofit;
 /**
  * Created by IK on 25/12/2015.
  */
-public class EditProfileFragment extends NaviiFragment {
+public class EditProfileFragment extends Fragment {
 
     private EditText newEmail;
     private Button commitEmail;
+    private Activity parentActivity;
 
     public static EditProfileFragment newInstance(){
         EditProfileFragment fragment = new EditProfileFragment();
@@ -61,7 +64,7 @@ public class EditProfileFragment extends NaviiFragment {
                         public void onResponse(Response<ResponseBody> response, Retrofit retrofit) {
                             if (response.code() == 200) {
                                 NaviiPreferenceData.setLoggedInUserEmail(email.toString());
-                                parentActivity.getSupportFragmentManager().popBackStackImmediate();
+                                parentActivity.getFragmentManager().popBackStackImmediate();
                             } else {
                                 Log.i("failed", String.valueOf(response.code()));
                             }
