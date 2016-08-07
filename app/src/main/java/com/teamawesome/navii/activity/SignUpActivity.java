@@ -173,10 +173,15 @@ public class SignUpActivity extends NaviiToolbarActivity {
                 @Override
                 public void onNext(VoyagerResponse response) {
                     NaviiPreferenceData.createLoginSession(response.getUser().getUsername(), response.getUser().getEmail(), response.getToken());
-                    Intent intent = new Intent(getApplicationContext(), ThankYouActivity.class);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    switchActivity();
                 }
             });
+    }
+
+    private void switchActivity(){
+        Intent nextActivity = new Intent(this, PreferencesActivity.class);
+        nextActivity.putExtra("from_signup", true);
+        startActivity(nextActivity);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 }

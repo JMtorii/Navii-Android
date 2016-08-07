@@ -12,8 +12,11 @@ import android.widget.TextView;
 
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.adapter.PreferencesGridAdapter;
+import com.teamawesome.navii.server.model.Preference;
 import com.teamawesome.navii.server.model.PreferencesQuestion;
 import com.teamawesome.navii.util.RestClient;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -149,5 +152,8 @@ public class PreferencesFragment extends Fragment {
 //        });
 
         return view;
+    }
+    public List<Preference> getSelectedPreferences() {
+        return mAdapter.getSelectedPreferences();
     }
 }
