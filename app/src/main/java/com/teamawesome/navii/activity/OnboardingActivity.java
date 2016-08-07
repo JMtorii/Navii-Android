@@ -3,6 +3,7 @@ package com.teamawesome.navii.activity;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.inputmethod.InputMethodManager;
 
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.adapter.OnboardingPagerAdapter;
@@ -46,6 +47,23 @@ public class OnboardingActivity extends AppCompatActivity {
         }
 
         mViewPager.setCurrentItem(fragment);
+
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE))
+                        .hideSoftInputFromWindow(mViewPager.getWindowToken(), 0);
+            }
+
+            @Override
+            public void onPageScrolled(int position, float offset, int offsetPixels) {
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
+
         mCircleIndicator.setViewPager(mViewPager);
         mPageAdapter.registerDataSetObserver(mCircleIndicator.getDataSetObserver());
     }
