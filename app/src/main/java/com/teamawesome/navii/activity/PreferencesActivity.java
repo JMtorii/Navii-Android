@@ -31,26 +31,6 @@ public class PreferencesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preference);
         ButterKnife.bind(this);
-//        Observable<List<List<Itinerary>>> saveCall = RestClient.itineraryAPI.getSavedItineraries();
-//        saveCall.subscribeOn(Schedulers.newThread())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Subscriber<List<List<Itinerary>>>() {
-//
-//                    @Override
-//                    public void onCompleted() {
-//
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onNext(List<List<Itinerary>> lists) {
-//
-//                    }
-//                });
         setupViewPager(mViewPager);
     }
 
