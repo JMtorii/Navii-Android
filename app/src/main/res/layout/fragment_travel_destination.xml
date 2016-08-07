@@ -17,6 +17,7 @@
         android:text="@string/destination_header_text"
         android:textColor="@android:color/white"
         android:textSize="50sp"
+        app:fontType="Light"
         />
 
     <com.teamawesome.navii.views.MainLatoEditText
@@ -31,6 +32,7 @@
         android:text="@string/destination_placeholder_text"
         android:textColor="@android:color/white"
         android:textSize="50sp"
+        android:backgroundTint="@color/primary"
         app:fontType="Bold"
         />
 

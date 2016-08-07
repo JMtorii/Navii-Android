@@ -9,7 +9,6 @@ import retrofit.http.Body;
 import retrofit.http.DELETE;
 import retrofit.http.Headers;
 import retrofit.http.POST;
-import retrofit.http.Path;
 
 /**
  * Created by sjung on 16/11/15.
@@ -29,10 +28,9 @@ public interface UserPreferenceAPI {
     /**
      * Deletes a specific type of preferences
      *
-     * @param preferenceType type of preference to delete for user
      * @return
      */
     @Headers({"Content-Type: application/json", "Cache-Control: no-cache"})
-    @DELETE("/userpreference/delete/{preferenceType}")
-    Call<Void> deleteAllUserPreference(@Path("preferenceType") int preferenceType);
+    @DELETE("/userpreference/delete")
+    Call<Void> deleteAllUserPreference();
 }

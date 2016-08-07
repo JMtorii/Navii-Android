@@ -32,7 +32,6 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.squareup.okhttp.ResponseBody;
 import com.teamawesome.navii.R;
-import com.teamawesome.navii.activity.PreferencesActivity;
 import com.teamawesome.navii.activity.SignUpActivity;
 import com.teamawesome.navii.server.model.User;
 import com.teamawesome.navii.server.model.VoyagerResponse;
@@ -305,8 +304,6 @@ public class LoginFragment extends Fragment {
      */
     private void loginUserComplete(String fullName, String email, String token) {
         NaviiPreferenceData.createLoginSession(fullName, email, token);
-        Intent nextActivity = new Intent(getActivity(), PreferencesActivity.class);
-        startActivity(nextActivity);
         getActivity().finish();
     }
 }
