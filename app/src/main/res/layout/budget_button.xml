@@ -10,6 +10,6 @@
         android:layout_width="100dp"
         android:layout_height="128dp"
         android:textSize="30sp"
-        android:textColor="@color/secondary"
+        android:textColor="@color/grey_primary"
         android:id="@+id/budget_button"/>
 </RelativeLayout>
