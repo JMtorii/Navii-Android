@@ -92,8 +92,8 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
         } else {
             Picasso.with(mContext)
                     .load(current.getPhotoUri())
-                    .centerInside()
                     .fit()
+                    .centerCrop()
                     .into(packageItemViewHolder.imageView);
         }
 

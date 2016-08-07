@@ -53,19 +53,19 @@ public class ItineraryRecommendListAdapter extends RecyclerView.Adapter<Itinerar
     public void onBindViewHolder(ItineraryRecommendViewHolder holder, int position) {
         Itinerary itinerary = heartAndSoulPackage.getItineraries()[position][0];
         holder.mTextView.setText(itinerary.getDescription());
-        if (itinerary!= null && itinerary.getAttractions() != null) {
+        if (itinerary != null && itinerary.getAttractions() != null) {
             int index = new Random().nextInt(itinerary.getAttractions().size());
             String pictureURI = itinerary.getAttractions().get(index).getPhotoUri();
 
-            while (uniquePictureMap.contains(pictureURI)) {
+            while (uniquePictureMap.contains(pictureURI) && pictureURI.equals("N/A")) {
                 index = new Random().nextInt(itinerary.getAttractions().size());
                 pictureURI = itinerary.getAttractions().get(index).getPhotoUri();
             }
 
             Picasso.with(context)
                     .load(pictureURI)
-                    .centerCrop()
                     .fit()
+                    .centerCrop()
                     .into(holder.mImageView);
             uniquePictureMap.add(pictureURI);
 
