@@ -75,6 +75,8 @@
 
     <!-- Profile -->
     <string name="profile_title">Your Profile</string>
+    <string name="profile_email">E-mail Address</string>
+    <string name="profile_facebook">A Facebook Account?</string>
 
     <!-- EditProfile Fragment Strings-->
     <string name="new_user">new user</string>

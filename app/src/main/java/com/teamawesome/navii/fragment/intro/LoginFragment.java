@@ -34,6 +34,7 @@ import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.MainActivity;
 import com.teamawesome.navii.activity.SignUpActivity;
 import com.teamawesome.navii.server.model.User;
+import com.teamawesome.navii.server.model.VoyagerResponse;
 import com.teamawesome.navii.util.HashingAlgorithm;
 import com.teamawesome.navii.util.NaviiPreferenceData;
 import com.teamawesome.navii.util.RestClient;
@@ -149,10 +150,10 @@ public class LoginFragment extends Fragment {
     private void attemptLogin(final String email, final String hashedPassword) {
         User user = new User.Builder().email(email).password(hashedPassword).build();
 
-        Observable<ResponseBody> call = RestClient.loginAPI.attemptLogin(user);
+        Observable<VoyagerResponse> call = RestClient.loginAPI.attemptLogin(user);
         call.subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Subscriber<ResponseBody>() {
+            .subscribe(new Subscriber<VoyagerResponse>() {
                 @Override
                 public void onCompleted() {
                     // Nothing to do here
@@ -183,14 +184,10 @@ public class LoginFragment extends Fragment {
                 }
 
                 @Override
-                public void onNext(ResponseBody responseBody) {
-                    try {
-                        String token = responseBody.string();
-                        Log.i("tok", token);
-                        loginUserComplete(email, token);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                public void onNext(VoyagerResponse response) {
+//                        String token = responseBody.string();
+//                        Log.i("tok", token);
+                        loginUserComplete(response.getUser().getUsername(), response.getUser().getEmail(), response.getToken());
                 }
             });
     }
@@ -231,11 +228,9 @@ public class LoginFragment extends Fragment {
                                 AccessToken.getCurrentAccessToken(),
                                 new GraphRequest.GraphJSONObjectCallback() {
                                     @Override
-                                    public void onCompleted(
-                                            JSONObject object,
-                                            GraphResponse response) {
+                                    public void onCompleted(JSONObject object, GraphResponse response) {
                                         try {
-                                            loginUserComplete(object.getString("email"), token);
+                                            loginUserComplete(object.getString("name"), object.getString("email"), token);
                                         } catch (JSONException e) {
                                             e.printStackTrace();
                                         }
@@ -284,8 +279,8 @@ public class LoginFragment extends Fragment {
     /**
      * On successful login, start a new session and begin the main activity
      */
-    private void loginUserComplete(String email, String token) {
-        NaviiPreferenceData.createLoginSession(email, token);
+    private void loginUserComplete(String fullName, String email, String token) {
+        NaviiPreferenceData.createLoginSession(fullName, email, token);
         Intent nextActivity = new Intent(getActivity(), MainActivity.class);
         startActivity(nextActivity);
         getActivity().finish();

@@ -15,6 +15,7 @@ public class NaviiPreferenceData {
 
     private static final String PREF_IP_ADDRESS = "ip_address";
     private static final String PREF_IS_LOGGED_IN = "is_logged_in";
+    private static final String PREF_NAME = "name";
     private static final String PREF_LOGGED_IN_USER_EMAIL = "logged_in_email";
     private static final String PREF_IS_FACEBOOK = "is_facebook";
     private static final String PREF_KEY_TOKEN = "token";
@@ -29,10 +30,10 @@ public class NaviiPreferenceData {
         return getSharedPreferences().getString(PREF_IP_ADDRESS, "");
     }
 
-    public static void createLoginSession(String email, String token) {
+    public static void createLoginSession(String fullName, String email, String token) {
         Editor editor = getSharedPreferences().edit();
         editor.putBoolean(PREF_IS_LOGGED_IN, true);
-        //editor.putString(KEY_NAME, name);
+        editor.putString(PREF_NAME, fullName);
         editor.putString(PREF_LOGGED_IN_USER_EMAIL, email);
         editor.putString(PREF_KEY_TOKEN, token);
         editor.apply();
@@ -51,6 +52,10 @@ public class NaviiPreferenceData {
         Editor editor = getSharedPreferences().edit();
         editor.putString(PREF_LOGGED_IN_USER_EMAIL, email);
         editor.apply();
+    }
+
+    public static String getFullName() {
+        return getSharedPreferences().getString(PREF_NAME, "");
     }
 
     public static String getLoggedInUserEmail() {
