@@ -3,6 +3,7 @@ package com.teamawesome.navii.activity;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import com.teamawesome.navii.R;
@@ -53,6 +54,12 @@ public class OnboardingActivity extends AppCompatActivity {
             public void onPageSelected(int position) {
                 ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE))
                         .hideSoftInputFromWindow(mViewPager.getWindowToken(), 0);
+
+                if (position == 4) {
+                    mCircleIndicator.setVisibility(View.INVISIBLE);
+                } else {
+                    mCircleIndicator.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
