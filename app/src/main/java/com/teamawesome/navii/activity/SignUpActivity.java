@@ -96,6 +96,12 @@ public class SignUpActivity extends NaviiToolbarActivity {
     @OnClick(R.id.sign_up_button)
     public void signUpButtonPressed() {
         Log.i(this.getClass().getName(), "Sign up button pressed");
+
+        nameInputLayout.setErrorEnabled(false);
+        emailInputLayout.setErrorEnabled(false);
+        passwordInputLayout.setErrorEnabled(false);
+        passwordAgainInputLayout.setErrorEnabled(false);
+
         String username = nameEditText.getText().toString().trim();
         nameEditText.setText(username);
         String email = emailEditText.getText().toString().trim();
@@ -104,8 +110,9 @@ public class SignUpActivity extends NaviiToolbarActivity {
         String passwordAgain = passwordAgainEditText.getText().toString();
 
         if (username.isEmpty()) {
-            nameEditText.requestFocus();
-            nameEditText.setError("You must provide a login name.");
+            nameInputLayout.requestFocus();
+            nameInputLayout.setErrorEnabled(true);
+            nameInputLayout.setError("You must provide a login name.");
             return;
         }
 
@@ -113,20 +120,23 @@ public class SignUpActivity extends NaviiToolbarActivity {
         Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(email);
         if (!matcher.matches()) {
-            emailEditText.requestFocus();
-            emailEditText.setError("Not a valid email.");
+            emailInputLayout.requestFocus();
+            emailInputLayout.setErrorEnabled(true);
+            emailInputLayout.setError("Not a valid email.");
             return;
         }
 
         if (password.length() < 5) {
-            passwordEditText.requestFocus();
+            passwordInputLayout.requestFocus();
+            passwordInputLayout.setErrorEnabled(true);
             passwordEditText.setError("Password not strong enough.");
             return;
         }
 
         if (passwordAgain.compareTo(password) != 0) {
-            passwordAgainEditText.requestFocus();
-            passwordAgainEditText.setError("Passwords do not match.");
+            passwordAgainInputLayout.requestFocus();
+            passwordAgainInputLayout.setErrorEnabled(true);
+            passwordAgainInputLayout.setError("Passwords do not match.");
             return;
         }
 

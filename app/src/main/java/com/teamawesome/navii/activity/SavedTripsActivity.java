@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.ArraySet;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.adapter.SavedTripsAdapter;
@@ -39,6 +40,10 @@ public class SavedTripsActivity extends NaviiNavigationalActivity {
 
     private ProgressDialog progressDialog;
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 
     @Override
     protected NavigationConfiguration getNavConfig() {
@@ -60,13 +65,13 @@ public class SavedTripsActivity extends NaviiNavigationalActivity {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e("Error", e.getMessage());
+                        Toast.makeText(SavedTripsActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                         progressDialog.dismiss();
                     }
 
                     @Override
                     public void onNext(List<List<Itinerary>> lists) {
-                        SavedTripsAdapter savedTripsAdapter = new SavedTripsAdapter(lists);
+                        SavedTripsAdapter savedTripsAdapter = new SavedTripsAdapter(lists, SavedTripsActivity.this);
                         plannedTrips.setAdapter(savedTripsAdapter);
                         plannedTrips.setLayoutManager(new LinearLayoutManager(SavedTripsActivity.this));
                     }
