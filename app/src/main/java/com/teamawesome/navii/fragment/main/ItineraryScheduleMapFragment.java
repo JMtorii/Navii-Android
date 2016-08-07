@@ -124,6 +124,7 @@ public class ItineraryScheduleMapFragment extends Fragment implements OnMapReady
     }
 
     public void setMapView(int position) {
+        mMap.clear();
         List<Attraction> attractions = itineraries.get(position).getAttractions();
         if (attractions == null) {
             attractions = new ArrayList<>();

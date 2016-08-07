@@ -6,22 +6,20 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.transition.Fade;
 import android.transition.Slide;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
-import com.google.android.gms.common.GooglePlayServicesRepairableException;
-import com.google.android.gms.location.places.AutocompleteFilter;
-import com.google.android.gms.location.places.ui.PlaceAutocomplete;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.fragment.main.ItineraryScheduleMapFragment;
 import com.teamawesome.navii.fragment.main.ItineraryScheduleViewFragment;
 import com.teamawesome.navii.server.model.Attraction;
+
 import com.teamawesome.navii.server.model.Itinerary;
 import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.ToolbarConfiguration;
@@ -31,6 +29,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import butterknife.OnItemSelected;
 
 /**
  * Created by sjung on 19/06/16.
@@ -46,13 +45,14 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity {
     @BindView(R.id.tab_layout)
     TabLayout mTabLayout;
 
-    private Adapter mAdapter;
+    @BindView(R.id.itinerary_day_spinner)
+    Spinner spinner;
 
+    private Adapter mAdapter;
+    private int days;
     private List<Itinerary> itineraries;
     private List<Attraction> attractions;
     private List<Attraction> restaurants;
-
-    private static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
 
     @Override
     public ToolbarConfiguration getToolbarConfiguration() {
@@ -67,6 +67,7 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity {
     @Override
     public void onRightButtonClick() {
         Intent nextActivity = new Intent(this, HeartAndSoulSaveActivity.class);
+
         nextActivity.putParcelableArrayListExtra(Constants.INTENT_ITINERARIES,(ArrayList<Itinerary>) itineraries);
         nextActivity.putParcelableArrayListExtra(Constants.INTENT_EXTRA_ATTRACTION_LIST,(ArrayList<Attraction>) attractions);
         nextActivity.putParcelableArrayListExtra(Constants.INTENT_EXTRA_RESTAURANT_LIST, (ArrayList<Attraction>) restaurants);
@@ -79,10 +80,12 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity {
         super.onCreate(savedInstanceState);
 
         String title = getIntent().getStringExtra(Constants.INTENT_ITINERARY_TITLE);
+        days = getIntent().getIntExtra(Constants.INTENT_DAYS, 1);
         titleText.setText(title);
 
         setSupportActionBar(mToolbar);
         setupViewPager(mViewPager);
+        setupSpinner();
 
         itineraries = getIntent().getParcelableArrayListExtra(Constants.INTENT_ITINERARIES);
         attractions = getIntent().getParcelableArrayListExtra(Constants.INTENT_EXTRA_ATTRACTION_LIST);
@@ -95,36 +98,19 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity {
 
     @OnClick(R.id.eat_menu_item)
     public void onEatMenuClick() {
-        Toast.makeText(this, "onEatMenu", Toast.LENGTH_SHORT).show();
+        List<Attraction> extraRestaurants = getIntent().getParcelableArrayListExtra(Constants.INTENT_EXTRA_RESTAURANT_LIST);
+
+        Intent intent = new Intent(this, PrefetchAttractionsActivity.class);
+        intent.putParcelableArrayListExtra(Constants.INTENT_EXTRA_RESTAURANT_LIST, new ArrayList<>(extraRestaurants));
+        startActivityForResult(intent, Constants.GET_ATTRACTION_EXTRA_REQUEST_CODE);
     }
 
     @OnClick(R.id.see_menu_item)
     public void onSeeMenuClick() {
-        Toast.makeText(this, "onSeeMenu", Toast.LENGTH_SHORT).show();
-    }
-//    @OnClick(R.id.itinerary_schedule_fab)
-    public void onFabClick() {
-        try {
-            LatLng latLng1 = new LatLng(43.636665, -79.399875);
-            LatLng latLng2 = new LatLng(43.686420, -79.384329);
-            LatLngBounds latLngBounds = new LatLngBounds(latLng1, latLng2);
-
-            AutocompleteFilter autocompleteFilter = new AutocompleteFilter.Builder()
-                    .setTypeFilter(AutocompleteFilter.TYPE_FILTER_ESTABLISHMENT)
-                    .build();
-
-            Intent intent = new PlaceAutocomplete
-                    .IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
-                    .setFilter(autocompleteFilter)
-                    .setBoundsBias(latLngBounds)
-                    .build(this);
-
-            startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
-        } catch (GooglePlayServicesRepairableException e) {
-            e.printStackTrace();
-        } catch (GooglePlayServicesNotAvailableException e) {
-            e.printStackTrace();
-        }
+        List<Attraction> extraAttractions = getIntent().getParcelableArrayListExtra(Constants.INTENT_EXTRA_ATTRACTION_LIST);
+        Intent intent = new Intent(this, PrefetchAttractionsActivity.class);
+        intent.putParcelableArrayListExtra(Constants.INTENT_EXTRA_RESTAURANT_LIST, new ArrayList<>(extraAttractions));
+        startActivityForResult(intent, Constants.GET_ATTRACTION_EXTRA_REQUEST_CODE);
     }
 
     @Override
@@ -169,6 +155,39 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity {
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
         }
+    }
+
+    private void setupSpinner() {
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        String[] dayString = new String[days];
+        for (int i = 0; i < dayString.length; i++) {
+            dayString[i] = Integer.toString(i+1);
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, dayString);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
+    }
+
+    @OnItemSelected(R.id.itinerary_day_spinner)
+    public void onSpinnerItemSelected(View view, int position) {
+        Toast.makeText(this, spinner.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
+        sendDayChangeMessage(position);
+        for (int i = 0; i < mAdapter.getCount(); i++) {
+            Fragment fragment = mAdapter.getItem(i);
+            if (fragment.getClass().equals(ItineraryScheduleMapFragment.class)) {
+                ((ItineraryScheduleMapFragment) fragment).updateDay(position);
+            } else {
+                ((ItineraryScheduleViewFragment) fragment).updateDay(position);
+            }
+        }
+    }
+
+    private void sendDayChangeMessage(int position) {
+        Intent intent = new Intent("intent_day_change");
+        intent.putExtra("day", position);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 
     private void setupWindowAnimations() {
