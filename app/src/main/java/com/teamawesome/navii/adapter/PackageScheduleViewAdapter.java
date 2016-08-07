@@ -45,8 +45,6 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
     private final static int TYPE_ITEM = 0;
     private final static int TYPE_HEADER = 1;
 
-    private static final String TIME_FORMAT = "HH:mm";
-
     public PackageScheduleViewAdapter(Context context, List<PackageScheduleListItem> mItemList) {
         this.mItemList = mItemList;
         this.mContext = context;
