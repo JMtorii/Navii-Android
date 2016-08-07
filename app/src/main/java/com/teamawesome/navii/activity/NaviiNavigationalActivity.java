@@ -20,9 +20,11 @@ import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.debug.NaviBaseActivity;
 import com.teamawesome.navii.util.NavigationConfiguration;
 import com.teamawesome.navii.util.NaviiPreferenceData;
+import com.teamawesome.navii.views.MainLatoTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by JMtorii on 16-06-16.
@@ -69,24 +71,6 @@ public abstract class NaviiNavigationalActivity extends NaviBaseActivity impleme
                 break;
             case R.id.nav_planned_trips:
                 launchClass = SavedTripsActivity.class;
-                break;
-            case R.id.nav_saved_trips:
-                // Saved Trips Activity when created
-                launchClass = null;
-                break;
-            case R.id.nav_preferences:
-                launchClass = PreferencesActivity.class;
-                break;
-            case R.id.nav_notifications:
-                //Notifications Activity when created
-                launchClass = null;
-                break;
-            case R.id.nav_choose_tags:
-                //ChooseTags Activity when created
-                launchClass = null;
-                break;
-            case R.id.nav_profile:
-                launchClass = ProfileActivity.class;
                 break;
             case R.id.nav_logout:
                 if (AccessToken.getCurrentAccessToken() != null) {
@@ -154,6 +138,12 @@ public abstract class NaviiNavigationalActivity extends NaviBaseActivity impleme
             }
         });
         mNavigation.addHeaderView(headerView);
+        MainLatoTextView nameTextView = (MainLatoTextView) headerView.findViewById(R.id.nav_header_name_text_view);
+        MainLatoTextView emailTextView = (MainLatoTextView) headerView.findViewById(R.id.nav_header_email_text_view);
+        CircleImageView circleImageView = (CircleImageView) headerView.findViewById(R.id.nav_header_image_view);
+
+        nameTextView.setText(NaviiPreferenceData.getFullName());
+        emailTextView.setText(NaviiPreferenceData.getLoggedInUserEmail());
     }
 
     protected void setupNavigationView() {

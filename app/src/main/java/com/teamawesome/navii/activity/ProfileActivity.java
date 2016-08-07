@@ -25,20 +25,28 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by JMtorii on 2015-11-01.
  */
 public class ProfileActivity extends NaviiNavigationalActivity implements OnFocusListenable {
+    @BindView(R.id.profile_thumbnail)
+    CircleImageView mPictureThumbnail;
+
+    @BindView(R.id.profile_name_textview)
+    MainLatoTextView mNameTextView;
+
+    @BindView(R.id.profile_username_textview)
+    MainLatoTextView mUsernameTextView;
+
     private static final String APP_PICTURE_DIRECTORY = "/Navi";
     private static final String MIME_TYPE_IMAGE = "image/";
     private static final String FILE_SUFFIX_JPG = ".jpg";
     private static final int TAKE_PHOTO_REQUEST_CODE = 1;
-
-    private CircleImageView mPictureThumbnail;
-    private MainLatoTextView mNameTextView;
-    private MainLatoTextView mUsernameTextView;
     private Uri selectedPhotoPath;
 
     @Override
@@ -48,23 +56,12 @@ public class ProfileActivity extends NaviiNavigationalActivity implements OnFocu
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.d("ProfileFragment", "onCreate");
         super.onCreate(savedInstanceState);
-
-        mPictureThumbnail = (CircleImageView) findViewById(R.id.profile_thumbnail);
-        mNameTextView = (MainLatoTextView) findViewById(R.id.profile_name_textview);
-        mUsernameTextView = (MainLatoTextView) findViewById(R.id.profile_username_textview);
+        ButterKnife.bind(this);
 
         mNameTextView.setText(NaviiPreferenceData.getFullName());
         mUsernameTextView.setText(NaviiPreferenceData.getLoggedInUserEmail());
-
         mPictureThumbnail.setImageResource(R.drawable.ic_account_circle);
-        mPictureThumbnail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                takePictureWithCamera();
-            }
-        });
     }
 
     @Override
@@ -77,7 +74,6 @@ public class ProfileActivity extends NaviiNavigationalActivity implements OnFocu
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
-        Log.d("ProfileFragment", "onWindowFocusedChanged");
         checkReceivedIntent();
     }
 
@@ -90,11 +86,28 @@ public class ProfileActivity extends NaviiNavigationalActivity implements OnFocu
         }
     }
 
+    @OnClick(R.id.profile_thumbnail)
+    public void profilePressed(View view) {
+        Log.i(getClass().getName(), "Profile button pressed");
+        takePictureWithCamera();
+    }
+
+    @OnClick(R.id.profile_preferences_button)
+    public void preferencesPressed(View view) {
+        Log.i(getClass().getName(), "Preferences button pressed");
+        Intent intent = new Intent(ProfileActivity.this, PreferencesActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
+
     private void takePictureWithCamera() {
         // create intent to capture image from camera
         Intent captureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
         File photoFile = createImageFile();
+        if (photoFile == null) {
+            return;
+        }
         selectedPhotoPath = Uri.parse(photoFile.getAbsolutePath());
 
         captureIntent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
@@ -142,6 +155,7 @@ public class ProfileActivity extends NaviiNavigationalActivity implements OnFocu
         String imageFileName = "JPEG_" + timeStamp + "_";
 
         File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES + APP_PICTURE_DIRECTORY);
+        storageDir.getParentFile().mkdirs();
         storageDir.mkdirs();
 
         File imageFile = null;
