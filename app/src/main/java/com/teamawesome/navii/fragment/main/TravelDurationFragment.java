@@ -68,6 +68,16 @@ public class TravelDurationFragment extends NaviiParallaxFragment {
                     myCalendar = Calendar.getInstance();
                 }
 
+                if (suggestedCalendar.compareTo(myCalendar2) > 0) {
+                    myCalendar2.set(Calendar.YEAR, year);
+                    myCalendar2.set(Calendar.MONTH, monthOfYear);
+                    myCalendar2.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                    myCalendar2.add(Calendar.DAY_OF_YEAR, 1);
+
+                    updateLabel2();
+                }
+
                 updateLabel();
             }
         };
@@ -86,8 +96,6 @@ public class TravelDurationFragment extends NaviiParallaxFragment {
                     myCalendar2.set(Calendar.MONTH, monthOfYear);
                     myCalendar2.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 } else {
-                    myCalendar2 = Calendar.getInstance();
-                    myCalendar2.add(Calendar.DAY_OF_YEAR, 1);
                     Toast.makeText(getActivity(),
                             "The ending date must come after the starting date.",
                             Toast.LENGTH_LONG).show();
