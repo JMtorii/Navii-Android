@@ -20,9 +20,11 @@ import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.debug.NaviBaseActivity;
 import com.teamawesome.navii.util.NavigationConfiguration;
 import com.teamawesome.navii.util.NaviiPreferenceData;
+import com.teamawesome.navii.views.MainLatoTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by JMtorii on 16-06-16.
@@ -136,6 +138,12 @@ public abstract class NaviiNavigationalActivity extends NaviBaseActivity impleme
             }
         });
         mNavigation.addHeaderView(headerView);
+        MainLatoTextView nameTextView = (MainLatoTextView) headerView.findViewById(R.id.nav_header_name_text_view);
+        MainLatoTextView emailTextView = (MainLatoTextView) headerView.findViewById(R.id.nav_header_email_text_view);
+        CircleImageView circleImageView = (CircleImageView) headerView.findViewById(R.id.nav_header_image_view);
+
+        nameTextView.setText(NaviiPreferenceData.getFullName());
+        emailTextView.setText(NaviiPreferenceData.getLoggedInUserEmail());
     }
 
     protected void setupNavigationView() {
