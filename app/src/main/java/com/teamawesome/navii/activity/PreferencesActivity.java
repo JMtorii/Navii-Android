@@ -62,14 +62,31 @@ public class PreferencesActivity extends AppCompatActivity {
 
 
             Call<Void> deleteCall = RestClient.userPreferenceAPI.deleteAllUserPreference();
-            Call<Void> createCall = RestClient.userPreferenceAPI.createUserPreference(preferences);
+            final Call<Void> createCall = RestClient.userPreferenceAPI.createUserPreference(preferences);
 
             // enqueues the delete call to delete the existing preferences for the user to
             // replace with new ones
             deleteCall.enqueue(new Callback<Void>() {
                 @Override
                 public void onResponse(Response<Void> response, Retrofit retrofit) {
-                    Log.i("Delete: code", String.valueOf(response.code()));
+                    Log.d("Delete: code", String.valueOf(response.code()));
+                    createCall.enqueue(new Callback<Void>() {
+                        @Override
+                        public void onResponse(Response<Void> response, Retrofit retrofit) {
+                            Log.i("call response: code", String.valueOf(response.code()));
+                            //Switch to the next preference type  (change screens)
+                            if (response.code() == 201) {
+                                switchToThankYouActivity();
+                            } else {
+                                Toast.makeText(activity, "Could not save preferences", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Throwable t) {
+                            Log.i("failed", t.getMessage());
+                        }
+                    });
                 }
 
                 @Override
@@ -79,24 +96,6 @@ public class PreferencesActivity extends AppCompatActivity {
             });
 
             // enqueues the create call to create the selected preferences for the user
-            createCall.enqueue(new Callback<Void>() {
-                @Override
-                public void onResponse(Response<Void> response, Retrofit retrofit) {
-                    Log.i("call response: code", String.valueOf(response.code()));
-                    //Switch to the next preference type  (change screens)
-                    if (response.code() == 201) {
-                        switchToThankYouActivity();
-                    } else {
-                        Toast.makeText(activity, "Could not save preferences", Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                @Override
-                public void onFailure(Throwable t) {
-                    Log.i("failed", t.getMessage());
-                }
-            });
-
         }
     }
 

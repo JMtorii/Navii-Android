@@ -31,6 +31,6 @@ public interface UserPreferenceAPI {
      * @return
      */
     @Headers({"Content-Type: application/json", "Cache-Control: no-cache"})
-    @DELETE("/userpreference/delete/{preferenceType}")
+    @DELETE("/userpreference/delete")
     Call<Void> deleteAllUserPreference();
 }
