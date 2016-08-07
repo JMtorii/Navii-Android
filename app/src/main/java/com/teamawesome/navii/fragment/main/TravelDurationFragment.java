@@ -10,6 +10,7 @@ import android.widget.DatePicker;
 import android.widget.Toast;
 
 import com.teamawesome.navii.R;
+import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.views.MainLatoTextView;
 
 import java.text.SimpleDateFormat;
@@ -92,9 +93,20 @@ public class TravelDurationFragment extends NaviiParallaxFragment {
                 suggestedCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
                 if (myCalendar.compareTo(suggestedCalendar) < 0) {
-                    myCalendar2.set(Calendar.YEAR, year);
-                    myCalendar2.set(Calendar.MONTH, monthOfYear);
-                    myCalendar2.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                    // Check to make the trip length is sane
+                    long timeDif = suggestedCalendar.getTimeInMillis() -  myCalendar.getTimeInMillis();
+                    long daysDif = (timeDif / 1000) / 60 / 60 / 24;
+
+                    if (daysDif <= Constants.MAX_TRIP_LENGTH_DAYS) {
+                        myCalendar2.set(Calendar.YEAR, year);
+                        myCalendar2.set(Calendar.MONTH, monthOfYear);
+                        myCalendar2.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                    } else {
+                        Toast.makeText(getActivity(),
+                                "Maximum trip length is " + Constants.MAX_TRIP_LENGTH_DAYS + " days.",
+                                Toast.LENGTH_LONG).show();
+                    }
                 } else {
                     Toast.makeText(getActivity(),
                             "The ending date must come after the starting date.",
