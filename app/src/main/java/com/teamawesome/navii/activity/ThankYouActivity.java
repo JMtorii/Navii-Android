@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.teamawesome.navii.R;
+import com.teamawesome.navii.util.AnalyticsManager;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -19,6 +20,7 @@ public class ThankYouActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thank_you);
         ButterKnife.bind(this);
+        AnalyticsManager.getMixpanel().track("ThankYouActivity - onCreate");
     }
 
     @OnClick(R.id.thank_you_button)

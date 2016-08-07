@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.teamawesome.navii.R;
+import com.teamawesome.navii.util.AnalyticsManager;
 import com.teamawesome.navii.util.BitmapResizer;
 import com.teamawesome.navii.util.NavigationConfiguration;
 import com.teamawesome.navii.util.NaviiPreferenceData;
@@ -62,6 +63,7 @@ public class ProfileActivity extends NaviiNavigationalActivity implements OnFocu
         mNameTextView.setText(NaviiPreferenceData.getFullName());
         mUsernameTextView.setText(NaviiPreferenceData.getLoggedInUserEmail());
         mPictureThumbnail.setImageResource(R.drawable.ic_account_circle);
+        AnalyticsManager.getMixpanel().track("ProfileActivity - onCreate");
     }
 
     @Override

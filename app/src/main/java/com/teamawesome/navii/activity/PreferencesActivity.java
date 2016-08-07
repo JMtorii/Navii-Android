@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.fragment.intro.PreferencesFragment;
 import com.teamawesome.navii.server.model.Preference;
+import com.teamawesome.navii.util.AnalyticsManager;
 import com.teamawesome.navii.util.RestClient;
 
 import java.util.ArrayList;
@@ -42,6 +43,7 @@ public class PreferencesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_preference);
         ButterKnife.bind(this);
         setupViewPager(mViewPager);
+        AnalyticsManager.getMixpanel().track("PreferencesActivity - onCreate");
     }
 
     @OnClick(R.id.preferences_next_button)

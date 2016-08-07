@@ -11,6 +11,7 @@ import android.util.Log;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.adapter.SavedTripsAdapter;
 import com.teamawesome.navii.server.model.Itinerary;
+import com.teamawesome.navii.util.AnalyticsManager;
 import com.teamawesome.navii.util.NavigationConfiguration;
 import com.teamawesome.navii.util.RestClient;
 
@@ -70,8 +71,7 @@ public class SavedTripsActivity extends NaviiNavigationalActivity {
                         plannedTrips.setLayoutManager(new LinearLayoutManager(SavedTripsActivity.this));
                     }
                 });
-        progressDialog = ProgressDialog.show(this, "Just calm down.", "Loading trips...");
-
-
+        progressDialog = ProgressDialog.show(this, "Building the perfect trip", "Loading trips...");
+        AnalyticsManager.getMixpanel().track("SavedTripsActivity - onCreate");
     }
 }

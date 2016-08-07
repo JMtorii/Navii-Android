@@ -9,6 +9,7 @@ import com.teamawesome.navii.R;
 import com.teamawesome.navii.adapter.PackageOverviewRecyclerViewAdapter;
 import com.teamawesome.navii.server.model.Attraction;
 import com.teamawesome.navii.server.model.Itinerary;
+import com.teamawesome.navii.util.AnalyticsManager;
 import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.ToolbarConfiguration;
 
@@ -72,5 +73,6 @@ public class PackageOverviewActivity extends NaviiToolbarActivity {
 
         PackageOverviewRecyclerViewAdapter adapter = new PackageOverviewRecyclerViewAdapter(this, photoUriList);
         recyclerView.setAdapter(adapter);
+        AnalyticsManager.getMixpanel().track("PackageOverviewActivity - onCreate");
     }
 }

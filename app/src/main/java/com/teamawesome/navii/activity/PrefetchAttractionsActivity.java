@@ -16,6 +16,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.adapter.PackageSelectorViewAdapter;
 import com.teamawesome.navii.server.model.Attraction;
+import com.teamawesome.navii.util.AnalyticsManager;
 import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.PackageScheduleAttractionItem;
 import com.teamawesome.navii.util.PackageScheduleListItem;
@@ -49,6 +50,7 @@ public class PrefetchAttractionsActivity extends Activity {
         ButterKnife.bind(this);
 
         setupPackageView(prefetchedList);
+        AnalyticsManager.getMixpanel().track("PrefetchAttractionsActivity - onCreate");
     }
 
     private void setupPackageView(List<Attraction> attractions) {

@@ -64,7 +64,7 @@ public class MainActivity extends NaviiNavigationalActivity {
         ButterKnife.bind(this);
 
         setupParallaxViews();
-        AnalyticsManager.getMixpanel().track("MainActivity - onCreate called"/*, props*/);
+        AnalyticsManager.getMixpanel().track("MainActivity - onCreate");
     }
 
     @Override

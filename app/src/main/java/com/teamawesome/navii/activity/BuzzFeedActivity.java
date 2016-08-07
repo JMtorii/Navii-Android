@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.teamawesome.navii.R;
+import com.teamawesome.navii.util.AnalyticsManager;
 
 public class BuzzFeedActivity extends AppCompatActivity {
 
@@ -13,6 +14,7 @@ public class BuzzFeedActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buzz_feed);
+        AnalyticsManager.getMixpanel().track("BuzzFeedActivity - onCreate");
     }
 
 

@@ -11,6 +11,7 @@ import com.teamawesome.navii.R;
 import com.teamawesome.navii.server.model.Attraction;
 import com.teamawesome.navii.server.model.HeartAndSoulPackage;
 import com.teamawesome.navii.server.model.Itinerary;
+import com.teamawesome.navii.util.AnalyticsManager;
 import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.RestClient;
 import com.teamawesome.navii.util.ToolbarConfiguration;
@@ -106,7 +107,8 @@ public class HeartAndSoulSaveActivity extends NaviiToolbarActivity {
 
                         }
                     });
-            progressDialog = ProgressDialog.show(this, "Just calm down.", "Loading itineraries...");
+            progressDialog = ProgressDialog.show(this, "Building the perfect trip", "Loading itineraries...");
+            AnalyticsManager.getMixpanel().track("HeartAndSoulSaveActivity - onCreate");
         }
     }
 }

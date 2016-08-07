@@ -8,6 +8,7 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.adapter.OnboardingPagerAdapter;
+import com.teamawesome.navii.util.AnalyticsManager;
 import com.teamawesome.navii.views.CircleIndicator;
 
 import butterknife.BindView;
@@ -73,5 +74,6 @@ public class OnboardingActivity extends AppCompatActivity {
 
         mCircleIndicator.setViewPager(mViewPager);
         mPageAdapter.registerDataSetObserver(mCircleIndicator.getDataSetObserver());
+        AnalyticsManager.getMixpanel().track("OnboardingActivity - onCreate");
     }
 }

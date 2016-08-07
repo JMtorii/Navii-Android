@@ -148,7 +148,7 @@
     <string name="thank_you_button">Start</string>
 
     <!-- Errors -->
-    <string name="error_steve_fucked_up">Steve fucked up</string>
+    <string name="error_steve_fucked_up">Steve CENSORED up</string>
     <string name="error_dialog_title">An error occurred</string>
     <string name="error_okay">Okay</string>
     <string name="error_network">Network error occurred.</string>
