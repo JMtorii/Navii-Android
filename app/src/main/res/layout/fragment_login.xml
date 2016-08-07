@@ -111,8 +111,13 @@
             android:elevation="3dp"
             android:gravity="center"
             android:textSize="16sp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+
             fb:com_facebook_confirm_logout="false"
-            fb:com_facebook_login_text="@string/facebook_sign_in"/>
+            fb:com_facebook_login_text="@string/facebook_sign_in" />
 
         <LinearLayout
             android:id="@+id/login_or_view"
@@ -152,7 +157,6 @@
             android:id="@+id/login_sign_up_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_below="@id/login_or_view"
             android:layout_margin="10dp"
             android:background="@color/transparent"

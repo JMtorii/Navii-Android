@@ -21,6 +21,7 @@ import com.teamawesome.navii.fragment.main.ItineraryScheduleViewFragment;
 import com.teamawesome.navii.server.model.Attraction;
 
 import com.teamawesome.navii.server.model.Itinerary;
+import com.teamawesome.navii.util.AnalyticsManager;
 import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.ToolbarConfiguration;
 
@@ -94,6 +95,8 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity {
         mTabLayout.setVisibility(View.VISIBLE);
         mTabLayout.setupWithViewPager(mViewPager);
         setupWindowAnimations();
+
+        AnalyticsManager.getMixpanel().track("ItineraryScheduleActivity - onCreate");
     }
 
     @OnClick(R.id.eat_menu_item)

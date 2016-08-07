@@ -17,6 +17,7 @@ import com.facebook.HttpMethod;
 import com.facebook.login.LoginManager;
 import com.teamawesome.navii.NaviiApplication;
 import com.teamawesome.navii.R;
+import com.teamawesome.navii.util.AnalyticsManager;
 import com.teamawesome.navii.util.NavigationConfiguration;
 import com.teamawesome.navii.util.NaviiPreferenceData;
 import com.teamawesome.navii.views.MainLatoTextView;
@@ -56,6 +57,8 @@ public abstract class NaviiNavigationalActivity extends NaviBaseActivity impleme
 
         setupActionBar();
         setupNavigationView();
+
+        AnalyticsManager.getMixpanel().track("NaviiNavigationalActivity - onCreate");
     }
 
     @Override

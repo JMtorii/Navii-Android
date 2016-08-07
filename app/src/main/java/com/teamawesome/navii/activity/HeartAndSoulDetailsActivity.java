@@ -10,6 +10,7 @@ import com.squareup.picasso.Picasso;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.fragment.main.HeartAndSoulEditDialogFragment;
 import com.teamawesome.navii.server.model.Attraction;
+import com.teamawesome.navii.util.AnalyticsManager;
 import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.ToolbarConfiguration;
 
@@ -93,6 +94,7 @@ public class HeartAndSoulDetailsActivity extends NaviiToolbarActivity {
         ratingTextView.setText(Double.toString(rating)+"/"+"5");
         phoneNumberTextView.setText(phoneNumber);
         getWindow().setStatusBarColor(Color.TRANSPARENT);
+        AnalyticsManager.getMixpanel().track("HeartAndSoulDetailsActivity - onCreate");
     }
 
     @OnClick(R.id.heart_and_soul_detail_fab)

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.teamawesome.navii.util.AnalyticsManager;
 import com.teamawesome.navii.util.NaviiPreferenceData;
 
 /**
@@ -22,5 +23,7 @@ public class LaunchActivity extends Activity {
         }
         startActivity(intent);
         finish();
+
+        AnalyticsManager.getMixpanel().track("LaunchActivity - onCreate");
     }
 }

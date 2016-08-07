@@ -64,16 +64,7 @@ public class MainActivity extends NaviiNavigationalActivity {
         ButterKnife.bind(this);
 
         setupParallaxViews();
-        AnalyticsManager.init(this);
-
-        //try {
-            //JSONObject props = new JSONObject();
-            //props.put("Gender", "Female");
-            //props.put("Logged in", false);
-            AnalyticsManager.getMixpanel().track("MainActivity - onCreate called"/*, props*/);
-        /*} catch (JSONException e) {
-            Log.e("MYAPP", "Unable to add properties to JSONObject", e);
-        }*/
+        AnalyticsManager.getMixpanel().track("MainActivity - onCreate");
     }
 
     @Override

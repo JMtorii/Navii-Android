@@ -96,6 +96,12 @@ public class SignUpActivity extends NaviiToolbarActivity {
     @OnClick(R.id.sign_up_button)
     public void signUpButtonPressed() {
         Log.i(this.getClass().getName(), "Sign up button pressed");
+
+        nameInputLayout.setErrorEnabled(false);
+        emailInputLayout.setErrorEnabled(false);
+        passwordInputLayout.setErrorEnabled(false);
+        passwordAgainInputLayout.setErrorEnabled(false);
+
         String username = nameEditText.getText().toString().trim();
         nameEditText.setText(username);
         String email = emailEditText.getText().toString().trim();
@@ -104,7 +110,9 @@ public class SignUpActivity extends NaviiToolbarActivity {
         String passwordAgain = passwordAgainEditText.getText().toString();
 
         if (username.isEmpty()) {
-            nameEditText.setError("You must provide a login name.");
+            nameInputLayout.requestFocus();
+            nameInputLayout.setErrorEnabled(true);
+            nameInputLayout.setError("You must provide a login name.");
             return;
         }
 
@@ -112,17 +120,23 @@ public class SignUpActivity extends NaviiToolbarActivity {
         Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(email);
         if (!matcher.matches()) {
-            emailEditText.setError("Not a valid email.");
+            emailInputLayout.requestFocus();
+            emailInputLayout.setErrorEnabled(true);
+            emailInputLayout.setError("Not a valid email.");
             return;
         }
 
         if (password.length() < 5) {
+            passwordInputLayout.requestFocus();
+            passwordInputLayout.setErrorEnabled(true);
             passwordEditText.setError("Password not strong enough.");
             return;
         }
 
         if (passwordAgain.compareTo(password) != 0) {
-            passwordAgainEditText.setError("Passwords do not match.");
+            passwordAgainInputLayout.requestFocus();
+            passwordAgainInputLayout.setErrorEnabled(true);
+            passwordAgainInputLayout.setError("Passwords do not match.");
             return;
         }
 
@@ -147,40 +161,42 @@ public class SignUpActivity extends NaviiToolbarActivity {
                 @Override
                 public void onCompleted() {
                    // Nothing to do here
-                    AnalyticsManager.getMixpanel().track("SignUpActivity - Successful email sign up");
                 }
 
-                @Override
-                public void onError(Throwable throwable) {
-                    String errorMessage;
-                    if (throwable instanceof HttpException) {
-                        errorMessage = getResources().getString(R.string.error_signup_validation);
-                    } else if (throwable instanceof IOException) {
-                        errorMessage = getResources().getString(R.string.error_network);
-                    } else {
-                        errorMessage = getResources().getString(R.string.error_unknown);
+                    @Override
+                    public void onError(Throwable throwable) {
+                        String errorMessage;
+                        if (throwable instanceof HttpException) {
+                            errorMessage = getResources().getString(R.string.error_signup_validation);
+                        } else if (throwable instanceof IOException) {
+                            errorMessage = getResources().getString(R.string.error_network);
+                        } else {
+                            errorMessage = getResources().getString(R.string.error_unknown);
+                        }
+
+                        new AlertDialog.Builder(new ContextThemeWrapper(SignUpActivity.this, R.style.DialogTheme))
+                                .setTitle(getResources().getString(R.string.error_dialog_title))
+                                .setMessage(errorMessage)
+                                .setPositiveButton(getResources().getString(R.string.error_okay), new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // Nothing to do here
+                                    }
+                                })
+                                .show();
                     }
 
-                    new AlertDialog.Builder(new ContextThemeWrapper(SignUpActivity.this, R.style.DialogTheme))
-                            .setTitle(getResources().getString(R.string.error_dialog_title))
-                            .setMessage(errorMessage)
-                            .setPositiveButton(getResources().getString(R.string.error_okay), new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    // Nothing to do here
-                                }
-                            })
-                            .show();
-                }
-
-                @Override
-                public void onNext(VoyagerResponse response) {
-                    NaviiPreferenceData.createLoginSession(response.getUser().getUsername(), response.getUser().getEmail(), response.getToken());
-                    switchActivity();
-                }
-            });
+                    @Override
+                    public void onNext(VoyagerResponse response) {
+                        AnalyticsManager.getMixpanel().identify(email);
+                        AnalyticsManager.getMixpanel().getPeople().identify(email);
+                        AnalyticsManager.getMixpanel().track("SignUpActivity - Successful email sign up");
+                        NaviiPreferenceData.createLoginSession(response.getUser().getUsername(), response.getUser().getEmail(), response.getToken());
+                        switchActivity();
+                    }
+                });
     }
 
-    private void switchActivity(){
+    private void switchActivity() {
         Intent nextActivity = new Intent(this, PreferencesActivity.class);
         nextActivity.putExtra("from_signup", true);
         startActivity(nextActivity);
