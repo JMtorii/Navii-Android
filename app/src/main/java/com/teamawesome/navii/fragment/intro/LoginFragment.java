@@ -36,6 +36,7 @@ import com.teamawesome.navii.activity.PreferencesActivity;
 import com.teamawesome.navii.activity.SignUpActivity;
 import com.teamawesome.navii.server.model.User;
 import com.teamawesome.navii.server.model.VoyagerResponse;
+import com.teamawesome.navii.util.AnalyticsManager;
 import com.teamawesome.navii.util.HashingAlgorithm;
 import com.teamawesome.navii.util.NaviiPreferenceData;
 import com.teamawesome.navii.util.RestClient;
@@ -145,11 +146,6 @@ public class LoginFragment extends Fragment {
         getActivity().overridePendingTransition(R.anim.slide_in_down, R.anim.hold);
     }
 
-    /*@OnClick(R.id.facebook_login_button)
-    public void facebookLoginButtonPressed() {
-        Log.i(this.getClass().getName(), "Facebook login button pressed");
-    }*/
-
     private void attemptLogin(final String email, final String hashedPassword) {
         User user = new User.Builder().email(email).password(hashedPassword).build();
 
@@ -160,6 +156,7 @@ public class LoginFragment extends Fragment {
                     @Override
                     public void onCompleted() {
                         // Nothing to do here
+                        AnalyticsManager.getMixpanel().track("LoginFragment - Successful email login");
                     }
 
                     @Override
@@ -226,6 +223,7 @@ public class LoginFragment extends Fragment {
                     @Override
                     public void onCompleted() {
                         // Nothing to do here
+                        AnalyticsManager.getMixpanel().track("LoginFragment - Successful Facebook login");
                     }
 
                     @Override

@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.server.model.User;
 import com.teamawesome.navii.server.model.VoyagerResponse;
+import com.teamawesome.navii.util.AnalyticsManager;
 import com.teamawesome.navii.util.HashingAlgorithm;
 import com.teamawesome.navii.util.NaviiPreferenceData;
 import com.teamawesome.navii.util.RestClient;
@@ -146,6 +147,7 @@ public class SignUpActivity extends NaviiToolbarActivity {
                 @Override
                 public void onCompleted() {
                    // Nothing to do here
+                    AnalyticsManager.getMixpanel().track("SignUpActivity - Successful email sign up");
                 }
 
                 @Override

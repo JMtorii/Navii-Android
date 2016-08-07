@@ -19,6 +19,7 @@ import com.teamawesome.navii.fragment.main.NaviiParallaxFragment;
 import com.teamawesome.navii.fragment.main.TravelDestinationFragment;
 import com.teamawesome.navii.fragment.main.TravelDurationFragment;
 import com.teamawesome.navii.fragment.main.TravelParticipantsFragment;
+import com.teamawesome.navii.util.AnalyticsManager;
 import com.teamawesome.navii.util.NavigationConfiguration;
 import com.teamawesome.navii.views.ParallaxHorizontalScrollView;
 import com.teamawesome.navii.views.ParallaxViewPager;
@@ -52,7 +53,6 @@ public class MainActivity extends NaviiNavigationalActivity {
     @BindView(R.id.main_view_pager)
     ParallaxViewPager parallaxViewPager;
 
-
     @Override
     protected NavigationConfiguration getNavConfig() {
         return NavigationConfiguration.Home;
@@ -64,18 +64,16 @@ public class MainActivity extends NaviiNavigationalActivity {
         ButterKnife.bind(this);
 
         setupParallaxViews();
+        AnalyticsManager.init(this);
 
-        String projectToken = "3ff82d13d92fab6d2a258f9ea8a62747";
-        MixpanelAPI mixpanel = MixpanelAPI.getInstance(this, projectToken);
-
-        try {
-            JSONObject props = new JSONObject();
-            props.put("Gender", "Female");
-            props.put("Logged in", false);
-            mixpanel.track("MainActivity - onCreate called", props);
-        } catch (JSONException e) {
+        //try {
+            //JSONObject props = new JSONObject();
+            //props.put("Gender", "Female");
+            //props.put("Logged in", false);
+            AnalyticsManager.getMixpanel().track("MainActivity - onCreate called"/*, props*/);
+        /*} catch (JSONException e) {
             Log.e("MYAPP", "Unable to add properties to JSONObject", e);
-        }
+        }*/
     }
 
     @Override
