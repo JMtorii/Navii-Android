@@ -144,6 +144,7 @@ public abstract class NaviiNavigationalActivity extends NaviBaseActivity impleme
 
         nameTextView.setText(NaviiPreferenceData.getFullName());
         emailTextView.setText(NaviiPreferenceData.getLoggedInUserEmail());
+        circleImageView.setImageResource(R.drawable.ic_account_circle);
     }
 
     protected void setupNavigationView() {

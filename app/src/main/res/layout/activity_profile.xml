@@ -51,7 +51,6 @@
                         android:textSize="22sp"
                         android:gravity="center_horizontal|center_vertical"
                         android:textAlignment="center"
-                        android:text="Spongebob Squarepants"
                         />
 
                 </LinearLayout>
