@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.github.clans.fab.FloatingActionMenu;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.fragment.main.ItineraryScheduleMapFragment;
 import com.teamawesome.navii.fragment.main.ItineraryScheduleViewFragment;
@@ -49,8 +50,12 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity {
     @BindView(R.id.itinerary_day_spinner)
     Spinner spinner;
 
+    @BindView(R.id.floating_action_menu)
+    FloatingActionMenu floatingActionMenu;
+
     private Adapter mAdapter;
     private int days;
+    private boolean mEditable;
     private List<Itinerary> itineraries;
     private List<Attraction> attractions;
     private List<Attraction> restaurants;
@@ -91,7 +96,10 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity {
         itineraries = getIntent().getParcelableArrayListExtra(Constants.INTENT_ITINERARIES);
         attractions = getIntent().getParcelableArrayListExtra(Constants.INTENT_EXTRA_ATTRACTION_LIST);
         restaurants = getIntent().getParcelableArrayListExtra(Constants.INTENT_EXTRA_RESTAURANT_LIST);
-
+        mEditable = getIntent().getBooleanExtra(Constants.INTENT_ITINERARY_EDITABLE, false);
+        if (!mEditable) {
+            floatingActionMenu.setVisibility(View.GONE);
+        }
         mTabLayout.setVisibility(View.VISIBLE);
         mTabLayout.setupWithViewPager(mViewPager);
         setupWindowAnimations();
