@@ -7,25 +7,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.adapter.PreferencesGridAdapter;
 import com.teamawesome.navii.fragment.main.NaviiFragment;
-import com.teamawesome.navii.server.model.Preference;
 import com.teamawesome.navii.server.model.PreferencesQuestion;
-import com.teamawesome.navii.util.Constants;
-import com.teamawesome.navii.util.NaviiPreferenceData;
 import com.teamawesome.navii.util.RestClient;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.Response;
-import retrofit.Retrofit;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -36,9 +27,6 @@ import rx.schedulers.Schedulers;
  */
 public class PreferencesFragment extends NaviiFragment {
     private static final String PREFERENCE_TYPE = "preference_type";
-
-    @BindView (R.id.preferences_next_button)
-    Button mNextButton;
 
     @BindView(R.id.preferences_layout)
     RecyclerView gridView;
@@ -91,76 +79,75 @@ public class PreferencesFragment extends NaviiFragment {
                 });
 
 
-        mNextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mAdapter.getItemCount() < Constants.PREFERENCE_MIN_LIMIT) {
-                    //TODO: Replace with toast replacement
-                    Toast.makeText(getContext(), "Less than minimum requirements", Toast.LENGTH_LONG).show();
-                    return;
-                }
-
-                String email = NaviiPreferenceData.getLoggedInUserEmail();
-
-                for (Preference preference : mAdapter.getmSelectedPreferences()) {
-                    Log.d("Preference", preference.getPreference());
-                }
-
-                Call<Void> deleteCall = RestClient.userPreferenceAPI.deleteAllUserPreference(preferenceType);
-                Call<Void> createCall = RestClient.userPreferenceAPI.createUserPreference(mAdapter.getmSelectedPreferences());
-
-                // enqueues the delete call to delete the existing preferences for the user to
-                // replace with new ones
-                deleteCall.enqueue(new Callback<Void>() {
-                    @Override
-                    public void onResponse(Response<Void> response, Retrofit retrofit) {
-                        Log.i("Delete: code", String.valueOf(response.code()));
-                    }
-
-                    @Override
-                    public void onFailure(Throwable t) {
-                        Log.i("failed", t.getMessage());
-                    }
-                });
-
-                // enqueues the create call to create the selected preferences for the user
-                createCall.enqueue(new Callback<Void>() {
-                    @Override
-                    public void onResponse(Response<Void> response, Retrofit retrofit) {
-                        Log.i("call response: code", String.valueOf(response.code()));
-                        //Switch to the next preference type  (change screens)
-                        if (response.code() == 201) {
-                            int nextPreference = preferenceType + 1;
-                            if (nextPreference <= numberOfPreferences) {
-                                getFragmentManager().beginTransaction().replace(R.id.preference_fragment_frame,  PreferencesFragment.newInstance(nextPreference)).commit();
-                            } else {
-                                // If the activity is in the intro stage
-
-                                // TODO: delete if needed
-//                                if (getActivity().getClass().equals(IntroActivity.class)) {
-//                                    Intent intent = new Intent(parentActivity, MainActivity.class);
-//                                    parentActivity.startActivity(intent);
-//                                } else if (getActivity().getClass().equals(MainActivity.class)){
-//                                    parentActivity.switchFragment(
-//                                            new ChooseTagsFragment(),
-//                                            Constants.NO_ANIM,
-//                                            Constants.NO_ANIM,
-//                                            Constants.PLANNING_CHOOSE_TAGS_FRAGMENT_TAG,
-//                                            true,
-//                                            true,
-//                                            true);
-//                                }
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Throwable t) {
-                        Log.i("failed", t.getMessage());
-                    }
-                });
-            }
-        });
+//        mNextButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (mAdapter.getItemCount() < Constants.PREFERENCE_MIN_LIMIT) {
+//                    //TODO: Replace with toast replacement
+//                    Toast.makeText(getContext(), "Less than minimum requirements", Toast.LENGTH_LONG).show();
+//                    return;
+//                }
+//
+//                String email = NaviiPreferenceData.getLoggedInUserEmail();
+//
+//                for (Preference preference : mAdapter.getmSelectedPreferences()) {
+//                    Log.d("Preference", preference.getPreference());
+//                }
+//
+//                Call<Void> deleteCall = RestClient.userPreferenceAPI.deleteAllUserPreference(preferenceType);
+//                Call<Void> createCall = RestClient.userPreferenceAPI.createUserPreference(mAdapter.getmSelectedPreferences());
+//
+//                // enqueues the delete call to delete the existing preferences for the user to
+//                // replace with new ones
+//                deleteCall.enqueue(new Callback<Void>() {
+//                    @Override
+//                    public void onResponse(Response<Void> response, Retrofit retrofit) {
+//                        Log.i("Delete: code", String.valueOf(response.code()));
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Throwable t) {
+//                        Log.i("failed", t.getMessage());
+//                    }
+//                });
+//
+//                // enqueues the create call to create the selected preferences for the user
+//                createCall.enqueue(new Callback<Void>() {
+//                    @Override
+//                    public void onResponse(Response<Void> response, Retrofit retrofit) {
+//                        Log.i("call response: code", String.valueOf(response.code()));
+//                        //Switch to the next preference type  (change screens)
+//                        if (response.code() == 201) {
+//                            int nextPreference = preferenceType + 1;
+//                            if (nextPreference <= numberOfPreferences) {
+//                            } else {
+//                                // If the activity is in the intro stage
+//
+//                                // TODO: delete if needed
+////                                if (getActivity().getClass().equals(IntroActivity.class)) {
+////                                    Intent intent = new Intent(parentActivity, MainActivity.class);
+////                                    parentActivity.startActivity(intent);
+////                                } else if (getActivity().getClass().equals(MainActivity.class)){
+////                                    parentActivity.switchFragment(
+////                                            new ChooseTagsFragment(),
+////                                            Constants.NO_ANIM,
+////                                            Constants.NO_ANIM,
+////                                            Constants.PLANNING_CHOOSE_TAGS_FRAGMENT_TAG,
+////                                            true,
+////                                            true,
+////                                            true);
+////                                }
+//                            }
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Throwable t) {
+//                        Log.i("failed", t.getMessage());
+//                    }
+//                });
+//            }
+//        });
 
         return view;
     }
