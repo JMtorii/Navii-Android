@@ -37,7 +37,7 @@
                 android:shadowRadius="2"
                 android:text="@string/tags_message"
                 android:textColor="@color/chalkWhite"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 app:fontType="Light"/>
 
 
