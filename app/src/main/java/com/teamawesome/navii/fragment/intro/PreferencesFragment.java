@@ -90,12 +90,12 @@ public class PreferencesFragment extends NaviiFragment {
 //
 //                String email = NaviiPreferenceData.getLoggedInUserEmail();
 //
-//                for (Preference preference : mAdapter.getmSelectedPreferences()) {
+//                for (Preference preference : mAdapter.getSelectedPreferences()) {
 //                    Log.d("Preference", preference.getPreference());
 //                }
 //
 //                Call<Void> deleteCall = RestClient.userPreferenceAPI.deleteAllUserPreference(preferenceType);
-//                Call<Void> createCall = RestClient.userPreferenceAPI.createUserPreference(mAdapter.getmSelectedPreferences());
+//                Call<Void> createCall = RestClient.userPreferenceAPI.createUserPreference(mAdapter.getSelectedPreferences());
 //
 //                // enqueues the delete call to delete the existing preferences for the user to
 //                // replace with new ones

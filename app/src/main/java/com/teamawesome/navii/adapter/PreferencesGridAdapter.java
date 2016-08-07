@@ -25,11 +25,11 @@ import butterknife.OnClick;
 public class PreferencesGridAdapter extends RecyclerView.Adapter<PreferencesGridAdapter.PreferencesViewholder> {
     private List<Preference> mPreferences;
 
-    public int getmPreferencesCount() {
+    public int getPreferencesCount() {
         return mPreferencesCount;
     }
 
-    public List<Preference> getmSelectedPreferences() {
+    public List<Preference> getSelectedPreferences() {
         return mSelectedPreferences;
     }
 
