@@ -14,7 +14,6 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.ItineraryScheduleActivity;
-import com.teamawesome.navii.activity.PackageOverviewActivity;
 import com.teamawesome.navii.server.model.HeartAndSoulPackage;
 import com.teamawesome.navii.server.model.Itinerary;
 import com.teamawesome.navii.util.Constants;
@@ -76,7 +75,7 @@ public class ItineraryRecommendListAdapter extends RecyclerView.Adapter<Itinerar
 
     @Override
     public int getItemCount() {
-        return heartAndSoulPackage.getItineraries()[0].length;
+        return heartAndSoulPackage.getItineraries().length;
     }
 
     public class ItineraryRecommendViewHolder extends RecyclerView.ViewHolder {
