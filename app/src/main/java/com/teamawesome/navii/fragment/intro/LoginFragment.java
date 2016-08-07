@@ -32,6 +32,7 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.squareup.okhttp.ResponseBody;
 import com.teamawesome.navii.R;
+import com.teamawesome.navii.activity.MainActivity;
 import com.teamawesome.navii.activity.SignUpActivity;
 import com.teamawesome.navii.server.model.User;
 import com.teamawesome.navii.server.model.VoyagerResponse;
@@ -132,6 +133,7 @@ public class LoginFragment extends Fragment {
         String password = passwordEditText.getText().toString();
 
         if (email.length() < 1) {
+            emailLoginEditText.requestFocus();
             emailLoginEditText.setError("Enter your email.");
             return;
         }
@@ -140,11 +142,13 @@ public class LoginFragment extends Fragment {
         Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(email);
         if (!matcher.matches()) {
+            emailLoginEditText.requestFocus();
             emailLoginEditText.setError("Not a valid email.");
             return;
         }
 
         if (password.length() < 1) {
+            passwordEditText.requestFocus();
             passwordEditText.setError("Enter your password.");
             return;
         }
@@ -306,6 +310,8 @@ public class LoginFragment extends Fragment {
 
         AnalyticsManager.getMixpanel().getPeople().set("last_login", c.getTime());
         NaviiPreferenceData.createLoginSession(fullName, email, token);
+        Intent intent = new Intent(getContext(), MainActivity.class);
+        startActivity(intent);
         getActivity().finish();
     }
 }

@@ -2,18 +2,21 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/budget_fragment">
 
     <com.teamawesome.navii.views.MainLatoTextView
         android:id="@+id/budget_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Budget?"
-        android:textSize="40sp"
+        android:text="What's Your Budget?"
+        android:textSize="50sp"
         android:layout_above="@+id/budget_text"
-        android:layout_centerInParent="true"
-        android:layout_marginBottom="20dp"
-        android:textColor="@color/chalkWhite"/>
+        android:layout_marginTop="70dp"
+        android:layout_alignParentTop="true"
+        android:textColor="@color/chalkWhite"
+        android:gravity="center"
+        app:fontType="Light"/>
 
     <com.teamawesome.navii.views.MainLatoEditText
         android:id="@+id/budget_text"
@@ -22,11 +25,12 @@
         android:maxLength="8"
         android:textSize="40sp"
         android:textColor="@color/chalkWhite"
-        android:text="$"
+        android:text="$100"
         android:gravity="center"
+        android:layout_marginBottom="10dp"
+        android:layout_centerHorizontal="true"
         android:layout_above="@+id/digit_pad"
-        android:layout_centerInParent="true"
-        android:layout_marginBottom="110dp"/>
+        app:fontType="Bold"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/digit_pad"
