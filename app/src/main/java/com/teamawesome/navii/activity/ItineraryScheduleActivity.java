@@ -89,7 +89,6 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity {
         days = getIntent().getIntExtra(Constants.INTENT_DAYS, 1);
         titleText.setText(title);
 
-        setSupportActionBar(mToolbar);
         setupViewPager(mViewPager);
         setupSpinner();
 
