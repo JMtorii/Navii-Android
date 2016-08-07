@@ -128,13 +128,17 @@ public class LoginFragment extends Fragment {
     public void emailButtonPressed() {
         Log.i(this.getClass().getName(), "Email login button pressed");
 
+        emailLoginInputLayout.setErrorEnabled(false);
+        passwordInputLayout.setErrorEnabled(false);
+
         String email = emailLoginEditText.getText().toString().trim();
         emailLoginEditText.setText(email);
         String password = passwordEditText.getText().toString();
 
         if (email.length() < 1) {
-            emailLoginEditText.requestFocus();
-            emailLoginEditText.setError("Enter your email.");
+            emailLoginInputLayout.requestFocus();
+            emailLoginInputLayout.setErrorEnabled(true);
+            emailLoginInputLayout.setError("Enter your email.");
             return;
         }
 
@@ -142,14 +146,16 @@ public class LoginFragment extends Fragment {
         Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(email);
         if (!matcher.matches()) {
-            emailLoginEditText.requestFocus();
-            emailLoginEditText.setError("Not a valid email.");
+            emailLoginInputLayout.requestFocus();
+            emailLoginInputLayout.setErrorEnabled(true);
+            emailLoginInputLayout.setError("Not a valid email.");
             return;
         }
 
         if (password.length() < 1) {
-            passwordEditText.requestFocus();
-            passwordEditText.setError("Enter your password.");
+            passwordInputLayout.requestFocus();
+            passwordInputLayout.setErrorEnabled(true);
+            passwordInputLayout.setError("Enter your password.");
             return;
         }
 
