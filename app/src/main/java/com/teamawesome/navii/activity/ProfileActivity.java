@@ -88,8 +88,16 @@ public class ProfileActivity extends NaviiNavigationalActivity implements OnFocu
 
     @OnClick(R.id.profile_thumbnail)
     public void profilePressed(View view) {
-        Log.i(getClass().getName(), "Preferences button pressed");
+        Log.i(getClass().getName(), "Profile button pressed");
         takePictureWithCamera();
+    }
+
+    @OnClick(R.id.profile_preferences_button)
+    public void preferencesPressed(View view) {
+        Log.i(getClass().getName(), "Preferences button pressed");
+        Intent intent = new Intent(ProfileActivity.this, PreferencesActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     private void takePictureWithCamera() {
