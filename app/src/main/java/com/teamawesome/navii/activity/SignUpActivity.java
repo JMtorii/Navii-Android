@@ -12,7 +12,9 @@ import android.widget.Toast;
 
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.server.model.User;
+import com.teamawesome.navii.server.model.VoyagerResponse;
 import com.teamawesome.navii.util.HashingAlgorithm;
+import com.teamawesome.navii.util.NaviiPreferenceData;
 import com.teamawesome.navii.util.RestClient;
 import com.teamawesome.navii.util.ToolbarConfiguration;
 import com.teamawesome.navii.util.ViewUtilities;
@@ -137,10 +139,10 @@ public class SignUpActivity extends NaviiToolbarActivity {
 
     private void attemptSignUp(final String email, final String username, final String hashedPassword) {
         User user = new User.Builder().email(email).username(username).password(hashedPassword).build();
-        Observable<Void> call = RestClient.userAPI.createUser(user);
+        Observable<VoyagerResponse> call = RestClient.userAPI.createUser(user);
         call.subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Subscriber<Void>() {
+            .subscribe(new Subscriber<VoyagerResponse>() {
                 @Override
                 public void onCompleted() {
                    // Nothing to do here
@@ -157,7 +159,7 @@ public class SignUpActivity extends NaviiToolbarActivity {
                         errorMessage = getResources().getString(R.string.error_unknown);
                     }
 
-                    new AlertDialog.Builder(new ContextThemeWrapper(getApplicationContext(), R.style.DialogTheme))
+                    new AlertDialog.Builder(new ContextThemeWrapper(SignUpActivity.this, R.style.DialogTheme))
                             .setTitle(getResources().getString(R.string.error_dialog_title))
                             .setMessage(errorMessage)
                             .setPositiveButton(getResources().getString(R.string.error_okay), new DialogInterface.OnClickListener() {
@@ -169,7 +171,8 @@ public class SignUpActivity extends NaviiToolbarActivity {
                 }
 
                 @Override
-                public void onNext(Void aVoid) {
+                public void onNext(VoyagerResponse response) {
+                    NaviiPreferenceData.createLoginSession(response.getUser().getUsername(), response.getUser().getEmail(), response.getToken());
                     Intent intent = new Intent(getApplicationContext(), ThankYouActivity.class);
                     startActivity(intent);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
