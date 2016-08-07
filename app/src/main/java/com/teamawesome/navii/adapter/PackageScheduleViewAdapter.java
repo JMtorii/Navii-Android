@@ -84,11 +84,19 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
     private void onBindPackageItemViewHolder(RecyclerView.ViewHolder holder, int position) {
         Log.d("PackageSchedule", "onBindPackageItemViewHolder:" + position);
         PackageItemViewHolder packageItemViewHolder = (PackageItemViewHolder) holder;
-        Attraction current = ((PackageScheduleAttractionItem) mItemList.get(position)).getAttraction();
-        Picasso.with(mContext)
-                .load(current.getPhotoUri())
-                .fit()
-                .into(packageItemViewHolder.imageView);
+        PackageScheduleAttractionItem attractionItem = ((PackageScheduleAttractionItem) mItemList.get(position));
+        Attraction current = attractionItem.getAttraction();
+
+        if (attractionItem.getBitmap() != null) {
+            packageItemViewHolder.imageView.setImageBitmap(attractionItem.getBitmap());
+        } else {
+            Picasso.with(mContext)
+                    .load(current.getPhotoUri())
+                    .centerInside()
+                    .fit()
+                    .into(packageItemViewHolder.imageView);
+        }
+
 
         packageItemViewHolder.itemView.setTranslationX(0.0f);
         packageItemViewHolder.relativeLayout.setTranslationX(0.0f);

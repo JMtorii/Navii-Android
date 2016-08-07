@@ -97,14 +97,16 @@ public class ItineraryRecommendListAdapter extends RecyclerView.Adapter<Itinerar
         @OnClick(R.id.package_image_view)
         public void onClick() {
             if (itineraries != null) {
-                Intent packageOverviewActivity = new Intent(context, ItineraryScheduleActivity.class);
-                packageOverviewActivity.putParcelableArrayListExtra(Constants.INTENT_ITINERARIES, new ArrayList<>(Arrays.asList(itineraries)));
-                packageOverviewActivity.putParcelableArrayListExtra(Constants.INTENT_EXTRA_ATTRACTION_LIST, new ArrayList<>(heartAndSoulPackage.getExtraAttractions()));
-                packageOverviewActivity.putParcelableArrayListExtra(Constants.INTENT_EXTRA_RESTAURANT_LIST, new ArrayList<>(heartAndSoulPackage.getExtraRestaurants()));
-                packageOverviewActivity.putExtra(Constants.INTENT_ITINERARY_TITLE, mTextView.getText().toString());
-                packageOverviewActivity.putExtra(Constants.INTENT_DAYS, itineraries.length);
+                Intent itineraryScheduleActivity = new Intent(context, ItineraryScheduleActivity.class);
+                itineraryScheduleActivity.putParcelableArrayListExtra(Constants.INTENT_ITINERARIES, new ArrayList<>(Arrays.asList(itineraries)));
+                itineraryScheduleActivity.putParcelableArrayListExtra(Constants.INTENT_EXTRA_ATTRACTION_LIST, new ArrayList<>(heartAndSoulPackage.getExtraAttractions()));
+                itineraryScheduleActivity.putParcelableArrayListExtra(Constants.INTENT_EXTRA_RESTAURANT_LIST, new ArrayList<>(heartAndSoulPackage.getExtraRestaurants()));
+                itineraryScheduleActivity.putExtra(Constants.INTENT_ITINERARY_TITLE, mTextView.getText().toString());
+                itineraryScheduleActivity.putExtra(Constants.INTENT_DAYS, itineraries.length);
+                itineraryScheduleActivity.putExtra(Constants.INTENT_ITINERARY_EDITABLE, true);
+
                 Activity activity = (Activity) context;
-                activity.startActivity(packageOverviewActivity);
+                activity.startActivity(itineraryScheduleActivity);
                 activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             } else {
                 Toast.makeText(context, R.string.error_steve_fucked_up, Toast.LENGTH_LONG).show();
