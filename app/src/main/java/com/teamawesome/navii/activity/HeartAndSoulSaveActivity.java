@@ -30,6 +30,11 @@ import rx.schedulers.Schedulers;
  * Created by JMtorii on 16-07-17.
  */
 public class HeartAndSoulSaveActivity extends NaviiToolbarActivity {
+    @BindView(R.id.heart_and_soul_save_name_layout)
+    TextInputLayout titleLayout;
+
+    @BindView(R.id.heart_and_soul_save_name_text)
+    TextInputEditText itineraryTitle;
 
     private List<Itinerary> itineraries;
     private List<Attraction> attractions;
@@ -52,12 +57,6 @@ public class HeartAndSoulSaveActivity extends NaviiToolbarActivity {
         onModalBackPressed();
     }
 
-    @BindView(R.id.heart_and_soul_save_name_layout)
-    TextInputLayout titleLayout;
-
-    @BindView(R.id.heart_and_soul_save_name_text)
-    TextInputEditText itineraryTitle;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,8 +73,7 @@ public class HeartAndSoulSaveActivity extends NaviiToolbarActivity {
         String title = itineraryTitle.getText().toString();
         if (title.trim().isEmpty()){
             Toast.makeText(this, "Put a name", Toast.LENGTH_SHORT).show();
-        }
-        else{
+        } else {
             Itinerary [][] test = new Itinerary[1][itineraries.size()];
             for (int i = 0; i < itineraries.size(); i++){
                 test[0][i] = itineraries.get(i);

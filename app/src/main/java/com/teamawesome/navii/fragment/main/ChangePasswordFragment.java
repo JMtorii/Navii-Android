@@ -1,6 +1,8 @@
 package com.teamawesome.navii.fragment.main;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -21,12 +23,13 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 
-public class ChangePasswordFragment extends NaviiFragment {
+public class ChangePasswordFragment extends Fragment {
 
     private EditText mCurrentPasswordField;
     private EditText mNewPasswordField;
     private EditText mRepeatNewPasswordField;
     private Button mChangePasswordButton;
+    private Activity parentActivity;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -139,8 +142,8 @@ public class ChangePasswordFragment extends NaviiFragment {
                     public void onNext(Void v) {
                         // TODO: FIX THIS
                         Log.i("ChangePasswordFragment", "Changed password");
-                        if (parentActivity.getSupportFragmentManager().getBackStackEntryCount() > 0)
-                            parentActivity.getSupportFragmentManager().popBackStackImmediate();
+                        if (parentActivity.getFragmentManager().getBackStackEntryCount() > 0)
+                            parentActivity.getFragmentManager().popBackStackImmediate();
                     }
                 });
     }
