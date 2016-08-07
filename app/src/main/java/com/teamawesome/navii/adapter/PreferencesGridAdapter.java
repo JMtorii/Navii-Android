@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.server.model.Preference;
@@ -34,17 +35,19 @@ public class PreferencesGridAdapter extends RecyclerView.Adapter<PreferencesGrid
 
     public List<Preference> mSelectedPreferences;
     private int mPreferencesCount = 0;
+    private Context mContext;
 
     public PreferencesGridAdapter(List<Preference> preferences) {
         super();
         this.mPreferences = preferences;
+
         mSelectedPreferences = new ArrayList<>();
     }
 
     @Override
     public PreferencesGridAdapter.PreferencesViewholder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
-        LayoutInflater inflater = LayoutInflater.from(context);
+        mContext = parent.getContext();
+        LayoutInflater inflater = LayoutInflater.from(mContext);
         View prefView = inflater.inflate(R.layout.adapter_preferences, parent, false);
         return new PreferencesViewholder(prefView);
     }
@@ -71,6 +74,9 @@ public class PreferencesGridAdapter extends RecyclerView.Adapter<PreferencesGrid
         public void onClick(View view){
             if (!preferenceButton.isSelected()) {
                 if (mPreferencesCount == Constants.PREFERENCE_MAX_LIMIT) {
+                    if (mContext != null) {
+                        Toast.makeText(mContext, "Max amount Selected", Toast.LENGTH_SHORT).show();
+                    }
                     return;
                 }
                 mSelectedPreferences.add((Preference) view.getTag());
