@@ -12,12 +12,15 @@ import android.view.ViewGroup;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.server.model.Attraction;
@@ -72,9 +75,6 @@ public class ItineraryScheduleMapFragment extends Fragment implements OnMapReady
 
         // Hide the zoom controls as the button panel will cover it.
         setMapView(0);
-        LatLng toronto = new LatLng(43.644, -79.387);
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(toronto));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(20), 2000, null);
     }
 
     @Override
@@ -128,34 +128,28 @@ public class ItineraryScheduleMapFragment extends Fragment implements OnMapReady
         List<Attraction> attractions = itineraries.get(position).getAttractions();
         if (attractions == null) {
             attractions = new ArrayList<>();
-            for (int i = 0; i < 6; i++) {
-                Location location = new Location.Builder()
-                        .latitude(43.636665)
-                        .longitude(-79.399875)
-                        .address("Address")
-                        .build();
-
-                Attraction attraction = new Attraction.Builder()
-                        .photoUri("http://www.city-data.com/forum/attachments/city-vs-city/105240d1356338901-greater-downtown-toronto-vs-greater-downtown-toronto-skyline-night-view.jpg")
-                        .price(2)
-                        .location(location)
-                        .name("Attraction:" + i)
-                        .build();
-                attractions.add(attraction);
-            }
         }
+
+        LatLng toronto = new LatLng(43.644, -79.387);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(toronto));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
+        LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
         for (int i = 0; i < attractions.size(); i++) {
             Log.d("MapFragment", attractions.get(i).getName());
             Location location = attractions.get(i).getLocation();
             LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-            mMap.addMarker(new MarkerOptions()
+            Marker marker = mMap.addMarker(new MarkerOptions()
                     .position(latLng)
                     .title(i + ":" + attractions.get(i).getName())
                     .snippet(attractions.get(i).getPhotoUri())
-                    .title("A")
+                    .title(attractions.get(i).getName())
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
             );
+            builder.include(marker.getPosition());
         }
+        LatLngBounds bounds = builder.build();
+        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 10);
+        mMap.animateCamera(cu);
     }
 }

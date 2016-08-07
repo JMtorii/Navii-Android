@@ -5,6 +5,7 @@ package com.teamawesome.navii.util;
  */
 public class Constants {
 
+
     private Constants() {
     }
 
@@ -42,6 +43,8 @@ public class Constants {
     public static final String INTENT_EXTRA_ATTRACTION_LIST = "INTENT_EXTRA_ATTRACTION_LIST";
     public static final String INTENT_EXTRA_RESTAURANT_LIST = "INTENT_EXTRA_RESTAURANT_LIST";
     public static final String INTENT_TRIP_TO_SAVE = "INTENT_TRIP_TO_SAVE";
+    public static final String INTENT_ITINERARY_EDITABLE = "INTENT_ITINERARY_EDITABLE";
+
     // Permissions
     public static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 51808;
 
