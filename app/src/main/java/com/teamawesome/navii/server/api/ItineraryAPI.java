@@ -22,6 +22,6 @@ public interface ItineraryAPI {
     @GET("/itinerary/tags/{tag_list}/{num_days}")
     Observable<HeartAndSoulPackage> getItineraries(@Path("tag_list") String tags, @Path("num_days") int days);
 
-    @POST("/itinerary/saveList/")
+    @POST("/itinerary/saveList")
     Observable<Void> saveItineraries(@Body List<Itinerary> itineraryList);
 }
