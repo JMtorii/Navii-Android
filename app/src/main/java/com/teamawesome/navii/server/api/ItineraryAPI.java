@@ -24,4 +24,7 @@ public interface ItineraryAPI {
 
     @POST("/itinerary/saveList")
     Observable<Void> saveItineraries(@Body List<Itinerary> itineraryList);
+
+    @GET("/itinerary/retreiveList")
+    Observable<List<List<Itinerary>>> getSavedItineraries();
 }
