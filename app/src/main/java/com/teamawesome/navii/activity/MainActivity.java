@@ -117,6 +117,12 @@ public class MainActivity extends NaviiNavigationalActivity {
         fragment.nextFunction();
     }
 
+    public int getDuration() {
+        ParallaxPagerAdapter adapter = ((ParallaxPagerAdapter) parallaxViewPager.getAdapter());
+        TravelDurationFragment travelDurationFragment = (TravelDurationFragment) adapter.getItem(1);
+        return travelDurationFragment.getDuration();
+    }
+
     private void setupParallaxViews() {
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(Fragment.instantiate(this, TravelDestinationFragment.class.getName()));

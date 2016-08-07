@@ -16,6 +16,9 @@ public class Attraction implements Parcelable {
     private int price;
     private int duration;
     private String purchase;
+    private String description;
+    private double rating;
+    private String phoneNumber;
 
     public Attraction() {
     }
@@ -28,6 +31,9 @@ public class Attraction implements Parcelable {
         this.blurbUri = builder.blurbUri;
         this.price = builder.price;
         this.duration = builder.duration;
+        this.rating = builder.rating;
+        this.description = builder.description;
+        this.phoneNumber = builder.phoneNumber;
     }
 
     protected Attraction(Parcel in) {
@@ -39,6 +45,9 @@ public class Attraction implements Parcelable {
         price = in.readInt();
         duration = in.readInt();
         purchase = in.readString();
+        rating = in.readDouble();
+        description = in.readString();
+        phoneNumber = in.readString();
     }
 
     @Override
@@ -56,6 +65,9 @@ public class Attraction implements Parcelable {
         dest.writeInt(price);
         dest.writeInt(duration);
         dest.writeString(purchase);
+        dest.writeDouble(rating);
+        dest.writeString(description);
+        dest.writeString(phoneNumber);
     }
 
     public static final Creator<Attraction> CREATOR = new Creator<Attraction>() {
@@ -102,6 +114,18 @@ public class Attraction implements Parcelable {
         return purchase;
     }
 
+    public double getRating() {
+        return rating;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
     public static class Builder {
         private int attractionId;
         private String name;
@@ -111,6 +135,9 @@ public class Attraction implements Parcelable {
         private int price;
         private int duration;
         private String purchase;
+        private String description;
+        private double rating;
+        private String phoneNumber;
 
         public Builder() {
         }
@@ -152,6 +179,21 @@ public class Attraction implements Parcelable {
 
         public Builder duration(int duration) {
             this.duration = duration;
+            return this;
+        }
+
+        public Builder description(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public Builder rating(double rating) {
+            this.rating = rating;
+            return this;
+        }
+
+        public Builder phoneNumber(String phoneNumber) {
+            this.phoneNumber = phoneNumber;
             return this;
         }
 

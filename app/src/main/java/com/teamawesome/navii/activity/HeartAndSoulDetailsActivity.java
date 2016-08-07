@@ -30,8 +30,14 @@ public class HeartAndSoulDetailsActivity extends NaviiToolbarActivity {
     @BindView(R.id.hns_location)
     TextView locationTextView;
 
-    @BindView(R.id.hns_description)
+    @BindView(R.id.hns_categories)
     TextView descriptionTextView;
+
+    @BindView(R.id.hns_rating)
+    TextView ratingTextView;
+
+    @BindView(R.id.hns_phone_number)
+    TextView phoneNumberTextView;
 
     @Override
     public ToolbarConfiguration getToolbarConfiguration() {
@@ -58,12 +64,17 @@ public class HeartAndSoulDetailsActivity extends NaviiToolbarActivity {
         String imageUri = "http://cpl.jumpfactor.netdna-cdn.com/wp-content/uploads/2015/04/plumber-Toronto-Toronto-plumbers.jpg";
         String address = "";
         String description = "description";
+        String phoneNumber = "";
+        double rating = 0;
+
         Attraction attraction = getIntent().getParcelableExtra(Constants.INTENT_ATTRACTION);
         if (attraction != null) {
             title = attraction.getName();
             imageUri = attraction.getPhotoUri();
             address = attraction.getLocation().getAddress();
-            description = attraction.getBlurbUri();
+            description = attraction.getDescription();
+            phoneNumber = attraction.getPhoneNumber();
+            rating = attraction.getRating();
         }
 
         if (address == null) {
@@ -79,6 +90,8 @@ public class HeartAndSoulDetailsActivity extends NaviiToolbarActivity {
         collapsingToolbarLayout.setTitle(title);
         locationTextView.setText(address);
         descriptionTextView.setText(description);
+        ratingTextView.setText(Double.toString(rating)+"/"+"5");
+        phoneNumberTextView.setText(phoneNumber);
         getWindow().setStatusBarColor(Color.TRANSPARENT);
     }
 
