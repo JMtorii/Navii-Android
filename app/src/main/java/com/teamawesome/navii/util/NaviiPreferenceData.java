@@ -42,7 +42,7 @@ public class NaviiPreferenceData {
     public static void deleteLoginSession() {
         Editor editor = getSharedPreferences().edit();
         editor.putBoolean(PREF_IS_LOGGED_IN, false);
-        //editor.putString(KEY_NAME, "");
+        editor.putString(PREF_NAME, "");
         editor.putString(PREF_LOGGED_IN_USER_EMAIL, "");
         editor.putString(PREF_KEY_TOKEN, "");
         editor.apply();

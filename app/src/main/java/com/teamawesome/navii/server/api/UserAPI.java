@@ -2,6 +2,7 @@ package com.teamawesome.navii.server.api;
 
 import com.squareup.okhttp.ResponseBody;
 import com.teamawesome.navii.server.model.User;
+import com.teamawesome.navii.server.model.VoyagerResponse;
 
 import retrofit.Call;
 import retrofit.http.Body;
@@ -35,7 +36,7 @@ public interface UserAPI {
      */
     @Headers({"Content-Type: application/json"})
     @POST("/user")
-    Observable<Void> createUser(@Body User user);
+    Observable<VoyagerResponse> createUser(@Body User user);
 
     /**
      * Changes the user's password after validating
