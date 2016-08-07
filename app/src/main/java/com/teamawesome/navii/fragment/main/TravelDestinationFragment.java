@@ -41,4 +41,10 @@ public class TravelDestinationFragment extends NaviiParallaxFragment {
         super.onResume();
         mDestinationEditView.setSelected(true);
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mDestinationEditView.setSelected(true);
+    }
 }
