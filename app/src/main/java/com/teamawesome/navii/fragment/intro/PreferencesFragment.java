@@ -1,6 +1,7 @@
 package com.teamawesome.navii.fragment.intro;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -11,7 +12,6 @@ import android.widget.TextView;
 
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.adapter.PreferencesGridAdapter;
-import com.teamawesome.navii.fragment.main.NaviiFragment;
 import com.teamawesome.navii.server.model.PreferencesQuestion;
 import com.teamawesome.navii.util.RestClient;
 
@@ -25,7 +25,7 @@ import rx.schedulers.Schedulers;
 /**
  * Created by JMtorii on 2015-10-30.
  */
-public class PreferencesFragment extends NaviiFragment {
+public class PreferencesFragment extends Fragment {
     private static final String PREFERENCE_TYPE = "preference_type";
 
     @BindView(R.id.preferences_layout)
@@ -46,8 +46,7 @@ public class PreferencesFragment extends NaviiFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_intro_preferences, container, false);
         ButterKnife.bind(this, view);
         final int preferenceType = getArguments().getInt(PREFERENCE_TYPE);
@@ -90,12 +89,12 @@ public class PreferencesFragment extends NaviiFragment {
 //
 //                String email = NaviiPreferenceData.getLoggedInUserEmail();
 //
-//                for (Preference preference : mAdapter.getmSelectedPreferences()) {
+//                for (Preference preference : mAdapter.getSelectedPreferences()) {
 //                    Log.d("Preference", preference.getPreference());
 //                }
 //
 //                Call<Void> deleteCall = RestClient.userPreferenceAPI.deleteAllUserPreference(preferenceType);
-//                Call<Void> createCall = RestClient.userPreferenceAPI.createUserPreference(mAdapter.getmSelectedPreferences());
+//                Call<Void> createCall = RestClient.userPreferenceAPI.createUserPreference(mAdapter.getSelectedPreferences());
 //
 //                // enqueues the delete call to delete the existing preferences for the user to
 //                // replace with new ones

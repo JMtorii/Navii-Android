@@ -1,10 +1,12 @@
 package com.teamawesome.navii.fragment.main;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,10 +20,9 @@ import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.UploadImageTestActivity;
 import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.ImageUploader;
-import com.teamawesome.navii.views.MainLatoButton;
 
 
-public class UploadImageFragment extends NaviiFragment {
+public class UploadImageFragment extends Fragment {
     private static final int PHOTO_SELECTED = 1;
 
     private String mUploadedImageUrlStr = null;
@@ -29,6 +30,7 @@ public class UploadImageFragment extends NaviiFragment {
     private Button mUploadImageButton;
     private ImageUploader mUploader;
     private TransferListener mTransferListener;
+    private Activity parentActivity;
 
 
     @Override

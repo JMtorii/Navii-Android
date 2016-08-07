@@ -31,12 +31,42 @@ public class PreferencesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preference);
         ButterKnife.bind(this);
+//        Observable<List<List<Itinerary>>> saveCall = RestClient.itineraryAPI.getSavedItineraries();
+//        saveCall.subscribeOn(Schedulers.newThread())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Subscriber<List<List<Itinerary>>>() {
+//
+//                    @Override
+//                    public void onCompleted() {
+//
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onNext(List<List<Itinerary>> lists) {
+//
+//                    }
+//                });
         setupViewPager(mViewPager);
     }
 
     @OnClick(R.id.preferences_next_button)
     public void onClick() {
-
+        int index = mViewPager.getCurrentItem();
+        int maxIndex = mViewPager.getChildCount();
+        //Currently the travel participants fragment precedes the budget fragment
+        //Makes the next button invisible if the "next" fragment is budget
+        if (index < maxIndex) {
+            mViewPager.setCurrentItem(index + 1, true);
+        } else {
+            for (int i = 0; i < mAdapter.getCount(); i++) {
+                PreferencesFragment preferencesFragment = (PreferencesFragment) mAdapter.getItem(i);
+            }
+        }
     }
 
     private void setupViewPager(ViewPager viewPager) {
