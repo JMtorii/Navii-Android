@@ -110,9 +110,7 @@ public class SignUpActivity extends NaviiToolbarActivity {
         String passwordAgain = passwordAgainEditText.getText().toString();
 
         if (username.isEmpty()) {
-            nameInputLayout.requestFocus();
-            nameInputLayout.setErrorEnabled(true);
-            nameInputLayout.setError("You must provide a login name.");
+            setErrorForTextInputLayout(nameInputLayout, "You must provide a login name.");
             return;
         }
 
@@ -120,23 +118,22 @@ public class SignUpActivity extends NaviiToolbarActivity {
         Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(email);
         if (!matcher.matches()) {
-            emailInputLayout.requestFocus();
-            emailInputLayout.setErrorEnabled(true);
-            emailInputLayout.setError("Not a valid email.");
+            setErrorForTextInputLayout(emailInputLayout, "Not a valid email.");
+            return;
+        }
+
+        if (password.length() < 1) {
+            setErrorForTextInputLayout(passwordInputLayout, "You must provide a password.");
             return;
         }
 
         if (password.length() < 5) {
-            passwordInputLayout.requestFocus();
-            passwordInputLayout.setErrorEnabled(true);
-            passwordEditText.setError("Password not strong enough.");
+            setErrorForTextInputLayout(passwordInputLayout, "Password is not strong enough.");
             return;
         }
 
         if (passwordAgain.compareTo(password) != 0) {
-            passwordAgainInputLayout.requestFocus();
-            passwordAgainInputLayout.setErrorEnabled(true);
-            passwordAgainInputLayout.setError("Passwords do not match.");
+            setErrorForTextInputLayout(passwordAgainInputLayout, "Passwords do not match.");
             return;
         }
 
@@ -156,12 +153,12 @@ public class SignUpActivity extends NaviiToolbarActivity {
         User user = new User.Builder().email(email).username(username).password(hashedPassword).build();
         Observable<VoyagerResponse> call = RestClient.userAPI.createUser(user);
         call.subscribeOn(Schedulers.newThread())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Subscriber<VoyagerResponse>() {
-                @Override
-                public void onCompleted() {
-                   // Nothing to do here
-                }
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<VoyagerResponse>() {
+                    @Override
+                    public void onCompleted() {
+                        // Nothing to do here
+                    }
 
                     @Override
                     public void onError(Throwable throwable) {
@@ -201,5 +198,11 @@ public class SignUpActivity extends NaviiToolbarActivity {
         nextActivity.putExtra("from_signup", true);
         startActivity(nextActivity);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
+
+    private void setErrorForTextInputLayout(TextInputLayout layout, String errorMessage) {
+        layout.requestFocus();
+        layout.setErrorEnabled(true);
+        layout.setError(errorMessage);
     }
 }
