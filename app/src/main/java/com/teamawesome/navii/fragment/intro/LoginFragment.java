@@ -214,6 +214,7 @@ public class LoginFragment extends Fragment {
 
                     @Override
                     public void onNext(VoyagerResponse response) {
+                        AnalyticsManager.getMixpanel().getPeople().identify(response.getUser().getEmail());
                         AnalyticsManager.getMixpanel().identify(response.getUser().getEmail());
                         AnalyticsManager.getMixpanel().track("LoginFragment - Successful email login");
                         loginUserComplete(response.getUser().getUsername(), response.getUser().getEmail(), response.getToken());
@@ -290,6 +291,7 @@ public class LoginFragment extends Fragment {
                                         public void onCompleted(JSONObject object, GraphResponse response) {
                                             try {
                                                 AnalyticsManager.getMixpanel().identify(object.getString("email"));
+                                                AnalyticsManager.getMixpanel().getPeople().identify(object.getString("email"));
                                                 AnalyticsManager.getMixpanel().track("LoginFragment - Successful Facebook login");
                                                 loginUserComplete(object.getString("name"), object.getString("email"), token);
                                             } catch (JSONException e) {

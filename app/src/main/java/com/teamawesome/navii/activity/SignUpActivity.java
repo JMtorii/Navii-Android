@@ -187,8 +187,9 @@ public class SignUpActivity extends NaviiToolbarActivity {
 
                     @Override
                     public void onNext(VoyagerResponse response) {
-                        AnalyticsManager.getMixpanel().track("SignUpActivity - Successful email sign up");
                         AnalyticsManager.getMixpanel().identify(email);
+                        AnalyticsManager.getMixpanel().getPeople().identify(email);
+                        AnalyticsManager.getMixpanel().track("SignUpActivity - Successful email sign up");
                         NaviiPreferenceData.createLoginSession(response.getUser().getUsername(), response.getUser().getEmail(), response.getToken());
                         switchActivity();
                     }
