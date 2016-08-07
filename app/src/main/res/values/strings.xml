@@ -46,8 +46,8 @@
     <string name="destination_placeholder_text">TORONTO</string>
 
     <!-- Travel Duration Strings -->
-    <string name="duration_from_text">FROM</string>
-    <string name="duration_to_text">TO</string>
+    <string name="duration_from_text">from</string>
+    <string name="duration_to_text">to</string>
     <string name="duration_from_date">September 31, 2016</string>
     <string name="duration_to_date">September 31, 2016</string>z
 
