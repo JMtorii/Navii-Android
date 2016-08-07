@@ -1,6 +1,7 @@
 package com.teamawesome.navii.fragment.main;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -29,13 +30,9 @@ import com.teamawesome.navii.util.HeartAndSoulHeaderConfiguration;
 import com.teamawesome.navii.util.PackageScheduleAttractionItem;
 import com.teamawesome.navii.util.PackageScheduleHeaderItem;
 import com.teamawesome.navii.util.PackageScheduleListItem;
-import com.teamawesome.navii.util.PhotoTask;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,6 +47,8 @@ public class ItineraryScheduleViewFragment extends Fragment {
     RecyclerView mItineraryRecyclerView;
 
     private PackageScheduleViewAdapter mPackageScheduleViewAdapter;
+    private ProgressDialog progressDialog;
+
     private ItemTouchHelper mItemTouchHelper;
     private ItemTouchHelper.Callback mCallback;
     private Snackbar mSnackbar;
@@ -154,27 +153,25 @@ public class ItineraryScheduleViewFragment extends Fragment {
                         .build();
 
                 Bitmap image = null;
-                try {
-                    image = new PhotoTask(getContext()) {
-                        @Override
-                        protected void onPreExecute() {
-                            // Display a temporary image to show while bitmap is loading.
-                        }
-
-                        @Override
-                        protected void onPostExecute(Bitmap attributedPhoto) {
-                            if (attributedPhoto != null) {
-
-                            }
-                        }
-                    }.execute(id).get(10000, TimeUnit.MILLISECONDS);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (TimeoutException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    image = new PhotoTask(getContext()) {
+//                        @Override
+//                        protected void onPreExecute() {
+//                            // Display a temporary image to show while bitmap is loading.
+//                        }
+//
+//                        @Override
+//                        protected void onPostExecute(Bitmap attributedPhoto) {
+//                            progressDialog.dismiss();
+//                        }
+//                    }.execute(id).get(20000, TimeUnit.MILLISECONDS);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                } catch (ExecutionException e) {
+//                    e.printStackTrace();
+//                } catch (TimeoutException e) {
+//                    e.printStackTrace();
+//                }
 
                 PackageScheduleAttractionItem attractionItem = new PackageScheduleAttractionItem(attraction);
                 attractionItem.setBitmap(image);
