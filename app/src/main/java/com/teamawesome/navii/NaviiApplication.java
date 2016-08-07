@@ -5,6 +5,7 @@ import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
 import com.facebook.FacebookSdk;
+import com.teamawesome.navii.util.AnalyticsManager;
 import com.teamawesome.navii.util.RestClient;
 import com.teamawesome.navii.util.RxBus;
 
@@ -27,7 +28,7 @@ public class NaviiApplication extends MultiDexApplication {
         context = getApplicationContext();
         RestClient.init();
         FacebookSdk.sdkInitialize(context);
-
+        AnalyticsManager.init(context);
     }
 
     @Override

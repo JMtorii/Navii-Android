@@ -7,6 +7,10 @@ import com.mixpanel.android.mpmetrics.MixpanelAPI;
 /**
  * This must be initialized at the start of the app, or everything will die.
  * Excellent design, I know.
+ *
+ * TODO: Hide mixpanel from the outside app so that this can be extended with Facebook
+ * analytics, and other similar packages without affecting any other code
+ *
  * Created by ecrothers on 2016-08-07.
  */
 public abstract class AnalyticsManager {

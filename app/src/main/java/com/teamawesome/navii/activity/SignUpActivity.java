@@ -148,6 +148,7 @@ public class SignUpActivity extends NaviiToolbarActivity {
                 public void onCompleted() {
                    // Nothing to do here
                     AnalyticsManager.getMixpanel().track("SignUpActivity - Successful email sign up");
+                    AnalyticsManager.getMixpanel().identify(email);
                 }
 
                 @Override

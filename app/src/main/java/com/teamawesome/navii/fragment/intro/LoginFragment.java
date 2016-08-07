@@ -46,6 +46,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -175,7 +176,6 @@ public class LoginFragment extends Fragment {
                     @Override
                     public void onCompleted() {
                         // Nothing to do here
-                        AnalyticsManager.getMixpanel().track("LoginFragment - Successful email login");
                     }
 
                     @Override
@@ -204,8 +204,8 @@ public class LoginFragment extends Fragment {
 
                     @Override
                     public void onNext(VoyagerResponse response) {
-//                        String token = responseBody.string();
-//                        Log.i("tok", token);
+                        AnalyticsManager.getMixpanel().identify(response.getUser().getEmail());
+                        AnalyticsManager.getMixpanel().track("LoginFragment - Successful email login");
                         loginUserComplete(response.getUser().getUsername(), response.getUser().getEmail(), response.getToken());
                     }
                 });
@@ -242,7 +242,6 @@ public class LoginFragment extends Fragment {
                     @Override
                     public void onCompleted() {
                         // Nothing to do here
-                        AnalyticsManager.getMixpanel().track("LoginFragment - Successful Facebook login");
                     }
 
                     @Override
@@ -280,6 +279,8 @@ public class LoginFragment extends Fragment {
                                         @Override
                                         public void onCompleted(JSONObject object, GraphResponse response) {
                                             try {
+                                                AnalyticsManager.getMixpanel().identify(object.getString("email"));
+                                                AnalyticsManager.getMixpanel().track("LoginFragment - Successful Facebook login");
                                                 loginUserComplete(object.getString("name"), object.getString("email"), token);
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
@@ -301,6 +302,9 @@ public class LoginFragment extends Fragment {
      * On successful login, start a new session and begin the main activity
      */
     private void loginUserComplete(String fullName, String email, String token) {
+        Calendar c = Calendar.getInstance();
+
+        AnalyticsManager.getMixpanel().getPeople().set("last_login", c.getTime());
         NaviiPreferenceData.createLoginSession(fullName, email, token);
         getActivity().finish();
     }
