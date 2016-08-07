@@ -147,7 +147,7 @@ public class LoginFragment extends Fragment {
         }
 
         if (password.length() < 1) {
-            emailLoginEditText.requestFocus();
+            passwordEditText.requestFocus();
             passwordEditText.setError("Enter your password.");
             return;
         }
