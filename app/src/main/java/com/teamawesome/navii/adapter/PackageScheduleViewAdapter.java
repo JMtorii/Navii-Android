@@ -28,9 +28,6 @@ import com.teamawesome.navii.util.PackageScheduleHeaderItem;
 import com.teamawesome.navii.util.PackageScheduleListItem;
 import com.teamawesome.navii.util.VectorDrawableWorkerTask;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -44,7 +41,6 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
 
     private List<PackageScheduleListItem> mItemList;
     private Context mContext;
-    private GregorianCalendar mStartTime;
 
     private final static int TYPE_ITEM = 0;
     private final static int TYPE_HEADER = 1;
@@ -54,7 +50,6 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
     public PackageScheduleViewAdapter(Context context, List<PackageScheduleListItem> mItemList) {
         this.mItemList = mItemList;
         this.mContext = context;
-        this.mStartTime = new GregorianCalendar(2016, 6, 26, 8, 0);
     }
 
     @Override
@@ -90,18 +85,15 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
         Log.d("PackageSchedule", "onBindPackageItemViewHolder:" + position);
         PackageItemViewHolder packageItemViewHolder = (PackageItemViewHolder) holder;
         Attraction current = ((PackageScheduleAttractionItem) mItemList.get(position)).getAttraction();
-
         Picasso.with(mContext)
                 .load(current.getPhotoUri())
                 .fit()
                 .into(packageItemViewHolder.imageView);
 
-        DateFormat dateFormat = new SimpleDateFormat(TIME_FORMAT);
         packageItemViewHolder.itemView.setTranslationX(0.0f);
         packageItemViewHolder.relativeLayout.setTranslationX(0.0f);
         packageItemViewHolder.attractionName.setText(current.getName());
         packageItemViewHolder.attractionPrice.setText("$" + String.valueOf(current.getPrice()));
-        packageItemViewHolder.attractionStartTime.setText(dateFormat.format(mStartTime.getTime()));
     }
 
     private void onBindSectionViewHolder(RecyclerView.ViewHolder holder, int position) {
@@ -133,6 +125,12 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
         PackageScheduleListItem previousAttraction = mItemList.remove(from);
         mItemList.add(to, previousAttraction);
         notifyItemMoved(from, to);
+    }
+
+    public void replace(List<PackageScheduleListItem> itemList) {
+        mItemList.clear();
+        mItemList.addAll(itemList);
+        notifyDataSetChanged();
     }
 
     public void add(PackageScheduleListItem item) {
@@ -177,9 +175,6 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
 
         @BindView(R.id.attraction_price)
         TextView attractionPrice;
-
-        @BindView(R.id.attraction_start_time)
-        TextView attractionStartTime;
 
         @BindView(R.id.attraction_photo)
         ImageView imageView;

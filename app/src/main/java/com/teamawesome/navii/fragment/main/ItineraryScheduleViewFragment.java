@@ -106,8 +106,24 @@ public class ItineraryScheduleViewFragment extends NaviiFragment {
     }
 
     public void updateDay(int position) {
-        setPackageScheduleView(position);
-        spinnerPosition = position;
+        List<Attraction> attractions = itineraries.get(position).getAttractions();
+        List<PackageScheduleListItem> items = new ArrayList<>();
+
+        if (attractions == null) {
+            attractions = new ArrayList<>();
+        }
+
+        int sectionDivide = (int) Math.ceil((double) attractions.size() / (double) 3);
+        int counter = 0;
+        for (int i = 0; i < attractions.size(); i++) {
+            if (i == (sectionDivide) * counter) {
+                items.add(new PackageScheduleHeaderItem(HeartAndSoulHeaderConfiguration.getConfiguration(counter)));
+                ++counter;
+            }
+            items.add(new PackageScheduleAttractionItem(attractions.get(i)));
+        }
+
+        mPackageScheduleViewAdapter.replace(items);
     }
 
     @Override
@@ -148,7 +164,8 @@ public class ItineraryScheduleViewFragment extends NaviiFragment {
                 Attraction attraction = data.getParcelableExtra(Constants.INTENT_ATTRACTION);
                 mPackageScheduleViewAdapter.add(new PackageScheduleAttractionItem(attraction));
                 itineraries.get(spinnerPosition).getAttractions().add(attraction);
-            } if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+            }
+            if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
                 Status status = PlaceAutocomplete.getStatus(getActivity(), data);
                 // TODO: Handle the error.
                 Snackbar.make(mItineraryRecyclerView, "Cannot Retrieve Search", Snackbar.LENGTH_SHORT).show();
@@ -192,9 +209,6 @@ public class ItineraryScheduleViewFragment extends NaviiFragment {
 
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-                if (viewHolder.getItemViewType() == 1) {
-                    return false;
-                }
                 mPackageScheduleViewAdapter.move(viewHolder.getAdapterPosition(), target.getAdapterPosition());
                 return true;
             }
@@ -237,7 +251,7 @@ public class ItineraryScheduleViewFragment extends NaviiFragment {
             public void onChildDraw(Canvas c, RecyclerView recyclerView,
                                     RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState,
                                     boolean isCurrentlyActive) {
-                if (Math.abs(dY) > 0.0f && dX == 0.0f && viewHolder.getItemViewType() != 1) {
+                if (Math.abs(dY) > 0.0f && dX == 0.0f) {
                     super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
                 }
             }
@@ -303,8 +317,7 @@ public class ItineraryScheduleViewFragment extends NaviiFragment {
                     touchVH.itemView.setAlpha(1.0f);
                 }
             }
-        }
+        };
 
-                ;
     }
 }
