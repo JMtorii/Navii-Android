@@ -153,7 +153,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_below="@id/login_or_view"
-            android:layout_margin="40dp"
+            android:layout_margin="10dp"
             android:background="@color/transparent"
             android:text="@string/login_sign_up"/>
 

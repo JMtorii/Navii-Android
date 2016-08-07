@@ -6,24 +6,9 @@
                 android:layout_height="match_parent"
                 tools:context=".MainActivity">
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="75dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="25dp"
-        android:clipToPadding="false"
-        card_view:cardBackgroundColor="#55FFFFFF"
-        card_view:cardElevation="@dimen/cardview_default_elevation"
-        card_view:cardPreventCornerOverlap="false"
-        card_view:contentPaddingBottom="20dp"
-        card_view:contentPaddingLeft="2dp"
-        card_view:contentPaddingRight="2dp">
-
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">>
+            android:layout_height="match_parent">
 
 
             <com.teamawesome.navii.views.MainLatoTextView
@@ -53,7 +38,4 @@
                 android:verticalSpacing="15dp"/>
 
         </RelativeLayout>
-
-    </android.support.v7.widget.CardView>
-
 </RelativeLayout>

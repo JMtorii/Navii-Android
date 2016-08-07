@@ -107,17 +107,6 @@ public class HeartAndSoulSaveActivity extends NaviiToolbarActivity {
                         }
                     });
             progressDialog = ProgressDialog.show(this, "Just calm down.", "Loading itineraries...");
-
-//            boolean isDuplicate = false;
-//            for (Itinerary i : SavedTripsActivity.savedItineraries){
-//                isDuplicate = saved.getItineraryNickname().equals(i.getItineraryNickname());
-//            }
-//            if (!isDuplicate){
-//                SavedTripsActivity.savedItineraries.add(saved);
-//            }
-//            else{
-//                Toast.makeText(this, "Name Taken", Toast.LENGTH_SHORT).show();
-//            }
         }
     }
 }

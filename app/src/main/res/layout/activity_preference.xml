@@ -9,7 +9,7 @@
         android:layout_width="225dp"
         android:layout_height="70dp"
         android:id="@+id/preferences_next_button"
-        android:theme="@style/MainButton"
+        android:theme="@style/MainButtonColorInverted"
         app:fontType="Bold"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
