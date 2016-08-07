@@ -4,7 +4,6 @@ import com.squareup.okhttp.ResponseBody;
 import com.teamawesome.navii.server.model.User;
 import com.teamawesome.navii.server.model.VoyagerResponse;
 
-import retrofit.Call;
 import retrofit.http.Body;
 import retrofit.http.POST;
 import retrofit.http.Path;
@@ -18,5 +17,5 @@ public interface LoginAPI {
     Observable<VoyagerResponse> attemptLogin(@Body User user);
 
     @POST("/login/fb/{accessToken}")
-    Call<ResponseBody> attemptFacebookLogin(@Path("accessToken") String accessToken);
+    Observable<ResponseBody> attemptFacebookLogin(@Path("accessToken") String accessToken);
 }

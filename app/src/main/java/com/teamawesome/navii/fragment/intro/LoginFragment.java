@@ -50,11 +50,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import retrofit.Call;
-import retrofit.Callback;
 import retrofit.HttpException;
-import retrofit.Response;
-import retrofit.Retrofit;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -216,13 +212,43 @@ public class LoginFragment extends Fragment {
     }
 
     private void attemptFacebookLogin(final String facebookToken) {
-        Call<ResponseBody> call = RestClient.loginAPI.attemptFacebookLogin(facebookToken);
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Response<ResponseBody> response, Retrofit retrofit) {
-                if (response.isSuccess()) {
+        Observable<ResponseBody> call = RestClient.loginAPI.attemptFacebookLogin(facebookToken);
+        call.subscribeOn(Schedulers.newThread())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(new Subscriber<ResponseBody>() {
+                @Override
+                public void onCompleted() {
+                    // Nothing to do here
+                }
+
+                @Override
+                public void onError(Throwable throwable) {
+                    throwable.printStackTrace();
+                    new AlertDialog.Builder(new ContextThemeWrapper(getContext(), R.style.DialogTheme))
+                            .setTitle(getResources().getString(R.string.error_dialog_title))
+                            .setMessage("Server down, try again later...")
+                            .setPositiveButton(getResources().getString(R.string.error_okay), new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // Nothing to do here
+                                }
+                            })
+                            .show();
+                    if (AccessToken.getCurrentAccessToken() != null) {
+                        new GraphRequest(AccessToken.getCurrentAccessToken(), "/me/permissions/", null, HttpMethod.DELETE, new GraphRequest
+                                .Callback() {
+
+                            @Override
+                            public void onCompleted(GraphResponse graphResponse) {
+                                LoginManager.getInstance().logOut();
+                            }
+                        }).executeAsync();
+                    }
+                }
+
+                @Override
+                public void onNext(ResponseBody response) {
                     try {
-                        final String token = response.body().string();
+                        final String token = response.string();
                         // TODO: currently uses user information obtained from Facebook, may want to obtain user information from our own server
                         GraphRequest request = GraphRequest.newMeRequest(
                                 AccessToken.getCurrentAccessToken(),
@@ -243,37 +269,8 @@ public class LoginFragment extends Fragment {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                } else {
-                    Toast.makeText(getActivity().getApplicationContext(), "Login failed...", Toast.LENGTH_SHORT).show();
-                    if (AccessToken.getCurrentAccessToken() != null) {
-                        new GraphRequest(AccessToken.getCurrentAccessToken(), "/me/permissions/", null, HttpMethod.DELETE, new GraphRequest
-                                .Callback() {
-
-                            @Override
-                            public void onCompleted(GraphResponse graphResponse) {
-                                LoginManager.getInstance().logOut();
-                            }
-                        }).executeAsync();
-                    }
                 }
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                t.printStackTrace();
-                Toast.makeText(getActivity().getApplicationContext(), "Server down, try again later...", Toast.LENGTH_SHORT).show();
-                if (AccessToken.getCurrentAccessToken() != null) {
-                    new GraphRequest(AccessToken.getCurrentAccessToken(), "/me/permissions/", null, HttpMethod.DELETE, new GraphRequest
-                            .Callback() {
-
-                        @Override
-                        public void onCompleted(GraphResponse graphResponse) {
-                            LoginManager.getInstance().logOut();
-                        }
-                    }).executeAsync();
-                }
-            }
-        });
+            });
     }
 
     /**
