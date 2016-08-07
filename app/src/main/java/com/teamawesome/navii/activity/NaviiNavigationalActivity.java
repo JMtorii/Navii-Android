@@ -70,24 +70,6 @@ public abstract class NaviiNavigationalActivity extends NaviBaseActivity impleme
             case R.id.nav_planned_trips:
                 launchClass = SavedTripsActivity.class;
                 break;
-            case R.id.nav_saved_trips:
-                // Saved Trips Activity when created
-                launchClass = null;
-                break;
-            case R.id.nav_preferences:
-                launchClass = PreferencesActivity.class;
-                break;
-            case R.id.nav_notifications:
-                //Notifications Activity when created
-                launchClass = null;
-                break;
-            case R.id.nav_choose_tags:
-                //ChooseTags Activity when created
-                launchClass = null;
-                break;
-            case R.id.nav_profile:
-                launchClass = ProfileActivity.class;
-                break;
             case R.id.nav_logout:
                 if (AccessToken.getCurrentAccessToken() != null) {
                     new GraphRequest(AccessToken.getCurrentAccessToken(), "/me/permissions/", null, HttpMethod.DELETE, new GraphRequest
