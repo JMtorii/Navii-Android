@@ -25,6 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -50,6 +51,7 @@ public class ProfileActivity extends NaviiNavigationalActivity implements OnFocu
     public void onCreate(Bundle savedInstanceState) {
         Log.d("ProfileFragment", "onCreate");
         super.onCreate(savedInstanceState);
+        ButterKnife.bind(this);
 
         mPictureThumbnail = (CircleImageView) findViewById(R.id.profile_thumbnail);
         mNameTextView = (MainLatoTextView) findViewById(R.id.profile_name_textview);

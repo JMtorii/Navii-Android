@@ -79,29 +79,17 @@
                     android:paddingLeft="20dp"
                     />
 
-                <!--<com.teamawesome.navii.views.MainLatoTextView-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="30dp"-->
-                    <!--android:layout_marginTop="25dp"-->
-                    <!--android:textColor="@color/primaryDark"-->
-                    <!--android:textSize="14sp"-->
-                    <!--android:gravity="center_vertical"-->
-                    <!--android:textAlignment="center"-->
-                    <!--android:text="Using Facebook?"-->
-                    <!--android:paddingLeft="20dp"-->
-                    <!--/>-->
-
-                <!--<com.teamawesome.navii.views.MainLatoTextView-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="30dp"-->
-                    <!--android:id="@+id/profile_facebook_textview"-->
-                    <!--android:textColor="@android:color/black"-->
-                    <!--android:textSize="18sp"-->
-                    <!--android:gravity="center_vertical"-->
-                    <!--android:textAlignment="center"-->
-                    <!--android:text="Naw"-->
-                    <!--android:paddingLeft="20dp"-->
-                    <!--/>-->
+                <com.teamawesome.navii.views.MainLatoButton
+                    android:id="@+id/profile_preferences_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="60dp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="50dp"
+                    android:background="@drawable/orange_rounded_button_background"
+                    android:text="@string/profile_preferences_button"
+                    android:textColor="@android:color/white"
+                    app:fontType="Medium"/>
 
             </LinearLayout>
 
