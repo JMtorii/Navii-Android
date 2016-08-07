@@ -71,9 +71,14 @@ public class SavedTripsActivity extends NaviiNavigationalActivity {
 
                     @Override
                     public void onNext(List<List<Itinerary>> lists) {
-                        SavedTripsAdapter savedTripsAdapter = new SavedTripsAdapter(lists, SavedTripsActivity.this);
-                        plannedTrips.setAdapter(savedTripsAdapter);
-                        plannedTrips.setLayoutManager(new LinearLayoutManager(SavedTripsActivity.this));
+                        if (lists.isEmpty()){
+                            Toast.makeText(SavedTripsActivity.this, "Make some Trips!", Toast.LENGTH_LONG);
+                        }
+                        else {
+                            SavedTripsAdapter savedTripsAdapter = new SavedTripsAdapter(lists, SavedTripsActivity.this);
+                            plannedTrips.setAdapter(savedTripsAdapter);
+                            plannedTrips.setLayoutManager(new LinearLayoutManager(SavedTripsActivity.this));
+                        }
                     }
                 });
         progressDialog = ProgressDialog.show(this, "Building the perfect trip", "Loading trips...");

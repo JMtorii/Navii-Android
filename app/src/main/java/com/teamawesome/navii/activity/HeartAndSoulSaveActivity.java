@@ -1,6 +1,8 @@
 package com.teamawesome.navii.activity;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
@@ -103,8 +105,11 @@ public class HeartAndSoulSaveActivity extends NaviiToolbarActivity {
 
                         @Override
                         public void onNext(Void aVoid) {
-                            Log.d("TAG", "Hmm");
-
+                            Toast.makeText(HeartAndSoulSaveActivity.this, "Trip Saved!", Toast.LENGTH_LONG).show();
+                            Intent savedTripsActivity = new Intent(HeartAndSoulSaveActivity.this, SavedTripsActivity.class);
+                            Activity activity = HeartAndSoulSaveActivity.this;
+                            activity.startActivity(savedTripsActivity);
+                            activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                         }
                     });
             progressDialog = ProgressDialog.show(this, "Building the perfect trip", "Loading itineraries...");
