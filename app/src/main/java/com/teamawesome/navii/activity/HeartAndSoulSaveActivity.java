@@ -84,7 +84,7 @@ public class HeartAndSoulSaveActivity extends NaviiToolbarActivity {
             hsPackage.packageNickname = title;
             //TODO Persist with user?
             Log.d("Attractions: ", String.valueOf(hsPackage.getExtraAttractions().size()));
-            Observable<Void> saveCall = RestClient.itineraryAPI.saveItineraries(itineraries);
+            Observable<Void> saveCall = RestClient.itineraryAPI.saveItineraries(itineraries, title);
             saveCall.subscribeOn(Schedulers.newThread())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Subscriber<Void>() {
