@@ -32,7 +32,6 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.squareup.okhttp.ResponseBody;
 import com.teamawesome.navii.R;
-import com.teamawesome.navii.activity.PreferencesActivity;
 import com.teamawesome.navii.activity.SignUpActivity;
 import com.teamawesome.navii.server.model.User;
 import com.teamawesome.navii.server.model.VoyagerResponse;
@@ -48,6 +47,8 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -128,6 +129,24 @@ public class LoginFragment extends Fragment {
         String email = emailLoginEditText.getText().toString().trim();
         emailLoginEditText.setText(email);
         String password = passwordEditText.getText().toString();
+
+        if (email.length() < 1) {
+            emailLoginEditText.setError("Enter your email.");
+            return;
+        }
+
+        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(email);
+        if (!matcher.matches()) {
+            emailLoginEditText.setError("Not a valid email.");
+            return;
+        }
+
+        if (password.length() < 1) {
+            passwordEditText.setError("Enter your password.");
+            return;
+        }
 
         try {
             String hashedPassword = HashingAlgorithm.sha256(password);
@@ -283,8 +302,6 @@ public class LoginFragment extends Fragment {
      */
     private void loginUserComplete(String fullName, String email, String token) {
         NaviiPreferenceData.createLoginSession(fullName, email, token);
-        Intent nextActivity = new Intent(getActivity(), PreferencesActivity.class);
-        startActivity(nextActivity);
         getActivity().finish();
     }
 }

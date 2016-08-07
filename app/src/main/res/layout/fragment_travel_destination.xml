@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
     android:id="@+id/travel_destination">
 
     <com.teamawesome.navii.views.MainLatoTextView
@@ -17,6 +18,7 @@
         android:text="@string/destination_header_text"
         android:textColor="@android:color/white"
         android:textSize="50sp"
+        app:fontType="Light"
         />
 
     <com.teamawesome.navii.views.MainLatoEditText
@@ -31,6 +33,7 @@
         android:text="@string/destination_placeholder_text"
         android:textColor="@android:color/white"
         android:textSize="50sp"
+        android:backgroundTint="@color/primary"
         app:fontType="Bold"
         />
 
