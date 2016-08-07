@@ -132,6 +132,7 @@ public class LoginFragment extends Fragment {
         String password = passwordEditText.getText().toString();
 
         if (email.length() < 1) {
+            emailLoginEditText.requestFocus();
             emailLoginEditText.setError("Enter your email.");
             return;
         }
@@ -140,11 +141,13 @@ public class LoginFragment extends Fragment {
         Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(email);
         if (!matcher.matches()) {
+            emailLoginEditText.requestFocus();
             emailLoginEditText.setError("Not a valid email.");
             return;
         }
 
         if (password.length() < 1) {
+            emailLoginEditText.requestFocus();
             passwordEditText.setError("Enter your password.");
             return;
         }
