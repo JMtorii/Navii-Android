@@ -114,8 +114,14 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
 
         public void next(View view){
             View parent = view.getRootView();
-            MainActivity mainActivity = (MainActivity) budgetFragment.getActivity();
-            mainActivity.nextPress(parent);
+            MainLatoEditText latoEditText = (MainLatoEditText) parent.findViewById(R.id.budget_text);
+            if (latoEditText.getText().toString().length() == 1){
+                Toast.makeText(budgetFragment.getActivity(), "Invalid", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                MainActivity mainActivity = (MainActivity) budgetFragment.getActivity();
+                mainActivity.nextPress(parent);
+            }
         }
 
         public void addDigit(View view){

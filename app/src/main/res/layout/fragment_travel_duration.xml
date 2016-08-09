@@ -19,7 +19,7 @@
         android:gravity="center"
         android:text="@string/duration_from_text"
         android:textColor="@android:color/white"
-        android:textSize="50sp"
+        android:textSize="40sp"
         app:fontType="Light"
         />
 
@@ -32,7 +32,7 @@
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:textColor="@android:color/white"
-        android:textSize="35sp"
+        android:textSize="25sp"
         tools:text="@string/duration_from_date"
         app:fontType="Bold"
         />
@@ -56,7 +56,7 @@
         android:gravity="center"
         android:text="@string/duration_to_text"
         android:textColor="@android:color/white"
-        android:textSize="50sp"
+        android:textSize="40sp"
         app:fontType="Light"
         />
 
@@ -69,7 +69,7 @@
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:textColor="@android:color/white"
-        android:textSize="35sp"
+        android:textSize="25sp"
         tools:text="@string/duration_to_date"
         app:fontType="Bold"
         />

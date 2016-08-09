@@ -11,13 +11,13 @@
         android:id="@+id/travel_participants_header_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="65dp"
-        android:layout_marginRight="65dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
         android:layout_marginTop="70dp"
         android:gravity="center"
         android:text="@string/participants_header_text"
         android:textColor="@android:color/white"
-        android:textSize="50sp"
+        android:textSize="40sp"
         app:fontType="Light"
         />
 

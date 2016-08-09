@@ -53,4 +53,6 @@ public class Constants {
     public static final int RESPONSE_GOOGLE_SEARCH = 112;
     public static final int RESPONSE_ATTRACTION_SELECTED = 113;
 
+    // Trip constraints
+    public static int MAX_TRIP_LENGTH_DAYS = 5;
 }
