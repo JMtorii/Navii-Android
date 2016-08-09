@@ -6,7 +6,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.transition.Fade;
 import android.transition.Slide;
@@ -20,8 +19,8 @@ import com.teamawesome.navii.R;
 import com.teamawesome.navii.fragment.main.ItineraryScheduleMapFragment;
 import com.teamawesome.navii.fragment.main.ItineraryScheduleViewFragment;
 import com.teamawesome.navii.server.model.Attraction;
-
 import com.teamawesome.navii.server.model.Itinerary;
+import com.teamawesome.navii.server.model.Location;
 import com.teamawesome.navii.util.AnalyticsManager;
 import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.ToolbarConfiguration;
@@ -86,13 +85,17 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity {
         super.onCreate(savedInstanceState);
 
         String title = getIntent().getStringExtra(Constants.INTENT_ITINERARY_TITLE);
-        days = getIntent().getIntExtra(Constants.INTENT_DAYS, 1);
+        days = getIntent().getIntExtra(Constants.INTENT_DAYS, 2);
         titleText.setText(title);
 
         setupViewPager(mViewPager);
         setupSpinner();
 
         itineraries = getIntent().getParcelableArrayListExtra(Constants.INTENT_ITINERARIES);
+        if (itineraries == null) {
+            itineraries = createSampleItineraryList();
+        }
+
         attractions = getIntent().getParcelableArrayListExtra(Constants.INTENT_EXTRA_ATTRACTION_LIST);
         restaurants = getIntent().getParcelableArrayListExtra(Constants.INTENT_EXTRA_RESTAURANT_LIST);
         mEditable = getIntent().getBooleanExtra(Constants.INTENT_ITINERARY_EDITABLE, false);
@@ -181,7 +184,7 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity {
     }
 
     @OnItemSelected(R.id.itinerary_day_spinner)
-    public void onSpinnerItemSelected(View view, int position) {
+    public void onSpinnerItemSelected(int position) {
         Toast.makeText(this, spinner.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
         sendDayChangeMessage(position);
         for (int i = 0; i < mAdapter.getCount(); i++) {
@@ -194,10 +197,43 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity {
         }
     }
 
+    private List<Itinerary> createSampleItineraryList() {
+        List<Itinerary> itineraryList = new ArrayList<>();
+        for (int i = 0; i < 2; i++) {
+            List<Attraction> attractions = new ArrayList<>();
+            for (int j = 0; j < 6; j++) {
+                Location location = new Location.Builder()
+                        .latitude(43.636665)
+                        .longitude(-79.399875)
+                        .address("Address")
+                        .build();
+
+                Attraction attraction = new Attraction.Builder()
+                        .photoUri("http://www.city-data.com/forum/attachments/city-vs-city/105240d1356338901-greater-downtown-toronto-vs-greater-downtown-toronto-skyline-night-view.jpg")
+                        .price(2)
+                        .location(location)
+                        .name("Attraction:" + i)
+                        .build();
+                attractions.add(attraction);
+            }
+            Itinerary itinerary = new Itinerary.Builder()
+                    .description("YELP")
+                    .authorId("YELP")
+                    .attractions(attractions)
+                    .build();
+            itineraryList.add(itinerary);
+
+        }
+        return itineraryList;
+    }
+
+    public List<Itinerary> getItineraries() {
+        return itineraries;
+    }
+
     private void sendDayChangeMessage(int position) {
         Intent intent = new Intent("intent_day_change");
         intent.putExtra("day", position);
-        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 
     private void setupWindowAnimations() {

@@ -23,6 +23,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.teamawesome.navii.R;
+import com.teamawesome.navii.activity.ItineraryScheduleActivity;
 import com.teamawesome.navii.server.model.Attraction;
 import com.teamawesome.navii.server.model.Itinerary;
 import com.teamawesome.navii.server.model.Location;
@@ -60,8 +61,8 @@ public class ItineraryScheduleMapFragment extends Fragment implements OnMapReady
     }
 
     private void setExtraFromBundle() {
-        Intent intent = getActivity().getIntent();
-        itineraries = intent.getParcelableArrayListExtra(Constants.INTENT_ITINERARIES);
+        ItineraryScheduleActivity activity = (ItineraryScheduleActivity) getActivity();
+        itineraries = activity.getItineraries();
     }
 
     public void updateDay(int position) {
@@ -122,6 +123,8 @@ public class ItineraryScheduleMapFragment extends Fragment implements OnMapReady
             }
         }
     }
+
+
 
     public void setMapView(int position) {
         mMap.clear();

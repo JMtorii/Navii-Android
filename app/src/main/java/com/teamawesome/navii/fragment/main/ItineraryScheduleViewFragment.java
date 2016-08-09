@@ -1,7 +1,6 @@
 package com.teamawesome.navii.fragment.main;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -21,6 +20,7 @@ import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.teamawesome.navii.R;
+import com.teamawesome.navii.activity.ItineraryScheduleActivity;
 import com.teamawesome.navii.adapter.PackageScheduleViewAdapter;
 import com.teamawesome.navii.server.model.Attraction;
 import com.teamawesome.navii.server.model.Itinerary;
@@ -47,7 +47,6 @@ public class ItineraryScheduleViewFragment extends Fragment {
     RecyclerView mItineraryRecyclerView;
 
     private PackageScheduleViewAdapter mPackageScheduleViewAdapter;
-    private ProgressDialog progressDialog;
 
     private ItemTouchHelper mItemTouchHelper;
     private ItemTouchHelper.Callback mCallback;
@@ -100,10 +99,12 @@ public class ItineraryScheduleViewFragment extends Fragment {
     }
 
     private void setExtraFromBundle() {
-        Intent intent = getActivity().getIntent();
-        itineraries = intent.getParcelableArrayListExtra(Constants.INTENT_ITINERARIES);
-        mEditable = intent.getBooleanExtra(Constants.INTENT_ITINERARY_EDITABLE, false);
+        ItineraryScheduleActivity activity = (ItineraryScheduleActivity) getActivity();
+        itineraries = activity.getItineraries();
+        mEditable = activity.getIntent().getBooleanExtra(Constants.INTENT_ITINERARY_EDITABLE, false);
     }
+
+
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
