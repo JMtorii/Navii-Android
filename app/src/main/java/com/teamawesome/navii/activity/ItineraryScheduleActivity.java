@@ -38,9 +38,6 @@ import butterknife.OnItemSelected;
  */
 public class ItineraryScheduleActivity extends NaviiToolbarActivity implements ItineraryScheduleViewFragment.OnItineraryChangedListener {
 
-//    @BindView(R.id.itinerary_schedule_fab)
-//    FloatingActionButton mAddScheduleFloatingActionButton;
-
     @BindView(R.id.itinerary_schedule_viewpager)
     ViewPager mViewPager;
 
