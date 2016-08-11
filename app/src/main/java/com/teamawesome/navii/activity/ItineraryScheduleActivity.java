@@ -26,6 +26,7 @@ import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.ToolbarConfiguration;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -35,7 +36,7 @@ import butterknife.OnItemSelected;
 /**
  * Created by sjung on 19/06/16.
  */
-public class ItineraryScheduleActivity extends NaviiToolbarActivity {
+public class ItineraryScheduleActivity extends NaviiToolbarActivity implements ItineraryScheduleViewFragment.OnItineraryChangedListener {
 
 //    @BindView(R.id.itinerary_schedule_fab)
 //    FloatingActionButton mAddScheduleFloatingActionButton;
@@ -141,6 +142,36 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity {
         viewPager.setAdapter(mAdapter);
     }
 
+    @Override
+    public void onItemDeleted(int position) {
+        int day = spinner.getSelectedItemPosition();
+        itineraries.get(day).getAttractions().remove(position);
+
+        updateMapFragment();
+    }
+
+
+    @Override
+    public void onItemAdded(int position, Attraction attraction) {
+        int day = spinner.getSelectedItemPosition();
+        itineraries.get(day).getAttractions().add(position, attraction);
+
+        updateMapFragment();
+    }
+
+    @Override
+    public void onItemMoved(int oldPosition, int newPosition) {
+        int day = spinner.getSelectedItemPosition();
+        List<Attraction> attraction = itineraries.get(day).getAttractions();
+        Collections.swap(attraction, oldPosition, newPosition);
+    }
+
+    private void updateMapFragment() {
+        ItineraryScheduleMapFragment mapFragment = (ItineraryScheduleMapFragment) mAdapter.getItem(1);
+        mapFragment.updateDay(spinner.getSelectedItemPosition());
+    }
+
+
     static class Adapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
@@ -203,8 +234,8 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity {
             List<Attraction> attractions = new ArrayList<>();
             for (int j = 0; j < 6; j++) {
                 Location location = new Location.Builder()
-                        .latitude(43.636665)
-                        .longitude(-79.399875)
+                        .latitude(43.636665 - j * 0.00001)
+                        .longitude(-79.399875 + j * 0.00001)
                         .address("Address")
                         .build();
 

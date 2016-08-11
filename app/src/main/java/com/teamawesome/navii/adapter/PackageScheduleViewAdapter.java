@@ -120,6 +120,9 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
         }
     }
 
+    public PackageScheduleListItem getItem(final int position) {
+        return mItemList.get(position);
+    }
     public PackageScheduleListItem delete(final int position) {
         final PackageScheduleListItem item = mItemList.remove(position);
 

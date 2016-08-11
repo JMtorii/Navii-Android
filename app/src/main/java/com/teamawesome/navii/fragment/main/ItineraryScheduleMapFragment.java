@@ -83,17 +83,9 @@ public class ItineraryScheduleMapFragment extends Fragment implements OnMapReady
         if (requestCode == Constants.GET_ATTRACTION_EXTRA_REQUEST_CODE) {
             if (resultCode == Constants.RESPONSE_GOOGLE_SEARCH) {
                 Place place = PlaceAutocomplete.getPlace(getActivity(), data);
-                String id = place.getId();
                 Log.d("TAG", place.toString());
-                Location location = new Location.Builder()
-                        .address(place.getAddress().toString())
-                        .latitude(place.getLatLng().latitude)
-                        .longitude(place.getLatLng().longitude)
-                        .build();
-
-                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
                 mMap.addMarker(new MarkerOptions()
-                        .position(latLng)
+                        .position(place.getLatLng())
                         .title(place.getName().toString())
                         .snippet(place.getWebsiteUri().toString())
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
@@ -139,7 +131,6 @@ public class ItineraryScheduleMapFragment extends Fragment implements OnMapReady
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
         for (int i = 0; i < attractions.size(); i++) {
-            Log.d("MapFragment", attractions.get(i).getName());
             Location location = attractions.get(i).getLocation();
             LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
             Marker marker = mMap.addMarker(new MarkerOptions()

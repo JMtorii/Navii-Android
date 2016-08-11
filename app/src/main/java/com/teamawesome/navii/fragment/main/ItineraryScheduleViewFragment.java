@@ -1,6 +1,7 @@
 package com.teamawesome.navii.fragment.main;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -47,7 +48,7 @@ public class ItineraryScheduleViewFragment extends Fragment {
     RecyclerView mItineraryRecyclerView;
 
     private PackageScheduleViewAdapter mPackageScheduleViewAdapter;
-
+    private OnItineraryChangedListener mListener;
     private ItemTouchHelper mItemTouchHelper;
     private ItemTouchHelper.Callback mCallback;
     private Snackbar mSnackbar;
@@ -56,9 +57,13 @@ public class ItineraryScheduleViewFragment extends Fragment {
 
     private List<Itinerary> itineraries;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+
+    public interface OnItineraryChangedListener {
+        void onItemDeleted(int position);
+
+        void onItemAdded(int position, Attraction attraction);
+
+        void onItemMoved(int oldPosition, int newPosition);
     }
 
     @Override
@@ -70,6 +75,18 @@ public class ItineraryScheduleViewFragment extends Fragment {
         spinnerPosition = 0;
         setPackageScheduleView(spinnerPosition);
         return view;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        try {
+            mListener = (OnItineraryChangedListener) getActivity();
+        } catch (ClassCastException e) {
+            throw new ClassCastException(getActivity().toString()
+                    + " must implement OnHeadlineSelectedListener");
+        }
     }
 
     private void setPackageScheduleView(int position) {
@@ -101,9 +118,8 @@ public class ItineraryScheduleViewFragment extends Fragment {
     private void setExtraFromBundle() {
         ItineraryScheduleActivity activity = (ItineraryScheduleActivity) getActivity();
         itineraries = activity.getItineraries();
-        mEditable = activity.getIntent().getBooleanExtra(Constants.INTENT_ITINERARY_EDITABLE, false);
+        mEditable = activity.getIntent().getBooleanExtra(Constants.INTENT_ITINERARY_EDITABLE, true);
     }
-
 
 
     @Override
@@ -177,11 +193,11 @@ public class ItineraryScheduleViewFragment extends Fragment {
                 PackageScheduleAttractionItem attractionItem = new PackageScheduleAttractionItem(attraction);
                 attractionItem.setBitmap(image);
                 mPackageScheduleViewAdapter.add(attractionItem);
-                itineraries.get(spinnerPosition).getAttractions().add(attraction);
+                mListener.onItemAdded(1, attraction);
             } else if (resultCode == Constants.RESPONSE_ATTRACTION_SELECTED) {
                 Attraction attraction = data.getParcelableExtra(Constants.INTENT_ATTRACTION);
                 mPackageScheduleViewAdapter.add(new PackageScheduleAttractionItem(attraction));
-                itineraries.get(spinnerPosition).getAttractions().add(attraction);
+                mListener.onItemAdded(1, attraction);
             }
             if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
                 Status status = PlaceAutocomplete.getStatus(getActivity(), data);
@@ -212,7 +228,7 @@ public class ItineraryScheduleViewFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 mPackageScheduleViewAdapter.add(position, item);
-                itineraries.get(spinnerPosition).getAttractions().add(listPosition, attraction);
+                mListener.onItemAdded(listPosition, attraction);
             }
         }).show();
     }
@@ -228,6 +244,15 @@ public class ItineraryScheduleViewFragment extends Fragment {
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
                 mPackageScheduleViewAdapter.move(viewHolder.getAdapterPosition(), target.getAdapterPosition());
+                final PackageScheduleListItem viewItem = mPackageScheduleViewAdapter.getItem(viewHolder.getAdapterPosition());
+                Attraction attraction1 = ((PackageScheduleAttractionItem) viewItem).getAttraction();
+                final PackageScheduleListItem targetItem = mPackageScheduleViewAdapter.getItem(viewHolder.getAdapterPosition());
+                Attraction attraction2 = ((PackageScheduleAttractionItem) targetItem).getAttraction();
+                List<Attraction> list = itineraries.get(spinnerPosition).getAttractions();
+
+                int oldPosition = list.indexOf(attraction1);
+                int newPosition = list.indexOf(attraction2);
+                mListener.onItemMoved(oldPosition, newPosition);
                 return true;
             }
 
@@ -242,15 +267,8 @@ public class ItineraryScheduleViewFragment extends Fragment {
                 final PackageScheduleListItem item = mPackageScheduleViewAdapter.delete(viewHolder.getAdapterPosition());
                 Attraction attraction = ((PackageScheduleAttractionItem) item).getAttraction();
                 List<Attraction> list = itineraries.get(spinnerPosition).getAttractions();
-                int listPosition = 0;
-                for (int i = 0; i < list.size(); i++) {
-                    if (list.get(i).equals(attraction)) {
-                        list.remove(i);
-                        listPosition = i;
-                        break;
-                    }
-                }
-                itineraries.get(spinnerPosition).getAttractions();
+                int listPosition= list.indexOf(attraction);
+                mListener.onItemDeleted(listPosition);
                 showSnackbar(position, item, attraction, listPosition);
             }
 
@@ -259,7 +277,11 @@ public class ItineraryScheduleViewFragment extends Fragment {
                 if (viewHolder == null || viewHolder.getItemViewType() == 1) {
                     return;
                 }
-
+                for (Itinerary itinerary : itineraries) {
+                    for (Attraction attraction : itinerary.getAttractions()) {
+                        Log.d("TAG", attraction.getName());
+                    }
+                }
                 PackageScheduleViewAdapter.PackageItemViewHolder touchVH = (PackageScheduleViewAdapter.PackageItemViewHolder) viewHolder;
 
                 if (actionState == ItemTouchHelper.ACTION_STATE_DRAG) {
@@ -326,7 +348,7 @@ public class ItineraryScheduleViewFragment extends Fragment {
 
             @Override
             public boolean isLongPressDragEnabled() {
-                return mEditable;
+                return true;
             }
 
             @Override

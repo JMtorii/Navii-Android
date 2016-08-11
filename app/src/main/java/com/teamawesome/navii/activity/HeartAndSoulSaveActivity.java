@@ -10,8 +10,6 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.teamawesome.navii.R;
-import com.teamawesome.navii.server.model.Attraction;
-import com.teamawesome.navii.server.model.HeartAndSoulPackage;
 import com.teamawesome.navii.server.model.Itinerary;
 import com.teamawesome.navii.util.AnalyticsManager;
 import com.teamawesome.navii.util.Constants;
@@ -40,8 +38,6 @@ public class HeartAndSoulSaveActivity extends NaviiToolbarActivity {
     TextInputEditText itineraryTitle;
 
     private List<Itinerary> itineraries;
-    private List<Attraction> attractions;
-    private List<Attraction> restaurants;
 
     private ProgressDialog progressDialog;
 
@@ -67,8 +63,6 @@ public class HeartAndSoulSaveActivity extends NaviiToolbarActivity {
         ViewUtilities.setTypefaceToInputLayout(this, titleLayout, "fonts/Lato-Regular.ttf");
 
         itineraries = getIntent().getParcelableArrayListExtra(Constants.INTENT_ITINERARIES);
-        attractions = getIntent().getParcelableArrayListExtra(Constants.INTENT_EXTRA_ATTRACTION_LIST);
-        restaurants = getIntent().getParcelableArrayListExtra(Constants.INTENT_EXTRA_ATTRACTION_LIST);
     }
 
     @OnClick(R.id.itinerary_save_button)
@@ -77,16 +71,6 @@ public class HeartAndSoulSaveActivity extends NaviiToolbarActivity {
         if (title.trim().isEmpty()){
             Toast.makeText(this, "Put a name", Toast.LENGTH_SHORT).show();
         } else {
-            Itinerary [][] test = new Itinerary[1][itineraries.size()];
-            for (int i = 0; i < itineraries.size(); i++){
-                test[0][i] = itineraries.get(i);
-            }
-            HeartAndSoulPackage hsPackage = new HeartAndSoulPackage.Builder().itineraries(test)
-                                             .extraAttractions(attractions)
-                                             .extraAttractions(restaurants).build();
-            hsPackage.packageNickname = title;
-            //TODO Persist with user?
-            Log.d("Attractions: ", String.valueOf(hsPackage.getExtraAttractions().size()));
             Observable<Void> saveCall = RestClient.itineraryAPI.saveItineraries(itineraries, title);
             saveCall.subscribeOn(Schedulers.newThread())
                     .observeOn(AndroidSchedulers.mainThread())
