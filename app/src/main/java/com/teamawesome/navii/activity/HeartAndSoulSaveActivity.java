@@ -16,6 +16,7 @@ import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.RestClient;
 import com.teamawesome.navii.util.ToolbarConfiguration;
 import com.teamawesome.navii.util.ViewUtilities;
+import com.teamawesome.navii.views.MainLatoButton;
 
 import java.util.List;
 
@@ -36,6 +37,9 @@ public class HeartAndSoulSaveActivity extends NaviiToolbarActivity {
 
     @BindView(R.id.heart_and_soul_save_name_text)
     TextInputEditText itineraryTitle;
+
+    @BindView(R.id.itinerary_save_button)
+    MainLatoButton itinerarySave;
 
     private List<Itinerary> itineraries;
 
@@ -90,6 +94,9 @@ public class HeartAndSoulSaveActivity extends NaviiToolbarActivity {
                         @Override
                         public void onNext(Void aVoid) {
                             Toast.makeText(HeartAndSoulSaveActivity.this, "Trip Saved!", Toast.LENGTH_LONG).show();
+                            itineraryTitle.setEnabled(false);
+                            itinerarySave.setText(R.string.already_saved);
+                            itinerarySave.setClickable(false);
                             Intent savedTripsActivity = new Intent(HeartAndSoulSaveActivity.this, SavedTripsActivity.class);
                             Activity activity = HeartAndSoulSaveActivity.this;
                             activity.startActivity(savedTripsActivity);

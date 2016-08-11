@@ -176,5 +176,6 @@
     <string name="eat_item_title">Eat</string>
     <string name="see_item_title">See</string>
     <string name="google_maps_search">Search</string>
+    <string name="already_saved">Trip Saved</string>
 
 </resources>
