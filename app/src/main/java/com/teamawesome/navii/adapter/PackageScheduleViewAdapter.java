@@ -99,7 +99,6 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
         packageItemViewHolder.itemView.setTranslationX(0.0f);
         packageItemViewHolder.relativeLayout.setTranslationX(0.0f);
         packageItemViewHolder.attractionName.setText(current.getName());
-        packageItemViewHolder.attractionPrice.setText("$" + String.valueOf(current.getPrice()));
     }
 
     private void onBindSectionViewHolder(RecyclerView.ViewHolder holder, int position) {
@@ -181,9 +180,6 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
 
         @BindView(R.id.attraction_name)
         TextView attractionName;
-
-        @BindView(R.id.attraction_price)
-        TextView attractionPrice;
 
         @BindView(R.id.attraction_photo)
         ImageView imageView;

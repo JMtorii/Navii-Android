@@ -84,8 +84,7 @@ public class ItineraryScheduleViewFragment extends Fragment {
         try {
             mListener = (OnItineraryChangedListener) getActivity();
         } catch (ClassCastException e) {
-            throw new ClassCastException(getActivity().toString()
-                    + " must implement OnHeadlineSelectedListener");
+            throw new ClassCastException(getActivity().toString() + " must implement OnHeadlineSelectedListener");
         }
     }
 
@@ -120,7 +119,6 @@ public class ItineraryScheduleViewFragment extends Fragment {
         itineraries = activity.getItineraries();
         mEditable = activity.getIntent().getBooleanExtra(Constants.INTENT_ITINERARY_EDITABLE, true);
     }
-
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -307,15 +305,12 @@ public class ItineraryScheduleViewFragment extends Fragment {
             }
 
             @Override
-            public void onChildDrawOver(Canvas c, RecyclerView recyclerView,
-                                        RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState,
-                                        boolean isCurrentlyActive) {
+            public void onChildDrawOver(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
                 if (viewHolder == null || viewHolder.getItemViewType() == 1 || Math.signum(dY) != 0) {
                     return;
                 }
 
-                PackageScheduleViewAdapter.PackageItemViewHolder touchVH =
-                        (PackageScheduleViewAdapter.PackageItemViewHolder) viewHolder;
+                PackageScheduleViewAdapter.PackageItemViewHolder touchVH = (PackageScheduleViewAdapter.PackageItemViewHolder) viewHolder;
 
                 float leaveBehindLength = touchVH.overlay.getWidth();
                 final float dir = Math.signum(dX);
