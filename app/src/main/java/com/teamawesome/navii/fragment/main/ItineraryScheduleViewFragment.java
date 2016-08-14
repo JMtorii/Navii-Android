@@ -53,7 +53,6 @@ public class ItineraryScheduleViewFragment extends Fragment {
     private ItemTouchHelper mItemTouchHelper;
     private ItemTouchHelper.Callback mCallback;
     private Snackbar mSnackbar;
-    private int spinnerPosition;
     private boolean mEditable;
 
     private List<Itinerary> itineraries;
@@ -73,8 +72,7 @@ public class ItineraryScheduleViewFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         setExtraFromBundle();
-        spinnerPosition = 0;
-        setPackageScheduleView(spinnerPosition);
+        setPackageScheduleView();
         return view;
     }
 
@@ -89,17 +87,18 @@ public class ItineraryScheduleViewFragment extends Fragment {
         }
     }
 
-    private void setPackageScheduleView(int position) {
-        List<Attraction> attractions = itineraries.get(position).getAttractions();
+    private void setPackageScheduleView() {
         List<PackageScheduleListItem> items = new ArrayList<>();
 
-        if (attractions == null) {
-            attractions = new ArrayList<>();
-        }
-
-        int sectionDivide = (int) Math.ceil((double) attractions.size() / (double) 3);
-        int counter = 0;
         for (int i = 0; i < itineraries.size(); i++) {
+            List<Attraction> attractions = itineraries.get(i).getAttractions();
+
+            if (attractions == null) {
+                attractions = new ArrayList<>();
+            }
+
+            int sectionDivide = (int) Math.ceil((double) attractions.size() / (double) 3);
+            int counter = 0;
             int day = i+1;
             items.add(new PackageScheduleDayHeaderItem("Day " + day));
             for (int j = 0; j < attractions.size(); j++) {
@@ -109,7 +108,6 @@ public class ItineraryScheduleViewFragment extends Fragment {
                 }
                 items.add(new PackageScheduleAttractionItem(attractions.get(j), 0, j));
             }
-            counter = 0;
         }
         mItineraryRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mPackageScheduleViewAdapter = new PackageScheduleViewAdapter(getActivity(), items);
@@ -227,10 +225,7 @@ public class ItineraryScheduleViewFragment extends Fragment {
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
                 mPackageScheduleViewAdapter.move(viewHolder.getAdapterPosition(), target.getAdapterPosition());
                 final PackageScheduleAttractionItem viewItem = (PackageScheduleAttractionItem) mPackageScheduleViewAdapter.getItem(viewHolder.getAdapterPosition());
-                Attraction attraction1 = viewItem.getAttraction();
                 final PackageScheduleAttractionItem targetItem = (PackageScheduleAttractionItem) mPackageScheduleViewAdapter.getItem(viewHolder.getAdapterPosition());
-                Attraction attraction2 = targetItem.getAttraction();
-                List<Attraction> list = itineraries.get(spinnerPosition).getAttractions();
 
                 mListener.onItemMoved(viewItem.getDay(), viewItem.getPosition(), targetItem.getDay(), targetItem.getPosition());
                 return true;
@@ -246,10 +241,8 @@ public class ItineraryScheduleViewFragment extends Fragment {
                 Log.d("TAG", "" + position);
                 final PackageScheduleListItem item = mPackageScheduleViewAdapter.delete(viewHolder.getAdapterPosition());
                 Attraction attraction = ((PackageScheduleAttractionItem) item).getAttraction();
-                List<Attraction> list = itineraries.get(spinnerPosition).getAttractions();
-                int listPosition= list.indexOf(attraction);
-                mListener.onItemDeleted(0,listPosition);
-                showSnackbar(position, item, attraction, 0, listPosition);
+                mListener.onItemDeleted(0, ((PackageScheduleAttractionItem) item).getPosition());
+                showSnackbar(position, item, attraction, 0, ((PackageScheduleAttractionItem) item).getPosition());
             }
 
             @Override

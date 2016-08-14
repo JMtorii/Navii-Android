@@ -144,7 +144,7 @@ public class ItineraryScheduleMapFragment extends Fragment implements OnMapReady
             }
         }
         LatLngBounds bounds = builder.build();
-        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 10);
+        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 20);
         mMap.animateCamera(cu);
     }
 }
