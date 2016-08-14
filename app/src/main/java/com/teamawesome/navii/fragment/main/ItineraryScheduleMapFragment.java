@@ -65,8 +65,8 @@ public class ItineraryScheduleMapFragment extends Fragment implements OnMapReady
         itineraries = activity.getItineraries();
     }
 
-    public void updateDay(int position) {
-        setMapView(position);
+    public void updateDay() {
+        setMapView();
     }
 
     @Override
@@ -75,7 +75,7 @@ public class ItineraryScheduleMapFragment extends Fragment implements OnMapReady
         mMap.getUiSettings().setZoomControlsEnabled(false);
 
         // Hide the zoom controls as the button panel will cover it.
-        setMapView(0);
+        setMapView();
     }
 
     @Override
@@ -90,7 +90,7 @@ public class ItineraryScheduleMapFragment extends Fragment implements OnMapReady
                         .snippet(place.getWebsiteUri().toString())
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
                 );
-            } else if (resultCode == Constants.RESPONSE_ATTRACTION_SELECTED){
+            } else if (resultCode == Constants.RESPONSE_ATTRACTION_SELECTED) {
                 Attraction attraction = data.getParcelableExtra(Constants.INTENT_ATTRACTION);
                 Location location = new Location.Builder()
                         .address(attraction.getLocation().getAddress())
@@ -105,7 +105,8 @@ public class ItineraryScheduleMapFragment extends Fragment implements OnMapReady
                         .snippet(attraction.getPhotoUri())
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
                 );
-            } if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+            }
+            if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
                 Status status = PlaceAutocomplete.getStatus(getActivity(), data);
                 // TODO: Handle the error.
 //                Snackbar.make(mMap, "Cannot Retrieve Search", Snackbar.LENGTH_SHORT).show();
@@ -117,30 +118,30 @@ public class ItineraryScheduleMapFragment extends Fragment implements OnMapReady
     }
 
 
-
-    public void setMapView(int position) {
+    public void setMapView() {
         mMap.clear();
-        List<Attraction> attractions = itineraries.get(position).getAttractions();
-        if (attractions == null) {
-            attractions = new ArrayList<>();
-        }
-
         LatLng toronto = new LatLng(43.644, -79.387);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(toronto));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
-        for (int i = 0; i < attractions.size(); i++) {
-            Location location = attractions.get(i).getLocation();
-            LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-            Marker marker = mMap.addMarker(new MarkerOptions()
-                    .position(latLng)
-                    .title(i + ":" + attractions.get(i).getName())
-                    .snippet(attractions.get(i).getPhotoUri())
-                    .title(attractions.get(i).getName())
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
-            );
-            builder.include(marker.getPosition());
+
+        for (int n = 0; n < itineraries.size(); n++) {
+            List<Attraction> attractions = itineraries.get(n).getAttractions();
+            if (attractions == null) {
+                attractions = new ArrayList<>();
+            }
+            for (int i = 0; i < attractions.size(); i++) {
+                Location location = attractions.get(i).getLocation();
+                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                Marker marker = mMap.addMarker(new MarkerOptions()
+                        .position(latLng)
+                        .title(i + ":" + attractions.get(i).getName())
+                        .snippet(attractions.get(i).getPhotoUri())
+                        .title(attractions.get(i).getName())
+                        .icon(BitmapDescriptorFactory.defaultMarker(n * 30.0F)));
+                builder.include(marker.getPosition());
+            }
         }
         LatLngBounds bounds = builder.build();
         CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 10);

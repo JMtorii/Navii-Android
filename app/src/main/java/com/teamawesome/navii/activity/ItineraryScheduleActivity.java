@@ -10,9 +10,6 @@ import android.support.v4.view.ViewPager;
 import android.transition.Fade;
 import android.transition.Slide;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionMenu;
 import com.teamawesome.navii.R;
@@ -31,7 +28,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import butterknife.OnItemSelected;
 
 /**
  * Created by sjung on 19/06/16.
@@ -43,9 +39,6 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity implements I
 
     @BindView(R.id.tab_layout)
     TabLayout mTabLayout;
-
-    @BindView(R.id.itinerary_day_spinner)
-    Spinner spinner;
 
     @BindView(R.id.floating_action_menu)
     FloatingActionMenu floatingActionMenu;
@@ -87,7 +80,6 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity implements I
         titleText.setText(title);
 
         setupViewPager(mViewPager);
-        setupSpinner();
 
         itineraries = getIntent().getParcelableArrayListExtra(Constants.INTENT_ITINERARIES);
         if (itineraries == null) {
@@ -140,8 +132,7 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity implements I
     }
 
     @Override
-    public void onItemDeleted(int position) {
-        int day = spinner.getSelectedItemPosition();
+    public void onItemDeleted(int day, int position) {
         itineraries.get(day).getAttractions().remove(position);
 
         updateMapFragment();
@@ -149,23 +140,21 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity implements I
 
 
     @Override
-    public void onItemAdded(int position, Attraction attraction) {
-        int day = spinner.getSelectedItemPosition();
+    public void onItemAdded(int day, int position, Attraction attraction) {
         itineraries.get(day).getAttractions().add(position, attraction);
 
         updateMapFragment();
     }
 
     @Override
-    public void onItemMoved(int oldPosition, int newPosition) {
-        int day = spinner.getSelectedItemPosition();
-        List<Attraction> attraction = itineraries.get(day).getAttractions();
+    public void onItemMoved(int oldDay, int oldPosition, int newDay, int newPosition) {
+        List<Attraction> attraction = itineraries.get(oldDay).getAttractions();
         Collections.swap(attraction, oldPosition, newPosition);
     }
 
     private void updateMapFragment() {
         ItineraryScheduleMapFragment mapFragment = (ItineraryScheduleMapFragment) mAdapter.getItem(1);
-        mapFragment.updateDay(spinner.getSelectedItemPosition());
+        mapFragment.updateDay();
     }
 
 
@@ -195,33 +184,6 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity implements I
         @Override
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
-        }
-    }
-
-    private void setupSpinner() {
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        String[] dayString = new String[days];
-        for (int i = 0; i < dayString.length; i++) {
-            dayString[i] = Integer.toString(i+1);
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, dayString);
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        spinner.setAdapter(adapter);
-    }
-
-    @OnItemSelected(R.id.itinerary_day_spinner)
-    public void onSpinnerItemSelected(int position) {
-        Toast.makeText(this, spinner.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
-        sendDayChangeMessage(position);
-        for (int i = 0; i < mAdapter.getCount(); i++) {
-            Fragment fragment = mAdapter.getItem(i);
-            if (fragment.getClass().equals(ItineraryScheduleMapFragment.class)) {
-                ((ItineraryScheduleMapFragment) fragment).updateDay(position);
-            } else {
-                ((ItineraryScheduleViewFragment) fragment).updateDay(position);
-            }
         }
     }
 

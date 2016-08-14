@@ -57,7 +57,7 @@ public class PrefetchAttractionsActivity extends Activity {
         List<PackageScheduleListItem> items = new ArrayList<>();
 
         for (int i = 0; i < attractions.size(); i++) {
-            items.add(new PackageScheduleAttractionItem(attractions.get(i)));
+            items.add(new PackageScheduleAttractionItem(attractions.get(i), 0, 0));
         }
         mItineraryRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mPackageSelectorViewAdapter = new PackageSelectorViewAdapter(this, items, attractions);

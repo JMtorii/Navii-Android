@@ -24,9 +24,11 @@ import com.teamawesome.navii.server.model.Attraction;
 import com.teamawesome.navii.util.AsyncDrawable;
 import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.PackageScheduleAttractionItem;
+import com.teamawesome.navii.util.PackageScheduleDayHeaderItem;
 import com.teamawesome.navii.util.PackageScheduleHeaderItem;
 import com.teamawesome.navii.util.PackageScheduleListItem;
 import com.teamawesome.navii.util.VectorDrawableWorkerTask;
+import com.teamawesome.navii.views.MainLatoTextView;
 
 import java.util.List;
 
@@ -44,6 +46,7 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
 
     private final static int TYPE_ITEM = 0;
     private final static int TYPE_HEADER = 1;
+    private final static int TYPE_DAY_HEADER = 2;
 
     public PackageScheduleViewAdapter(Context context, List<PackageScheduleListItem> mItemList) {
         this.mItemList = mItemList;
@@ -52,18 +55,26 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
 
     @Override
     public int getItemViewType(int position) {
-        return mItemList.get(position).isHeader() ? TYPE_HEADER : TYPE_ITEM;
+        if (mItemList.get(position).isDayHeader()) {
+            return TYPE_DAY_HEADER;
+        } else if (mItemList.get(position).isHeader()) {
+            return TYPE_HEADER;
+        } else {
+            return TYPE_ITEM;
+        }
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Log.d("PackageSchedule", "onCreateViewHolder");
         if (viewType == TYPE_ITEM) {
             View view = LayoutInflater.from(mContext).inflate(R.layout.adapter_package_schedule_item_view, null);
             return new PackageItemViewHolder(view);
-        } else {
+        } else if (viewType == TYPE_HEADER){
             View view = LayoutInflater.from(mContext).inflate(R.layout.adapter_package_schedule_section_item_view, null);
             return new SectionViewHolder(view);
+        } else {
+            View view = LayoutInflater.from(mContext).inflate(R.layout.adapter_package_schedule_day_section_item_view, null);
+            return new DaySectionViewHolder(view);
         }
     }
 
@@ -75,6 +86,9 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
                 break;
             case TYPE_HEADER:
                 onBindSectionViewHolder(holder, position);
+                break;
+            case TYPE_DAY_HEADER:
+                onBindSectionDayViewHolder(holder, position);
                 break;
         }
     }
@@ -95,7 +109,6 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
                     .into(packageItemViewHolder.imageView);
         }
 
-
         packageItemViewHolder.itemView.setTranslationX(0.0f);
         packageItemViewHolder.relativeLayout.setTranslationX(0.0f);
         packageItemViewHolder.attractionName.setText(current.getName());
@@ -107,6 +120,12 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
         sectionViewHolder.sectionImageView.setImageResource(header.getResId());
 //        Picasso.with(mContext).load(header.getResId()).fit().into(sectionViewHolder.sectionImageView);
 //        loadHeader(header.getResId(), sectionViewHolder.sectionImageView);
+    }
+
+    private void onBindSectionDayViewHolder(RecyclerView.ViewHolder holder, int position) {
+        DaySectionViewHolder daySectionViewHolder = (DaySectionViewHolder) holder;
+        PackageScheduleDayHeaderItem header = (PackageScheduleDayHeaderItem) mItemList.get(position);
+        daySectionViewHolder.sectionDayTitle.setText(header.getName());
     }
 
     private void loadHeader(int resId, ImageView imageView) {
@@ -154,6 +173,16 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
     @Override
     public int getItemCount() {
         return mItemList.size();
+    }
+
+    public class DaySectionViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.section_day_title)
+        MainLatoTextView sectionDayTitle;
+
+        public DaySectionViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
     }
 
     public class SectionViewHolder extends RecyclerView.ViewHolder {

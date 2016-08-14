@@ -31,4 +31,9 @@ public class PackageScheduleHeaderItem implements PackageScheduleListItem {
     public boolean isHeader() {
         return true;
     }
+
+    @Override
+    public boolean isDayHeader() {
+        return false;
+    }
 }

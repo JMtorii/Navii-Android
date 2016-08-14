@@ -8,4 +8,6 @@ package com.teamawesome.navii.util;
  */
 public interface PackageScheduleListItem {
     boolean isHeader();
+
+    boolean isDayHeader();
 }

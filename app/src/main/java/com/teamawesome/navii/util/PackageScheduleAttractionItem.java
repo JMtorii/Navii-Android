@@ -16,9 +16,13 @@ public class PackageScheduleAttractionItem implements PackageScheduleListItem {
 
     private Attraction attraction;
     private Bitmap bitmap;
+    private int day;
+    private int position;
 
-    public PackageScheduleAttractionItem(Attraction attraction) {
+    public PackageScheduleAttractionItem(Attraction attraction, int day, int position) {
         this.attraction = attraction;
+        this.day = day;
+        this.position = position;
     }
 
     public Attraction getAttraction() {
@@ -34,7 +38,20 @@ public class PackageScheduleAttractionItem implements PackageScheduleListItem {
         return false;
     }
 
+    @Override
+    public boolean isDayHeader() {
+        return false;
+    }
+
     public Bitmap getBitmap() {
         return bitmap;
+    }
+
+    public int getDay() {
+        return day;
+    }
+
+    public int getPosition() {
+        return position;
     }
 }
