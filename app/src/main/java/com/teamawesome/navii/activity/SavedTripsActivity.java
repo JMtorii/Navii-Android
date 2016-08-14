@@ -2,11 +2,13 @@ package com.teamawesome.navii.activity;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.v4.view.GravityCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.ArraySet;
 import android.util.Log;
+import android.view.Gravity;
 import android.widget.Toast;
 
 import com.teamawesome.navii.R;
@@ -42,7 +44,7 @@ public class SavedTripsActivity extends NaviiNavigationalActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        mDrawer.closeDrawer(GravityCompat.START);
     }
 
     @Override
@@ -71,8 +73,8 @@ public class SavedTripsActivity extends NaviiNavigationalActivity {
 
                     @Override
                     public void onNext(List<List<Itinerary>> lists) {
-                        if (lists.isEmpty()){
-                            Toast.makeText(SavedTripsActivity.this, "Make some Trips!", Toast.LENGTH_LONG);
+                        if (lists.get(0).get(0).getAttractions().isEmpty()){
+                            Toast.makeText(SavedTripsActivity.this, "Make some Trips!", Toast.LENGTH_LONG).show();
                         }
                         else {
                             SavedTripsAdapter savedTripsAdapter = new SavedTripsAdapter(lists, SavedTripsActivity.this);
