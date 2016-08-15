@@ -62,7 +62,7 @@ public class HeartAndSoulDetailsActivity extends NaviiToolbarActivity {
 
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-        
+
         String title = "title";
         String imageUri = "http://cpl.jumpfactor.netdna-cdn.com/wp-content/uploads/2015/04/plumber-Toronto-Toronto-plumbers.jpg";
         String address = "";
