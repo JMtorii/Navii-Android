@@ -1,8 +1,9 @@
 package com.teamawesome.navii.activity;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -56,9 +57,12 @@ public class HeartAndSoulDetailsActivity extends NaviiToolbarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-
+        
         String title = "title";
         String imageUri = "http://cpl.jumpfactor.netdna-cdn.com/wp-content/uploads/2015/04/plumber-Toronto-Toronto-plumbers.jpg";
         String address = "";
@@ -90,7 +94,6 @@ public class HeartAndSoulDetailsActivity extends NaviiToolbarActivity {
         descriptionTextView.setText(description);
         ratingTextView.setText(Double.toString(rating)+"/"+"5");
         phoneNumberTextView.setText(phoneNumber);
-        getWindow().setStatusBarColor(Color.TRANSPARENT);
         AnalyticsManager.getMixpanel().track("HeartAndSoulDetailsActivity - onCreate");
     }
 }
