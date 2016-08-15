@@ -126,6 +126,14 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
         DaySectionViewHolder daySectionViewHolder = (DaySectionViewHolder) holder;
         PackageScheduleDayHeaderItem header = (PackageScheduleDayHeaderItem) mItemList.get(position);
         daySectionViewHolder.sectionDayTitle.setText(header.getName());
+
+        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams)daySectionViewHolder.sectionDayTitle.getLayoutParams();
+        if (position == 0) {
+            params.setMargins(0, 0, 0, 0);
+        } else {
+            params.setMargins(0, 60, 0, 0);
+        }
+        daySectionViewHolder.sectionDayTitle.setLayoutParams(params);
     }
 
     private void loadHeader(int resId, ImageView imageView) {
