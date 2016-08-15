@@ -117,7 +117,7 @@
     <string name="start_time_title">Start Time:</string>
 
     <!-- Heart and Soul Save -->
-    <string name="heart_and_soul_save_title">Heart and Soul Save</string>
+    <string name="heart_and_soul_save_title">Save Your Itinerary</string>
     <string name="heart_and_soul_save_name_hint">Itinerary Name</string>
 
     <string-array name="onboarding_titles">
