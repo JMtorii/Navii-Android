@@ -133,6 +133,11 @@
             android:theme="@style/NaviiTheme.NoActionBar">
         </activity>
 
+        <activity android:name=".activity.SavedItineraryScheduleActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NaviiTheme.NoActionBar">
+        </activity>
+
         <activity
             android:name=".activity.PrefetchAttractionsActivity"
             android:screenOrientation="portrait"

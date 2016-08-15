@@ -52,8 +52,8 @@
     <style name="MainButtonColorInverted" parent="Theme.AppCompat.NoActionBar">
         <item name="android:colorButtonNormal">@color/primary</item>
         <item name="android:colorControlHighlight">@color/chalkWhite</item>
+        <item name="android:textColor"> @color/chalkWhite </item>
         <item name="android:text">@string/next</item>
-        <item name="android:textColor">@color/chalkWhite</item>
         <item name="android:textSize">20sp</item>
         <item name="android:colorBackground">@android:color/secondary_text_light</item>
     </style>

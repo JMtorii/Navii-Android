@@ -38,7 +38,31 @@
                     app:popupTheme="@style/NaviiTheme.PopupOverlay" />
 
             </android.support.design.widget.AppBarLayout>
+            <LinearLayout
+                android:id="@+id/no_trips_view"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
+                <com.teamawesome.navii.views.MainLatoTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textSize="50sp"
+                    android:text="@string/hear_and_soul_make_trips"/>
 
+                <com.teamawesome.navii.views.MainLatoButton
+                    android:theme="@style/MainButtonColorInverted"
+                    android:id="@+id/make_trips_button"
+                    android:textSize="25sp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="60dp"
+                    android:text="@string/hear_and_soul_make_trips_prompt"
+                    app:fontType="Medium" />
+
+            </LinearLayout>
             <include layout="@layout/activity_planned_trips_content" />
 
         </LinearLayout>

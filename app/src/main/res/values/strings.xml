@@ -119,6 +119,8 @@
     <!-- Heart and Soul Save -->
     <string name="heart_and_soul_save_title">Heart and Soul Save</string>
     <string name="heart_and_soul_save_name_hint">Itinerary Name</string>
+    <string name="hear_and_soul_make_trips">No Trips found, why not create one?</string>
+    <string name="hear_and_soul_make_trips_prompt">Make a Trip</string>
 
     <string-array name="onboarding_titles">
         <item>Your personal travel agent right at your fingertips.</item>

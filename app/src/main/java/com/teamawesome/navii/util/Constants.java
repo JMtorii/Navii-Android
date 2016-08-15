@@ -11,7 +11,7 @@ public class Constants {
 
     // Server
 //    public static final String SERVER_URL = "http://192.168.1.172:8080";
-    public static final String SERVER_URL = "https://naviappweb.com";
+    public static final String SERVER_URL = "http://192.168.130.210:8080";
     public static final String SERVER_URL_JUN = "http://192.168.57.1:8080";
     public static final String SERVER_URL_STEVE = "http://192.168.2.114:8080";
 
