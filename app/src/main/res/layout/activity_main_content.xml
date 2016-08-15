@@ -19,8 +19,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/main_button_bottom_margin"
         android:layout_centerHorizontal="true"
-        app:fontType="Bold"
-        />
+        app:fontType="Bold" />
 
     <com.teamawesome.navii.views.ParallaxHorizontalScrollView
         android:id="@+id/main_horizontal_scrollview"
@@ -38,7 +37,5 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:parallaxVelocity="0.2"/>
-
-
 
 </RelativeLayout>

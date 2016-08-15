@@ -32,23 +32,18 @@ import butterknife.OnClick;
  * Created by sjung on 05/08/16.
  */
 public class PrefetchAttractionsActivity extends Activity {
-
-    private static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
-
-    private List<Attraction> prefetchedList;
-
     @BindView(R.id.prefetch_recycler_view)
     RecyclerView mItineraryRecyclerView;
-    private PackageSelectorViewAdapter mPackageSelectorViewAdapter;
 
+    private static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prefetch_attractions);
-        prefetchedList = getIntent().getParcelableArrayListExtra(Constants.INTENT_EXTRA_RESTAURANT_LIST);
         ButterKnife.bind(this);
 
+        List<Attraction> prefetchedList = getIntent().getParcelableArrayListExtra(Constants.INTENT_EXTRA_RESTAURANT_LIST);
         setupPackageView(prefetchedList);
         AnalyticsManager.getMixpanel().track("PrefetchAttractionsActivity - onCreate");
     }
@@ -60,7 +55,7 @@ public class PrefetchAttractionsActivity extends Activity {
             items.add(new PackageScheduleAttractionItem(attractions.get(i), 0, 0));
         }
         mItineraryRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mPackageSelectorViewAdapter = new PackageSelectorViewAdapter(this, items, attractions);
+        PackageSelectorViewAdapter mPackageSelectorViewAdapter = new PackageSelectorViewAdapter(this, items, attractions);
         mItineraryRecyclerView.setAdapter(mPackageSelectorViewAdapter);
     }
 

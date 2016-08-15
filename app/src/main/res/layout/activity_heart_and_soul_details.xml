@@ -85,11 +85,4 @@
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/heart_and_soul_detail_fab"
-        app:layout_anchor="@id/toolbar_layout"
-        app:layout_anchorGravity="bottom|right|end"
-        style="@style/FabStyle"/>
-
 </android.support.design.widget.CoordinatorLayout>

@@ -1,14 +1,14 @@
 package com.teamawesome.navii.activity;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.teamawesome.navii.R;
-import com.teamawesome.navii.fragment.main.HeartAndSoulEditDialogFragment;
 import com.teamawesome.navii.server.model.Attraction;
 import com.teamawesome.navii.util.AnalyticsManager;
 import com.teamawesome.navii.util.Constants;
@@ -16,7 +16,6 @@ import com.teamawesome.navii.util.ToolbarConfiguration;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * Created by JMtorii on 16-06-11.
@@ -58,6 +57,9 @@ public class HeartAndSoulDetailsActivity extends NaviiToolbarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
 
@@ -87,19 +89,11 @@ public class HeartAndSoulDetailsActivity extends NaviiToolbarActivity {
                 .fit()
                 .into(toolbarImageView);
 
-//        toolbarImageView.setImageResource(R.drawable.toronto);
         collapsingToolbarLayout.setTitle(title);
         locationTextView.setText(address);
         descriptionTextView.setText(description);
         ratingTextView.setText(Double.toString(rating)+"/"+"5");
         phoneNumberTextView.setText(phoneNumber);
-        getWindow().setStatusBarColor(Color.TRANSPARENT);
         AnalyticsManager.getMixpanel().track("HeartAndSoulDetailsActivity - onCreate");
-    }
-
-    @OnClick(R.id.heart_and_soul_detail_fab)
-    public void fabClicked() {
-        HeartAndSoulEditDialogFragment dialog = new HeartAndSoulEditDialogFragment();
-        dialog.show(getSupportFragmentManager(), "HeartAndSoulEditDialogFragment");
     }
 }
