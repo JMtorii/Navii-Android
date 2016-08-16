@@ -84,7 +84,7 @@ public class ItineraryScheduleViewFragment extends Fragment {
     private void setExtraFromBundle() {
         ItineraryScheduleActivity activity = (ItineraryScheduleActivity) getActivity();
         itinerary = activity.getItinerary();
-        mEditable = activity.getIntent().getBooleanExtra(Constants.INTENT_ITINERARY_EDITABLE, true);
+        mEditable = activity.getIntent().getBooleanExtra(Constants.INTENT_ITINERARY_EDITABLE, false);
     }
 
     @Override
