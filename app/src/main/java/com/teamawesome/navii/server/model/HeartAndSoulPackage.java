@@ -6,11 +6,9 @@ import java.util.List;
  * Created by sjung on 05/08/16.
  */
 public class HeartAndSoulPackage {
-    private List<List<Itinerary>> itineraries;
+    private List<Itinerary> itineraries;
     private List<Attraction> extraRestaurants;
     private List<Attraction> extraAttractions;
-
-    public String packageNickname;
 
     public HeartAndSoulPackage() {
     }
@@ -21,10 +19,6 @@ public class HeartAndSoulPackage {
         extraRestaurants = builder.extraRestaurants;
     }
 
-    public List<List<Itinerary>>  getItineraries() {
-        return itineraries;
-    }
-
     public List<Attraction> getExtraRestaurants() {
         return extraRestaurants;
     }
@@ -33,19 +27,22 @@ public class HeartAndSoulPackage {
         return extraAttractions;
     }
 
+    public List<Itinerary> getItineraries() {
+        return itineraries;
+    }
+
     public static class Builder {
-        private List<List<Itinerary>> itineraries;
+        private List<Itinerary> itineraries;
         private List<Attraction> extraRestaurants;
         private List<Attraction> extraAttractions;
 
         public Builder() {
         }
 
-        public Builder itineraries(List<List<Itinerary>> itineraries) {
+        public Builder itineraries(List<Itinerary> itineraries) {
             this.itineraries = itineraries;
             return this;
         }
-
 
         public Builder extraRestaurants(List<Attraction> extraRestaurants) {
             this.extraRestaurants = extraRestaurants;

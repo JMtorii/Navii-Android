@@ -36,8 +36,8 @@ public enum HeartAndSoulHeaderConfiguration {
     private static Map<Integer, HeartAndSoulHeaderConfiguration> configurationMap;
     static {
         configurationMap = new HashMap<>();
-        configurationMap.put(0, MORNING);
-        configurationMap.put(1, AFTERNOON);
-        configurationMap.put(2, NIGHT);
+        configurationMap.put(1, MORNING);
+        configurationMap.put(2, AFTERNOON);
+        configurationMap.put(3, NIGHT);
     }
 }

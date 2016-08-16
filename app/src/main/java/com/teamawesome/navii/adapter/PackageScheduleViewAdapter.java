@@ -23,10 +23,8 @@ import com.teamawesome.navii.activity.HeartAndSoulDetailsActivity;
 import com.teamawesome.navii.server.model.Attraction;
 import com.teamawesome.navii.util.AsyncDrawable;
 import com.teamawesome.navii.util.Constants;
-import com.teamawesome.navii.util.PackageScheduleAttractionItem;
-import com.teamawesome.navii.util.PackageScheduleDayHeaderItem;
-import com.teamawesome.navii.util.PackageScheduleHeaderItem;
-import com.teamawesome.navii.util.PackageScheduleListItem;
+import com.teamawesome.navii.server.model.PackageScheduleListItem;
+import com.teamawesome.navii.util.HeartAndSoulHeaderConfiguration;
 import com.teamawesome.navii.util.VectorDrawableWorkerTask;
 import com.teamawesome.navii.views.MainLatoTextView;
 
@@ -44,10 +42,6 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
     private List<PackageScheduleListItem> mItemList;
     private Context mContext;
 
-    private final static int TYPE_ITEM = 0;
-    private final static int TYPE_HEADER = 1;
-    private final static int TYPE_DAY_HEADER = 2;
-
     public PackageScheduleViewAdapter(Context context, List<PackageScheduleListItem> mItemList) {
         this.mItemList = mItemList;
         this.mContext = context;
@@ -55,39 +49,39 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
 
     @Override
     public int getItemViewType(int position) {
-        if (mItemList.get(position).isDayHeader()) {
-            return TYPE_DAY_HEADER;
-        } else if (mItemList.get(position).isHeader()) {
-            return TYPE_HEADER;
-        } else {
-            return TYPE_ITEM;
-        }
+        return mItemList.get(position).getItemType();
+    }
+
+    public List<PackageScheduleListItem> getItemsList() {
+        return mItemList;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (viewType == TYPE_ITEM) {
+        if (viewType == PackageScheduleListItem.TYPE_ITEM) {
             View view = LayoutInflater.from(mContext).inflate(R.layout.adapter_package_schedule_item_view, null);
             return new PackageItemViewHolder(view);
-        } else if (viewType == TYPE_HEADER){
-            View view = LayoutInflater.from(mContext).inflate(R.layout.adapter_package_schedule_section_item_view, null);
-            return new SectionViewHolder(view);
-        } else {
+        } else if (viewType == PackageScheduleListItem.TYPE_DAY_HEADER) {
             View view = LayoutInflater.from(mContext).inflate(R.layout.adapter_package_schedule_day_section_item_view, null);
             return new DaySectionViewHolder(view);
+        } else {
+            View view = LayoutInflater.from(mContext).inflate(R.layout.adapter_package_schedule_section_item_view, null);
+            return new SectionViewHolder(view);
         }
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         switch (getItemViewType(position)) {
-            case TYPE_ITEM:
+            case PackageScheduleListItem.TYPE_ITEM:
                 onBindPackageItemViewHolder(holder, position);
                 break;
-            case TYPE_HEADER:
+            case PackageScheduleListItem.TYPE_MORNING:
+            case PackageScheduleListItem.TYPE_AFTERNOON:
+            case PackageScheduleListItem.TYPE_EVENING:
                 onBindSectionViewHolder(holder, position);
                 break;
-            case TYPE_DAY_HEADER:
+            case PackageScheduleListItem.TYPE_DAY_HEADER:
                 onBindSectionDayViewHolder(holder, position);
                 break;
         }
@@ -96,19 +90,14 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
     private void onBindPackageItemViewHolder(RecyclerView.ViewHolder holder, int position) {
         Log.d("PackageSchedule", "onBindPackageItemViewHolder:" + position);
         PackageItemViewHolder packageItemViewHolder = (PackageItemViewHolder) holder;
-        PackageScheduleAttractionItem attractionItem = ((PackageScheduleAttractionItem) mItemList.get(position));
+        PackageScheduleListItem attractionItem = ((PackageScheduleListItem) mItemList.get(position));
         Attraction current = attractionItem.getAttraction();
 
-        if (attractionItem.getBitmap() != null) {
-            packageItemViewHolder.imageView.setImageBitmap(attractionItem.getBitmap());
-        } else {
-            Picasso.with(mContext)
-                    .load(current.getPhotoUri())
-                    .fit()
-                    .centerCrop()
-                    .into(packageItemViewHolder.imageView);
-        }
-
+        Picasso.with(mContext)
+                .load(current.getPhotoUri())
+                .fit()
+                .centerCrop()
+                .into(packageItemViewHolder.imageView);
         packageItemViewHolder.itemView.setTranslationX(0.0f);
         packageItemViewHolder.relativeLayout.setTranslationX(0.0f);
         packageItemViewHolder.attractionName.setText(current.getName());
@@ -116,15 +105,16 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
 
     private void onBindSectionViewHolder(RecyclerView.ViewHolder holder, int position) {
         SectionViewHolder sectionViewHolder = (SectionViewHolder) holder;
-        PackageScheduleHeaderItem header = (PackageScheduleHeaderItem) mItemList.get(position);
-        sectionViewHolder.sectionImageView.setImageResource(header.getResId());
+        PackageScheduleListItem header = (PackageScheduleListItem) mItemList.get(position);
+        int resId = HeartAndSoulHeaderConfiguration.getConfiguration(header.getItemType()).getResId();
+        sectionViewHolder.sectionImageView.setImageResource(resId);
 //        Picasso.with(mContext).load(header.getResId()).fit().into(sectionViewHolder.sectionImageView);
 //        loadHeader(header.getResId(), sectionViewHolder.sectionImageView);
     }
 
     private void onBindSectionDayViewHolder(RecyclerView.ViewHolder holder, int position) {
         DaySectionViewHolder daySectionViewHolder = (DaySectionViewHolder) holder;
-        PackageScheduleDayHeaderItem header = (PackageScheduleDayHeaderItem) mItemList.get(position);
+        PackageScheduleListItem header = (PackageScheduleListItem) mItemList.get(position);
         daySectionViewHolder.sectionDayTitle.setText(header.getName());
 
         ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams)daySectionViewHolder.sectionDayTitle.getLayoutParams();
@@ -149,6 +139,7 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
     public PackageScheduleListItem getItem(final int position) {
         return mItemList.get(position);
     }
+
     public PackageScheduleListItem delete(final int position) {
         final PackageScheduleListItem item = mItemList.remove(position);
 
@@ -233,7 +224,7 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
         @OnClick(R.id.package_item_layout)
         public void detailsView() {
             Intent heartAndSoulDetailsActivity = new Intent(mContext, HeartAndSoulDetailsActivity.class);
-            Attraction attraction = ((PackageScheduleAttractionItem) mItemList.get(getAdapterPosition())).getAttraction();
+            Attraction attraction = ((PackageScheduleListItem) mItemList.get(getAdapterPosition())).getAttraction();
             Bundle extras = new Bundle();
             extras.putParcelable(Constants.INTENT_ATTRACTION, attraction);
 

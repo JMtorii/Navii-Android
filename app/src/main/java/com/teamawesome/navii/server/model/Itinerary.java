@@ -11,7 +11,7 @@ import java.util.List;
 public class Itinerary implements Parcelable{
     private int itineraryId;
     private String description;
-    private List<Attraction> attractions;
+    private List<PackageScheduleListItem> packageScheduleListItems;
     private int duration;
     private int price;
     private String authorId;
@@ -24,7 +24,7 @@ public class Itinerary implements Parcelable{
         this.duration = builder.duration;
         this.description = builder.description;
         this.authorId = builder.authorId;
-        this.attractions = builder.attractions;
+        this.packageScheduleListItems = builder.packageScheduleListItems;
     }
 
     protected Itinerary(Parcel in) {
@@ -33,7 +33,7 @@ public class Itinerary implements Parcelable{
         this.duration = in.readInt();
         this.description = in.readString();
         this.authorId = in.readString();
-        this.attractions = in.createTypedArrayList(Attraction.CREATOR);
+        this.packageScheduleListItems = in.createTypedArrayList(PackageScheduleListItem.CREATOR);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class Itinerary implements Parcelable{
         dest.writeInt(duration);
         dest.writeString(description);
         dest.writeString(authorId);
-        dest.writeTypedList(attractions);
+        dest.writeTypedList(packageScheduleListItems);
     }
 
     public static final Creator<Itinerary> CREATOR = new Creator<Itinerary>() {
@@ -83,19 +83,15 @@ public class Itinerary implements Parcelable{
         return description;
     }
 
-
-
-
-
-    public List<Attraction> getAttractions() {
-        return attractions;
+    public List<PackageScheduleListItem> getPackageScheduleListItems() {
+        return packageScheduleListItems;
     }
 
     public static class Builder {
         private int itineraryId;
         private String description;
         private int duration;
-        private List<Attraction> attractions;
+        private List<PackageScheduleListItem> packageScheduleListItems;
         private int price;
         private String authorId;
 
@@ -126,10 +122,11 @@ public class Itinerary implements Parcelable{
             return this;
         }
 
-        public Builder attractions(List<Attraction> attractions) {
-            this.attractions = attractions;
+        public Builder packageScheduleListItems(List<PackageScheduleListItem> packageScheduleListItems) {
+            this.packageScheduleListItems = packageScheduleListItems;
             return this;
         }
+
         public Itinerary build() {
             return new Itinerary(this);
         }

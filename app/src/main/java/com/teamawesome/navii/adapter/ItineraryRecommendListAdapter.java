@@ -16,12 +16,12 @@ import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.ItineraryScheduleActivity;
 import com.teamawesome.navii.server.model.HeartAndSoulPackage;
 import com.teamawesome.navii.server.model.Itinerary;
+import com.teamawesome.navii.server.model.PackageScheduleListItem;
 import com.teamawesome.navii.util.Constants;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Random;
 import java.util.Set;
 
 import butterknife.BindView;
@@ -50,26 +50,23 @@ public class ItineraryRecommendListAdapter extends RecyclerView.Adapter<Itinerar
 
     @Override
     public void onBindViewHolder(ItineraryRecommendViewHolder holder, int position) {
-        Itinerary itinerary = heartAndSoulPackage.getItineraries().get(position).get(0);
-        holder.mTextView.setText(itinerary.getDescription());
-        if (itinerary != null && itinerary.getAttractions() != null) {
-            int index = new Random().nextInt(itinerary.getAttractions().size());
-            String pictureURI = itinerary.getAttractions().get(index).getPhotoUri();
-
-            while (uniquePictureMap.contains(pictureURI) && pictureURI.equals("N/A")) {
-                index = new Random().nextInt(itinerary.getAttractions().size());
-                pictureURI = itinerary.getAttractions().get(index).getPhotoUri();
+        List<Itinerary> itinerary = heartAndSoulPackage.getItineraries();
+        List<PackageScheduleListItem> packageScheduleListItems = itinerary.get(position).getPackageScheduleListItems();
+        for (PackageScheduleListItem packageScheduleListItem : packageScheduleListItems) {
+            if (packageScheduleListItem.getItemType() == 4) {
+                String pictureURI = packageScheduleListItem.getAttraction().getPhotoUri();
+                if (!uniquePictureMap.contains(pictureURI) && !pictureURI.equals("N/A")) {
+                    Picasso.with(context)
+                            .load(pictureURI)
+                            .fit()
+                            .centerCrop()
+                            .into(holder.mImageView);
+                    uniquePictureMap.add(pictureURI);
+                }
             }
-
-            Picasso.with(context)
-                    .load(pictureURI)
-                    .fit()
-                    .centerCrop()
-                    .into(holder.mImageView);
-            uniquePictureMap.add(pictureURI);
-
-            holder.itineraries = heartAndSoulPackage.getItineraries().get(position);
         }
+        holder.mTextView.setText(itinerary.get(position).getDescription());
+        holder.itinerary = heartAndSoulPackage.getItineraries().get(position);
     }
 
     @Override
@@ -84,7 +81,7 @@ public class ItineraryRecommendListAdapter extends RecyclerView.Adapter<Itinerar
         @BindView(R.id.package_image_view)
         ImageView mImageView;
 
-        private List<Itinerary> itineraries;
+        private Itinerary itinerary;
         private List<String> photoUriList;
 
         public ItineraryRecommendViewHolder(View itemView) {
@@ -95,13 +92,12 @@ public class ItineraryRecommendListAdapter extends RecyclerView.Adapter<Itinerar
 
         @OnClick(R.id.package_image_view)
         public void onClick() {
-            if (itineraries != null) {
+            if (itinerary != null) {
                 Intent itineraryScheduleActivity = new Intent(context, ItineraryScheduleActivity.class);
-                itineraryScheduleActivity.putParcelableArrayListExtra(Constants.INTENT_ITINERARIES, (ArrayList<Itinerary>) itineraries);
+                itineraryScheduleActivity.putExtra(Constants.INTENT_ITINERARIES, itinerary);
                 itineraryScheduleActivity.putParcelableArrayListExtra(Constants.INTENT_EXTRA_ATTRACTION_LIST, new ArrayList<>(heartAndSoulPackage.getExtraAttractions()));
                 itineraryScheduleActivity.putParcelableArrayListExtra(Constants.INTENT_EXTRA_RESTAURANT_LIST, new ArrayList<>(heartAndSoulPackage.getExtraRestaurants()));
                 itineraryScheduleActivity.putExtra(Constants.INTENT_ITINERARY_TITLE, mTextView.getText().toString());
-                itineraryScheduleActivity.putExtra(Constants.INTENT_DAYS, itineraries.size());
                 itineraryScheduleActivity.putExtra(Constants.INTENT_ITINERARY_EDITABLE, true);
 
                 Activity activity = (Activity) context;

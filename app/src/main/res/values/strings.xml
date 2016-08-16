@@ -179,5 +179,6 @@
     <string name="see_item_title">See</string>
     <string name="google_maps_search">Search</string>
     <string name="already_saved">Trip Saved</string>
+    <string name="custom_item_title">Custom</string>
 
 </resources>

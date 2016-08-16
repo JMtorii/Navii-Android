@@ -18,8 +18,7 @@ import com.teamawesome.navii.adapter.PackageSelectorViewAdapter;
 import com.teamawesome.navii.server.model.Attraction;
 import com.teamawesome.navii.util.AnalyticsManager;
 import com.teamawesome.navii.util.Constants;
-import com.teamawesome.navii.util.PackageScheduleAttractionItem;
-import com.teamawesome.navii.util.PackageScheduleListItem;
+import com.teamawesome.navii.server.model.PackageScheduleListItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,10 +51,10 @@ public class PrefetchAttractionsActivity extends Activity {
         List<PackageScheduleListItem> items = new ArrayList<>();
 
         for (int i = 0; i < attractions.size(); i++) {
-            items.add(new PackageScheduleAttractionItem(attractions.get(i), 0, 0));
+            items.add(new PackageScheduleListItem.Builder().itemType(PackageScheduleListItem.TYPE_ITEM).attraction(attractions.get(i)).build());
         }
         mItineraryRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        PackageSelectorViewAdapter mPackageSelectorViewAdapter = new PackageSelectorViewAdapter(this, items, attractions);
+        PackageSelectorViewAdapter mPackageSelectorViewAdapter = new PackageSelectorViewAdapter(this, items);
         mItineraryRecyclerView.setAdapter(mPackageSelectorViewAdapter);
     }
 

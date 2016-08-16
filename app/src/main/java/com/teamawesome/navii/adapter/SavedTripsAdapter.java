@@ -11,15 +11,13 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 import com.teamawesome.navii.R;
-import com.teamawesome.navii.activity.ItineraryScheduleActivity;
 import com.teamawesome.navii.activity.SavedItineraryScheduleActivity;
 import com.teamawesome.navii.server.model.Itinerary;
+import com.teamawesome.navii.server.model.PackageScheduleListItem;
 import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.views.MainLatoTextView;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,8 +28,8 @@ import butterknife.OnClick;
  */
 public class SavedTripsAdapter extends RecyclerView.Adapter<SavedTripsAdapter.TripViewHolder> {
 
-    private List<List<Itinerary>> saved_trips;
-    public SavedTripsAdapter(List<List<Itinerary>> itineraries, Context context){
+    private List<Itinerary> saved_trips;
+    public SavedTripsAdapter(List<Itinerary> itineraries, Context context){
         this.saved_trips = itineraries;
         TripViewHolder.context = context;
     }
@@ -46,15 +44,17 @@ public class SavedTripsAdapter extends RecyclerView.Adapter<SavedTripsAdapter.Tr
 
     @Override
     public void onBindViewHolder(TripViewHolder holder, int position) {
-        holder.mTripName.setText(saved_trips.get(position).get(0).getDescription());
+        holder.mTripName.setText(saved_trips.get(position).getDescription());
         holder.trip = saved_trips.get(position);
-
-        String savedTripURI = holder.trip.get(0).getAttractions().get(0).getPhotoUri();
-        Picasso.with(TripViewHolder.context)
-                .load(savedTripURI)
-                .fit()
-                .centerCrop()
-                .into(holder.mSavedTripsImage);
+        for (PackageScheduleListItem packageScheduleListItem : holder.trip.getPackageScheduleListItems()) {
+            if (packageScheduleListItem.getItemType() == 4) {
+                String savedTripURI = packageScheduleListItem.getAttraction().getPhotoUri();
+                Picasso.with(TripViewHolder.context)
+                        .load(savedTripURI)
+                        .fit()
+                        .centerCrop()
+                        .into(holder.mSavedTripsImage);            }
+        }
     }
 
 
@@ -70,7 +70,7 @@ public class SavedTripsAdapter extends RecyclerView.Adapter<SavedTripsAdapter.Tr
         @BindView(R.id.saved_trip_imageview)
         ImageView mSavedTripsImage;
 
-        private List<Itinerary> trip;
+        private Itinerary trip;
 
         private static Context context;
 
@@ -82,9 +82,8 @@ public class SavedTripsAdapter extends RecyclerView.Adapter<SavedTripsAdapter.Tr
         @OnClick (R.id.trip_item)
         public void gotoSchedule(){
             Intent scheduleActivity = new Intent(context, SavedItineraryScheduleActivity.class);
-            scheduleActivity.putParcelableArrayListExtra(Constants.INTENT_ITINERARIES, (ArrayList<Itinerary>) this.trip);
+            scheduleActivity.putExtra(Constants.INTENT_ITINERARIES, this.trip);
             scheduleActivity.putExtra(Constants.INTENT_ITINERARY_TITLE, mTripName.getText().toString());
-            scheduleActivity.putExtra(Constants.INTENT_DAYS, trip.size());
             Activity activity = (Activity) context;
             activity.startActivity(scheduleActivity);
             activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

@@ -1,16 +1,11 @@
 package com.teamawesome.navii.activity;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.ArraySet;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Toast;
 
@@ -21,13 +16,7 @@ import com.teamawesome.navii.util.AnalyticsManager;
 import com.teamawesome.navii.util.NavigationConfiguration;
 import com.teamawesome.navii.util.RestClient;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.zip.Inflater;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -64,10 +53,10 @@ public class SavedTripsActivity extends NaviiNavigationalActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-        Observable<List<List<Itinerary>>> saveCall = RestClient.itineraryAPI.getSavedItineraries();
+        Observable<List<Itinerary>> saveCall = RestClient.itineraryAPI.getSavedItineraries();
         saveCall.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<List<List<Itinerary>>>() {
+                .subscribe(new Subscriber<List<Itinerary>>() {
                     @Override
                     public void onCompleted() {
                         progressDialog.dismiss();
@@ -80,8 +69,8 @@ public class SavedTripsActivity extends NaviiNavigationalActivity {
                     }
 
                     @Override
-                    public void onNext(List<List<Itinerary>> lists) {
-                        if (lists.get(0).get(0).getAttractions().isEmpty()){
+                    public void onNext(List<Itinerary> lists) {
+                        if (lists.isEmpty()){
                             noTrips.setVisibility(View.VISIBLE);
                         }
                         else {

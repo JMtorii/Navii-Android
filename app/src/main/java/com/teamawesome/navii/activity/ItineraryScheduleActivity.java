@@ -17,13 +17,11 @@ import com.teamawesome.navii.fragment.main.ItineraryScheduleMapFragment;
 import com.teamawesome.navii.fragment.main.ItineraryScheduleViewFragment;
 import com.teamawesome.navii.server.model.Attraction;
 import com.teamawesome.navii.server.model.Itinerary;
-import com.teamawesome.navii.server.model.Location;
 import com.teamawesome.navii.util.AnalyticsManager;
 import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.ToolbarConfiguration;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -32,7 +30,7 @@ import butterknife.OnClick;
 /**
  * Created by sjung on 19/06/16.
  */
-public class ItineraryScheduleActivity extends NaviiToolbarActivity implements ItineraryScheduleViewFragment.OnItineraryChangedListener {
+public class ItineraryScheduleActivity extends NaviiToolbarActivity {
 
     @BindView(R.id.itinerary_schedule_viewpager)
     ViewPager mViewPager;
@@ -46,7 +44,7 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity implements I
     private Adapter mAdapter;
     private int days;
     private boolean mEditable;
-    private List<Itinerary> itineraries;
+    private Itinerary itinerary;
     private List<Attraction> attractions;
     private List<Attraction> restaurants;
 
@@ -63,13 +61,18 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity implements I
     @Override
     public void onRightButtonClick() {
         Intent nextActivity = new Intent(this, HeartAndSoulSaveActivity.class);
-
-        nextActivity.putParcelableArrayListExtra(Constants.INTENT_ITINERARIES,(ArrayList<Itinerary>) itineraries);
+        ItineraryScheduleViewFragment mapFragment = (ItineraryScheduleViewFragment) mAdapter.getItem(0);
+        Itinerary newItinerary = new Itinerary.Builder()
+                .description(itinerary.getDescription())
+                .packageScheduleListItems(mapFragment.getItems())
+                .build();
+        nextActivity.putExtra(Constants.INTENT_ITINERARIES, newItinerary);
         nextActivity.putParcelableArrayListExtra(Constants.INTENT_EXTRA_ATTRACTION_LIST,(ArrayList<Attraction>) attractions);
         nextActivity.putParcelableArrayListExtra(Constants.INTENT_EXTRA_RESTAURANT_LIST, (ArrayList<Attraction>) restaurants);
         startActivity(nextActivity);
         overridePendingTransition(R.anim.slide_in_down, R.anim.hold);
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,10 +84,7 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity implements I
 
         setupViewPager(mViewPager);
 
-        itineraries = getIntent().getParcelableArrayListExtra(Constants.INTENT_ITINERARIES);
-        if (itineraries == null) {
-            itineraries = createSampleItineraryList();
-        }
+        itinerary = getIntent().getParcelableExtra(Constants.INTENT_ITINERARIES);
 
         attractions = getIntent().getParcelableArrayListExtra(Constants.INTENT_EXTRA_ATTRACTION_LIST);
         restaurants = getIntent().getParcelableArrayListExtra(Constants.INTENT_EXTRA_RESTAURANT_LIST);
@@ -131,32 +131,10 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity implements I
         viewPager.setAdapter(mAdapter);
     }
 
-    @Override
-    public void onItemDeleted(int day, int position) {
-        itineraries.get(day).getAttractions().remove(position);
-
-        updateMapFragment();
-    }
-
-
-    @Override
-    public void onItemAdded(int day, int position, Attraction attraction) {
-        itineraries.get(day).getAttractions().add(position, attraction);
-
-        updateMapFragment();
-    }
-
-    @Override
-    public void onItemMoved(int oldDay, int oldPosition, int newDay, int newPosition) {
-        List<Attraction> attraction = itineraries.get(oldDay).getAttractions();
-        Collections.swap(attraction, oldPosition, newPosition);
-    }
-
     private void updateMapFragment() {
         ItineraryScheduleMapFragment mapFragment = (ItineraryScheduleMapFragment) mAdapter.getItem(1);
         mapFragment.updateDay();
     }
-
 
     static class Adapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
@@ -189,36 +167,11 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity implements I
 
     private List<Itinerary> createSampleItineraryList() {
         List<Itinerary> itineraryList = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            List<Attraction> attractions = new ArrayList<>();
-            for (int j = 0; j < 6; j++) {
-                Location location = new Location.Builder()
-                        .latitude(43.636665 - j * 0.00001)
-                        .longitude(-79.399875 + j * 0.00001)
-                        .address("Address")
-                        .build();
-
-                Attraction attraction = new Attraction.Builder()
-                        .photoUri("http://www.city-data.com/forum/attachments/city-vs-city/105240d1356338901-greater-downtown-toronto-vs-greater-downtown-toronto-skyline-night-view.jpg")
-                        .price(2)
-                        .location(location)
-                        .name("Attraction:" + i)
-                        .build();
-                attractions.add(attraction);
-            }
-            Itinerary itinerary = new Itinerary.Builder()
-                    .description("YELP")
-                    .authorId("YELP")
-                    .attractions(attractions)
-                    .build();
-            itineraryList.add(itinerary);
-
-        }
         return itineraryList;
     }
 
-    public List<Itinerary> getItineraries() {
-        return itineraries;
+    public Itinerary getItinerary() {
+        return itinerary;
     }
 
     private void sendDayChangeMessage(int position) {

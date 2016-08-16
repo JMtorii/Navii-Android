@@ -62,10 +62,10 @@ public class PackageOverviewActivity extends NaviiToolbarActivity {
         extraAttractions = getIntent().getParcelableArrayListExtra(Constants.INTENT_EXTRA_ATTRACTION_LIST);
         extraRestaurants = getIntent().getParcelableArrayListExtra(Constants.INTENT_EXTRA_RESTAURANT_LIST);
         List<String> photoUriList = new ArrayList<>();
-
-        for (Attraction attraction : itineraries.get(0).getAttractions()) {
-            photoUriList.add(attraction.getPhotoUri());
-        }
+//
+//        for (Attraction attraction : itineraries.get(0).getAttractions()) {
+//            photoUriList.add(attraction.getPhotoUri());
+//        }
         itineraryTitle = itineraries.get(0).getDescription();
 
         StaggeredGridLayoutManager mStaggeredGridLayoutManager = new StaggeredGridLayoutManager(2, 1);

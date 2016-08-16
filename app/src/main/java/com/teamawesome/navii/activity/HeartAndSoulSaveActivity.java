@@ -18,8 +18,6 @@ import com.teamawesome.navii.util.ToolbarConfiguration;
 import com.teamawesome.navii.util.ViewUtilities;
 import com.teamawesome.navii.views.MainLatoButton;
 
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -41,7 +39,7 @@ public class HeartAndSoulSaveActivity extends NaviiToolbarActivity {
     @BindView(R.id.itinerary_save_button)
     MainLatoButton itinerarySave;
 
-    private List<Itinerary> itineraries;
+    private Itinerary itinerary;
 
     private ProgressDialog progressDialog;
 
@@ -66,7 +64,7 @@ public class HeartAndSoulSaveActivity extends NaviiToolbarActivity {
         ButterKnife.bind(this);
         ViewUtilities.setTypefaceToInputLayout(this, titleLayout, "fonts/Lato-Regular.ttf");
 
-        itineraries = getIntent().getParcelableArrayListExtra(Constants.INTENT_ITINERARIES);
+        itinerary = getIntent().getParcelableExtra(Constants.INTENT_ITINERARIES);
     }
 
     @OnClick(R.id.itinerary_save_button)
@@ -75,7 +73,7 @@ public class HeartAndSoulSaveActivity extends NaviiToolbarActivity {
         if (title.trim().isEmpty()){
             Toast.makeText(this, "Put a name", Toast.LENGTH_SHORT).show();
         } else {
-            Observable<Void> saveCall = RestClient.itineraryAPI.saveItineraries(itineraries, title);
+            Observable<Void> saveCall = RestClient.itineraryAPI.saveItineraries(itinerary, title);
             saveCall.subscribeOn(Schedulers.newThread())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Subscriber<Void>() {
@@ -103,7 +101,7 @@ public class HeartAndSoulSaveActivity extends NaviiToolbarActivity {
                             activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                         }
                     });
-            progressDialog = ProgressDialog.show(this, "Building the perfect trip", "Loading itineraries...");
+            progressDialog = ProgressDialog.show(this, "Building the perfect trip", "Loading itinerary...");
             AnalyticsManager.getMixpanel().track("HeartAndSoulSaveActivity - onCreate");
         }
     }

@@ -27,9 +27,9 @@ import com.teamawesome.navii.activity.ItineraryScheduleActivity;
 import com.teamawesome.navii.server.model.Attraction;
 import com.teamawesome.navii.server.model.Itinerary;
 import com.teamawesome.navii.server.model.Location;
+import com.teamawesome.navii.server.model.PackageScheduleListItem;
 import com.teamawesome.navii.util.Constants;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,7 +39,7 @@ public class ItineraryScheduleMapFragment extends Fragment implements OnMapReady
 
     private GoogleMap mMap;
     private static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
-    private List<Itinerary> itineraries;
+    private Itinerary itineraries;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,7 +62,7 @@ public class ItineraryScheduleMapFragment extends Fragment implements OnMapReady
 
     private void setExtraFromBundle() {
         ItineraryScheduleActivity activity = (ItineraryScheduleActivity) getActivity();
-        itineraries = activity.getItineraries();
+        itineraries = activity.getItinerary();
     }
 
     public void updateDay() {
@@ -126,23 +126,26 @@ public class ItineraryScheduleMapFragment extends Fragment implements OnMapReady
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
 
-        for (int n = 0; n < itineraries.size(); n++) {
-            List<Attraction> attractions = itineraries.get(n).getAttractions();
-            if (attractions == null) {
-                attractions = new ArrayList<>();
+            List<PackageScheduleListItem> listItems = itineraries.getPackageScheduleListItems();
+
+            int dayCounter = 0;
+            for (int i = 0; i < listItems.size(); i++) {
+                if (listItems.get(i).getItemType() == 0) {
+                    ++dayCounter;
+                } else if (listItems.get(i).getItemType() == 4) {
+                    Attraction attraction = listItems.get(i).getAttraction();
+                    Location location = listItems.get(i).getAttraction().getLocation();
+                    LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                    Marker marker = mMap.addMarker(new MarkerOptions()
+                            .position(latLng)
+                            .title(i + ":" + attraction.getName())
+                            .snippet(attraction.getPhotoUri())
+                            .title(attraction.getName())
+                            .icon(BitmapDescriptorFactory.defaultMarker(dayCounter * 30.0F)));
+                    builder.include(marker.getPosition());
+                }
             }
-            for (int i = 0; i < attractions.size(); i++) {
-                Location location = attractions.get(i).getLocation();
-                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                Marker marker = mMap.addMarker(new MarkerOptions()
-                        .position(latLng)
-                        .title(i + ":" + attractions.get(i).getName())
-                        .snippet(attractions.get(i).getPhotoUri())
-                        .title(attractions.get(i).getName())
-                        .icon(BitmapDescriptorFactory.defaultMarker(n * 30.0F)));
-                builder.include(marker.getPosition());
-            }
-        }
+
         LatLngBounds bounds = builder.build();
         CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 20);
         mMap.animateCamera(cu);
