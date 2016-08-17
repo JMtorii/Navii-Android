@@ -52,6 +52,9 @@ public class PreferencesActivity extends AppCompatActivity {
         Observable<List<Preference>> preferencesObservable = RestClient.userPreferenceAPI.getUsersPreferences();
         final Context context = this;
         prefetchedPreferences = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            prefetchedPreferences.add(new ArrayList<String>());
+        }
         preferencesObservable
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -70,18 +73,11 @@ public class PreferencesActivity extends AppCompatActivity {
 
                     @Override
                     public void onNext(List<Preference> preferences) {
-                        int currentType = 1;
-                        List<String> current = new ArrayList<>();
                         for (int i = 0; i < preferences.size(); i++) {
                             Preference preference = preferences.get(i);
-                            if (currentType != preference.getPreferenceType()) {
-                                prefetchedPreferences.add(current);
-                                currentType = preference.getPreferenceType();
-                                current = new ArrayList<>();
-                            }
-                            current.add(preference.getPreference());
+                            prefetchedPreferences.get(preference.getPreferenceType() -1).add(preference.getPreference());
                         }
-                        prefetchedPreferences.add(current);
+                        mViewPager.setOffscreenPageLimit(2);
                         setupViewPager(mViewPager);
                     }
                 });
@@ -92,7 +88,7 @@ public class PreferencesActivity extends AppCompatActivity {
     @OnClick(R.id.preferences_next_button)
     public void onClick() {
         int index = mViewPager.getCurrentItem();
-        int maxIndex = mViewPager.getChildCount();
+        int maxIndex = mAdapter.getCount() - 1;
         //Currently the travel participants fragment precedes the budget fragment
         //Makes the next button invisible if the "next" fragment is budget
         final Activity activity = this;

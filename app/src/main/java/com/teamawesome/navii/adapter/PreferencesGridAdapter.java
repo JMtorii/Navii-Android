@@ -58,6 +58,10 @@ public class PreferencesGridAdapter extends RecyclerView.Adapter<PreferencesGrid
             holder.preferenceButton.setSelected(true);
             mSelectedPreferences.add(mPreferences.get(position));
             prefetchedPreferences.remove(mPreferences.get(position).getPreference());
+            ++mPreferencesCount;
+        }
+        if (mSelectedPreferences.contains(mPreferences.get(position))) {
+            holder.preferenceButton.setSelected(true);
         }
     }
 
