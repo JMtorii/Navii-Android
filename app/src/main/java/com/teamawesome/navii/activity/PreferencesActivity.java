@@ -1,6 +1,7 @@
 package com.teamawesome.navii.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -27,6 +28,10 @@ import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
 import retrofit.Retrofit;
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by sjung on 19/06/16.
@@ -37,12 +42,50 @@ public class PreferencesActivity extends AppCompatActivity {
     @BindView(R.id.itinerary_schedule_viewpager)
     ViewPager mViewPager;
 
+    private List<List<String>> prefetchedPreferences;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preference);
         ButterKnife.bind(this);
-        setupViewPager(mViewPager);
+        Observable<List<Preference>> preferencesObservable = RestClient.userPreferenceAPI.getUsersPreferences();
+        final Context context = this;
+        prefetchedPreferences = new ArrayList<>();
+        preferencesObservable
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<List<Preference>>() {
+                    @Override
+                    public void onCompleted() {
+                        //Nothing to do
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.i("failed", e.getMessage());
+
+                        Toast.makeText(context, "Cannot get preferences", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onNext(List<Preference> preferences) {
+                        int currentType = 1;
+                        List<String> current = new ArrayList<>();
+                        for (int i = 0; i < preferences.size(); i++) {
+                            Preference preference = preferences.get(i);
+                            if (currentType != preference.getPreferenceType()) {
+                                prefetchedPreferences.add(current);
+                                currentType = preference.getPreferenceType();
+                                current = new ArrayList<>();
+                            }
+                            current.add(preference.getPreference());
+                        }
+                        prefetchedPreferences.add(current);
+                        setupViewPager(mViewPager);
+                    }
+                });
+
         AnalyticsManager.getMixpanel().track("PreferencesActivity - onCreate");
     }
 
@@ -61,7 +104,6 @@ public class PreferencesActivity extends AppCompatActivity {
                 PreferencesFragment preferencesFragment = (PreferencesFragment) mAdapter.getItem(i);
                 preferences.addAll(preferencesFragment.getSelectedPreferences());
             }
-
 
             Call<Void> deleteCall = RestClient.userPreferenceAPI.deleteAllUserPreference();
             final Call<Void> createCall = RestClient.userPreferenceAPI.createUserPreference(preferences);
@@ -99,6 +141,10 @@ public class PreferencesActivity extends AppCompatActivity {
 
             // enqueues the create call to create the selected preferences for the user
         }
+    }
+
+    public List<String> getPrefetchedPreferences(int preferenceType) {
+        return prefetchedPreferences.get(preferenceType);
     }
 
     private void switchToThankYouActivity() {

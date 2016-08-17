@@ -25,23 +25,21 @@ import butterknife.OnClick;
 public class PreferencesGridAdapter extends RecyclerView.Adapter<PreferencesGridAdapter.PreferencesViewholder> {
     private List<Preference> mPreferences;
 
-    public int getPreferencesCount() {
-        return mPreferencesCount;
-    }
-
     public List<Preference> getSelectedPreferences() {
         return mSelectedPreferences;
     }
 
     public List<Preference> mSelectedPreferences;
+    private List<String> prefetchedPreferences;
+
     private int mPreferencesCount = 0;
     private Context mContext;
 
-    public PreferencesGridAdapter(List<Preference> preferences) {
+    public PreferencesGridAdapter(List<Preference> preferences, List<String> prefetchedPreferences) {
         super();
         this.mPreferences = preferences;
-
-        mSelectedPreferences = new ArrayList<>();
+        this.mSelectedPreferences = new ArrayList<>();
+        this.prefetchedPreferences = prefetchedPreferences;
     }
 
     @Override
@@ -56,6 +54,11 @@ public class PreferencesGridAdapter extends RecyclerView.Adapter<PreferencesGrid
     public void onBindViewHolder(PreferencesViewholder holder, int position) {
         holder.prefTextView.setText(mPreferences.get(position).getPreference());
         holder.preferenceButton.setTag(mPreferences.get(position));
+        if (prefetchedPreferences.contains(mPreferences.get(position).getPreference())) {
+            holder.preferenceButton.setSelected(true);
+            mSelectedPreferences.add(mPreferences.get(position));
+            prefetchedPreferences.remove(mPreferences.get(position).getPreference());
+        }
     }
 
     @Override
