@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
@@ -16,9 +18,9 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.adapter.PackageSelectorViewAdapter;
 import com.teamawesome.navii.server.model.Attraction;
+import com.teamawesome.navii.server.model.PackageScheduleListItem;
 import com.teamawesome.navii.util.AnalyticsManager;
 import com.teamawesome.navii.util.Constants;
-import com.teamawesome.navii.server.model.PackageScheduleListItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +38,9 @@ public class PrefetchAttractionsActivity extends Activity {
 
     private static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
 
+    private int imageHeight;
+    private int imageWidth;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,8 +48,18 @@ public class PrefetchAttractionsActivity extends Activity {
         ButterKnife.bind(this);
 
         List<Attraction> prefetchedList = getIntent().getParcelableArrayListExtra(Constants.INTENT_EXTRA_RESTAURANT_LIST);
+        getImageViewMetrics();
         setupPackageView(prefetchedList);
         AnalyticsManager.getMixpanel().track("PrefetchAttractionsActivity - onCreate");
+    }
+
+    private void getImageViewMetrics() {
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+        imageHeight = (int) getResources().getDimension(R.dimen.heartnsoul_imageview_height);
+        imageWidth = metrics.widthPixels;
+        Log.d("Width",  "w:"+imageWidth +" h:"+imageHeight);
     }
 
     private void setupPackageView(List<Attraction> attractions) {
@@ -54,7 +69,7 @@ public class PrefetchAttractionsActivity extends Activity {
             items.add(new PackageScheduleListItem.Builder().itemType(PackageScheduleListItem.TYPE_ITEM).attraction(attractions.get(i)).build());
         }
         mItineraryRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        PackageSelectorViewAdapter mPackageSelectorViewAdapter = new PackageSelectorViewAdapter(this, items);
+        PackageSelectorViewAdapter mPackageSelectorViewAdapter = new PackageSelectorViewAdapter(this, items, imageWidth, imageHeight);
         mItineraryRecyclerView.setAdapter(mPackageSelectorViewAdapter);
     }
 
@@ -85,14 +100,20 @@ public class PrefetchAttractionsActivity extends Activity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d("onActivityResult", "Request:"+requestCode);
         if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
-            if (resultCode == Activity.RESULT_OK || resultCode == Constants.RESPONSE_ATTRACTION_SELECTED) {
+            if (resultCode == Activity.RESULT_OK) {
                 setResult(Constants.RESPONSE_GOOGLE_SEARCH, data);
                 finish();
             } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
                 Toast.makeText(this, "Cannot Retrieve Search", Toast.LENGTH_SHORT).show();
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 Toast.makeText(this, "Cancelled", Toast.LENGTH_SHORT).show();
+            }
+        } else if (requestCode == Constants.GET_ATTRACTION_EXTRA_REQUEST_CODE) {
+            if (resultCode == Constants.RESPONSE_ATTRACTION_SELECTED) {
+                setResult(Constants.RESPONSE_ATTRACTION_SELECTED, data);
+                finish();
             }
         }
     }

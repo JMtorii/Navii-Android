@@ -1,7 +1,10 @@
 package com.teamawesome.navii.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -16,6 +19,7 @@ import com.teamawesome.navii.util.ToolbarConfiguration;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by JMtorii on 16-06-11.
@@ -38,6 +42,11 @@ public class HeartAndSoulDetailsActivity extends NaviiToolbarActivity {
 
     @BindView(R.id.hns_phone_number)
     TextView phoneNumberTextView;
+
+    @BindView(R.id.heart_and_soul_detail_fab)
+    FloatingActionButton floatingActionButton;
+
+    Attraction attraction;
 
     @Override
     public ToolbarConfiguration getToolbarConfiguration() {
@@ -70,7 +79,14 @@ public class HeartAndSoulDetailsActivity extends NaviiToolbarActivity {
         String phoneNumber = "";
         double rating = 0;
 
-        Attraction attraction = getIntent().getParcelableExtra(Constants.INTENT_ATTRACTION);
+        attraction = getIntent().getParcelableExtra(Constants.INTENT_ATTRACTION);
+
+        boolean prefetchView = getIntent().getBooleanExtra(Constants.INTENT_VIEW_PREFETCH, false);
+
+        if (prefetchView) {
+            floatingActionButton.setVisibility(View.VISIBLE);
+        }
+
         if (attraction != null) {
             title = attraction.getName();
             imageUri = attraction.getPhotoUri();
@@ -83,6 +99,7 @@ public class HeartAndSoulDetailsActivity extends NaviiToolbarActivity {
         if (address == null) {
             address = "Address";
         }
+
         Picasso.with(this)
                 .load(imageUri)
                 .centerCrop()
@@ -95,5 +112,14 @@ public class HeartAndSoulDetailsActivity extends NaviiToolbarActivity {
         ratingTextView.setText(Double.toString(rating)+"/"+"5");
         phoneNumberTextView.setText(phoneNumber);
         AnalyticsManager.getMixpanel().track("HeartAndSoulDetailsActivity - onCreate");
+    }
+
+    @OnClick(R.id.heart_and_soul_detail_fab)
+    public void onClicked() {
+        Intent data = new Intent();
+        data.putExtra(Constants.INTENT_ATTRACTION, attraction);
+        data.putExtra(Constants.INTENT_VIEW_PREFETCH, true);
+        setResult(Constants.RESPONSE_ATTRACTION_SELECTED, data);
+        finish();
     }
 }

@@ -1,5 +1,6 @@
 package com.teamawesome.navii.server.model;
 
+import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -14,6 +15,7 @@ public class PackageScheduleListItem implements Parcelable {
     private int itemType;
     private String name;
     private Attraction attraction;
+    private Bitmap bitmap;
 
     public final static int TYPE_DAY_HEADER = 0;
     public final static int TYPE_MORNING = 1;
@@ -47,6 +49,15 @@ public class PackageScheduleListItem implements Parcelable {
     public String getName() {
         return name;
     }
+
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
+
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
+    }
+
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeInt(itemType);

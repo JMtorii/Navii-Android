@@ -87,7 +87,7 @@ public class ItineraryScheduleMapFragment extends Fragment implements OnMapReady
                 mMap.addMarker(new MarkerOptions()
                         .position(place.getLatLng())
                         .title(place.getName().toString())
-                        .snippet(place.getWebsiteUri().toString())
+                        .snippet(place.getWebsiteUri() !=null ? place.getWebsiteUri().toString() : "No website")
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
                 );
             } else if (resultCode == Constants.RESPONSE_ATTRACTION_SELECTED) {

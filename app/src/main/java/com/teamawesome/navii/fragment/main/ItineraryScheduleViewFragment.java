@@ -6,19 +6,26 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.ItineraryScheduleActivity;
@@ -26,8 +33,9 @@ import com.teamawesome.navii.adapter.PackageScheduleViewAdapter;
 import com.teamawesome.navii.server.model.Attraction;
 import com.teamawesome.navii.server.model.Itinerary;
 import com.teamawesome.navii.server.model.Location;
-import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.server.model.PackageScheduleListItem;
+import com.teamawesome.navii.util.Constants;
+import com.teamawesome.navii.util.PhotoTask;
 
 import java.util.List;
 
@@ -50,17 +58,48 @@ public class ItineraryScheduleViewFragment extends Fragment {
     private boolean mEditable;
 
     private Itinerary itinerary;
+    private GoogleApiClient mGoogleApiClient;
+    private LinearLayoutManager mLayoutManager;
+
+    private int imageHeight;
+    private int imageWidth;
 
     public List<PackageScheduleListItem> getItems() {
         return mPackageScheduleViewAdapter.getItemsList();
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        final Context context = getContext();
+        mGoogleApiClient = new GoogleApiClient
+                .Builder(this.getContext())
+                .addApi(Places.GEO_DATA_API)
+                .addApi(Places.PLACE_DETECTION_API)
+                .enableAutoManage(getActivity(),
+                        new GoogleApiClient.OnConnectionFailedListener() {
+                            @Override
+                            public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+                                Toast.makeText(context, "Could not connect to Google Places API", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                .build();
+    }
+
+    private void getImageViewMetrics() {
+        DisplayMetrics metrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        imageHeight = (int) getResources().getDimension(R.dimen.heartnsoul_imageview_height);
+        imageWidth = metrics.widthPixels;
+        Log.d("Width", "w:"+imageWidth +" h:"+imageHeight);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_itinerary_schedule_view, container, false);
         ButterKnife.bind(this, view);
-
         setExtraFromBundle();
+        getImageViewMetrics();
         setPackageScheduleView();
         return view;
     }
@@ -72,9 +111,9 @@ public class ItineraryScheduleViewFragment extends Fragment {
 
     private void setPackageScheduleView() {
         List<PackageScheduleListItem> items = itinerary.getPackageScheduleListItems();
-
-        mItineraryRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mPackageScheduleViewAdapter = new PackageScheduleViewAdapter(getActivity(), items);
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        mItineraryRecyclerView.setLayoutManager(mLayoutManager);
+        mPackageScheduleViewAdapter = new PackageScheduleViewAdapter(getActivity(), items, imageWidth, imageHeight);
         mItineraryRecyclerView.setAdapter(mPackageScheduleViewAdapter);
 
         mItemTouchHelper = createItemTouchHelper();
@@ -107,44 +146,43 @@ public class ItineraryScheduleViewFragment extends Fragment {
                         .longitude(place.getLatLng().longitude)
                         .build();
 
-                Attraction attraction = new Attraction.Builder()
+                final Attraction attraction = new Attraction.Builder()
                         .location(location)
                         .name(place.getName().toString())
+                        .rating((double) Math.round(place.getRating()* 100)/100.0)
+                        .phoneNumber(place.getPhoneNumber().toString())
+                        .description(place.getPlaceTypes().toString())
                         .price(place.getPriceLevel())
                         .build();
 
-                Bitmap image = null;
-//                try {
-//                    image = new PhotoTask(getContext()) {
-//                        @Override
-//                        protected void onPreExecute() {
-//                            // Display a temporary image to show while bitmap is loading.
-//                        }
-//
-//                        @Override
-//                        protected void onPostExecute(Bitmap attributedPhoto) {
-//                            progressDialog.dismiss();
-//                        }
-//                    }.execute(id).get(20000, TimeUnit.MILLISECONDS);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                } catch (ExecutionException e) {
-//                    e.printStackTrace();
-//                } catch (TimeoutException e) {
-//                    e.printStackTrace();
-//                }
+                try {
+                    new PhotoTask(getContext(), mGoogleApiClient, imageWidth, imageHeight) {
+                        @Override
+                        protected void onPreExecute() {
+                            // Display a temporary image to show while bitmap is loading.
+                        }
 
-                PackageScheduleListItem attractionItem = new PackageScheduleListItem.Builder()
-                        .itemType(4)
-                        .attraction(attraction).build();
-//                attractionItem.setBitmap(image);
-                mPackageScheduleViewAdapter.add(attractionItem);
+                        @Override
+                        protected void onPostExecute(Bitmap attributedPhoto) {
+                            PackageScheduleListItem attractionItem = new PackageScheduleListItem.Builder()
+                                    .itemType(PackageScheduleListItem.TYPE_ITEM)
+                                    .attraction(attraction)
+                                    .build();
+
+                            attractionItem.setBitmap(attributedPhoto);
+                            mPackageScheduleViewAdapter.add(mLayoutManager.findLastCompletelyVisibleItemPosition(), attractionItem);
+                        }
+                    }.execute(id);
+
+                }  catch (Exception e) {
+                    e.printStackTrace();
+                }
             } else if (resultCode == Constants.RESPONSE_ATTRACTION_SELECTED) {
                 Attraction attraction = data.getParcelableExtra(Constants.INTENT_ATTRACTION);
                 PackageScheduleListItem attractionItem = new PackageScheduleListItem.Builder()
-                        .itemType(4)
+                        .itemType(PackageScheduleListItem.TYPE_ITEM)
                         .attraction(attraction).build();
-                mPackageScheduleViewAdapter.add(attractionItem);
+                mPackageScheduleViewAdapter.add(mLayoutManager.findLastCompletelyVisibleItemPosition(), attractionItem);
             }
             if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
                 Status status = PlaceAutocomplete.getStatus(getActivity(), data);
@@ -189,8 +227,12 @@ public class ItineraryScheduleViewFragment extends Fragment {
 
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-                mPackageScheduleViewAdapter.move(viewHolder.getAdapterPosition(), target.getAdapterPosition());
-                return true;
+                if (viewHolder.getAdapterPosition() > 1) {
+                    mPackageScheduleViewAdapter.move(viewHolder.getAdapterPosition(), target.getAdapterPosition());
+                    return true;
+                } else {
+                    return false;
+                }
             }
 
             @Override
@@ -198,11 +240,9 @@ public class ItineraryScheduleViewFragment extends Fragment {
                 if (viewHolder == null || viewHolder.getItemViewType() != PackageScheduleListItem.TYPE_ITEM || direction == ItemTouchHelper.START) {
                     return;
                 }
-                final PackageScheduleViewAdapter.PackageItemViewHolder touchVH = (PackageScheduleViewAdapter.PackageItemViewHolder) viewHolder;
-                final int position = touchVH.getAdapterPosition();
-                Log.d("TAG", "" + position);
+                int position = viewHolder.getAdapterPosition();
                 final PackageScheduleListItem item = mPackageScheduleViewAdapter.delete(viewHolder.getAdapterPosition());
-                showSnackbar(viewHolder.getAdapterPosition(), item);
+                showSnackbar(position, item);
             }
 
             @Override
@@ -240,7 +280,6 @@ public class ItineraryScheduleViewFragment extends Fragment {
                 if (viewHolder == null || viewHolder.getItemViewType() != PackageScheduleListItem.TYPE_ITEM || Math.signum(dY) != 0) {
                     return;
                 }
-
                 PackageScheduleViewAdapter.PackageItemViewHolder touchVH = (PackageScheduleViewAdapter.PackageItemViewHolder) viewHolder;
 
                 float leaveBehindLength = touchVH.overlay.getWidth();
@@ -253,7 +292,6 @@ public class ItineraryScheduleViewFragment extends Fragment {
 
                 if (dX == 0) {
                     touchVH.relativeLayout.setTranslationX(0.0f);
-//                    touchVH.overlay.setTranslationX(-touchVH.itemView.getWidth());
                 } else if (dX > 0) {
                     touchVH.relativeLayout.setTranslationX(dX);
 
@@ -269,7 +307,6 @@ public class ItineraryScheduleViewFragment extends Fragment {
                 } else {
                     touchVH.relativeLayout.setTranslationX(0.0f);
                 }
-                Log.d("OnChildDrawOver", "dX:" + dX + " actionState:" + actionState + " isCurrentlyActive:" + isCurrentlyActive);
             }
 
             @Override

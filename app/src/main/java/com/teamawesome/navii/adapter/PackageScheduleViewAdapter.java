@@ -3,11 +3,12 @@ package com.teamawesome.navii.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
+import android.graphics.Bitmap;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.util.LruCache;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,11 +22,9 @@ import com.squareup.picasso.Picasso;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.HeartAndSoulDetailsActivity;
 import com.teamawesome.navii.server.model.Attraction;
-import com.teamawesome.navii.util.AsyncDrawable;
-import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.server.model.PackageScheduleListItem;
+import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.HeartAndSoulHeaderConfiguration;
-import com.teamawesome.navii.util.VectorDrawableWorkerTask;
 import com.teamawesome.navii.views.MainLatoTextView;
 
 import java.util.List;
@@ -42,9 +41,17 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
     private List<PackageScheduleListItem> mItemList;
     private Context mContext;
 
-    public PackageScheduleViewAdapter(Context context, List<PackageScheduleListItem> mItemList) {
+    private int mWidth;
+    private int mHeight;
+
+    private LruCache<String, Bitmap> mMemoryCache;
+
+
+    public PackageScheduleViewAdapter(Context context, List<PackageScheduleListItem> mItemList, int width, int height) {
         this.mItemList = mItemList;
         this.mContext = context;
+        this.mWidth = width;
+        this.mHeight = height;
     }
 
     @Override
@@ -90,14 +97,20 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
     private void onBindPackageItemViewHolder(RecyclerView.ViewHolder holder, int position) {
         Log.d("PackageSchedule", "onBindPackageItemViewHolder:" + position);
         PackageItemViewHolder packageItemViewHolder = (PackageItemViewHolder) holder;
-        PackageScheduleListItem attractionItem = ((PackageScheduleListItem) mItemList.get(position));
+        PackageScheduleListItem attractionItem = mItemList.get(position);
         Attraction current = attractionItem.getAttraction();
 
-        Picasso.with(mContext)
-                .load(current.getPhotoUri())
-                .fit()
-                .centerCrop()
-                .into(packageItemViewHolder.imageView);
+        if (current.getPhotoUri() != null && attractionItem.getBitmap() == null) {
+            Picasso.with(mContext)
+                    .load(current.getPhotoUri())
+                    .fit()
+                    .centerCrop()
+                    .into(packageItemViewHolder.imageView);
+        } else {
+            Bitmap bitmap = Bitmap.createScaledBitmap(attractionItem.getBitmap(), mWidth, mHeight, true);
+            mItemList.get(position).setBitmap(bitmap);
+            packageItemViewHolder.imageView.setImageBitmap(bitmap);
+        }
         packageItemViewHolder.itemView.setTranslationX(0.0f);
         packageItemViewHolder.relativeLayout.setTranslationX(0.0f);
         packageItemViewHolder.attractionName.setText(current.getName());
@@ -105,16 +118,14 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
 
     private void onBindSectionViewHolder(RecyclerView.ViewHolder holder, int position) {
         SectionViewHolder sectionViewHolder = (SectionViewHolder) holder;
-        PackageScheduleListItem header = (PackageScheduleListItem) mItemList.get(position);
+        PackageScheduleListItem header = mItemList.get(position);
         int resId = HeartAndSoulHeaderConfiguration.getConfiguration(header.getItemType()).getResId();
         sectionViewHolder.sectionImageView.setImageResource(resId);
-//        Picasso.with(mContext).load(header.getResId()).fit().into(sectionViewHolder.sectionImageView);
-//        loadHeader(header.getResId(), sectionViewHolder.sectionImageView);
     }
 
     private void onBindSectionDayViewHolder(RecyclerView.ViewHolder holder, int position) {
         DaySectionViewHolder daySectionViewHolder = (DaySectionViewHolder) holder;
-        PackageScheduleListItem header = (PackageScheduleListItem) mItemList.get(position);
+        PackageScheduleListItem header = mItemList.get(position);
         daySectionViewHolder.sectionDayTitle.setText(header.getName());
 
         ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams)daySectionViewHolder.sectionDayTitle.getLayoutParams();
@@ -124,20 +135,6 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
             params.setMargins(0, 60, 0, 0);
         }
         daySectionViewHolder.sectionDayTitle.setLayoutParams(params);
-    }
-
-    private void loadHeader(int resId, ImageView imageView) {
-        if (VectorDrawableWorkerTask.cancelPotentialWork(resId, imageView)) {
-            final VectorDrawableWorkerTask task = new VectorDrawableWorkerTask(imageView, mContext, resId);
-
-            final AsyncDrawable asyncDrawable = new AsyncDrawable(task);
-            imageView.setImageDrawable(asyncDrawable);
-            task.execute(resId);
-        }
-    }
-
-    public PackageScheduleListItem getItem(final int position) {
-        return mItemList.get(position);
     }
 
     public PackageScheduleListItem delete(final int position) {
@@ -151,12 +148,6 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
         PackageScheduleListItem previousAttraction = mItemList.remove(from);
         mItemList.add(to, previousAttraction);
         notifyItemMoved(from, to);
-    }
-
-    public void replace(List<PackageScheduleListItem> itemList) {
-        mItemList.clear();
-        mItemList.addAll(itemList);
-        notifyDataSetChanged();
     }
 
     public void add(PackageScheduleListItem item) {
@@ -224,14 +215,7 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
         @OnClick(R.id.package_item_layout)
         public void detailsView() {
             Intent heartAndSoulDetailsActivity = new Intent(mContext, HeartAndSoulDetailsActivity.class);
-            Attraction attraction = ((PackageScheduleListItem) mItemList.get(getAdapterPosition())).getAttraction();
-            Bundle extras = new Bundle();
-            extras.putParcelable(Constants.INTENT_ATTRACTION, attraction);
-
-            if (attraction.getLocation() != null) {
-                extras.putString(Constants.INTENT_ATTRACTION_LOCATION, attraction.getLocation().getAddress());
-            }
-            heartAndSoulDetailsActivity.putExtras(extras);
+            heartAndSoulDetailsActivity.putExtra(Constants.INTENT_ATTRACTION, mItemList.get(getAdapterPosition()).getAttraction());
 
             ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) mContext, imageView, "heartAndSoulImage");
             mContext.startActivity(heartAndSoulDetailsActivity, options.toBundle());
