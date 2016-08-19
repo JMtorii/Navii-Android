@@ -56,7 +56,7 @@ public class ItineraryRecommendActivity extends NaviiToolbarActivity {
         ButterKnife.bind(this);
 
         List<String> tags = getIntent().getStringArrayListExtra(Constants.INTENT_TAGS);
-        int days = getIntent().getIntExtra(Constants.INTENT_DAYS, 1);
+        final int days = getIntent().getIntExtra(Constants.INTENT_DAYS, 1);
 
         String tagList;
         if (tags == null) {
@@ -84,7 +84,7 @@ public class ItineraryRecommendActivity extends NaviiToolbarActivity {
 
                     @Override
                     public void onNext(HeartAndSoulPackage heartAndSoulPackage) {
-                        recommendListAdapter = new ItineraryRecommendListAdapter(context, heartAndSoulPackage);
+                        recommendListAdapter = new ItineraryRecommendListAdapter(context, heartAndSoulPackage, days);
                         itineraryRecyclerView.setAdapter(recommendListAdapter);
 
                         RecyclerView.LayoutManager gridLayoutManager = new GridLayoutManager(context, 1, GridLayoutManager.VERTICAL, false);

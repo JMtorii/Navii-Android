@@ -26,6 +26,7 @@ public class Constants {
     public static final String PREFERENCES_FRAGMENT_TAG = "PREFERENCES_FRAGMENT_TAG";
     public static final String EDIT_PROFILE_FRAGMENT_TAG = "EDIT_PROFILE_FRAGMENT_TAG";
     public static final String LOADING_WHEEL_TAG = "LOADING_WHEEL";
+    public static final String CUSTOM_ATTRACTION_TAG = "CUSTOM_ATTRACTION";
 
     // Preference Types
     public static final int PREFERENCE_TYPE_1 = 1;

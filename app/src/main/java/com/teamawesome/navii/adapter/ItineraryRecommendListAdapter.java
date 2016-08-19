@@ -35,10 +35,12 @@ public class ItineraryRecommendListAdapter extends RecyclerView.Adapter<Itinerar
     private HeartAndSoulPackage heartAndSoulPackage;
     private Context context;
     private Set<String> uniquePictureMap = new HashSet<>();
+    private int duration;
 
-    public ItineraryRecommendListAdapter(Context context, HeartAndSoulPackage heartAndSoulPackage) {
+    public ItineraryRecommendListAdapter(Context context, HeartAndSoulPackage heartAndSoulPackage, int days) {
         this.context = context;
         this.heartAndSoulPackage = heartAndSoulPackage;
+        this.duration = days;
     }
 
     @Override
@@ -99,6 +101,7 @@ public class ItineraryRecommendListAdapter extends RecyclerView.Adapter<Itinerar
                 itineraryScheduleActivity.putParcelableArrayListExtra(Constants.INTENT_EXTRA_RESTAURANT_LIST, new ArrayList<>(heartAndSoulPackage.getExtraRestaurants()));
                 itineraryScheduleActivity.putExtra(Constants.INTENT_ITINERARY_TITLE, mTextView.getText().toString());
                 itineraryScheduleActivity.putExtra(Constants.INTENT_ITINERARY_EDITABLE, true);
+                itineraryScheduleActivity.putExtra(Constants.INTENT_DAYS, duration);
 
                 Activity activity = (Activity) context;
                 activity.startActivity(itineraryScheduleActivity);

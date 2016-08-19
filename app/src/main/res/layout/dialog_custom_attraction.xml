@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/custom_attraction_dialog"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
+    android:layout_height="300dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="0.6">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/custom_attraction_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/grey_primary"
+                android:layout_gravity="center_vertical"
+                android:textSize="20sp"
+                android:maxLength="15"
+                android:maxLines="2"
+                android:hint="Attraction Name"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <com.teamawesome.navii.views.MainLatoTextView
+            android:textColor="@color/grey_primary"
+            android:background="@color/transparent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DAY: "
+            android:textSize="20sp"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:layout_weight="0.2" />
+
+        <NumberPicker
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/custom_attraction_day_picker"
+            android:layout_weight="0.2">
+        </NumberPicker>
+
+    </LinearLayout>
+    <com.teamawesome.navii.views.MainLatoButton
+        android:id="@+id/create_custom_attraction"
+        android:theme="@style/MainButtonColorInverted"
+        android:layout_marginBottom="16dp"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:text="@string/accept"/>
+</LinearLayout>
