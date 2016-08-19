@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp">
+        android:layout_height="150dp">
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="wrap_content"
@@ -63,8 +63,10 @@
     <com.teamawesome.navii.views.MainLatoButton
         android:id="@+id/create_custom_attraction"
         android:theme="@style/MainButtonColorInverted"
-        android:layout_marginBottom="10dp"
-        android:layout_width="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_width="match_parent"
         android:layout_gravity="center"
         android:layout_height="wrap_content"
         android:text="@string/accept"/>
