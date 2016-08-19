@@ -1,7 +1,9 @@
 package com.teamawesome.navii.fragment.debug;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.DialogFragment;
@@ -50,6 +52,14 @@ public class NaviCustomAttractionDialogFragment extends DialogFragment{
         return v;
     }
 
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        Dialog d = super.onCreateDialog(savedInstanceState);
+        d.requestWindowFeature(STYLE_NO_TITLE);
+        return d;
+    }
+
     @Override
     public void onAttach(Context context){
         super.onAttach(context);
@@ -74,7 +84,7 @@ public class NaviCustomAttractionDialogFragment extends DialogFragment{
     @OnClick(R.id.create_custom_attraction)
     public void createCustomAttraction(){
         Location customLocation = new Location.Builder().address("").build();
-        if (mCustomAttractionName.getText().toString().length() == 0) {
+        if (mCustomAttractionName.getText().toString().trim().length() == 0) {
             Toast.makeText(getContext(), "You must add a Title", Toast.LENGTH_SHORT).show();
             return;
         }

@@ -4,22 +4,25 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
-    android:layout_height="300dp">
+    android:layout_height="match_parent"
+    android:weightSum="1">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="100dp">
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="0.6">
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:layout_weight="5">
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/custom_attraction_name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:textColor="@color/grey_primary"
                 android:layout_gravity="center_vertical"
                 android:textSize="20sp"
@@ -28,30 +31,39 @@
                 android:hint="Attraction Name"/>
 
         </android.support.design.widget.TextInputLayout>
-
-        <com.teamawesome.navii.views.MainLatoTextView
-            android:textColor="@color/grey_primary"
-            android:background="@color/transparent"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="DAY: "
-            android:textSize="20sp"
-            android:layout_gravity="center_vertical"
-            android:gravity="center"
-            android:layout_weight="0.2" />
+            android:layout_height="match_parent"
+            android:paddingEnd="16dp"
+            android:paddingStart="16dp"
+            android:orientation="horizontal">
 
-        <NumberPicker
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/custom_attraction_day_picker"
-            android:layout_weight="0.2">
-        </NumberPicker>
+            <com.teamawesome.navii.views.MainLatoTextView
+                android:textColor="@color/grey_primary"
+                android:background="@color/transparent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DAY:"
+                android:paddingEnd="32dp"
+                android:textSize="20sp"
+                android:layout_gravity="center_vertical"
+                android:gravity="center" />
+
+            <NumberPicker
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:id="@+id/custom_attraction_day_picker">
+            </NumberPicker>
+
+        </LinearLayout>
 
     </LinearLayout>
     <com.teamawesome.navii.views.MainLatoButton
         android:id="@+id/create_custom_attraction"
         android:theme="@style/MainButtonColorInverted"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="10dp"
         android:layout_width="wrap_content"
         android:layout_gravity="center"
         android:layout_height="wrap_content"
