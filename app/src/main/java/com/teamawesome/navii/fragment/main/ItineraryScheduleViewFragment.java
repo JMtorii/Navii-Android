@@ -10,7 +10,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -22,25 +21,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.github.clans.fab.FloatingActionButton;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
-import com.google.android.gms.vision.text.internal.client.SymbolBoxParcel;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.ItineraryScheduleActivity;
 import com.teamawesome.navii.adapter.PackageScheduleViewAdapter;
-import com.teamawesome.navii.fragment.debug.NaviCustomAttractionDialogFragment;
 import com.teamawesome.navii.server.model.Attraction;
 import com.teamawesome.navii.server.model.Itinerary;
 import com.teamawesome.navii.server.model.Location;
 import com.teamawesome.navii.server.model.PackageScheduleListItem;
 import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.PhotoTask;
-import com.teamawesome.navii.views.MainLatoButton;
 
 import java.util.List;
 
@@ -156,7 +151,7 @@ public class ItineraryScheduleViewFragment extends Fragment {
                         .name(place.getName().toString())
                         .rating((double) Math.round(place.getRating()* 100)/100.0)
                         .phoneNumber(place.getPhoneNumber().toString())
-                        .description(place.getPlaceTypes().toString())
+                        .description("Google Places Search")
                         .price(place.getPriceLevel())
                         .build();
 
@@ -227,6 +222,8 @@ public class ItineraryScheduleViewFragment extends Fragment {
                 .itemType(PackageScheduleListItem.TYPE_ITEM)
                 .attraction(attraction).build();
         mPackageScheduleViewAdapter.add(i,item);
+        mLayoutManager.scrollToPositionWithOffset(i, imageHeight);
+        Toast.makeText(getContext(), "Added Attraction", Toast.LENGTH_SHORT).show();
     }
 
     public ItemTouchHelper.Callback createCallback() {

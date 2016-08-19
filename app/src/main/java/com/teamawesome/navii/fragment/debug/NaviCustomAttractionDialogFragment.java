@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.NumberPicker;
+import android.widget.Toast;
 
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.server.model.Attraction;
@@ -25,10 +26,7 @@ import butterknife.OnClick;
 public class NaviCustomAttractionDialogFragment extends DialogFragment{
 
     public interface NoticeDialogListener {
-
-        public void onDialogPositiveClick(int day, Attraction attraction);
-        public void onDialogNegativeClick(DialogFragment dialog);
-
+        void onDialogPositiveClick(int day, Attraction attraction);
     }
 
     public static int days;
@@ -75,7 +73,11 @@ public class NaviCustomAttractionDialogFragment extends DialogFragment{
 
     @OnClick(R.id.create_custom_attraction)
     public void createCustomAttraction(){
-        Location customLocation = new Location.Builder().address("123 Sesame ST.").build();
+        Location customLocation = new Location.Builder().address("").build();
+        if (mCustomAttractionName.getText().toString().length() == 0) {
+            Toast.makeText(getContext(), "You must add a Title", Toast.LENGTH_SHORT).show();
+            return;
+        }
         Attraction custom = new Attraction.Builder()
                 .name(mCustomAttractionName.getText().toString())
                 .description("User Created")

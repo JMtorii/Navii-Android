@@ -47,13 +47,14 @@ public class SavedTripsAdapter extends RecyclerView.Adapter<SavedTripsAdapter.Tr
         holder.mTripName.setText(saved_trips.get(position).getDescription());
         holder.trip = saved_trips.get(position);
         for (PackageScheduleListItem packageScheduleListItem : holder.trip.getPackageScheduleListItems()) {
-            if (packageScheduleListItem.getItemType() == 4) {
+            if (packageScheduleListItem.getItemType() == PackageScheduleListItem.TYPE_ITEM) {
                 String savedTripURI = packageScheduleListItem.getAttraction().getPhotoUri();
                 Picasso.with(TripViewHolder.context)
                         .load(savedTripURI)
                         .fit()
                         .centerCrop()
-                        .into(holder.mSavedTripsImage);            }
+                        .into(holder.mSavedTripsImage);
+            }
         }
     }
 

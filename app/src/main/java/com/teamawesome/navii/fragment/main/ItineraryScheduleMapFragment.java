@@ -87,7 +87,7 @@ public class ItineraryScheduleMapFragment extends Fragment implements OnMapReady
                 mMap.addMarker(new MarkerOptions()
                         .position(place.getLatLng())
                         .title(place.getName().toString())
-                        .snippet(place.getWebsiteUri() !=null ? place.getWebsiteUri().toString() : "No website")
+                        .snippet(place.getWebsiteUri() != null ? place.getWebsiteUri().toString() : "No website")
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
                 );
             } else if (resultCode == Constants.RESPONSE_ATTRACTION_SELECTED) {
@@ -126,15 +126,16 @@ public class ItineraryScheduleMapFragment extends Fragment implements OnMapReady
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
 
-            List<PackageScheduleListItem> listItems = itineraries.getPackageScheduleListItems();
+        List<PackageScheduleListItem> listItems = itineraries.getPackageScheduleListItems();
 
-            int dayCounter = 0;
-            for (int i = 0; i < listItems.size(); i++) {
-                if (listItems.get(i).getItemType() == 0) {
-                    ++dayCounter;
-                } else if (listItems.get(i).getItemType() == 4) {
-                    Attraction attraction = listItems.get(i).getAttraction();
-                    Location location = listItems.get(i).getAttraction().getLocation();
+        int dayCounter = 0;
+        for (int i = 0; i < listItems.size(); i++) {
+            if (listItems.get(i).getItemType() == PackageScheduleListItem.TYPE_DAY_HEADER) {
+                ++dayCounter;
+            } else if (listItems.get(i).getItemType() == PackageScheduleListItem.TYPE_ITEM) {
+                Attraction attraction = listItems.get(i).getAttraction();
+                Location location = listItems.get(i).getAttraction().getLocation();
+                if (!attraction.getDescription().equals("User Created")) {
                     LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
                     Marker marker = mMap.addMarker(new MarkerOptions()
                             .position(latLng)
@@ -145,9 +146,11 @@ public class ItineraryScheduleMapFragment extends Fragment implements OnMapReady
                     builder.include(marker.getPosition());
                 }
             }
-
-        LatLngBounds bounds = builder.build();
-        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 20);
-        mMap.animateCamera(cu);
+        }
+        if (listItems.size() > 0) {
+            LatLngBounds bounds = builder.build();
+            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 20);
+            mMap.animateCamera(cu);
+        }
     }
 }

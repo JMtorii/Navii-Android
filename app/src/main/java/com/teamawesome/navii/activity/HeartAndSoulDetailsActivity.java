@@ -1,6 +1,7 @@
 package com.teamawesome.navii.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.teamawesome.navii.NaviiApplication;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.server.model.Attraction;
 import com.teamawesome.navii.util.AnalyticsManager;
@@ -99,13 +101,16 @@ public class HeartAndSoulDetailsActivity extends NaviiToolbarActivity {
         if (address == null) {
             address = "Address";
         }
-
-        Picasso.with(this)
-                .load(imageUri)
-                .centerCrop()
-                .fit()
-                .into(toolbarImageView);
-
+        Bitmap bitmap = NaviiApplication.getInstance().getBitmapFromMemCache("BitmapImage");
+        if (bitmap == null || imageUri != null) {
+            Picasso.with(this)
+                    .load(imageUri)
+                    .centerCrop()
+                    .fit()
+                    .into(toolbarImageView);
+        } else {
+            toolbarImageView.setImageBitmap(bitmap);
+        }
         collapsingToolbarLayout.setTitle(title);
         locationTextView.setText(address);
         descriptionTextView.setText(description);

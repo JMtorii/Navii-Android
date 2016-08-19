@@ -3,7 +3,6 @@ package com.teamawesome.navii.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -19,6 +18,7 @@ import com.teamawesome.navii.fragment.main.ItineraryScheduleMapFragment;
 import com.teamawesome.navii.fragment.main.ItineraryScheduleViewFragment;
 import com.teamawesome.navii.server.model.Attraction;
 import com.teamawesome.navii.server.model.Itinerary;
+import com.teamawesome.navii.server.model.PackageScheduleListItem;
 import com.teamawesome.navii.util.AnalyticsManager;
 import com.teamawesome.navii.util.Constants;
 import com.teamawesome.navii.util.ToolbarConfiguration;
@@ -43,7 +43,6 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity
 
     @BindView(R.id.floating_action_menu)
     FloatingActionMenu floatingActionMenu;
-
 
     private Adapter mAdapter;
     public int days;
@@ -77,7 +76,6 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity
         overridePendingTransition(R.anim.slide_in_down, R.anim.hold);
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,7 +104,6 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity
     @OnClick(R.id.eat_menu_item)
     public void onEatMenuClick() {
         List<Attraction> extraRestaurants = getIntent().getParcelableArrayListExtra(Constants.INTENT_EXTRA_RESTAURANT_LIST);
-
         Intent intent = new Intent(this, PrefetchAttractionsActivity.class);
         intent.putParcelableArrayListExtra(Constants.INTENT_EXTRA_RESTAURANT_LIST, new ArrayList<>(extraRestaurants));
         startActivityForResult(intent, Constants.GET_ATTRACTION_EXTRA_REQUEST_CODE);
@@ -124,7 +121,6 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity
     public void onCustomItemClick(){
             //Custom fab button is bound to Itinerary Activity layout so had to call it in fragment to
             //access the adapter
-            //TODO add constant
             NaviCustomAttractionDialogFragment.days = this.days;
             new NaviCustomAttractionDialogFragment().show(getSupportFragmentManager(), Constants.CUSTOM_ATTRACTION_TAG);
     }
@@ -144,21 +140,25 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity
         viewPager.setAdapter(mAdapter);
     }
 
-    private void updateMapFragment() {
-        ItineraryScheduleMapFragment mapFragment = (ItineraryScheduleMapFragment) mAdapter.getItem(1);
-        mapFragment.updateDay();
-    }
-
     @Override
     public void onDialogPositiveClick(int day, Attraction attraction) {
         ItineraryScheduleViewFragment scheduleViewFragment = (ItineraryScheduleViewFragment) mAdapter.getItem(0);
-        scheduleViewFragment.add(2, attraction);
+
+        List<PackageScheduleListItem> items = scheduleViewFragment.getItems();
+        int counter = 0;
+        int index = 1;
+        for (PackageScheduleListItem item : items) {
+            index++;
+            if (item.getItemType() == PackageScheduleListItem.TYPE_DAY_HEADER) {
+                counter++;
+                if (counter == day) {
+                    break;
+                }
+            }
+        }
+
+        scheduleViewFragment.add(index, attraction);
         floatingActionMenu.close(true);
-    }
-
-    @Override
-    public void onDialogNegativeClick(DialogFragment dialog) {
-
     }
 
     static class Adapter extends FragmentPagerAdapter {
@@ -190,18 +190,8 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity
         }
     }
 
-    private List<Itinerary> createSampleItineraryList() {
-        List<Itinerary> itineraryList = new ArrayList<>();
-        return itineraryList;
-    }
-
     public Itinerary getItinerary() {
         return itinerary;
-    }
-
-    private void sendDayChangeMessage(int position) {
-        Intent intent = new Intent("intent_day_change");
-        intent.putExtra("day", position);
     }
 
     private void setupWindowAnimations() {

@@ -45,7 +45,9 @@ public abstract class PhotoTask extends AsyncTask<String, Void, Bitmap> {
                 final PlacePhotoMetadata photo = photoMetadataBuffer.get(0);
                 // Get a full-size bitmap for the photo.
                 Log.d("Width", "w:"+mWidth +" h:"+mHeight);
-                Bitmap temp = photo.getScaledPhoto(googleApiClient, mWidth, mHeight).await().getBitmap();
+                Bitmap temp = photo.getScaledPhoto(googleApiClient, mWidth, mHeight).await().
+                        getBitmap();
+                Log.d("Attributes", photo.getAttributions().toString());
                 if (temp != null) {
                     bitmap = temp;
                 }
