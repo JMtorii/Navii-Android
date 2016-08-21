@@ -19,7 +19,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
-import com.teamawesome.navii.NaviiApplication;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.HeartAndSoulDetailsActivity;
 import com.teamawesome.navii.server.model.Attraction;
@@ -217,10 +216,6 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
         public void detailsView() {
             Intent heartAndSoulDetailsActivity = new Intent(mContext, HeartAndSoulDetailsActivity.class);
             heartAndSoulDetailsActivity.putExtra(Constants.INTENT_ATTRACTION, mItemList.get(getAdapterPosition()).getAttraction());
-            Bitmap bitmap = mItemList.get(getAdapterPosition()).getBitmap();
-            if (bitmap != null) {
-                NaviiApplication.getInstance().addBitmapToMemoryCache("BitmapImage", bitmap);
-            }
             ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) mContext, imageView, "heartAndSoulImage");
             mContext.startActivity(heartAndSoulDetailsActivity, options.toBundle());
         }
