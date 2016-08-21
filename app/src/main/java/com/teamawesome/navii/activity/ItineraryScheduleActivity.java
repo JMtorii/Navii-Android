@@ -131,6 +131,7 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity
             Fragment fragment = mAdapter.getItem(i);
             fragment.onActivityResult(requestCode, resultCode, data);
         }
+        floatingActionMenu.close(true);
     }
 
     private void setupViewPager(ViewPager viewPager) {

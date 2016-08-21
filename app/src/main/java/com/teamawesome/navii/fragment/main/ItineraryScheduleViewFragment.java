@@ -1,9 +1,9 @@
 package com.teamawesome.navii.fragment.main;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -35,13 +35,17 @@ import com.teamawesome.navii.server.model.Itinerary;
 import com.teamawesome.navii.server.model.Location;
 import com.teamawesome.navii.server.model.PackageScheduleListItem;
 import com.teamawesome.navii.util.Constants;
-import com.teamawesome.navii.util.PhotoTask;
+import com.teamawesome.navii.util.RestClient;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnTouch;
+import retrofit.Call;
+import retrofit.Callback;
+import retrofit.Response;
+import retrofit.Retrofit;
 
 /**
  * Created by sjung on 22/07/16.
@@ -60,6 +64,7 @@ public class ItineraryScheduleViewFragment extends Fragment {
     private Itinerary itinerary;
     private GoogleApiClient mGoogleApiClient;
     private LinearLayoutManager mLayoutManager;
+    private ProgressDialog progressDialog;
 
     private int imageHeight;
     private int imageWidth;
@@ -137,46 +142,47 @@ public class ItineraryScheduleViewFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == Constants.GET_ATTRACTION_EXTRA_REQUEST_CODE) {
             if (resultCode == Constants.RESPONSE_GOOGLE_SEARCH) {
-                Place place = PlaceAutocomplete.getPlace(getActivity(), data);
-                String id = place.getId();
+                final Place place = PlaceAutocomplete.getPlace(getActivity(), data);
                 Log.d("TAG", place.toString());
-                Location location = new Location.Builder()
+                final Location location = new Location.Builder()
                         .address(place.getAddress().toString())
                         .latitude(place.getLatLng().latitude)
                         .longitude(place.getLatLng().longitude)
                         .build();
 
-                final Attraction attraction = new Attraction.Builder()
-                        .location(location)
-                        .name(place.getName().toString())
-                        .rating((double) Math.round(place.getRating()* 100)/100.0)
-                        .phoneNumber(place.getPhoneNumber().toString())
-                        .description("Google Places Search")
-                        .price(place.getPriceLevel())
-                        .build();
+                String cll = place.getLatLng().latitude + "," + place.getLatLng().longitude;
+                Call<Attraction> imageUrlCall = RestClient.attractionAPI.getYelpImageUrl(place.getName().toString(), cll);
+                imageUrlCall.enqueue(new Callback<Attraction>() {
+                    @Override
+                    public void onResponse(Response<Attraction> response, Retrofit retrofit) {
+                        Attraction s = response.body();
+                        Log.d("ItineraryScheduleView", s.getPhotoUri());
+                        final Attraction attraction = new Attraction.Builder()
+                                .location(location)
+                                .name(place.getName().toString())
+                                .rating((double) Math.round(place.getRating()* 100)/100.0)
+                                .phoneNumber(place.getPhoneNumber().toString())
+                                .photoUri(s.getPhotoUri())
+                                .description("Google Places Search")
+                                .price(place.getPriceLevel())
+                                .build();
 
-                try {
-                    new PhotoTask(getContext(), mGoogleApiClient, imageWidth, imageHeight) {
-                        @Override
-                        protected void onPreExecute() {
-                            // Display a temporary image to show while bitmap is loading.
-                        }
+                        PackageScheduleListItem attractionItem = new PackageScheduleListItem.Builder()
+                                .itemType(PackageScheduleListItem.TYPE_ITEM)
+                                .attraction(attraction)
+                                .build();
 
-                        @Override
-                        protected void onPostExecute(Bitmap attributedPhoto) {
-                            PackageScheduleListItem attractionItem = new PackageScheduleListItem.Builder()
-                                    .itemType(PackageScheduleListItem.TYPE_ITEM)
-                                    .attraction(attraction)
-                                    .build();
+                        mPackageScheduleViewAdapter.add(mLayoutManager.findLastCompletelyVisibleItemPosition(), attractionItem);
+                        progressDialog.dismiss();
+                    }
 
-                            attractionItem.setBitmap(attributedPhoto);
-                            mPackageScheduleViewAdapter.add(mLayoutManager.findLastCompletelyVisibleItemPosition(), attractionItem);
-                        }
-                    }.execute(id);
-
-                }  catch (Exception e) {
-                    e.printStackTrace();
-                }
+                    @Override
+                    public void onFailure(Throwable t) {
+                        Log.e("onFailure()", t.getMessage(), t);
+                        progressDialog.dismiss();
+                    }
+                });
+                progressDialog = ProgressDialog.show(getContext(), "Retrieving Attraction", "Please wait...");
             } else if (resultCode == Constants.RESPONSE_ATTRACTION_SELECTED) {
                 Attraction attraction = data.getParcelableExtra(Constants.INTENT_ATTRACTION);
                 PackageScheduleListItem attractionItem = new PackageScheduleListItem.Builder()
