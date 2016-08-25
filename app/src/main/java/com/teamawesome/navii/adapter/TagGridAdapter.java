@@ -83,7 +83,7 @@ public class TagGridAdapter extends RecyclerView.Adapter<TagGridAdapter.TagGridV
                 if (activated) {
                     Log.d("TAG", "Selected: " + !activated);
                     Toast.makeText(mContext,
-                            "You cannot select more than 7 tags. Asshole.",
+                            "You cannot select more than 7 tags",
                             Toast.LENGTH_LONG).show();
                 } else {
                     Log.d("TAG", "Selected: " + activated);
