@@ -24,7 +24,6 @@ import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.teamawesome.navii.R;
@@ -32,20 +31,14 @@ import com.teamawesome.navii.activity.ItineraryScheduleActivity;
 import com.teamawesome.navii.adapter.PackageScheduleViewAdapter;
 import com.teamawesome.navii.server.model.Attraction;
 import com.teamawesome.navii.server.model.Itinerary;
-import com.teamawesome.navii.server.model.Location;
 import com.teamawesome.navii.server.model.PackageScheduleListItem;
 import com.teamawesome.navii.util.Constants;
-import com.teamawesome.navii.util.RestClient;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnTouch;
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.Response;
-import retrofit.Retrofit;
 
 /**
  * Created by sjung on 22/07/16.
@@ -96,7 +89,7 @@ public class ItineraryScheduleViewFragment extends Fragment {
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
         imageHeight = (int) getResources().getDimension(R.dimen.heartnsoul_imageview_height);
         imageWidth = metrics.widthPixels;
-        Log.d("Width", "w:"+imageWidth +" h:"+imageHeight);
+        Log.d("Width", "w:" + imageWidth + " h:" + imageHeight);
     }
 
     @Override
@@ -140,66 +133,23 @@ public class ItineraryScheduleViewFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == Constants.GET_ATTRACTION_EXTRA_REQUEST_CODE) {
-            if (resultCode == Constants.RESPONSE_GOOGLE_SEARCH) {
-                final Place place = PlaceAutocomplete.getPlace(getActivity(), data);
-                Log.d("TAG", place.toString());
-                final Location location = new Location.Builder()
-                        .address(place.getAddress().toString())
-                        .latitude(place.getLatLng().latitude)
-                        .longitude(place.getLatLng().longitude)
-                        .build();
+        if (resultCode == Constants.RESPONSE_ATTRACTION_SELECTED) {
+            Attraction attraction = data.getParcelableExtra(Constants.INTENT_ATTRACTION);
+            PackageScheduleListItem attractionItem = new PackageScheduleListItem.Builder()
+                    .itemType(PackageScheduleListItem.TYPE_ITEM)
+                    .attraction(attraction).build();
+            mPackageScheduleViewAdapter.add(mLayoutManager.findLastCompletelyVisibleItemPosition(), attractionItem);
+        }
+        if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+            Status status = PlaceAutocomplete.getStatus(getActivity(), data);
+            // TODO: Handle the error.
+            Toast.makeText(getContext(), "Cannot Retrieve Search", Toast.LENGTH_SHORT).show();
 
-                String cll = place.getLatLng().latitude + "," + place.getLatLng().longitude;
-                Call<Attraction> imageUrlCall = RestClient.attractionAPI.getYelpImageUrl(place.getName().toString(), cll);
-                imageUrlCall.enqueue(new Callback<Attraction>() {
-                    @Override
-                    public void onResponse(Response<Attraction> response, Retrofit retrofit) {
-                        Attraction s = response.body();
-                        Log.d("ItineraryScheduleView", s.getPhotoUri());
-                        final Attraction attraction = new Attraction.Builder()
-                                .location(location)
-                                .name(place.getName().toString())
-                                .rating((double) Math.round(place.getRating()* 100)/100.0)
-                                .phoneNumber(place.getPhoneNumber().toString())
-                                .photoUri(s.getPhotoUri())
-                                .description("Google Places Search")
-                                .price(place.getPriceLevel())
-                                .build();
-
-                        PackageScheduleListItem attractionItem = new PackageScheduleListItem.Builder()
-                                .itemType(PackageScheduleListItem.TYPE_ITEM)
-                                .attraction(attraction)
-                                .build();
-
-                        mPackageScheduleViewAdapter.add(mLayoutManager.findLastCompletelyVisibleItemPosition(), attractionItem);
-                        progressDialog.dismiss();
-                    }
-
-                    @Override
-                    public void onFailure(Throwable t) {
-                        Log.e("onFailure()", t.getMessage(), t);
-                        progressDialog.dismiss();
-                    }
-                });
-                progressDialog = ProgressDialog.show(getContext(), "Retrieving Attraction", "Please wait...");
-            } else if (resultCode == Constants.RESPONSE_ATTRACTION_SELECTED) {
-                Attraction attraction = data.getParcelableExtra(Constants.INTENT_ATTRACTION);
-                PackageScheduleListItem attractionItem = new PackageScheduleListItem.Builder()
-                        .itemType(PackageScheduleListItem.TYPE_ITEM)
-                        .attraction(attraction).build();
-                mPackageScheduleViewAdapter.add(mLayoutManager.findLastCompletelyVisibleItemPosition(), attractionItem);
-            }
-            if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
-                Status status = PlaceAutocomplete.getStatus(getActivity(), data);
-                // TODO: Handle the error.
-                Snackbar.make(mItineraryRecyclerView, "Cannot Retrieve Search", Snackbar.LENGTH_SHORT).show();
-
-            } else if (resultCode == Activity.RESULT_CANCELED) {
-                Log.i("Search", "Cancelled");
-            }
+        } else if (resultCode == Activity.RESULT_CANCELED) {
+            Log.i("Search", "Cancelled");
         }
     }
+
 
     @OnTouch(R.id.itinerary_recycler_view)
     public boolean onTouch(MotionEvent event) {
@@ -227,7 +177,7 @@ public class ItineraryScheduleViewFragment extends Fragment {
         PackageScheduleListItem item = new PackageScheduleListItem.Builder()
                 .itemType(PackageScheduleListItem.TYPE_ITEM)
                 .attraction(attraction).build();
-        mPackageScheduleViewAdapter.add(i,item);
+        mPackageScheduleViewAdapter.add(i, item);
         mLayoutManager.scrollToPositionWithOffset(i, imageHeight);
         Toast.makeText(getContext(), "Added Attraction", Toast.LENGTH_SHORT).show();
     }
@@ -242,7 +192,7 @@ public class ItineraryScheduleViewFragment extends Fragment {
 
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-                if (viewHolder.getAdapterPosition() > 1) {
+                if (viewHolder.getAdapterPosition() > 1 && target.getAdapterPosition() > 1) {
                     mPackageScheduleViewAdapter.move(viewHolder.getAdapterPosition(), target.getAdapterPosition());
                     return true;
                 } else {

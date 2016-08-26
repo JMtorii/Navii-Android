@@ -38,7 +38,7 @@ public class SavedTripsAdapter extends RecyclerView.Adapter<SavedTripsAdapter.Tr
     public TripViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-        View tripsView = inflater.inflate(R.layout.adapter_savedtrip_item, parent, false);
+        View tripsView = inflater.inflate(R.layout.adapter_itinerary_list_item, parent, false);
         return new TripViewHolder(tripsView);
     }
 
@@ -65,10 +65,10 @@ public class SavedTripsAdapter extends RecyclerView.Adapter<SavedTripsAdapter.Tr
     }
 
     public static class TripViewHolder extends RecyclerView.ViewHolder{
-        @BindView(R.id.trips_tripname)
+        @BindView(R.id.package_title)
         MainLatoTextView mTripName;
 
-        @BindView(R.id.saved_trip_imageview)
+        @BindView(R.id.package_image_view)
         ImageView mSavedTripsImage;
 
         private Itinerary trip;
@@ -80,7 +80,7 @@ public class SavedTripsAdapter extends RecyclerView.Adapter<SavedTripsAdapter.Tr
             ButterKnife.bind(this, itemView);
         }
 
-        @OnClick (R.id.trip_item)
+        @OnClick (R.id.itinerary_item)
         public void gotoSchedule(){
             Intent scheduleActivity = new Intent(context, SavedItineraryScheduleActivity.class);
             scheduleActivity.putExtra(Constants.INTENT_ITINERARIES, this.trip);

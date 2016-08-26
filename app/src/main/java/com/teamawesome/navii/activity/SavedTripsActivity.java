@@ -70,7 +70,7 @@ public class SavedTripsActivity extends NaviiNavigationalActivity {
 
                     @Override
                     public void onNext(List<Itinerary> lists) {
-                        if (lists.isEmpty()){
+                        if (lists.get(0).getPackageScheduleListItems().isEmpty()){
                             noTrips.setVisibility(View.VISIBLE);
                         }
                         else {
