@@ -6,13 +6,11 @@ import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.adapter.SavedTripsAdapter;
-import com.teamawesome.navii.fragment.debug.NaviWifiDialogFragment;
 import com.teamawesome.navii.server.model.Itinerary;
 import com.teamawesome.navii.util.AnalyticsManager;
 import com.teamawesome.navii.util.NavigationConfiguration;
@@ -86,6 +84,7 @@ public class SavedTripsActivity extends NaviiNavigationalActivity {
 
                     @Override
                     public void onNext(List<Itinerary> lists) {
+                        progressDialog.dismiss();
                         if (lists.get(0).getPackageScheduleListItems().isEmpty()){
                             noTrips.setVisibility(View.VISIBLE);
                         }
