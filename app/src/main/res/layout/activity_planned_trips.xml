@@ -38,31 +38,42 @@
                     app:popupTheme="@style/NaviiTheme.PopupOverlay" />
 
             </android.support.design.widget.AppBarLayout>
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/no_trips_view"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:visibility="gone">
+
                 <com.teamawesome.navii.views.MainLatoTextView
+                    android:id="@+id/preferences_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAlignment="center"
-                    android:textSize="50sp"
+                    android:gravity="center"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginRight="40dp"
+                    android:layout_marginTop="70dp"
+                    android:layout_marginBottom="20dp"
+                    android:textSize="40sp"
+                    android:textColor="@color/grey_primary"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:inputType="textMultiLine"
+                    app:fontType="Light"
                     android:text="@string/hear_and_soul_make_trips"/>
 
                 <com.teamawesome.navii.views.MainLatoButton
-                    android:theme="@style/MainButtonColorInverted"
                     android:id="@+id/make_trips_button"
-                    android:textSize="25sp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="60dp"
+                    android:layout_width="225dp"
+                    android:layout_height="70dp"
+                    android:theme="@style/MainButtonColorInverted"
+                    app:fontType="Bold"
                     android:text="@string/hear_and_soul_make_trips_prompt"
-                    app:fontType="Medium" />
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="36dp"/>
 
-            </LinearLayout>
+            </RelativeLayout>
             <include layout="@layout/activity_planned_trips_content" />
 
         </LinearLayout>
