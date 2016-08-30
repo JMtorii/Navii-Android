@@ -99,7 +99,7 @@ public class ItineraryScheduleMapFragment extends Fragment implements OnMapReady
                     MarkerOptions markerOptions = new MarkerOptions()
                             .icon(BitmapDescriptorFactory.fromBitmap(iconFactory.makeIcon(iconString)))
                             .snippet(attraction.getPhotoUri())
-                            .title(attraction.getName())
+                            .title("Day " + day +":"+ attraction.getName())
                             .position(latLng)
                             .anchor(iconFactory.getAnchorU(), iconFactory.getAnchorV());
 

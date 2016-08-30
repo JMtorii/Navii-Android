@@ -153,13 +153,15 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity
         if (requestCode == Constants.GET_ATTRACTION_EXTRA_REQUEST_CODE) {
             if (resultCode == Constants.RESPONSE_GOOGLE_SEARCH) {
                 getAttractionFromGoogleSearch(data);
-            } else {
+            } else if (resultCode == Constants.RESPONSE_ATTRACTION_SELECTED) {
                 getAttractionFromPrefetched(data);
-
             }
         }
-        ItineraryScheduleMapFragment mapViewFragment = (ItineraryScheduleMapFragment) mAdapter.getItem(1);
-        mapViewFragment.setMapView();
+        if (resultCode == Constants.RESPONSE_GOOGLE_SEARCH || resultCode == Constants.RESPONSE_ATTRACTION_SELECTED ) {
+            ItineraryScheduleMapFragment mapViewFragment = (ItineraryScheduleMapFragment) mAdapter.getItem(1);
+            mapViewFragment.setMapView();
+        }
+
         floatingActionMenu.close(true);
     }
 
