@@ -24,8 +24,8 @@ public class PackageSelectorViewAdapter extends PackageScheduleViewAdapter {
     Context mContext;
     List<PackageScheduleListItem> mItemList;
 
-    public PackageSelectorViewAdapter(Context context, List<PackageScheduleListItem> mItemList, int width, int height) {
-        super(context, mItemList, width, height);
+    public PackageSelectorViewAdapter(Context context, List<PackageScheduleListItem> mItemList) {
+        super(context, mItemList);
         this.mContext = context;
         this.mItemList = mItemList;
     }

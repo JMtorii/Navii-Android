@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -48,18 +47,8 @@ public class PrefetchAttractionsActivity extends Activity {
         ButterKnife.bind(this);
 
         List<Attraction> prefetchedList = getIntent().getParcelableArrayListExtra(Constants.INTENT_EXTRA_RESTAURANT_LIST);
-        getImageViewMetrics();
         setupPackageView(prefetchedList);
         AnalyticsManager.getMixpanel().track("PrefetchAttractionsActivity - onCreate");
-    }
-
-    private void getImageViewMetrics() {
-        DisplayMetrics metrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(metrics);
-
-        imageHeight = (int) getResources().getDimension(R.dimen.heartnsoul_imageview_height);
-        imageWidth = metrics.widthPixels;
-        Log.d("Width",  "w:"+imageWidth +" h:"+imageHeight);
     }
 
     private void setupPackageView(List<Attraction> attractions) {
@@ -69,7 +58,7 @@ public class PrefetchAttractionsActivity extends Activity {
             items.add(new PackageScheduleListItem.Builder().itemType(PackageScheduleListItem.TYPE_ITEM).attraction(attractions.get(i)).build());
         }
         mItineraryRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        PackageSelectorViewAdapter mPackageSelectorViewAdapter = new PackageSelectorViewAdapter(this, items, imageWidth, imageHeight);
+        PackageSelectorViewAdapter mPackageSelectorViewAdapter = new PackageSelectorViewAdapter(this, items);
         mItineraryRecyclerView.setAdapter(mPackageSelectorViewAdapter);
     }
 

@@ -1,12 +1,10 @@
 package com.teamawesome.navii.fragment.main;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -21,16 +19,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.ItineraryScheduleActivity;
 import com.teamawesome.navii.adapter.PackageScheduleViewAdapter;
 import com.teamawesome.navii.server.model.Attraction;
-import com.teamawesome.navii.server.model.Itinerary;
 import com.teamawesome.navii.server.model.PackageScheduleListItem;
 import com.teamawesome.navii.util.Constants;
 
@@ -54,10 +48,7 @@ public class ItineraryScheduleViewFragment extends Fragment {
     private Snackbar mSnackbar;
     private boolean mEditable;
 
-    private Itinerary itinerary;
-    private GoogleApiClient mGoogleApiClient;
     private LinearLayoutManager mLayoutManager;
-    private ProgressDialog progressDialog;
 
     private int imageHeight;
     private int imageWidth;
@@ -70,18 +61,6 @@ public class ItineraryScheduleViewFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final Context context = getContext();
-        mGoogleApiClient = new GoogleApiClient
-                .Builder(this.getContext())
-                .addApi(Places.GEO_DATA_API)
-                .addApi(Places.PLACE_DETECTION_API)
-                .enableAutoManage(getActivity(),
-                        new GoogleApiClient.OnConnectionFailedListener() {
-                            @Override
-                            public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-                                Toast.makeText(context, "Could not connect to Google Places API", Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                .build();
     }
 
     private void getImageViewMetrics() {
@@ -96,7 +75,7 @@ public class ItineraryScheduleViewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_itinerary_schedule_view, container, false);
         ButterKnife.bind(this, view);
-        setExtraFromBundle();
+        setExtraFromActivity();
         getImageViewMetrics();
         setPackageScheduleView();
         return view;
@@ -108,20 +87,18 @@ public class ItineraryScheduleViewFragment extends Fragment {
     }
 
     private void setPackageScheduleView() {
-        List<PackageScheduleListItem> items = itinerary.getPackageScheduleListItems();
-        mLayoutManager = new LinearLayoutManager(getActivity());
-        mItineraryRecyclerView.setLayoutManager(mLayoutManager);
-        mPackageScheduleViewAdapter = new PackageScheduleViewAdapter(getActivity(), items, imageWidth, imageHeight);
         mItineraryRecyclerView.setAdapter(mPackageScheduleViewAdapter);
+        mItineraryRecyclerView.setLayoutManager(mLayoutManager);
 
         mItemTouchHelper = createItemTouchHelper();
         mItemTouchHelper.attachToRecyclerView(mItineraryRecyclerView);
     }
 
-    private void setExtraFromBundle() {
+    private void setExtraFromActivity() {
         ItineraryScheduleActivity activity = (ItineraryScheduleActivity) getActivity();
-        itinerary = activity.getItinerary();
         mEditable = activity.getIntent().getBooleanExtra(Constants.INTENT_ITINERARY_EDITABLE, false);
+        mPackageScheduleViewAdapter = activity.getPackageScheduleViewAdapter();
+        mLayoutManager = activity.getLayoutManager();
     }
 
     @Override

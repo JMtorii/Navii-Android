@@ -1,16 +1,12 @@
 package com.teamawesome.navii.fragment.main;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -21,11 +17,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.ui.IconGenerator;
 import com.teamawesome.navii.R;
 import com.teamawesome.navii.activity.HeartAndSoulDetailsActivity;
 import com.teamawesome.navii.activity.ItineraryScheduleActivity;
 import com.teamawesome.navii.server.model.Attraction;
-import com.teamawesome.navii.server.model.Itinerary;
 import com.teamawesome.navii.server.model.Location;
 import com.teamawesome.navii.server.model.PackageScheduleListItem;
 import com.teamawesome.navii.util.Constants;
@@ -40,9 +36,16 @@ import java.util.Map;
 public class ItineraryScheduleMapFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
 
     private GoogleMap mMap;
-    private static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
-    private Itinerary itineraries;
     private Map<String, Attraction> markerAttractionMap;
+    private static Map<Integer, Integer> markerColorMap;
+    static {
+        markerColorMap = new HashMap<>();
+        markerColorMap.put(1, IconGenerator.STYLE_RED);
+        markerColorMap.put(2, IconGenerator.STYLE_BLUE);
+        markerColorMap.put(3, IconGenerator.STYLE_GREEN);
+        markerColorMap.put(4, IconGenerator.STYLE_PURPLE);
+        markerColorMap.put(5, IconGenerator.STYLE_ORANGE);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,8 +54,6 @@ public class ItineraryScheduleMapFragment extends Fragment implements OnMapReady
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        setExtraFromBundle();
-
         //Itinerary description setup
         View view = inflater.inflate(R.layout.fragment_itinerary_map_view, container, false);
 
@@ -61,11 +62,6 @@ public class ItineraryScheduleMapFragment extends Fragment implements OnMapReady
         mapFragment.getMapAsync(this);
         markerAttractionMap = new HashMap<>();
         return view;
-    }
-
-    private void setExtraFromBundle() {
-        ItineraryScheduleActivity activity = (ItineraryScheduleActivity) getActivity();
-        itineraries = activity.getItinerary();
     }
 
     @Override
@@ -77,64 +73,46 @@ public class ItineraryScheduleMapFragment extends Fragment implements OnMapReady
         setMapView();
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == Constants.GET_ATTRACTION_EXTRA_REQUEST_CODE) {
-            if (resultCode == Constants.RESPONSE_ATTRACTION_SELECTED) {
-                Attraction attraction = data.getParcelableExtra(Constants.INTENT_ATTRACTION);
-                Location location = new Location.Builder()
-                        .address(attraction.getLocation().getAddress())
-                        .latitude(attraction.getLocation().getLatitude())
-                        .longitude(attraction.getLocation().getLongitude())
-                        .build();
-
-                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                Marker marker = mMap.addMarker(new MarkerOptions()
-                        .position(latLng)
-                        .title(attraction.getName().toString())
-                        .snippet(attraction.getPhotoUri())
-                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher)));
-
-                markerAttractionMap.put(marker.getId(), attraction);
-            }
-            if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
-                Status status = PlaceAutocomplete.getStatus(getActivity(), data);
-            } else if (resultCode == Activity.RESULT_CANCELED) {
-                Log.i("Search", "Cancelled");
-            }
-        }
-    }
-
-
     public void setMapView() {
         mMap.clear();
         LatLng toronto = new LatLng(43.644, -79.387);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(toronto));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
+        ItineraryScheduleActivity activity = (ItineraryScheduleActivity) getActivity();
+        List<PackageScheduleListItem> listItems = activity.getPackageScheduleViewAdapter().getItemsList();
 
-        List<PackageScheduleListItem> listItems = itineraries.getPackageScheduleListItems();
-
+        int day = 0;
+        int counter = 1;
         for (int i = 0; i < listItems.size(); i++) {
-            if (listItems.get(i).getItemType() == PackageScheduleListItem.TYPE_ITEM) {
+            if (listItems.get(i).getItemType() == PackageScheduleListItem.TYPE_DAY_HEADER) {
+                day += 1;
+                counter = 1;
+            } else if (listItems.get(i).getItemType() == PackageScheduleListItem.TYPE_ITEM) {
                 Attraction attraction = listItems.get(i).getAttraction();
                 Location location = listItems.get(i).getAttraction().getLocation();
                 if (!attraction.getDescription().equals("User Created")) {
                     LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                    Marker marker = mMap.addMarker(new MarkerOptions()
-                            .position(latLng)
-                            .title(i + ":" + attraction.getName())
+                    String iconString =  String.valueOf(counter);
+                    IconGenerator iconFactory = new IconGenerator(getActivity());
+                    iconFactory.setStyle(markerColorMap.get(day));
+                    MarkerOptions markerOptions = new MarkerOptions()
+                            .icon(BitmapDescriptorFactory.fromBitmap(iconFactory.makeIcon(iconString)))
                             .snippet(attraction.getPhotoUri())
                             .title(attraction.getName())
-                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher)));
+                            .position(latLng)
+                            .anchor(iconFactory.getAnchorU(), iconFactory.getAnchorV());
+
+                    Marker marker = mMap.addMarker(markerOptions);
                     markerAttractionMap.put(marker.getId(), attraction);
                     builder.include(marker.getPosition());
+                    counter++;
                 }
             }
         }
         if (listItems.size() > 0) {
             LatLngBounds bounds = builder.build();
-            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 20);
+            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 45);
             mMap.animateCamera(cu);
         }
         mMap.setOnInfoWindowClickListener(this);
@@ -146,4 +124,5 @@ public class ItineraryScheduleMapFragment extends Fragment implements OnMapReady
         heartAndSoulDetailsActivity.putExtra(Constants.INTENT_ATTRACTION, markerAttractionMap.get(marker.getId()));
         getActivity().startActivity(heartAndSoulDetailsActivity);
     }
+
 }

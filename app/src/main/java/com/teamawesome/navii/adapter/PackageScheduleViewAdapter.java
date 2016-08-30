@@ -41,17 +41,12 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
     private List<PackageScheduleListItem> mItemList;
     private Context mContext;
 
-    private int mWidth;
-    private int mHeight;
-
     private LruCache<String, Bitmap> mMemoryCache;
 
 
-    public PackageScheduleViewAdapter(Context context, List<PackageScheduleListItem> mItemList, int width, int height) {
+    public PackageScheduleViewAdapter(Context context, List<PackageScheduleListItem> mItemList) {
         this.mItemList = mItemList;
         this.mContext = context;
-        this.mWidth = width;
-        this.mHeight = height;
     }
 
     @Override
@@ -106,10 +101,6 @@ public class PackageScheduleViewAdapter extends RecyclerView.Adapter<RecyclerVie
                     .fit()
                     .centerCrop()
                     .into(packageItemViewHolder.imageView);
-        } else {
-            Bitmap bitmap = Bitmap.createScaledBitmap(attractionItem.getBitmap(), mWidth, mHeight, true);
-            mItemList.get(position).setBitmap(bitmap);
-            packageItemViewHolder.imageView.setImageBitmap(bitmap);
         }
         packageItemViewHolder.itemView.setTranslationX(0.0f);
         packageItemViewHolder.relativeLayout.setTranslationX(0.0f);

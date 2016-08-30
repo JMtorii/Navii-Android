@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.transition.Fade;
 import android.transition.Slide;
 import android.util.Log;
@@ -17,6 +18,7 @@ import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.teamawesome.navii.R;
+import com.teamawesome.navii.adapter.PackageScheduleViewAdapter;
 import com.teamawesome.navii.fragment.debug.NaviCustomAttractionDialogFragment;
 import com.teamawesome.navii.fragment.main.ItineraryScheduleMapFragment;
 import com.teamawesome.navii.fragment.main.ItineraryScheduleViewFragment;
@@ -54,10 +56,13 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity
     @BindView(R.id.floating_action_menu)
     FloatingActionMenu floatingActionMenu;
 
+    private LinearLayoutManager mLayoutManager;
+    private PackageScheduleViewAdapter mPackageScheduleViewAdapter;
     private Adapter mAdapter;
     public int days;
     private boolean mEditable;
     private Itinerary itinerary;
+
     private List<Attraction> attractions;
     private List<Attraction> restaurants;
     private ProgressDialog progressDialog;
@@ -107,9 +112,16 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity
         }
         mTabLayout.setVisibility(View.VISIBLE);
         mTabLayout.setupWithViewPager(mViewPager);
+        setPackageScheduleView();
         setupWindowAnimations();
 
         AnalyticsManager.getMixpanel().track("ItineraryScheduleActivity - onCreate");
+    }
+
+    private void setPackageScheduleView() {
+        List<PackageScheduleListItem> items = itinerary.getPackageScheduleListItems();
+        mLayoutManager = new LinearLayoutManager(this);
+        mPackageScheduleViewAdapter = new PackageScheduleViewAdapter(this, items);
     }
 
     @OnClick(R.id.eat_menu_item)
@@ -140,54 +152,65 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity
     public void onActivityResult(final int requestCode, final int resultCode, Intent data) {
         if (requestCode == Constants.GET_ATTRACTION_EXTRA_REQUEST_CODE) {
             if (resultCode == Constants.RESPONSE_GOOGLE_SEARCH) {
-                final Place place = PlaceAutocomplete.getPlace(this, data);
-                final Location location = new Location.Builder()
-                        .address(place.getAddress().toString())
-                        .latitude(place.getLatLng().latitude)
-                        .longitude(place.getLatLng().longitude)
-                        .build();
-
-                String cll = place.getLatLng().latitude + "," + place.getLatLng().longitude;
-                Call<Attraction> imageUrlCall = RestClient.attractionAPI.getYelpImageUrl(place.getName().toString(), cll);
-                imageUrlCall.enqueue(new Callback<Attraction>() {
-                    @Override
-                    public void onResponse(Response<Attraction> response, Retrofit retrofit) {
-                        Attraction s = response.body();
-                        Log.d("ItineraryScheduleView", s.getPhotoUri());
-                        final Attraction attraction = new Attraction.Builder()
-                                .location(location)
-                                .name(place.getName().toString())
-                                .rating((double) Math.round(place.getRating() * 100) / 100.0)
-                                .phoneNumber(place.getPhoneNumber().toString())
-                                .photoUri(s.getPhotoUri())
-                                .description("Google Places Search")
-                                .price(place.getPriceLevel())
-                                .build();
-                        Intent intent = new Intent();
-                        intent.putExtra(Constants.INTENT_ATTRACTION, attraction);
-                        for (int i = 0; i < mAdapter.getCount(); i++) {
-                            Fragment fragment = mAdapter.getItem(i);
-                            fragment.onActivityResult(requestCode, Constants.RESPONSE_ATTRACTION_SELECTED, intent);
-                        }
-                        progressDialog.dismiss();
-                    }
-
-                    @Override
-                    public void onFailure(Throwable t) {
-                        Log.e("onFailure()", t.getMessage(), t);
-                        progressDialog.dismiss();
-                    }
-                });
-                progressDialog = ProgressDialog.show(this, "Retrieving Attraction", "Please wait...");
+                getAttractionFromGoogleSearch(data);
             } else {
-                for (int i = 0; i < mAdapter.getCount(); i++) {
-                    Fragment fragment = mAdapter.getItem(i);
-                    fragment.onActivityResult(requestCode, resultCode, data);
-                }
+                getAttractionFromPrefetched(data);
+
             }
         }
-
+        ItineraryScheduleMapFragment mapViewFragment = (ItineraryScheduleMapFragment) mAdapter.getItem(1);
+        mapViewFragment.setMapView();
         floatingActionMenu.close(true);
+    }
+
+    private void getAttractionFromPrefetched(Intent data) {
+        Attraction attraction = data.getParcelableExtra(Constants.INTENT_ATTRACTION);
+        PackageScheduleListItem attractionItem = new PackageScheduleListItem.Builder()
+                .itemType(PackageScheduleListItem.TYPE_ITEM)
+                .attraction(attraction).build();
+        mPackageScheduleViewAdapter.add(mLayoutManager.findLastCompletelyVisibleItemPosition(), attractionItem);
+    }
+
+    private void getAttractionFromGoogleSearch(Intent data) {
+        final Place place = PlaceAutocomplete.getPlace(this, data);
+        final Location location = new Location.Builder()
+                .address(place.getAddress().toString())
+                .latitude(place.getLatLng().latitude)
+                .longitude(place.getLatLng().longitude)
+                .build();
+
+        String cll = place.getLatLng().latitude + "," + place.getLatLng().longitude;
+        Call<Attraction> imageUrlCall = RestClient.attractionAPI.getYelpImageUrl(place.getName().toString(), cll);
+        imageUrlCall.enqueue(new Callback<Attraction>() {
+            @Override
+            public void onResponse(Response<Attraction> response, Retrofit retrofit) {
+                Attraction photoUrlAttraction = response.body();
+                Log.d("ItineraryScheduleView", photoUrlAttraction.getPhotoUri());
+                Attraction attraction = new Attraction.Builder()
+                        .location(location)
+                        .name(place.getName().toString())
+                        .rating((double) Math.round(place.getRating() * 100) / 100.0)
+                        .phoneNumber(place.getPhoneNumber().toString())
+                        .photoUri(photoUrlAttraction.getPhotoUri())
+                        .description("Google Places Search")
+                        .price(place.getPriceLevel())
+                        .build();
+
+                progressDialog.dismiss();
+
+                PackageScheduleListItem attractionItem = new PackageScheduleListItem.Builder()
+                        .itemType(PackageScheduleListItem.TYPE_ITEM)
+                        .attraction(attraction).build();
+                mPackageScheduleViewAdapter.add(mLayoutManager.findLastCompletelyVisibleItemPosition(), attractionItem);
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Log.e("onFailure()", t.getMessage(), t);
+                progressDialog.dismiss();
+            }
+        });
+        progressDialog = ProgressDialog.show(this, "Retrieving Attraction", "Please wait...");
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -216,6 +239,14 @@ public class ItineraryScheduleActivity extends NaviiToolbarActivity
 
         scheduleViewFragment.add(index, attraction);
         floatingActionMenu.close(true);
+    }
+
+    public LinearLayoutManager getLayoutManager() {
+        return mLayoutManager;
+    }
+
+    public PackageScheduleViewAdapter getPackageScheduleViewAdapter() {
+        return mPackageScheduleViewAdapter;
     }
 
     static class Adapter extends FragmentPagerAdapter {
